@@ -1,0 +1,24 @@
+\documentclass[12pt]{SolutionManual}
+
+\usepackage{mypackages} % put your packages in the file mypackages.sty
+\usepackage{mycommands} % put your commands in the file mycommands.sty
+
+\def \authorName{P.O. Bolduc} % name of the author
+
+% Some books have two titles (if not just put in \mainTitle)
+\def \firstTitle{Volume 1 of Course of Theoretical Physics}
+\def \mainTitle{Mechanics}
+
+\begin{document}
+
+\maketitle % insert title page
+\tableofcontents % insert table of content
+
+% Put the solutions of each chapter in separate files and use \input{}
+\input{Chapters/1-Equation_of_motion}
+\input{Chapters/2-Conservation_laws}
+\input{Chapters/3-Integration}
+\input{Chapters/4-Collisions}
+
+
+\end{document}

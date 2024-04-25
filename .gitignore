@@ -1,0 +1,6 @@
+# ignore ALL .aux .log .out .toc .synctex.gz files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
