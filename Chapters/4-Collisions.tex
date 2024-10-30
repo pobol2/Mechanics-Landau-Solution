@@ -16,11 +16,35 @@ where $\theta_0$ as been defined to simplify the notation. From the formulae (16
     V + v_{10}\cos{\theta_0} &= v_{10} \sin{\theta_0} \cot{\theta_1} \\
     V - v_{20}\cos{\theta_0} &= v_{20} \sin{\theta_0} \cot{\theta_2} .
 \end{align*}
-We must eliminate $\theta_0$ from the two equations above. To do so, we can first and $\sin{\theta_0}$ which give us
+We must eliminate $\theta_0$ from the two equations above. To do so, we can first solve for $\cos{\theta_0}$ and $\sin{\theta_0}$ which give us
+\begin{align}
+    &\sin{\theta_0} = \frac{V + v_{10}\cos{\theta_0}}{v_{10}\cot{\theta_1}} = \frac{V - v_{20}\cos{\theta_0}}{v_{20}\cot{\theta_2}} \label{C4P1_sin} \\
+    \Rightarrow& Vv_{20}\cot{\theta_2} + v_{10}v_{20}\cos{\theta_0}\cot{\theta_2} = Vv_{10}\cot{\theta_1} - v_{10}v_{20}\cos{\theta_0}\cot{\theta_1} \nonumber \\
+    \Rightarrow& \cos{\theta_0} = \frac{V\left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)}{v_{10}v_{20} \left( \cot{\theta_1} + \cot{\theta_2} \right)}.  \label{C4P1_cos}
+\end{align}
+Using the sum of square of \eqref{C4P1_sin} and \eqref{C4P1_cos}, we get
 \begin{align*}
-    &\sin{\theta_0} = \frac{\left( V + v_{10}\cos{\theta_0} \right)}{v_{10}\cot{\theta_1}} = \frac{\left( V - v_{20}\cos{\theta_0} \right)}{v_{20}\cot{\theta_2}} \\
-    &\Rightarrow 
+    &\left( \frac{V + v_{10}\cos{\theta_0}}{v_{10}\cot{\theta_1}} \right)^2 + \left( \frac{V\left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)}{v_{10}v_{20} \left( \cot{\theta_1} + \cot{\theta_2} \right)} \right)^2 = 1 \\
+    \Rightarrow& \left( v_{10} + v_{20} \right)^2 + \left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)^2 = \frac{v_{10}^2v_{20}^2}{V^2} \left( \cot{\theta_1} + \cot{\theta_2} \right)^2 \\
+    \Rightarrow& v_{10}^2 \csc{\theta_1}^2 + v_{20}^2 \csc{\theta_2}^2 - 2 v_{10}v_{20}\cot{\theta_1}\cot{\theta_2} = \frac{v_{10}^2v_{20}^2\sin^2{(\theta_1+\theta_2)}}{V^2\sin^2{\theta_1}\sin^2{\theta_2}} \\ 
+    \Rightarrow& v_{20}^2 \sin^2{\theta_1} + v_{10}^2 \sin^2{\theta_2} - 2 v_{10}v_{20}\sin{\theta_1}\sin{\theta_2}\cos{\theta_1}\cos{\theta_2} = \frac{v_{10}^2v_{20}^2}{V^2}\sin^2{(\theta_1+\theta_2)}.
 \end{align*}
+Using the equation (16.2) from the book and the relation $v_{10}/v_{20} = m_2/m_1$, we obtain
+}
+{
+\begin{equation*}
+    \frac{m_2}{m_1} \sin^2{\theta_2} + \frac{m_1}{m_2} \sin^2{\theta_1} - 2 \sin{\theta_1}\sin{\theta_2}\cos{\theta_1}\cos{\theta_2} = \frac{2\epsilon}{(m_1+m_2)V^2} \sin^2{(\theta_1+\theta_2)}.
+\end{equation*}
+}
+\end{problem}
+
+% ============ Problem 2 ============ %
+
+\begin{problem}
+{
+    Find the angular distribution of the resulting particles in the $L$ system.
+}
+{
 }
 {
 }
