@@ -45,7 +45,92 @@ Using the equation (16.2) from the book and the relation $v_{10}/v_{20} = m_2/m_
     Find the angular distribution of the resulting particles in the $L$ system.
 }
 {
+The distribution of the resulting particles with respect to the angle $\theta_0$ is given by the equation (16.7) of the book, \ie
+\begin{equation*}
+    \frac{1}{2}\sin{\theta_0}d\theta_0 = \frac{1}{2}\mathrm{d}(\cos{\theta_0}).
+\end{equation*}
+Using equation (16.6) of the book yield
+\begin{equation*}
+    \frac{1}{2}\mathrm{d}(\cos{\theta_0}) = -\frac{V}{v_0}\sin{\theta}\cos{\theta}\mathrm{d}\theta \pm \left( \sin{\theta}\sqrt{1-(V^2/v_0^2)\sin^2{\theta}} + \cos{\theta}\frac{(V^2/v_0^2)\sin{\theta}\cos{\theta}}{\sqrt{1-(V^2/v_0^2)\sin^2{\theta}}} \right) \mathrm{d}\theta.
+\end{equation*}
+After simplification, the angular distribution become
 }
 {
+\begin{equation*}
+    \frac{1}{2}\sin{\theta} \mathrm{d}\theta \left( 2\frac{V}{v_0}\cos{\theta} \pm \frac{1+(V^2/v_0^2)\cos{2\theta}}{\sqrt{1-(V^2/v_0^2)\sin^2{\theta}}} \right)
+\end{equation*}
+}
+\end{problem}
+
+% ============ Problem 3 ============ %
+% See https://www.physicsforums.com/threads/trigonometric-function-mechanics-landau.962697/
+
+\begin{problem}
+{
+Determine the range of possible values of the angle $\theta$ between the directions of motion of the two resulting particles in the $L$ system.
+}
+{
+The tangent of the anglle $\theta = \theta_1 + \theta_2$ is
+\begin{equation*}
+    \tan{\theta} = \frac{\tan{\theta_1} + \tan{\theta_2}}{1 - \tan{\theta_1}\tan{\theta_2}}.
+\end{equation*}
+Using equation (16.5) of the book to get $\tan{\theta_1}$ and $\tan{\theta_1}$, and using $\theta_0 = \theta_{10} = \pi - \theta_{20}$, the last equation become
+\begin{equation*}
+    \tan{\theta} = \frac{(v_{10}+v_{20})V\sin{\theta_0}}{V^2+(v_{10}-v_{20})V\cos{\theta_0} - v_{10}v_{20}}
+\end{equation*}
+or equivalently
+\begin{equation*}
+    \cot{\theta} = \frac{V^2+(v_{10}-v_{20})V\cos{\theta_0} - v_{10}v_{20}}{(v_{10}+v_{20})V\sin{\theta_0}}.
+\end{equation*}
+In order to find the extrema, we take the derivative with respect to $\theta_0$,
+\begin{align*}
+    &\pd{\cot{\theta}}{\theta_0} = 0 = \frac{(-v_{10}+v_{20})V^2 - V\cos{\theta_0}(V^2-v_{10}v_{20})}{(v_{10}+v_{20})V^2\sin^2{\theta_0}}\\
+    \Rightarrow &\cos{\theta_0} = \frac{(v_{20}-v_{10})V}{V^2-v_{10}v_{20}}.
+\end{align*}
+We know that $-1 \leq \cos{\theta_0} \leq 1$, thus $v_{10} < V < v_{20}$. Moreover, we could calculate the derivative of the cotangent with respect to $ V $ and find the expression:
+\begin{equation*}
+\frac{\partial \cot{\theta}}{\partial V} = \frac{V^2 + v_{10}v_{20}}{(v_{10}+v_{20})V^2 \sin{\theta_0}}
+\end{equation*}
+which is positive for all values of $ V $.
+
+This is why $ \cot{\theta} $ may assume all the values between 0 and $ \pi $ when $ v_{10} < V < v_{20} $, because $ \frac{\partial \cot{\theta}}{\partial \theta_0} \neq 0 $ and $ \frac{\partial \cot{\theta}}{\partial V} \neq 0 $ for all $ V, \theta_0 $ in that interval. It is easy to see that if $ V $ is kept constant and $ \theta_0 $ is varied between 0 and $ \pi $, $ \cot{\theta} $ spans the interval $ (-\infty, +\infty) $; similarly, if $ \theta_0 $ is kept constant and $ V $ is varied between 0 and $ +\infty $, $ \cot{\theta} $ spans the interval $ (-\infty, +\infty) $.
+
+When $ V \leq v_{10} $, it is easy to see that $ \cot{\theta} $ has a maximum value. In fact,
+\begin{equation*}
+    \lim_{\theta_0 \to 0^+} \cot(x) = -\infty, \quad \lim_{\theta_0 \to \pi^-} \cot(x) = -\infty
+\end{equation*}
+and the maximum value of the cotangent is reached when:
+\begin{equation*}
+    \cos{\theta_0} = \frac{(v_{20} - v_{10})V}{V^2 - v_{10}v_{20}}
+\end{equation*}
+The calculation of the maximum value leads to:
+\begin{equation*}
+    \cot{\theta} = \frac{V^2 + (v_{10} - v_{20})V\cos{\theta_0} - v_{10}v_{20}}{(v_{10}+v_{20})V \sin{\theta_0}} = - \frac{\sqrt{(V^2 - v_{10}v_{20})^2 - (v_{20} - v_{10})^2 V^2}}{(v_{10} + v_{20})V}
+\end{equation*}
+Then, after transforming the cotangent into a sine, one gets:
+\begin{equation*}
+    \sin{\theta} = \frac{(v_{20} + v_{10})V}{V^2 + v_{10}v_{20}}
+\end{equation*}
+If we put:
+\begin{equation*}
+    \alpha = \sin^{-1}\left( \frac{(v_{20} + v_{10})V}{V^2 + v_{10}v_{20}} \right)
+\end{equation*}
+then, in the interval where $ V \leq v_{10} $, we have the following ranges for $ \theta $: $ \pi - \alpha \leq \theta \leq \pi $.
+Similarly, when $ V \geq v_{20} $, it is easy to see that $ \cot{\theta} $ has a minimum value. In fact,
+\begin{equation*}
+    \lim_{\theta_0 \to 0^+} \cot(x) = +\infty, \quad \lim_{\theta_0 \to \pi^-} \cot(x) = +\infty
+\end{equation*}
+and the minimum value of the cotangent is reached when $ \theta = \alpha $. In this case, the ranges for $ \theta $ are $ 0 \leq \theta \leq \alpha $ (the equality $ \theta = 0 $ is satisfied only when $ V \to +\infty $). The final solution is thus
+}
+{
+\begin{align*}
+    &\text{if } v_{10} < V < v_{20} \quad \Rightarrow \quad 0 < \theta < \pi \\
+    &\text{if } V \leq v_{10} \quad \Rightarrow \quad \pi - \alpha \leq \theta \leq \pi \\
+    &\text{if } V \geq v_{20} \quad \Rightarrow \quad 0 \leq \theta \leq \alpha
+\end{align*}
+where
+\begin{equation*}
+\alpha = \sin^{-1} \left( \frac{(v_{20} + v_{10})V}{V^2 + v_{10}v_{20}} \right).
+\end{equation*}
 }
 \end{problem}
