@@ -70,7 +70,7 @@ After simplification, the angular distribution become
 Determine the range of possible values of the angle $\theta$ between the directions of motion of the two resulting particles in the $L$ system.
 }
 {
-The tangent of the anglle $\theta = \theta_1 + \theta_2$ is
+The tangent of the angle $\theta = \theta_1 + \theta_2$ is
 \begin{equation*}
     \tan{\theta} = \frac{\tan{\theta_1} + \tan{\theta_2}}{1 - \tan{\theta_1}\tan{\theta_2}}.
 \end{equation*}
@@ -84,12 +84,12 @@ or equivalently
 \end{equation*}
 In order to find the extrema, we take the derivative with respect to $\theta_0$,
 \begin{align*}
-    &\pd{\cot{\theta}}{\theta_0} = 0 = \frac{(-v_{10}+v_{20})V^2 - V\cos{\theta_0}(V^2-v_{10}v_{20})}{(v_{10}+v_{20})V^2\sin^2{\theta_0}}\\
+    &\pd{\cot{\theta}}{\theta_0} = 0 = \frac{(v_{20}-v_{10})V^2 - V\cos{\theta_0}(V^2-v_{10}v_{20})}{(v_{10}+v_{20})V^2\sin^2{\theta_0}}\\
     \Rightarrow &\cos{\theta_0} = \frac{(v_{20}-v_{10})V}{V^2-v_{10}v_{20}}.
 \end{align*}
 We know that $-1 \leq \cos{\theta_0} \leq 1$, thus $v_{10} < V < v_{20}$. Moreover, we could calculate the derivative of the cotangent with respect to $ V $ and find the expression:
 \begin{equation*}
-\frac{\partial \cot{\theta}}{\partial V} = \frac{V^2 + v_{10}v_{20}}{(v_{10}+v_{20})V^2 \sin{\theta_0}}
+    \frac{\partial \cot{\theta}}{\partial V} = \frac{V^2 + v_{10}v_{20}}{(v_{10}+v_{20})V^2 \sin{\theta_0}}
 \end{equation*}
 which is positive for all values of $ V $.
 
@@ -105,7 +105,7 @@ and the maximum value of the cotangent is reached when:
 \end{equation*}
 The calculation of the maximum value leads to:
 \begin{equation*}
-    \cot{\theta} = \frac{V^2 + (v_{10} - v_{20})V\cos{\theta_0} - v_{10}v_{20}}{(v_{10}+v_{20})V \sin{\theta_0}} = - \frac{\sqrt{(V^2 - v_{10}v_{20})^2 - (v_{20} - v_{10})^2 V^2}}{(v_{10} + v_{20})V}
+    \cot{\theta} = \frac{V^2 + (v_{10} - v_{20})V\cos{\theta_0} - v_{10}v_{20}}{(v_{10}+v_{20})V \sin{\theta_0}} = -\frac{\sqrt{(V^2 - v_{10}v_{20})^2 - (v_{20} - v_{10})^2 V^2}}{(v_{10} + v_{20})V}
 \end{equation*}
 Then, after transforming the cotangent into a sine, one gets:
 \begin{equation*}
@@ -130,7 +130,75 @@ and the minimum value of the cotangent is reached when $ \theta = \alpha $. In t
 \end{align*}
 where
 \begin{equation*}
-\alpha = \sin^{-1} \left( \frac{(v_{20} + v_{10})V}{V^2 + v_{10}v_{20}} \right).
+    \alpha = \sin^{-1} \left( \frac{(v_{20} + v_{10})V}{V^2 + v_{10}v_{20}} \right).
 \end{equation*}
+}
+\end{problem}
+
+% ============ Problem 4 ============ %
+
+\begin{problem}
+{
+Express the velocity of each particle after a collision between a moving particle ($m_1$) and another at rest ($m_2$) in terms of their directions of motion in the $L$ system.
+}
+{
+To solve this problem with need to use the Fig. 16 of the book. First, using the law of sines, the magnitude of the momentum of the second particle after the collision is
+\begin{equation*}
+p_2' = \mathrm{OB}\frac{\sin{\chi}}{\sin{\theta_2}} = mv\frac{\sin{\chi}}{\cos{(\chi/2)}} = 2mv\sin{\frac{\chi}{2}}.
+\end{equation*}
+We get the equation (17.5) of the book if we isolate the velocity
+\begin{equation*}
+    v_2' = \frac{2m_1v}{m_1+m_2}\sin{\frac{\chi}{2}}.
+\end{equation*}
+Second, using the law of cosines, we get
+\begin{align*}
+    &\mathrm{OC}^2 = \mathrm{AO}^2 + p_1'^2 - 2\mathrm{AO}p_1'\cos{\theta_1} \\
+    \Rightarrow &p_1' = \mathrm{AO}\cos{\theta_1} \pm \sqrt{\mathrm{AO}^2\cos^2{\theta_1} + \mathrm{OC}^2 - \mathrm{AO}^2} \\
+    \Rightarrow &v_1' = \frac{m_1\cos{\theta_1} \pm \sqrt{m_2^2-m_1^2\sin^2{\theta_1}}}{m_1+m_2}v_1.
+\end{align*}
+For the case where $m_2 > m_1$ we also get the equation (17.5) of the book, but when $m_1 > m_2$, the radical may have either sign. To summarize, the answer is
+}
+{
+\begin{align*}
+    &v_2' = \frac{2m_1v}{m_1+m_2}\sin{\frac{\chi}{2}} \\
+    &v_1' = \frac{m_1\cos{\theta_1} \pm \sqrt{m_2^2-m_1^2\sin^2{\theta_1}}}{m_1+m_2}v_1.
+\end{align*}
+}
+\end{problem}
+
+% ============ Problem 5 ============ %
+% Need to make a figure
+
+\begin{problem}
+{
+Determine the effective cross-section for scattering of particles from a perfectly rigid sphere of radius $a$ (\ie when the interaction is such that $U=\infty$ for $r<a$ and $U=0$ for $r>a$).
+}
+{
+From Fig. 19 of the book, we can see
+\begin{equation}
+    \rho = a\sin{\phi_0}=a\sin{\frac{1}{2}(\pi-\chi)}=a\cos{\frac{1}{2}\chi}. \label{C4P5_rho}
+\end{equation} 
+Subsituing \eqref{C4P5_rho} in equation (18.7) or (18.8) of the book, we have
+\begin{equation}
+    \mathrm{d}\sigma=\frac{1}{2}\pi a^2 \sin{\chi}\mathrm{d}\chi=\frac{1}{4}a^2\mathrm{d}o. \label{C4P5_disgma}
+\end{equation}
+If we integrate $\mathrm{d}\sigma$ over all angles, we find
+\begin{equation*}
+    \sigma = \frac{1}{2}\pi a^2  \int_{-\pi/2}^{\pi/2} \sin{\chi}\mathrm{d}\chi =\pi a^2, 
+\end{equation*}
+which is the projection of the sphere perpendicular to the the beam (\ie the impact area). We need to express \eqref{C4P5_disgma} in the $L$ system using the equation (17.4) of the book. If this equation is solve for $\cos{\theta_1}$, we get
+\begin{align*}
+    &\tan{\theta_1} = \frac{m_2\sin{\chi}}{m_1+m_2\cos{\chi}}\\
+    &\Rightarrow \tan^2{\theta_1}\left( \frac{m_1}{m_2} + \cos{\chi} \right)^2 = 1 - \cos^2{\chi} \\
+    &\Rightarrow \cos{\chi} = -\frac{m_1}{m_2}\sin^2{\theta_1} \pm \cos{\theta_1}\sqrt{1-\frac{m_1^2}{m_2^2}\sin^2{\theta_1}} \\
+    &\Rightarrow \frac{1}{2}\sin{\chi}\mathrm{d}\chi = \frac{1}{2}\sin{\theta_1} \mathrm{d}\theta_1 \left( 2\frac{m_1}{m_2}\cos{\theta_1} \pm \frac{1+(m_1^2/m_2^2)\cos{2\theta_1}}{\sqrt{1-(m_1^2/m_2^2)\sin^2{\theta_1}}} \right).
+\end{align*}
+We thus get
+}
+{
+\begin{align*}
+    \mathrm{d}\sigma_1 &= \frac{1}{4}a^2\left( 2\frac{m_1}{m_2}\cos{\theta_1} \pm \frac{1+(m_1^2/m_2^2)\cos{2\theta_1}}{\sqrt{1-(m_1^2/m_2^2)\sin^2{\theta_1}}} \right) \mathrm{d}o_1 \\
+    \mathrm{d}\sigma_2 &= a^2|\cos{\theta_2}|\mathrm{d}o_2.
+\end{align*}
 }
 \end{problem}
