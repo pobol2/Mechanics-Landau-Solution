@@ -202,3 +202,89 @@ We thus get
 \end{align*}
 }
 \end{problem}
+
+% ============ Problem 6 ============ %
+
+\begin{problem}
+{
+Express the effective cross-section (see last problem) as a function of the energy $\epsilon$ lost by a scattered particle.
+}
+{
+The energy loss by a particle of mass $m_1$ is equal to the energy gained by the sphere of mass $m_2$. Knowing that the sphere is initially at rest, the energy gained is
+\begin{equation*}
+    \epsilon = E_2' = \frac{1}{2} m_2 v_2'^2 = \frac{2 m_1^2 m_2}{\left( m_1+m_2 \right)^2} v_\infty^2\sin{\frac{1}{2}\chi} = \epsilon_{max} \sin{\frac{1}{2}\chi}.
+\end{equation*}
+Using the double angle identity, the variation of $\epsilon$ is
+\begin{equation*}
+    \mathrm{d}\epsilon = \epsilon_{max}\sin{\frac{1}{2}\chi}\cos{\frac{1}{2}\chi}\mathrm{d}\chi = \frac{1}{2}\epsilon_{max}\sin{\chi}\mathrm{d}\chi.
+\end{equation*}
+Using \eqref{C4P5_disgma} from the last problem, the effective cross section can thus be express as
+}
+{
+\begin{equation*}
+    \mathrm{d}\sigma = \frac{\pi a^2 \mathrm{d}\epsilon}{\epsilon_{max}}
+\end{equation*}
+}
+\end{problem}
+
+% ============ Problem 7 ============ %
+
+\begin{problem}
+{
+Find the effective cross-section as a function of the velocity $v_\infty$ for particles scattered in a field $U \sim r^{-n}$.
+}
+{
+For a central potential field, the scattering angle is determined by the integral
+\begin{equation*}
+    \chi = \pi - 2\int_{r_{min}}^\infty \frac{\rho \mathrm{d}r}{r^2 \sqrt{1 - \frac{\rho^2}{r^2} - \frac{2U(r)}{mv_\infty^2}}}.
+\end{equation*}
+Subsituing $U(r) = \alpha r^{-n}$ and define the dimensionless variable $x = \frac{r}{\rho}$, then
+\begin{equation*}
+    \chi = \pi - 2\int_{x_{min}}^\infty \frac{\mathrm{d}x}{x^2 \sqrt{1 - \frac{1}{x^2} - \frac{2\alpha}{mv_\infty^2\rho^nx^n}}}.
+\end{equation*}
+Notice the dimensionless combination $\xi = \frac{2\alpha}{mv_\infty^2\rho^n}$, the integral simplifies to
+\begin{equation*}
+    \chi = \pi - 2\int_{x_{min}}^\infty \frac{\mathrm{d}x}{x^2 \sqrt{1 - \frac{1}{x^2} - \frac{\xi}{x^n}}}.
+\end{equation*}
+Thus, the scattering angle depends only on $\xi$,
+\begin{equation*}
+    \chi = f(\xi),
+\end{equation*}
+where $f(\xi)$ is a dimensionless function determined by the integral. To invert this relationship, solve for $\rho$ in terms of $\chi$ and $v_\infty$,
+\begin{equation*}
+    \xi = \frac{2\alpha}{mv_\infty^2\rho^n} \Rightarrow \rho = \left( \frac{2\alpha}{mv_\infty^2\xi} \right)^{1/n}.
+\end{equation*}
+Let $\xi = g(\chi)$, where $g(\chi)$ is a function encoding the angular dependence. Then,
+\begin{align*}
+    \rho &= \left( \frac{2\alpha}{mv_\infty^2} \right)^{1/n} \left( g(\chi) \right)^{-1/n} \\
+    \Rightarrow \rho &\sim v_\infty^{-2/n}\left( g(\chi) \right)^{-1/n}.
+\end{align*}
+The differential cross-section is thus
+\begin{align*}
+    \mathrm{d}\sigma &= \frac{\rho}{\sin{\chi}} \left| \frac{\mathrm{d}\rho}{\mathrm{d}\chi} \right| \mathrm{d}o \\
+    \mathrm{d}\sigma &\sim v_\infty^{-4/n} \frac{F(\chi)}{\sin{\chi}} \mathrm{d}o,
+\end{align*}
+where $F(\chi) = \left| \frac{\mathrm{d}}{\mathrm{d}\chi} \left( g(\chi) \right)^{-1/n} \right|$. Integrate over the solid angle
+\begin{equation*}
+    \sigma \sim v_\infty^{-4/n} \int F(\chi) \mathrm{d}\chi.
+\end{equation*}
+Knowing that the integral depends only on $n$, not $v_\infty$, we have
+}
+{
+\begin{equation*}
+    \sigma \sim v_\infty^{-4/n}
+\end{equation*}
+}
+\end{problem}
+
+% ============ Problem 8 ============ %
+
+\begin{problem}
+{
+Determine the effective cross-section for a particle to ``fall" to the centre of a field $U=-\alpha/r^2$.
+}
+{
+}
+{
+}
+\end{problem}
