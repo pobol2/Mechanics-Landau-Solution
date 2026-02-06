@@ -1,0 +1,178 @@
+\chapter{Motion of a Rigid Body}
+
+% ============ Problem 1 ============ %
+\begin{problem}
+{
+Determine the principle moments of inertia for the followingg types of molecule, regarded as systems of particles at fixed distances apart:
+}{}{}
+\begin{subproblem}
+{
+a molecule of collinear atoms 
+}
+{
+Choose the $x_3$-axis along the line containing all atoms, and place the origin at the centre of mass.  Then each particle has coordinates $(0,0,x_a)$, so the inertia tensor is diagonal in the basis
+$(x_1,x_2,x_3)$, with
+\begin{equation*}
+    I_3 = 0, \qquad I_1 = I_2.
+\end{equation*}
+Indeed, since the distance to the $x_1$-axis (or $x_2$-axis) is $|x_a-x_{CM}|$ for each particle,
+\begin{equation*}
+I_1 = I_2 = \sum_a m_a\,(x_a-x_{CM})^2,
+\qquad
+x_{CM}=\frac{1}{\mu}\sum_a m_a x_a,\quad \mu=\sum_a m_a.
+\end{equation*}
+Expanding and using the definition of $x_{CM}$ gives
+\begin{align*}
+I_1=I_2
+&= \sum_a m_a x_a^2 - 2x_{CM}\sum_a m_a x_a + \mu x_{CM}^2 \\
+&= \sum_a m_a x_a^2 - \frac{1}{\mu}\left(\sum_a m_a x_a\right)^2.
+\end{align*}
+To rewrite this in terms of pairwise separations, expand the square:
+\begin{equation*}
+\left(\sum_a m_a x_a\right)^2
+= \sum_a m_a^2 x_a^2 + 2\sum_{a<b} m_a m_b x_a x_b.
+\end{equation*}
+Hence
+\begin{align*}
+I_1=I_2
+&= \sum_a m_a x_a^2
+-\frac{1}{\mu}\sum_a m_a^2 x_a^2
+-\frac{2}{\mu}\sum_{a<b} m_a m_b x_a x_b \\
+&= \frac{1}{\mu}\sum_a m_a(\mu-m_a)x_a^2
+-\frac{2}{\mu}\sum_{a<b} m_a m_b x_a x_b.
+\end{align*}
+Now note that $\mu-m_a=\sum_{b\neq a}m_b$, so
+\begin{equation*}
+\sum_a m_a(\mu-m_a)x_a^2
+=\sum_a\sum_{b\neq a} m_a m_b x_a^2
+=\sum_{a<b} m_a m_b(x_a^2+x_b^2).
+\end{equation*}
+Therefore
+\begin{align*}
+I_1=I_2
+&= \frac{1}{\mu}\sum_{a<b} m_a m_b(x_a^2+x_b^2)
+-\frac{2}{\mu}\sum_{a<b} m_a m_b x_a x_b \\
+&= \frac{1}{\mu}\sum_{a<b} m_a m_b (x_a-x_b)^2.
+\end{align*}
+Since for collinear atoms the pair distance is $l_{ab}=|x_a-x_b|$, we finally obtain
+}
+{
+\begin{align*}
+    I_1&=I_2=\frac{1}{\mu}\sum_{a<b} m_a m_b\, l_{ab}^2 \\
+    I_3&=0
+\end{align*}
+}
+\end{subproblem}
+\begin{subproblem}
+{
+a triatomic molecule which is an isosceles triangle (Fig. 36)
+}
+{
+Let the molecule lie in the $(x_1,x_2)$-plane, with $x_1$ along the base and $x_2$ along the axis of symmetry. The two base atoms have equal masses $m_1$ and are separated by a distance $a$; the apex atom has mass $m_2$ and is at height $h$ above the base midpoint. Denote the total mass by
+\begin{equation*}
+    \mu = 2m_1 + m_2.
+\end{equation*}
+Choose coordinates (before shifting to the centre of mass):
+\begin{equation*}
+( x_1,x_2 )_{(1)}=\left(-\frac a2,\,0\right),\qquad
+( x_1,x_2 )_{(3)}=\left(+\frac a2,\,0\right),\qquad
+( x_1,x_2 )_{(2)}=\left(0,\,h\right),
+\end{equation*}
+where atoms $(1)$ and $(3)$ have mass $m_1$ and atom $(2)$ has mass $m_2$. By symmetry $x_{1,CM}=0$, and
+\begin{equation*}
+x_{2,CM}=\frac{m_2 h}{\mu}.
+\end{equation*}
+The symmetry implies that the axes through the centre of mass parallel to $x_1$, $x_2$, and $x_3$ are principal. Hence,
+\begin{equation*}
+I_1 = \sum_a m_a (x_{2,a}-x_{2,CM})^2,\qquad
+I_2 = \sum_a m_a (x_{1,a}-x_{1,CM})^2,\qquad
+I_3 = I_1+I_2,
+\end{equation*}
+since the molecule is planar ($x_3\equiv 0$). Using the pair-distance identity in one dimension,
+\begin{equation*}
+\sum_a m_a (x_{2,a}-x_{2,CM})^2=\frac1\mu\sum_{a<b} m_a m_b (x_{2,a}-x_{2,b})^2,
+\end{equation*}
+and noting that the only non-zero vertical separations are between the apex and each base atom, equal to $h$, we obtain
+\begin{equation*}
+I_1=\frac1\mu\Big( m_1m_2 h^2 + m_1m_2 h^2 \Big)
+=\frac{2m_1m_2}{\mu}\,h^2.
+\end{equation*}
+Similarly,
+\begin{equation*}
+I_2=\sum_a m_a (x_{1,a}-x_{1,CM})^2
+=\frac1\mu\sum_{a<b} m_a m_b (x_{1,a}-x_{1,b})^2.
+\end{equation*}
+The horizontal separations are between the two base atoms, and between the apex and either base atom. Hence
+\begin{equation*}
+I_2=\frac1\mu\left(m_1^2a^2 + 2m_1m_2\left(\frac a2\right)^2\right)
+=\frac1\mu\left(m_1^2a^2+\frac12 m_1m_2a^2\right)
+=\frac12 m_1 a^2.
+\end{equation*}
+Therefore
+\begin{equation*}
+I_3 = I_1+I_2 = \frac{2m_1m_2}{\mu}\,h^2 + \frac12 m_1 a^2.
+\end{equation*}
+}
+{
+\begin{align*}
+    I_1&=\frac{2m_1m_2}{\mu}\,h^2 \\
+    I_2&=\frac12 m_1 a^2 \\
+    I_3&=I_1+I_2.
+\end{align*}
+}
+\end{subproblem}
+\begin{subproblem}
+{
+a tetratomic molecule which is an equilateral-based tetrahedron
+}
+{
+The base is an equilateral triangle of side $a$ in the plane $x_3=0$, with three equal masses $m_1$ at its vertices. A fourth atom of mass $m_2$ lies on the symmetry axis through the base centroid at height $h$ above the base. Let
+\begin{equation*}
+\mu = 3m_1 + m_2.
+\end{equation*}
+Let $\rho$ be the distance from the base centroid to a base vertex. For an equilateral triangle,
+\begin{equation*}
+\rho=\frac{a}{\sqrt3},\qquad \rho^2=\frac{a^2}{3}.
+\end{equation*}
+By symmetry the centre of mass lies on the symmetry axis. Measuring $x_3$ from the base plane,
+\begin{equation*}
+x_{3,CM}=\frac{m_2 h}{\mu}.
+\end{equation*}
+The symmetry axis is a principal axis; any two orthogonal axes through the centre of mass perpendicular to it are also principal and have equal moments. Thus
+\begin{equation*}
+I_1=I_2,\qquad I_3 \text{ about the symmetry axis } (x_3).
+\end{equation*}
+The apex mass lies on the axis and contributes nothing. Each base mass is at distance $\rho$ from the axis, hence
+\begin{equation*}
+I_3 = 3m_1\rho^2 = 3m_1\frac{a^2}{3} = m_1 a^2.
+\end{equation*}
+Let $x_1$ be any axis through the centre of mass perpendicular to $x_3$. Then
+\begin{equation*}
+I_1=\sum_a m_a\,(y_a^2+z_a^2),
+\end{equation*}
+where $y$ is a coordinate orthogonal to $x_1$ in the plane perpendicular to the axis, and $z$ is measured along $x_3$
+from the centre of mass. The vertical coordinates relative to the centre of mass are
+\begin{equation*}
+z_{\text{base}}=-x_{3,CM}=-\frac{m_2h}{\mu},\qquad
+z_{\text{apex}}=h-x_{3,CM}=h\left(1-\frac{m_2}{\mu}\right)=\frac{3m_1}{\mu}h.
+\end{equation*}
+For the three vertices of an equilateral triangle, for any in-plane axis through the centroid,
+\begin{equation*}
+\sum_{\text{base}} y^2 = \frac{3}{2}\rho^2 = \frac{3}{2}\cdot\frac{a^2}{3}=\frac12 a^2.
+\end{equation*}
+Therefore,
+\begin{align*}
+I_1
+&= m_1\left(\sum_{\text{base}} y^2\right) + 3m_1 z_{\text{base}}^2 + m_2 z_{\text{apex}}^2 \\
+&= \frac12 m_1 a^2 + 3m_1\left(\frac{m_2^2 h^2}{\mu^2}\right) + m_2\left(\frac{9m_1^2 h^2}{\mu^2}\right) \\
+&= \frac12 m_1 a^2 + \frac{3m_1m_2}{\mu}\,h^2.
+\end{align*}
+Hence $I_2=I_1$.
+}
+{
+\begin{align*}
+    I_1&=I_2=\frac{3m_1m_2}{\mu}\,h^2+\frac12 m_1 a^2 \\
+    I_3&=m_1 a^2
+\end{align*}
+}
+\end{subproblem}
