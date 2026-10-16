@@ -1,13 +1,18 @@
 \chapter{Motion of a Rigid Body}
 
+\textbooknumber{\S 32}
+\section{The inertia tensor}
+
 % ============ Problem 1 ============ %
+
 \begin{problem}
 {
 Determine the principal moments of inertia for the following types of molecule, regarded as systems of particles at fixed distances apart:
 }{}{}
+\end{problem}
 \begin{subproblem}
 {
-a molecule of collinear atoms 
+A molecule of collinear atoms.
 }
 {
 Choose the $x_3$-axis along the line containing all atoms, and place the origin at the centre of mass.  Then each particle has coordinates $(0,0,x_a)$, so the inertia tensor is diagonal in the basis
@@ -63,9 +68,10 @@ Since for collinear atoms the pair distance is $l_{ab}=|x_a-x_b|$, we finally ob
 \end{align*}
 }
 \end{subproblem}
+
 \begin{subproblem}
 {
-a triatomic molecule which is an isosceles triangle (Fig. 36)
+A triatomic molecule which is an isosceles triangle (Fig.~36).
 }
 {
 Let the molecule lie in the $(x_1,x_2)$-plane, with $x_1$ along the base and $x_2$ along the axis of symmetry. The two base atoms have equal masses $m_1$ and are separated by a distance $a$; the apex atom has mass $m_2$ and is at height $h$ above the base midpoint. Denote the total mass by
@@ -121,9 +127,10 @@ I_3 = I_1+I_2 = \frac{2m_1m_2}{\mu}\,h^2 + \frac12 m_1 a^2.
 \end{align*}
 }
 \end{subproblem}
+
 \begin{subproblem}
 {
-a tetratomic molecule which is an equilateral-based tetrahedron
+A tetratomic molecule which is an equilateral-based tetrahedron (Fig.~37).
 }
 {
 The base is an equilateral triangle of side $a$ in the plane $x_3=0$, with three equal masses $m_1$ at its vertices. A fourth atom of mass $m_2$ lies on the symmetry axis through the base centroid at height $h$ above the base. Let
@@ -177,4 +184,269 @@ Hence $I_2=I_1$.
 }
 \end{subproblem}
 
+% ============ Problem 2 ============ %
+
+\begin{problem}
+{
+Determine the principal moments of inertia for the following homogeneous bodies:
+}{}{}
+\end{problem}
+\begin{subproblem}
+{
+A thin rod of length $l$.
+}
+{}
+{}
+\end{subproblem}
+
+\begin{subproblem}
+{
+A sphere of radius $R$.
+}
+{}
+{}
+\end{subproblem}
+
+\begin{subproblem}
+{
+A circular cylinder of radius $R$ and height $h$.
+}
+{}
+{}
+\end{subproblem}
+
+\begin{subproblem}
+{
+A rectangular parallelepiped of sides $a$, $b$, and $c$.
+}
+{}
+{}
+\end{subproblem}
+
+\begin{subproblem}
+{
+A circular cone of height $h$ and base radius $R$.
+}
+{}
+{}
+\end{subproblem}
+
+\begin{subproblem}
+{
+An ellipsoid of semiaxes $a$, $b$, $c$.
+}
+{}
+{}
+\end{subproblem}
+
+% ============ Problem 3 ============ %
+
+\begin{problem}
+{
+Determine the frequency of small oscillations of a compound pendulum (a rigid body swinging about a fixed horizontal axis in a gravitational field).
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 4 ============ %
+
+\begin{problem}
+{
+Find the kinetic energy of the system shown in Fig.~39: $OA$ and $AB$ are thin uniform rods of length $l$ hinged together at $A$. The rod $OA$ rotates (in the plane of the diagram) about $O$, while the end $B$ of the rod $AB$ slides along $Ox$.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 5 ============ %
+
+\begin{problem}
+{
+Find the kinetic energy of a cylinder of radius $R$ rolling on a plane, if the mass of the cylinder is so distributed that one of the principal axes of inertia is parallel to the axis of the cylinder and at a distance $a$ from it, and the moment of inertia about that principal axis is $I$.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 6 ============ %
+
+\begin{problem}
+{
+Find the kinetic energy of a homogeneous cylinder of radius $a$ rolling inside a cylindrical surface of radius $R$ (Fig.~41).
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 7 ============ %
+
+\begin{problem}
+{
+Find the kinetic energy of a homogeneous cone rolling on a plane.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 8 ============ %
+
+\begin{problem}
+{
+Find the kinetic energy of a homogeneous cone whose base rolls on a plane and whose vertex is fixed at a height above the plane equal to the radius of the base, so that the axis of the cone is parallel to the plane.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 9 ============ %
+
+\begin{problem}
+{
+Find the kinetic energy of a homogeneous ellipsoid which rotates about one of its axes ($AB$ in Fig.~44) while that axis itself rotates about a line $CD$ perpendicular to it and passing through the centre of the ellipsoid.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 10 ============ %
+
+\begin{problem}
+{
+The same as Problem 9, but for the case where the axis $AB$ is not perpendicular to $CD$ and is an axis of symmetry of the ellipsoid (Fig.~45).
+}
+{}
+{}
+\end{problem}
+
+\textbooknumber{\S 35}
+\section{Eulerian angles}
+
+% ============ Problem 1 ============ %
+
+\begin{problem}
+{
+Reduce to quadratures the problem of the motion of a heavy symmetrical top whose lowest point is fixed (Fig.~48).
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 2 ============ %
+
+\begin{problem}
+{
+Find the condition for the rotation of a top about a vertical axis to be stable.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 3 ============ %
+
+\begin{problem}
+{
+Determine the motion of a top when the kinetic energy of its rotation about its axis is large compared with its energy in the gravitational field (called a ``fast'' top).
+}
+{}
+{}
+\end{problem}
+
+\textbooknumber{\S 37}
+\section{The asymmetrical top}
+
+% ============ Problem 1 ============ %
+
+\begin{problem}
+{
+Determine the free rotation of a top about an axis near the $x_3$-axis or the $x_1$-axis.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 2 ============ %
+
+\begin{problem}
+{
+Determine the free rotation of a top for which $M^2 = 2EI_2$.
+}
+{}
+{}
+\end{problem}
+
+\textbooknumber{\S 38}
+\section{Rigid bodies in contact}
+
+% ============ Problem 1 ============ %
+
+\begin{problem}
+{
+Using d'Alembert's principle, find the equations of motion of a homogeneous sphere rolling on a plane under an external force $\mathbf{F}$ and torque $\mathbf{K}$.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 2 ============ %
+
+\begin{problem}
+{
+A uniform rod $BD$ of weight $P$ and length $l$ rests against a wall as shown in Fig.~52 and its lower end $B$ is held by a string $AB$. Find the reaction of the wall and the tension in the string.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 3 ============ %
+
+\begin{problem}
+{
+A rod of weight $P$ has one end $A$ on a vertical plane and the other end $B$ on a horizontal plane (Fig.~53), and is held in position by two horizontal strings $AD$ and $BC$, the latter being in the same vertical plane as $AB$. Determine the reactions of the planes and the tensions in the strings.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 4 ============ %
+
+\begin{problem}
+{
+Two rods of length $l$ and negligible weight are hinged together, and their ends are connected by a string $AB$ (Fig.~54). They stand on a plane, and a force $F$ is applied at the midpoint of one rod. Determine the reactions.
+}
+{}
+{}
+\end{problem}
+
+\textbooknumber{\S 39}
+\section{Motion in a non-inertial frame of reference}
+
+% ============ Problem 1 ============ %
+
+\begin{problem}
+{
+Find the deflection of a freely falling body from the vertical caused by the Earth's rotation, assuming the angular velocity of this rotation to be small.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 2 ============ %
+
+\begin{problem}
+{
+Determine the deflection from coplanarity of the path of a particle thrown from the Earth's surface with velocity $\mathbf{v}_0$.
+}
+{}
+{}
+\end{problem}
+
+% ============ Problem 3 ============ %
+
+\begin{problem}
+{
+Determine the effect of the Earth's rotation on small oscillations of a pendulum (the problem of Foucault's pendulum).
+}
+{}
+{}
 \end{problem}

@@ -1,0 +1,31 @@
+% Chapter 4, Problem 5: scattering from a perfectly rigid sphere (Fig. 19 of the book)
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    % Parameters
+    \def\a{1.8}     % radius a of the sphere
+    \def\ph{40}     % angle phi_0
+    \def\L{4.5}     % right end of the incident path
+
+    \coordinate (O) at (0,0);
+    \coordinate (P) at (\ph:\a);
+    \coordinate (X) at (\L,0);
+
+    % Sphere
+    \draw[track] (O) circle[radius=\a];
+
+    % Reference lines
+    \draw[guide] (O) -- (X);
+    \draw[guide] (P) -- ($(O)!1.65!(P)$);
+    \draw[guide] (O) -- node[above left=-1pt, pos=0.55] {$a$} (P);
+    \pic[angle arc, angle radius=0.9cm, angle eccentricity=1.35, "$\phi_0$"] {angle = X--O--P};
+
+    % Impact parameter
+    \draw[dimension] ({\L-0.8}, 0) -- node[right] {$\rho$} ({\L-0.8}, {\a*sin(\ph)});
+
+    % Path of the particle (reflected at the angle phi_0 from the normal)
+    \draw[field line] (\L, {\a*sin(\ph)}) -- (P);
+    \draw[field line] (P) -- ++({2*\ph}:2.4);
+\end{tikzpicture}
+\end{document}

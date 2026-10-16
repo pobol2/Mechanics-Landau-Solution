@@ -1,10 +1,13 @@
 \chapter{Collisions Between Particles}
 
+\textbooknumber{\S 16}
+\section{Disintegration of particles}
+
 % ============ Problem 1 ============ %
 
 \begin{problem}
 {
-Find the relation between the angles $\theta_1$, $\theta_2$ (in the $L$ system) after disintegrating into two particles.
+Find the relation between the angles $\theta_1$, $\theta_2$ (in the $L$ system) after a disintegration into two particles.
 }
 {
 The angles of the particles, in the $C$ system, are related by
@@ -135,7 +138,10 @@ where
 }
 \end{problem}
 
-% ============ Problem 4 ============ %
+\textbooknumber{\S 17}
+\section{Elastic collisions}
+
+% ============ Problem 1 ============ %
 
 \begin{problem}
 {
@@ -166,15 +172,22 @@ For the case where $m_2 > m_1$ we also get the equation (17.5) of the book, but 
 }
 \end{problem}
 
-% ============ Problem 5 ============ %
-% Need to make a figure
+\textbooknumber{\S 18}
+\section{Scattering}
+
+% ============ Problem 1 ============ %
 
 \begin{problem}
 {
 Determine the effective cross-section for scattering of particles from a perfectly rigid sphere of radius $a$ (\ie when the interaction is such that $U=\infty$ for $r<a$ and $U=0$ for $r>a$).
 }
 {
-From Fig. 19 of the book, we can see
+The particle is reflected from the sphere at the same angle $\phi_0$ to the normal (\ie the radius) as it is incident, as shown in the figure.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/C4P5.pdf}
+\end{figure}
+From the figure, we can see
 \begin{equation}
     \rho = a\sin{\phi_0}=a\sin{\frac{1}{2}(\pi-\chi)}=a\cos{\frac{1}{2}\chi}. \label{C4P5_rho}
 \end{equation} 
@@ -203,11 +216,11 @@ We thus get
 }
 \end{problem}
 
-% ============ Problem 6 ============ %
+% ============ Problem 2 ============ %
 
 \begin{problem}
 {
-Express the effective cross-section (see last problem) as a function of the energy $\epsilon$ lost by a scattered particle.
+Express the effective cross-section (Problem 1) as a function of the energy $\epsilon$ lost by a scattered particle.
 }
 {
 The energy loss by a particle of mass $m_1$ is equal to the energy gained by the sphere of mass $m_2$. Knowing that the sphere is initially at rest, the energy gained is
@@ -227,7 +240,7 @@ Using \eqref{C4P5_disgma} from the last problem, the effective cross section can
 }
 \end{problem}
 
-% ============ Problem 7 ============ %
+% ============ Problem 3 ============ %
 
 \begin{problem}
 {
@@ -277,7 +290,7 @@ Knowing that the integral depends only on $n$, not $v_\infty$, we have
 }
 \end{problem}
 
-% ============ Problem 8 ============ %
+% ============ Problem 4 ============ %
 
 \begin{problem}
 {
@@ -315,11 +328,11 @@ We thus get
 }
 \end{problem}
 
-% ============ Problem 9 ============ %
+% ============ Problem 5 ============ %
 
 \begin{problem}
 {
-The same as last problem, but for a field $U=-\alpha/r^n \left(n > 2, \alpha >0 \right)$.
+The same as Problem 4, but for a field $U=-\alpha/r^n \left(n > 2, \alpha >0 \right)$.
 }
 {
 As in the last problem, the particle comes from infinity with velocity $v_\infty$ and impact parameter $\rho$, so that
@@ -364,7 +377,7 @@ We thus get
 }
 \end{problem}
 
-% ============ Problem 10 ============ %
+% ============ Problem 6 ============ %
 
 \begin{problem}
 {
@@ -409,11 +422,11 @@ The second term describes the gravitational focusing of the trajectories towards
 }
 \end{problem}
 
-% ============ Problem 11 ============ %
+% ============ Problem 7 ============ %
 
 \begin{problem}
 {
-Deduce the form of a scattering field $U(r)$, given the effective cross-section as a function of the angle of scattering for a given energy $E$. It is assumed that $U(r)$ decreases monotonically with $r$ (a repulsive field), with $U(0) > E$ and $U(\infty) = 0$.
+Deduce the form of a scattering field $U(r)$, given the effective cross-section as a function of the angle of scattering for a given energy $E$. It is assumed that $U(r)$ decreases monotonically with $r$ (a repulsive field), with $U(0) > E$ and $U(\infty) = 0$ (O.~B. Firsov 1953).
 }
 {
 Let $\mathrm{d}\sigma/\mathrm{d}\theta$ be the effective cross-section per unit scattering angle, \ie already integrated over the azimuth. In terms of the cross-section per unit solid angle, since $\mathrm{d}o = 2\pi\sin{\theta}\,\mathrm{d}\theta$,
@@ -534,7 +547,10 @@ The derivation covered all $s$ between $0$ and the turning points $s_0$. The sma
 }
 \end{problem}
 
-% ============ Problem 12 ============ %
+\textbooknumber{\S 19}
+\section{Rutherford's formula}
+
+% ============ Problem 1 ============ %
 
 \begin{problem}
 {
@@ -600,18 +616,11 @@ The same small-angle result follows directly from $\rho^2 \simeq \pi\alpha/(mv_\
 }
 \end{problem}
 
-% ============ Problem 13 ============ %
+% ============ Problem 2 ============ %
 
 \begin{problem}
 {
-Find the effective cross-section for scattering by a spherical ``potential well" of radius $a$ and ``depth" $U_0$, \ie in the field
-\begin{equation*}
-    U(r) = \begin{cases}
-        -U_0, & r < a, \\
-        0, & r > a,
-    \end{cases}
-    \qquad U_0 > 0.
-\end{equation*}
+Find the effective cross-section for scattering by a spherical ``potential well" of radius $a$ and ``depth" $U_0$ (\ie a field with $U = 0$ for $r > a$ and $U = -U_0$ for $r < a$).
 }
 {
 Let $m$ be the mass of the particle and $v_\infty$ its velocity at infinity. Since $U$ is constant outside the sphere, the particle moves with the constant velocity $v_\infty$ until it reaches $r = a$. Inside the well, $U$ is again constant, so the particle moves with a constant velocity $v_{\mathrm{in}}$ given by the conservation of energy,
@@ -699,7 +708,10 @@ At $\chi = \chi_{max}$, $\cos{q} = 1/n$, so $\sin^2{q} = (n^2 - 1)/n^2$ and $D =
 }
 \end{problem}
 
-% ============ Problem 14 ============ %
+\textbooknumber{\S 20}
+\section{Small-angle scattering}
+
+% ============ Problem 1 ============ %
 
 \begin{problem}
 {
@@ -786,7 +798,7 @@ Multiplying $\chi$ by $m/m_1$, the reduced mass cancels. We thus get
 }
 \end{problem}
 
-% ============ Problem 15 ============ %
+% ============ Problem 2 ============ %
 
 \begin{problem}
 {
@@ -797,7 +809,7 @@ We take $\alpha > 0$ (a repulsive field). Let $m_2$ be the mass of the scatterin
 \begin{equation*}
     m = \frac{m_1m_2}{m_1 + m_2}
 \end{equation*}
-the reduced mass. As shown in Problem 14, when the scattering angle $\chi$ in the centre-of-mass system is small ($\chi \ll 1$), the deflection of the incident particle of mass $m_1$ is $\theta_1 \simeq (m/m_1)\chi$, and it is given by formula (20.3) of the book,
+the reduced mass. As shown in \probref{\S 20}{1}, when the scattering angle $\chi$ in the centre-of-mass system is small ($\chi \ll 1$), the deflection of the incident particle of mass $m_1$ is $\theta_1 \simeq (m/m_1)\chi$, and it is given by formula (20.3) of the book,
 \begin{equation*}
     \theta_1 \simeq -\frac{2\rho}{m_1v_\infty^2}\int_\rho^\infty \frac{\mathrm{d}U}{\mathrm{d}r}\frac{\mathrm{d}r}{\sqrt{r^2 - \rho^2}}.
 \end{equation*}
@@ -863,7 +875,7 @@ which is the small-angle limit of the Rutherford formula. For $n = 2$, $\Gamma(3
 \begin{equation*}
     \frac{\mathrm{d}\sigma}{\mathrm{d}o_1} \simeq \frac{\pi\alpha}{2m_1v_\infty^2\theta_1^3},
 \end{equation*}
-in agreement with the small-angle limit found in Problem 12 for a fixed centre ($m_1 = m$, $\theta_1 = \chi$). We thus get
+in agreement with the small-angle limit found in \probref{\S 19}{1} for a fixed centre ($m_1 = m$, $\theta_1 = \chi$). We thus get
 }
 {
 \begin{gather*}

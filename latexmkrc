@@ -13,3 +13,8 @@ my $shared = File::Spec->rel2abs("$framework_dir/latexmkrc");
 do $shared or die "Could not load $shared: ", ($@ || $!), "\n";
 
 # Project-specific latexmk settings can be added below.
+
+# Completion report: in the Progress section of README.md (between the
+# completion report markers) instead of a separate COMPLETION.md
+$completion_readme = 'README.md';
+$completion_report = '';

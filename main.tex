@@ -14,20 +14,24 @@
     subtitle={Volume 1 of Course of Theoretical Physics},
     title={Mechanics},
     footer={Solution to \mainTitle~by \authorName},
+    problem numbering=subdivision, % problems numbered within the book's sections
+    completion tracking=true,       % "Not done" markers, overview, README progress
 }
 
 \begin{document}
 
 \maketitle % insert title page
 \tableofcontents % insert table of content
+\completionoverview % done/total per chapter and section, unfinished problems
 
 % Put the solutions of each chapter in separate files and use \input{}
 \input{Chapters/1-Equation_of_motion}
 \input{Chapters/2-Conservation_laws}
 \input{Chapters/3-Integration}
 \input{Chapters/4-Collisions}
-\input{Chapters/5-Small_Oscillations.tex}
-\input{Chapters/6-Rigid_Body.tex}
+\input{Chapters/5-Small_Oscillations}
+\input{Chapters/6-Rigid_Body}
+\input{Chapters/7-Canonical_Equations}
 
 
 \end{document}

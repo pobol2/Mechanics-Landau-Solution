@@ -375,11 +375,16 @@ local function contour(a, b, style)
         end
         tex.sprint("\\draw[" .. style .. "] " .. table.concat(s, " -- ") .. (closed and " -- cycle" or "") .. ";")
     end
+    -- Edges in a fixed order: the order of pairs() changes from one run to the
+    -- next, and so would the start of each polyline (and its dashes)
+    local keys = {}
+    for k, _ in pairs(adj) do table.insert(keys, k) end
+    table.sort(keys)
     -- open chains start at an end (an edge with a single neighbour)
-    for k, l in pairs(adj) do
-        if #l == 1 and not used[k] then emit(walk(k)) end
+    for _, k in ipairs(keys) do
+        if #adj[k] == 1 and not used[k] then emit(walk(k)) end
     end
-    for k, _ in pairs(adj) do
+    for _, k in ipairs(keys) do
         if not used[k] then emit(walk(k)) end
     end
 end

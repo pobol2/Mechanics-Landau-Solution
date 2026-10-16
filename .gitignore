@@ -1,4 +1,5 @@
-# All LaTeX compilation files go in build/ (only main.pdf is kept in the root)
+# All LaTeX compilation files go in build/ (only main.pdf is kept in the root;
+# the completion report goes into README.md)
 build/
 
 # Safety net in case something is compiled outside of latexmk
