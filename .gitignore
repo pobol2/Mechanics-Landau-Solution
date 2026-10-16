@@ -1,6 +1,31 @@
-# ignore ALL .aux .log .out .toc .synctex.gz files
+# All LaTeX compilation files go in build/ (only main.pdf is kept in the root)
+build/
+
+# Safety net in case something is compiled outside of latexmk
 *.aux
 *.log
 *.out
 *.toc
+*.fls
+*.fdb_latexmk
+*.synctex
 *.synctex.gz
+*.synctex(busy)
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+
+# Editor / OS files
+.vscode/
+*~
+*.bak
+*.swp
+Thumbs.db
+desktop.ini
+.DS_Store

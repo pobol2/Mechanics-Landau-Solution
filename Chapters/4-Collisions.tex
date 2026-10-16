@@ -284,7 +284,592 @@ Knowing that the integral depends only on $n$, not $v_\infty$, we have
 Determine the effective cross-section for a particle to ``fall" to the centre of a field $U=-\alpha/r^2$.
 }
 {
+Let the particle come from infinity with velocity $v_\infty$ and impact parameter $\rho$, and take $\alpha > 0$. Its energy and angular momentum are
+\begin{equation*}
+    E = \frac{1}{2}mv_\infty^2, \qquad M = mv_\infty\rho.
+\end{equation*}
+The radial motion is governed by the energy equation
+\begin{equation*}
+    \frac{1}{2}m\dot{r}^2 + U_{\text{eff}}(r) = E,
+\end{equation*}
+where the effective potential energy is
+\begin{equation*}
+    U_{\text{eff}}(r) = \frac{M^2}{2mr^2} - \frac{\alpha}{r^2} = \frac{1}{r^2}\left( \frac{M^2}{2m} - \alpha \right).
+\end{equation*}
+Since both terms vary as $r^{-2}$, the sign of the bracket determines the behaviour of the particle near the centre. If $M^2 > 2m\alpha$, then $U_{\text{eff}}$ is a repulsive centrifugal barrier which tends to $+\infty$ as $r \to 0$, so the particle reaches a turning point where $U_{\text{eff}}(r_{min}) = E$ and goes back to infinity. If $M^2 < 2m\alpha$, then $U_{\text{eff}} < 0$ for all $r$, so $E - U_{\text{eff}} > 0$ everywhere. The radial velocity never vanishes and an incoming particle has no radial turning point: it falls to the centre. In the limiting case $M^2 = 2m\alpha$, we have $U_{\text{eff}} = 0$, thus $\dot{r} = -v_\infty$ and the particle also reaches the centre. The critical trajectory falls to the centre because the centrifugal and attractive terms have the same dependence $r^{-2}$. At the critical value of $M$ they cancel identically, so there is no barrier at all and nothing can stop the particle at a finite distance. This differs from the next problem, where the two terms have different powers of $r$ and $U_{\text{eff}}$ has a maximum at a finite radius.
+
+The particle therefore falls to the centre if $M^2 \leq 2m\alpha$, \ie if
+\begin{equation*}
+    m^2v_\infty^2\rho^2 \leq 2m\alpha \Rightarrow \rho \leq \rho_{max}, \qquad \rho_{max}^2 = \frac{2\alpha}{mv_\infty^2}.
+\end{equation*}
+The effective cross-section is obtained by summing the areas of all the annuli of the incident beam that lead to a fall,
+\begin{equation*}
+    \sigma = \int_0^{\rho_{max}} 2\pi\rho\,\mathrm{d}\rho = \pi\rho_{max}^2.
+\end{equation*}
+We thus get
 }
 {
+\begin{equation*}
+    \sigma = \frac{2\pi\alpha}{mv_\infty^2} = \frac{\pi\alpha}{E}
+\end{equation*}
+}
+\end{problem}
+
+% ============ Problem 9 ============ %
+
+\begin{problem}
+{
+The same as last problem, but for a field $U=-\alpha/r^n \left(n > 2, \alpha >0 \right)$.
+}
+{
+As in the last problem, the particle comes from infinity with velocity $v_\infty$ and impact parameter $\rho$, so that
+\begin{equation*}
+    E = \frac{1}{2}mv_\infty^2, \qquad M = mv_\infty\rho.
+\end{equation*}
+The effective potential energy is now
+\begin{equation*}
+    U_{\text{eff}}(r) = \frac{M^2}{2mr^2} - \frac{\alpha}{r^n}.
+\end{equation*}
+Since $n > 2$, the centrifugal term dominates at large $r$ and the attractive term dominates at small $r$. Thus $U_{\text{eff}} \to 0^+$ as $r \to \infty$, $U_{\text{eff}} \to -\infty$ as $r \to 0$, and $U_{\text{eff}}$ has a maximum at some $r_b$, given by
+\begin{equation*}
+    U_{\text{eff}}'(r_b) = -\frac{M^2}{mr_b^3} + \frac{n\alpha}{r_b^{n+1}} = 0 \Rightarrow \frac{M^2}{m} = \frac{n\alpha}{r_b^{n-2}}.
+\end{equation*}
+This barrier analysis assumes $M \neq 0$. A head-on particle ($\rho = 0$) has no centrifugal barrier: $U_{\text{eff}} = -\alpha/r^n$ is monotonic, and the particle falls to the centre.
+The height of this barrier is
+\begin{equation*}
+    U_{\text{eff}}(r_b) = \frac{n\alpha}{2r_b^n} - \frac{\alpha}{r_b^n} = \frac{(n-2)\alpha}{2r_b^n}.
+\end{equation*}
+If $E$ is smaller than the barrier height, the particle reaches a turning point outside the barrier and goes back to infinity. If $E$ exceeds the barrier height, then $E - U_{\text{eff}} > 0$ for all $r$, so the particle has no radial turning point and falls to the centre. Since the barrier height increases with $M$, the capture occurs for $\rho < \rho_{max}$, where $\rho_{max}$ is the impact parameter for which $E$ is equal to the barrier height. In this limiting case, the incoming particle approaches asymptotically the unstable circular orbit $r = r_b$. Indeed, at $r = r_b$ both $E - U_{\text{eff}}$ and $U_{\text{eff}}'$ vanish, so $r_b$ is a point of (unstable) equilibrium of the radial motion. Near it, $\frac{1}{2}m\dot{r}^2 = E - U_{\text{eff}} \propto (r - r_b)^2$, so the time $\int \mathrm{d}r/|\dot{r}| \propto \int \mathrm{d}r/|r - r_b|$ needed to reach $r_b$ diverges logarithmically. In contrast with the last problem, the critical particle therefore never reaches the centre. This single value of $\rho$ does not affect the cross-section.
+
+Denote by $r_c$ the position of the maximum at the critical impact parameter. The condition $E = U_{\text{eff}}(r_c)$ gives
+\begin{equation*}
+    \frac{1}{2}mv_\infty^2 = \frac{(n-2)\alpha}{2r_c^n} \Rightarrow r_c^n = \frac{(n-2)\alpha}{mv_\infty^2}.
+\end{equation*}
+Using $M = mv_\infty\rho_{max}$ in the condition for the maximum, we find
+\begin{align*}
+    \rho_{max}^2 &= \frac{M^2}{m^2v_\infty^2} = \frac{n\alpha}{mv_\infty^2 r_c^{n-2}} \\
+    &= \frac{n}{n-2}\frac{r_c^n}{r_c^{n-2}} = \frac{n}{n-2}r_c^2,
+\end{align*}
+where we used $\alpha/(mv_\infty^2) = r_c^n/(n-2)$ in the second line.
+The effective cross-section is obtained by summing the areas of all the annuli of the incident beam that lead to a fall,
+\begin{equation*}
+    \sigma = \int_0^{\rho_{max}} 2\pi\rho\,\mathrm{d}\rho = \pi\rho_{max}^2 = \frac{\pi n}{n-2}r_c^2.
+\end{equation*}
+We thus get
+}
+{
+\begin{equation*}
+    \sigma = \frac{\pi n}{n-2}\left( \frac{(n-2)\alpha}{mv_\infty^2} \right)^{2/n} = \frac{\pi n}{n-2}\left( \frac{(n-2)\alpha}{2E} \right)^{2/n}
+\end{equation*}
+}
+\end{problem}
+
+% ============ Problem 10 ============ %
+
+\begin{problem}
+{
+Determine the effective cross-section for particles of mass $m_1$ to strike a sphere of mass $m_2$ and radius $R$ to which they are attracted in accordance with Newton's law.
+}
+{
+We consider the relative motion of the particle and the sphere, with $r$ the distance between their centres. This is equivalent to the motion of a single particle of reduced mass
+\begin{equation*}
+    m = \frac{m_1m_2}{m_1+m_2}
+\end{equation*}
+in the field
+\begin{equation*}
+    U(r) = -\frac{\gamma m_1m_2}{r},
+\end{equation*}
+where $\gamma$ is the gravitational constant. Let $v_\infty$ be the relative velocity at infinity and $\rho$ the impact parameter. The energy and angular momentum of the relative motion are
+\begin{equation*}
+    E = \frac{1}{2}mv_\infty^2, \qquad M = mv_\infty\rho,
+\end{equation*}
+and the radial motion is governed by the energy equation
+\begin{equation*}
+    \frac{1}{2}m\dot{r}^2 + \frac{M^2}{2mr^2} - \frac{\gamma m_1m_2}{r} = E.
+\end{equation*}
+The distance of closest approach decreases as $\rho$ decreases, so the particle strikes the sphere if $\rho \leq \rho_{max}$, where $\rho_{max}$ corresponds to the limiting trajectory which grazes the sphere. For this trajectory, $\dot{r} = 0$ at $r = R$. Substituting $M = mv_\infty\rho_{max}$, we have
+\begin{equation*}
+    \frac{mv_\infty^2\rho_{max}^2}{2R^2} - \frac{\gamma m_1m_2}{R} = \frac{1}{2}mv_\infty^2.
+\end{equation*}
+Multiplying by $2R^2/(mv_\infty^2)$ and using $m_1m_2/m = m_1 + m_2$,
+\begin{align*}
+    \rho_{max}^2 &= R^2\left( 1 + \frac{2\gamma m_1m_2}{mRv_\infty^2} \right) \\
+    &= R^2\left( 1 + \frac{2\gamma(m_1+m_2)}{Rv_\infty^2} \right).
+\end{align*}
+The effective cross-section is obtained by summing the areas of all the annuli of the incident beam that lead to a collision with the sphere,
+\begin{equation*}
+    \sigma = \int_0^{\rho_{max}} 2\pi\rho\,\mathrm{d}\rho = \pi\rho_{max}^2 = \pi R^2\left( 1 + \frac{2\gamma(m_1+m_2)}{Rv_\infty^2} \right).
+\end{equation*}
+The second term describes the gravitational focusing of the trajectories towards the sphere. In the high-speed limit $v_\infty^2 \gg \gamma(m_1+m_2)/R$, it becomes negligible and we recover the geometric cross-section $\sigma = \pi R^2$. As in the book, we assume $m_2 \gg m_1$, so that $m_1+m_2 \simeq m_2$. We thus get
+}
+{
+\begin{equation*}
+    \sigma \simeq \pi R^2\left( 1 + \frac{2\gamma m_2}{Rv_\infty^2} \right)
+\end{equation*}
+}
+\end{problem}
+
+% ============ Problem 11 ============ %
+
+\begin{problem}
+{
+Deduce the form of a scattering field $U(r)$, given the effective cross-section as a function of the angle of scattering for a given energy $E$. It is assumed that $U(r)$ decreases monotonically with $r$ (a repulsive field), with $U(0) > E$ and $U(\infty) = 0$.
+}
+{
+Let $\mathrm{d}\sigma/\mathrm{d}\theta$ be the effective cross-section per unit scattering angle, \ie already integrated over the azimuth. In terms of the cross-section per unit solid angle, since $\mathrm{d}o = 2\pi\sin{\theta}\,\mathrm{d}\theta$,
+\begin{equation*}
+    \frac{\mathrm{d}\sigma}{\mathrm{d}\theta} = 2\pi\sin{\theta}\,\frac{\mathrm{d}\sigma}{\mathrm{d}o}.
+\end{equation*}
+As in the book, we assume that the relation between $\rho$ and $\chi$ is one-to-one, with $\chi$ decreasing monotonically from $\pi$ (head-on collision, $\rho = 0$) to $0$ (no deflection, $\rho = \infty$). Note that this is an additional assumption: the monotonicity of $U$ alone does not guarantee it. The particles scattered through angles between $\chi$ and $\pi$ are then exactly those with impact parameters smaller than $\rho(\chi)$, so they fill a disc of area $\pi\rho^2$ in the incident beam, and
+\begin{equation*}
+    \pi\rho^2(\chi) = \int_\chi^\pi \frac{\mathrm{d}\sigma}{\mathrm{d}\theta}\,\mathrm{d}\theta.
+\end{equation*}
+Knowing the cross-section, this integral gives $\rho(\chi)$, which we invert to get the scattering angle $\chi(\rho)$ as a function of the impact parameter. The problem is thus reduced to finding $U(r)$ from $\chi(\rho)$.
+
+The scattering angle in a central field is given by
+\begin{equation*}
+    \chi = \pi - 2\int_{r_{min}}^\infty \frac{\rho\,\mathrm{d}r}{r^2\sqrt{1 - \frac{\rho^2}{r^2} - \frac{U(r)}{E}}}.
+\end{equation*}
+We now introduce the variables
+\begin{equation*}
+    s = \frac{1}{r}, \qquad x = \frac{1}{\rho^2}, \qquad w(s) = \sqrt{1 - \frac{U(1/s)}{E}},
+\end{equation*}
+and write $\widehat{\chi}(x) = \chi(x^{-1/2})$ for the same scattering angle expressed in terms of $x$. Since $\mathrm{d}r = -\mathrm{d}s/s^2$, we have $\rho\,\mathrm{d}r/r^2 = -\rho\,\mathrm{d}s$. When $r$ goes from $r_{min}$ to $\infty$, $s$ goes from $s_0 = 1/r_{min}$ to $0$, and the minus sign is absorbed by reversing the limits. Thus
+\begin{equation*}
+    \frac{\pi - \widehat{\chi}(x)}{2} = \int_0^{s_0} \frac{\rho\,\mathrm{d}s}{\sqrt{w^2(s) - \rho^2s^2}} = \int_0^{s_0(x)} \frac{\mathrm{d}s}{\sqrt{xw^2(s) - s^2}},
+\end{equation*}
+where we divided the numerator and the denominator by $\rho = x^{-1/2}$. The turning point $s_0(x)$ is the zero of the radicand,
+\begin{equation*}
+    xw^2(s_0) - s_0^2 = 0.
+\end{equation*}
+Since $U$ decreases with $r$, it increases with $s$, so $w(s)$ decreases and $s/w(s)$ increases with $s$. The radicand is therefore positive for $0 \leq s < s_0(x)$, and the condition $s < s_0(x)$ is equivalent to $x > s^2/w^2(s)$.
+
+This is an integral equation of Abel's type, which we solve as follows. Let $A$ be an auxiliary parameter (denoted $\alpha$ in the book). We divide both sides by $\sqrt{A - x}$ and integrate over $x$ from $0$ to $A$,
+\begin{equation*}
+    \frac{1}{2}\int_0^A \frac{\pi - \widehat{\chi}(x)}{\sqrt{A - x}}\,\mathrm{d}x = \int_0^A \int_0^{s_0(x)} \frac{\mathrm{d}s\,\mathrm{d}x}{\sqrt{\left( xw^2(s) - s^2 \right)(A - x)}}.
+\end{equation*}
+The domain of integration on the right is $0 < x < A$, $0 < s < s_0(x)$. From the previous remark, it can equally be described by $0 < s < s_0(A)$ and $s^2/w^2(s) < x < A$. Reversing the order of integration and writing $xw^2 - s^2 = w^2(x - s^2/w^2)$, we get
+\begin{equation*}
+    \frac{1}{2}\int_0^A \frac{\pi - \widehat{\chi}(x)}{\sqrt{A - x}}\,\mathrm{d}x = \int_0^{s_0(A)} \frac{\mathrm{d}s}{w(s)} \int_{s^2/w^2(s)}^A \frac{\mathrm{d}x}{\sqrt{\left( x - s^2/w^2(s) \right)(A - x)}}.
+\end{equation*}
+For the inner integral, let $a = s^2/w^2$ and substitute $x = a + (A - a)\sin^2{\varphi}$, so that $\mathrm{d}x = 2(A - a)\sin{\varphi}\cos{\varphi}\,\mathrm{d}\varphi$ and $\sqrt{(x - a)(A - x)} = (A - a)\sin{\varphi}\cos{\varphi}$. Then
+\begin{equation*}
+    \int_a^A \frac{\mathrm{d}x}{\sqrt{(x - a)(A - x)}} = \int_0^{\pi/2} 2\,\mathrm{d}\varphi = \pi,
+\end{equation*}
+independently of $a$ and $A$. Hence
+\begin{equation*}
+    \frac{1}{2}\int_0^A \frac{\pi - \widehat{\chi}(x)}{\sqrt{A - x}}\,\mathrm{d}x = \pi\int_0^{s_0(A)} \frac{\mathrm{d}s}{w(s)}.
+\end{equation*}
+On the left, the first term gives $\frac{1}{2}\pi\int_0^A (A - x)^{-1/2}\,\mathrm{d}x = \pi\sqrt{A}$. For the second term, we integrate by parts with $\mathrm{d}x/\sqrt{A - x} = -\mathrm{d}\left( 2\sqrt{A - x} \right)$,
+\begin{align*}
+    \int_0^A \frac{\widehat{\chi}(x)\,\mathrm{d}x}{\sqrt{A - x}} &= \left[ -2\widehat{\chi}(x)\sqrt{A - x} \right]_0^A + 2\int_0^A \widehat{\chi}'(x)\sqrt{A - x}\,\mathrm{d}x \\
+    &= 2\int_0^A \widehat{\chi}'(x)\sqrt{A - x}\,\mathrm{d}x,
+\end{align*}
+since the boundary term vanishes at $x = A$ and $\widehat{\chi}(0) = 0$ (a particle with infinite impact parameter is not deflected). Therefore
+\begin{equation*}
+    \pi\sqrt{A} - \int_0^A \widehat{\chi}'(x)\sqrt{A - x}\,\mathrm{d}x = \pi\int_0^{s_0(A)} \frac{\mathrm{d}s}{w(s)}.
+\end{equation*}
+We differentiate this with respect to $A$. The integrand on the left vanishes at the upper limit $x = A$, so only the derivative of $\sqrt{A - x}$ contributes,
+\begin{equation*}
+    \frac{\pi}{2\sqrt{A}} - \frac{1}{2}\int_0^A \frac{\widehat{\chi}'(x)\,\mathrm{d}x}{\sqrt{A - x}} = \frac{\pi}{w(s_0)}\frac{\mathrm{d}s_0}{\mathrm{d}A}.
+\end{equation*}
+This holds for every $A$. Since $A$ and $s_0$ are related by $Aw^2(s_0) = s_0^2$, we may instead take $s_0$ as the independent variable, rename it $s$, and put $A = s^2/w^2$ with $w = w(s)$. Multiplying by $\mathrm{d}A = 2(s/w)\,\mathrm{d}(s/w)$ and using $\sqrt{A} = s/w$, we get
+\begin{equation*}
+    \pi\,\mathrm{d}\left( \frac{s}{w} \right) - \frac{s}{w}\,\mathrm{d}\left( \frac{s}{w} \right) \int_0^{s^2/w^2} \frac{\widehat{\chi}'(x)\,\mathrm{d}x}{\sqrt{s^2/w^2 - x}} = \frac{\pi\,\mathrm{d}s}{w}.
+\end{equation*}
+Since
+\begin{equation*}
+    \pi\,\mathrm{d}\left( \frac{s}{w} \right) - \frac{\pi\,\mathrm{d}s}{w} = -\frac{\pi s\,\mathrm{d}w}{w^2} = \frac{s}{w}\left( -\pi\,\mathrm{d}\log{w} \right),
+\end{equation*}
+dividing by $s/w$ gives
+\begin{equation*}
+    -\pi\,\mathrm{d}\log{w} = \mathrm{d}\left( \frac{s}{w} \right) \int_0^{s^2/w^2} \frac{\widehat{\chi}'(x)\,\mathrm{d}x}{\sqrt{s^2/w^2 - x}}.
+\end{equation*}
+Let $h = s/w$, which increases from $0$ with $s$. At $s = 0$ (\ie $r = \infty$), $U = 0$ and $w = 1$, so $\log{w} = 0$. Integrating from $s = 0$, and calling $\eta$ the variable of integration for $h$,
+\begin{equation*}
+    -\pi\log{w} = \int_0^h \mathrm{d}\eta \int_0^{\eta^2} \frac{\widehat{\chi}'(x)\,\mathrm{d}x}{\sqrt{\eta^2 - x}}.
+\end{equation*}
+The domain $0 < \eta < h$, $0 < x < \eta^2$ is also $0 < x < h^2$, $\sqrt{x} < \eta < h$. Interchanging the integrations,
+\begin{equation*}
+    -\pi\log{w} = \int_0^{h^2} \widehat{\chi}'(x) \left[ \int_{\sqrt{x}}^h \frac{\mathrm{d}\eta}{\sqrt{\eta^2 - x}} \right] \mathrm{d}x = \int_0^{h^2} \widehat{\chi}'(x) \operatorname{arcosh}\left( \frac{h}{\sqrt{x}} \right) \mathrm{d}x,
+\end{equation*}
+where we used $\int \mathrm{d}\eta/\sqrt{\eta^2 - x} = \operatorname{arcosh}(\eta/\sqrt{x})$ and $\operatorname{arcosh}{1} = 0$.
+
+We now go back to the variables $r$ and $\rho$. We have $h = 1/(rw)$ and $\sqrt{x} = 1/\rho$, so $h/\sqrt{x} = \rho/(rw)$, and $\widehat{\chi}'(x)\,\mathrm{d}x = \mathrm{d}\chi = (\mathrm{d}\chi/\mathrm{d}\rho)\,\mathrm{d}\rho$. The limit $x = 0$ corresponds to $\rho = \infty$ and $x = h^2$ to $\rho = rw$. Hence
+\begin{equation*}
+    -\pi\log{w} = \int_\infty^{rw} \operatorname{arcosh}\left( \frac{\rho}{rw} \right)\frac{\mathrm{d}\chi}{\mathrm{d}\rho}\,\mathrm{d}\rho = -\int_{rw}^\infty \operatorname{arcosh}\left( \frac{\rho}{rw} \right)\frac{\mathrm{d}\chi}{\mathrm{d}\rho}\,\mathrm{d}\rho,
+\end{equation*}
+\ie
+\begin{equation*}
+    w(r) = \exp{\left\{ \frac{1}{\pi}\int_{rw(r)}^\infty \operatorname{arcosh}\left( \frac{\rho}{rw(r)} \right)\frac{\mathrm{d}\chi}{\mathrm{d}\rho}\,\mathrm{d}\rho \right\}}.
+\end{equation*}
+With the assumption adopted at the start, that $\chi$ decreases monotonically with $\rho$, we have $\mathrm{d}\chi/\mathrm{d}\rho < 0$. The exponent is then negative and $w < 1$, \ie $U > 0$, as expected for a repulsive field.
+
+To obtain the second form, we integrate by parts in $\rho$, keeping $r$ and $w(r)$ fixed. Since
+\begin{equation*}
+    \frac{\mathrm{d}}{\mathrm{d}\rho}\operatorname{arcosh}\left( \frac{\rho}{rw} \right) = \frac{1}{\sqrt{\rho^2 - r^2w^2}},
+\end{equation*}
+we have
+\begin{align*}
+    \int_{rw}^\infty \operatorname{arcosh}\left( \frac{\rho}{rw} \right)\frac{\mathrm{d}\chi}{\mathrm{d}\rho}\,\mathrm{d}\rho &= \left[ \chi(\rho)\operatorname{arcosh}\left( \frac{\rho}{rw} \right) \right]_{rw}^\infty \\
+    &\quad - \int_{rw}^\infty \frac{\chi(\rho)\,\mathrm{d}\rho}{\sqrt{\rho^2 - r^2w^2}}.
+\end{align*}
+Two conditions on the behaviour of $\chi(\rho)$ at large $\rho$ are needed here. \textbf{(a)} The boundary term vanishes at $\rho = rw$ because $\operatorname{arcosh}{1} = 0$. At $\rho \to \infty$, $\operatorname{arcosh}(\rho/rw) \simeq \log(2\rho/rw)$ grows logarithmically, so the boundary term vanishes there only if $\chi(\rho)\log{\rho} \to 0$. \textbf{(b)} The remaining integral must converge. Its integrand behaves as $\chi(\rho)/\rho$ at large $\rho$, so at infinity its convergence is equivalent to that of $\int^\infty \chi(\rho)\,\mathrm{d}\rho/\rho$. Near the lower limit, the singularity $1/\sqrt{\rho - rw}$ is integrable.
+Condition (a) alone does not guarantee (b): for example, $\chi = 1/(\log{\rho}\,\log\log{\rho})$ satisfies $\chi\log{\rho} \to 0$, but $\int^\infty \chi\,\mathrm{d}\rho/\rho$ diverges. A sufficient condition for both is $\chi(\rho) = O(\rho^{-\varepsilon})$ with some $\varepsilon > 0$: then $\chi\log{\rho} = O(\rho^{-\varepsilon}\log{\rho}) \to 0$, and $\int^\infty \rho^{-1-\varepsilon}\,\mathrm{d}\rho$ converges. For instance, for a field decreasing as $r^{-n}$ at large distances, $\chi \propto \rho^{-n}$ for large $\rho$ (see Problem 15). Under these conditions,
+\begin{equation*}
+    w(r) = \exp{\left\{ -\frac{1}{\pi}\int_{rw(r)}^\infty \frac{\chi(\rho)\,\mathrm{d}\rho}{\sqrt{\rho^2 - r^2w^2(r)}} \right\}}.
+\end{equation*}
+
+Both formulas give $w$ only implicitly, since $w$ also appears in the lower limit. However, the right-hand sides depend on $r$ and $w$ only through the product $rw$. They therefore give $w$ as an explicit function of $rw$, from which $w(r)$ follows, and then
+\begin{equation*}
+    U(r) = E\left[ 1 - w^2(r) \right].
+\end{equation*}
+The derivation covered all $s$ between $0$ and the turning points $s_0$. The smallest distance reached is that of the head-on collision ($\rho = 0$), $r_{min}$, for which $U(r_{min}) = E$ and $w = 0$. The potential is thus determined in the accessible region $r > r_{min}$. The scattering data give no information on the interior region $r < r_{min}$, where $U > E$. In summary, we get
+}
+{
+\begin{gather*}
+    w(r) = \exp{\left\{ \frac{1}{\pi}\int_{rw(r)}^\infty \operatorname{arcosh}\left( \frac{\rho}{rw(r)} \right)\frac{\mathrm{d}\chi}{\mathrm{d}\rho}\,\mathrm{d}\rho \right\}} = \exp{\left\{ -\frac{1}{\pi}\int_{rw(r)}^\infty \frac{\chi(\rho)\,\mathrm{d}\rho}{\sqrt{\rho^2 - r^2w^2(r)}} \right\}}, \\
+    w(r) = \sqrt{1 - \frac{U(r)}{E}}, \qquad U(r) = E\left[ 1 - w^2(r) \right], \qquad r > r_{min}
+\end{gather*}
+}
+\end{problem}
+
+% ============ Problem 12 ============ %
+
+\begin{problem}
+{
+Find the effective cross-section for scattering in a field $U=\alpha/r^2 \left(\alpha >0 \right)$.
+}
+{
+Let the particle of mass $m$ come from infinity with velocity $v_\infty$ and impact parameter $\rho$. It is convenient to introduce the positive length $a$ defined by
+\begin{equation*}
+    a^2 = \frac{2\alpha}{mv_\infty^2}.
+\end{equation*}
+With $U(r) = \alpha/r^2$, we have $2U/(mv_\infty^2) = a^2/r^2$, so the angle between the direction of closest approach and the asymptote of the trajectory is
+\begin{equation*}
+    \phi_0 = \int_{r_{min}}^\infty \frac{\rho\,\mathrm{d}r}{r^2\sqrt{1 - \frac{\rho^2}{r^2} - \frac{a^2}{r^2}}} = \int_{r_{min}}^\infty \frac{\rho\,\mathrm{d}r}{r^2\sqrt{1 - (\rho^2 + a^2)/r^2}}.
+\end{equation*}
+The distance of closest approach is the zero of the radicand,
+\begin{equation*}
+    r_{min} = \sqrt{\rho^2 + a^2}.
+\end{equation*}
+We substitute $u = 1/r$, so that $\mathrm{d}r/r^2 = -\mathrm{d}u$. When $r$ goes from $r_{min}$ to $\infty$, $u$ goes from $1/\sqrt{\rho^2 + a^2}$ to $0$, and the minus sign is absorbed by reversing the limits,
+\begin{align*}
+    \phi_0 &= \rho\int_0^{1/\sqrt{\rho^2 + a^2}} \frac{\mathrm{d}u}{\sqrt{1 - (\rho^2 + a^2)u^2}} \\
+    &= \frac{\rho}{\sqrt{\rho^2 + a^2}}\left[ \arcsin{\left( \sqrt{\rho^2 + a^2}\,u \right)} \right]_0^{1/\sqrt{\rho^2 + a^2}} = \frac{\pi\rho}{2\sqrt{\rho^2 + a^2}}.
+\end{align*}
+The scattering angle is therefore
+\begin{equation*}
+    \chi = \pi - 2\phi_0 = \pi\left( 1 - \frac{\rho}{\sqrt{\rho^2 + a^2}} \right) = \pi\left[ 1 - \left( 1 + \frac{2\alpha}{mv_\infty^2\rho^2} \right)^{-1/2} \right].
+\end{equation*}
+Since $\rho/\sqrt{\rho^2 + a^2}$ increases from $0$ to $1$ as $\rho$ goes from $0$ to $\infty$, $\chi$ decreases monotonically from $\pi$ for a head-on collision to $0$ as $\rho \to \infty$. Thus each angle $0 < \chi < \pi$ corresponds to a single impact parameter, and we can invert this relation. Writing it as
+\begin{equation*}
+    \frac{\rho}{\sqrt{\rho^2 + a^2}} = \frac{\pi - \chi}{\pi},
+\end{equation*}
+and squaring, we get $\pi^2\rho^2 = (\pi - \chi)^2(\rho^2 + a^2)$, \ie
+\begin{equation*}
+    \rho^2\left[ \pi^2 - (\pi - \chi)^2 \right] = a^2(\pi - \chi)^2 \Rightarrow \rho^2 = a^2\frac{(\pi - \chi)^2}{\chi(2\pi - \chi)},
+\end{equation*}
+where we used $\pi^2 - (\pi - \chi)^2 = \chi(2\pi - \chi)$. To differentiate, let $y = \pi - \chi$, so that $\rho^2 = a^2y^2/(\pi^2 - y^2)$ and
+\begin{equation*}
+    \frac{\mathrm{d}(\rho^2)}{\mathrm{d}y} = a^2\frac{2y(\pi^2 - y^2) + 2y^3}{(\pi^2 - y^2)^2} = \frac{2\pi^2a^2y}{(\pi^2 - y^2)^2}.
+\end{equation*}
+Since $\mathrm{d}y = -\mathrm{d}\chi$,
+\begin{equation*}
+    \frac{\mathrm{d}(\rho^2)}{\mathrm{d}\chi} = -\frac{2\pi^2a^2(\pi - \chi)}{\chi^2(2\pi - \chi)^2}.
+\end{equation*}
+The particles scattered into the range $\mathrm{d}\chi$ are those passing through an annulus of radius $\rho$ and width $|\mathrm{d}\rho|$ in the incident beam, so
+\begin{equation*}
+    \mathrm{d}\sigma = 2\pi\rho\left| \frac{\mathrm{d}\rho}{\mathrm{d}\chi} \right|\mathrm{d}\chi = \pi\left| \frac{\mathrm{d}(\rho^2)}{\mathrm{d}\chi} \right|\mathrm{d}\chi.
+\end{equation*}
+In terms of the element of solid angle $\mathrm{d}o = 2\pi\sin{\chi}\,\mathrm{d}\chi$, this becomes
+\begin{equation*}
+    \mathrm{d}\sigma = \frac{1}{2\sin{\chi}}\left| \frac{\mathrm{d}(\rho^2)}{\mathrm{d}\chi} \right|\mathrm{d}o = \pi^2a^2\frac{\pi - \chi}{\chi^2(2\pi - \chi)^2}\frac{\mathrm{d}o}{\sin{\chi}}.
+\end{equation*}
+This is a differential cross-section. Its integral over all angles diverges at $\chi = 0$, since particles with arbitrarily large impact parameters are still deflected, by arbitrarily small angles. As a check, for $\rho \gg a$ we have $\rho/\sqrt{\rho^2 + a^2} \simeq 1 - a^2/(2\rho^2)$, hence
+\begin{equation*}
+    \chi \simeq \frac{\pi a^2}{2\rho^2} = \frac{\pi\alpha}{mv_\infty^2\rho^2}, \qquad \frac{\mathrm{d}\sigma}{\mathrm{d}o} \simeq \pi^2a^2\frac{\pi}{4\pi^2\chi^3} = \frac{\pi\alpha}{2mv_\infty^2\chi^3}.
+\end{equation*}
+The same small-angle result follows directly from $\rho^2 \simeq \pi\alpha/(mv_\infty^2\chi)$, which gives $\mathrm{d}\sigma = \pi|\mathrm{d}(\rho^2)/\mathrm{d}\chi|\,\mathrm{d}\chi = \pi^2\alpha\,\mathrm{d}\chi/(mv_\infty^2\chi^2)$ with $\mathrm{d}o \simeq 2\pi\chi\,\mathrm{d}\chi$. Substituting $a^2$, we thus get
+}
+{
+\begin{gather*}
+    \chi = \pi\left[ 1 - \left( 1 + \frac{2\alpha}{mv_\infty^2\rho^2} \right)^{-1/2} \right], \\
+    \mathrm{d}\sigma = \frac{2\pi^2\alpha}{mv_\infty^2}\frac{\pi - \chi}{\chi^2(2\pi - \chi)^2}\frac{\mathrm{d}o}{\sin{\chi}}, \qquad 0 < \chi < \pi
+\end{gather*}
+}
+\end{problem}
+
+% ============ Problem 13 ============ %
+
+\begin{problem}
+{
+Find the effective cross-section for scattering by a spherical ``potential well" of radius $a$ and ``depth" $U_0$, \ie in the field
+\begin{equation*}
+    U(r) = \begin{cases}
+        -U_0, & r < a, \\
+        0, & r > a,
+    \end{cases}
+    \qquad U_0 > 0.
+\end{equation*}
+}
+{
+Let $m$ be the mass of the particle and $v_\infty$ its velocity at infinity. Since $U$ is constant outside the sphere, the particle moves with the constant velocity $v_\infty$ until it reaches $r = a$. Inside the well, $U$ is again constant, so the particle moves with a constant velocity $v_{\mathrm{in}}$ given by the conservation of energy,
+\begin{equation*}
+    \frac{1}{2}mv_{\mathrm{in}}^2 - U_0 = \frac{1}{2}mv_\infty^2.
+\end{equation*}
+As in the book, we define the ratio
+\begin{equation*}
+    n = \frac{v_{\mathrm{in}}}{v_\infty} = \sqrt{1 + \frac{2U_0}{mv_\infty^2}} > 1.
+\end{equation*}
+The trajectory is therefore made of straight segments, and its direction changes only at the boundary $r = a$, where the particle receives an impulse directed along the radius. This is analogous to the refraction of a light ray by a sphere with refractive index $n$.
+
+The geometry of the path is shown in Fig. 21 of the book. Let $\alpha$ be the angle of incidence and $\beta$ the angle of refraction, both measured from the normal to the sphere (\ie the radius) at the point of entry. At $r = a$, the angular momentum is conserved (the force is radial), so the component of the velocity perpendicular to the radius is the same on both sides,
+\begin{equation*}
+    mv_\infty a\sin{\alpha} = mv_{\mathrm{in}}a\sin{\beta} \Rightarrow \frac{\sin{\alpha}}{\sin{\beta}} = n.
+\end{equation*}
+Particles with $\rho > a$ do not touch the sphere and are not deflected. For $\rho < a$, the impact parameter is the distance from the centre to the incident line, so
+\begin{equation*}
+    \rho = a\sin{\alpha}.
+\end{equation*}
+At the entry, the direction of motion turns towards the centre by an angle $\alpha - \beta$. Inside the sphere, the particle moves along a chord, which makes the same angle $\beta$ with the radii at both of its ends. By the symmetry of the path with respect to the radius bisecting this chord, the particle leaves the sphere at the angle $\alpha$ with the normal and is again deflected by $\alpha - \beta$ in the same sense. The total angle of deflection is thus
+\begin{equation*}
+    \chi = 2(\alpha - \beta).
+\end{equation*}
+To express $\rho$ in terms of $\chi$, let $q = \chi/2$, so that $\beta = \alpha - q$. The law of refraction becomes
+\begin{equation*}
+    \sin(\alpha - q) = \sin{\alpha}\cos{q} - \cos{\alpha}\sin{q} = \frac{\sin{\alpha}}{n}.
+\end{equation*}
+Dividing by $\sin{\alpha}$,
+\begin{equation*}
+    \cos{q} - \cot{\alpha}\sin{q} = \frac{1}{n} \Rightarrow \cot{\alpha} = \frac{n\cos{q} - 1}{n\sin{q}}.
+\end{equation*}
+Using $\sin^2{\alpha} = 1/(1 + \cot^2{\alpha})$, we get
+\begin{equation*}
+    \sin^2{\alpha} = \frac{n^2\sin^2{q}}{n^2\sin^2{q} + (n\cos{q} - 1)^2} = \frac{n^2\sin^2{q}}{n^2 + 1 - 2n\cos{q}},
+\end{equation*}
+since $n^2\sin^2{q} + n^2\cos^2{q} - 2n\cos{q} + 1 = n^2 + 1 - 2n\cos{q}$. Therefore
+\begin{equation*}
+    \rho^2 = a^2\sin^2{\alpha} = \frac{a^2n^2\sin^2(\chi/2)}{n^2 + 1 - 2n\cos(\chi/2)}.
+\end{equation*}
+Let $D = n^2 + 1 - 2n\cos{q}$, so that $\mathrm{d}D/\mathrm{d}q = 2n\sin{q}$. Since $\mathrm{d}q/\mathrm{d}\chi = 1/2$, the quotient rule gives
+\begin{equation*}
+    \frac{\mathrm{d}(\rho^2)}{\mathrm{d}\chi} = \frac{a^2n^2}{2}\frac{2\sin{q}\cos{q}\,D - \sin^2{q}\cdot 2n\sin{q}}{D^2} = \frac{a^2n^2\sin{q}\left[ \cos{q}\,D - n\sin^2{q} \right]}{D^2}.
+\end{equation*}
+The bracket factorizes as
+\begin{align*}
+    \cos{q}\,D - n\sin^2{q} &= n^2\cos{q} + \cos{q} - 2n\cos^2{q} - n + n\cos^2{q} \\
+    &= n^2\cos{q} - n\cos^2{q} - n + \cos{q} \\
+    &= (n\cos{q} - 1)(n - \cos{q}).
+\end{align*}
+We now check that $\chi$ increases with $\rho$. As $\rho$ increases from $0$ to $a$, $\alpha$ increases from $0$ to $\pi/2$, and since $\sin{\beta} = \sin{\alpha}/n$,
+\begin{equation*}
+    \frac{\mathrm{d}\chi}{\mathrm{d}\alpha} = 2\left( 1 - \frac{\mathrm{d}\beta}{\mathrm{d}\alpha} \right) = 2\left( 1 - \frac{\cos{\alpha}}{n\cos{\beta}} \right) = 2\left( 1 - \frac{\cos{\alpha}}{\sqrt{n^2 - \sin^2{\alpha}}} \right) > 0,
+\end{equation*}
+because $n^2 - \sin^2{\alpha} > 1 - \sin^2{\alpha} = \cos^2{\alpha}$. The relation between $\rho$ and $\chi$ is thus one-to-one, and $\mathrm{d}(\rho^2)/\mathrm{d}\chi > 0$. The particles deflected into the range $\mathrm{d}\chi$ pass through an annulus of area
+\begin{equation*}
+    \mathrm{d}\sigma = \pi\frac{\mathrm{d}(\rho^2)}{\mathrm{d}\chi}\,\mathrm{d}\chi = \frac{1}{2\sin{\chi}}\frac{\mathrm{d}(\rho^2)}{\mathrm{d}\chi}\,\mathrm{d}o,
+\end{equation*}
+where we used $\mathrm{d}o = 2\pi\sin{\chi}\,\mathrm{d}\chi$. With $\sin{\chi} = 2\sin{q}\cos{q}$, the factor $\sin{q}$ cancels, and
+\begin{equation*}
+    \mathrm{d}\sigma = \frac{a^2n^2(n\cos{q} - 1)(n - \cos{q})}{4\cos{q}\,D^2}\,\mathrm{d}o.
+\end{equation*}
+
+Let us find the range of $\chi$. For $\rho = 0$, the particle crosses the sphere along a diameter, so $\alpha = \beta = 0$ and $\chi = 0$. As $\rho \to a$ from below, the particle grazes the sphere, with
+\begin{equation*}
+    \alpha \to \frac{\pi}{2}, \qquad \beta \to \arcsin{\frac{1}{n}}.
+\end{equation*}
+Hence
+\begin{equation*}
+    \chi_{max} = 2\left( \frac{\pi}{2} - \arcsin{\frac{1}{n}} \right) = 2\arccos{\frac{1}{n}}, \qquad \cos{\frac{\chi_{max}}{2}} = \frac{1}{n}.
+\end{equation*}
+The formula for $\mathrm{d}\sigma$ applies for $0 < \chi < \chi_{max}$. Accordingly, the factor $n\cos(\chi/2) - 1$ is positive in this range and vanishes at $\chi = \chi_{max}$. Particles with $\rho > a$ are not deflected and do not contribute to the scattering.
+
+Finally, the total cross-section for scattering is obtained directly from the area of the annuli,
+\begin{equation*}
+    \sigma = \int_0^{\chi_{max}} \mathrm{d}\sigma = \pi\left[ \rho^2(\chi_{max}) - \rho^2(0) \right].
+\end{equation*}
+At $\chi = \chi_{max}$, $\cos{q} = 1/n$, so $\sin^2{q} = (n^2 - 1)/n^2$ and $D = n^2 - 1$, which gives $\rho^2(\chi_{max}) = a^2$. Since $\rho^2(0) = 0$, $\sigma = \pi a^2$. This is simply the cross-sectional area of the sphere: every particle which hits the sphere is deflected. We thus get
+}
+{
+\begin{gather*}
+    \mathrm{d}\sigma = \frac{a^2n^2\left[ n\cos(\chi/2) - 1 \right]\left[ n - \cos(\chi/2) \right]}{4\cos(\chi/2)\left[ n^2 + 1 - 2n\cos(\chi/2) \right]^2}\,\mathrm{d}o, \qquad n = \sqrt{1 + \frac{2U_0}{mv_\infty^2}}, \\
+    0 < \chi < \chi_{max} = 2\arccos{\frac{1}{n}}, \qquad \sigma = \pi a^2
+\end{gather*}
+}
+\end{problem}
+
+% ============ Problem 14 ============ %
+
+\begin{problem}
+{
+Derive formula (20.3) from (18.4).
+}
+{
+Consider the relative motion, with reduced mass $m$ and relative velocity at infinity $v_\infty$. Formula (18.4) of the book gives
+\begin{equation*}
+    \phi_0 = \int_{r_{min}}^\infty \frac{\rho\,\mathrm{d}r}{r^2\sqrt{1 - \frac{\rho^2}{r^2} - \frac{2U(r)}{mv_\infty^2}}}, \qquad \chi = \pi - 2\phi_0.
+\end{equation*}
+For a weak field, it is tempting to expand the integrand in powers of $U$. However, the integrand behaves as $1/\sqrt{r - r_{min}}$ near the turning point. Expanding it gives terms like $U/(1 - \rho^2/r^2)^{3/2}$, which are not integrable at $r = \rho$. These divergences are spurious: they only come from expanding near the point where the radicand vanishes.
+
+To avoid this, we write $\phi_0$ as the derivative of an integral whose integrand vanishes at the turning point. Since this integral does not converge at infinity, we first introduce a finite upper limit $R$,
+\begin{equation*}
+    J_R(\rho) = \int_{r_{min}}^R \sqrt{1 - \frac{\rho^2}{r^2} - \frac{2U(r)}{mv_\infty^2}}\,\mathrm{d}r.
+\end{equation*}
+We differentiate with respect to $\rho$ at fixed $R$. The lower limit $r_{min}$ depends on $\rho$, but its contribution is the integrand at $r = r_{min}$ times $\mathrm{d}r_{min}/\mathrm{d}\rho$, which vanishes since the square root is zero there. Hence
+\begin{equation*}
+    \frac{\partial J_R}{\partial\rho} = -\int_{r_{min}}^R \frac{\rho\,\mathrm{d}r}{r^2\sqrt{1 - \frac{\rho^2}{r^2} - \frac{2U(r)}{mv_\infty^2}}} \Rightarrow \phi_{0,R} = -\frac{\partial J_R}{\partial\rho},
+\end{equation*}
+where $\phi_{0,R}$ is the integral (18.4) cut off at $r = R$. We keep $R$ finite until after the differentiation, since $J_R$ itself grows like $R$ and has no limit as $R \to \infty$.
+
+We now expand $J_R$ to first order in $U$. Pointwise,
+\begin{equation*}
+    \sqrt{1 - \frac{\rho^2}{r^2} - \frac{2U}{mv_\infty^2}} \simeq \sqrt{1 - \frac{\rho^2}{r^2}} - \frac{U}{mv_\infty^2\sqrt{1 - \rho^2/r^2}} = \sqrt{1 - \frac{\rho^2}{r^2}} - \frac{1}{mv_\infty^2}\frac{U(r)\,r}{\sqrt{r^2 - \rho^2}}.
+\end{equation*}
+This expansion is not uniform near the turning point, but it can be integrated. To see why, regard $J_R$ as a function of the strength of the field. Its first-order variation contains a term from the shift of the lower limit, from $\rho$ (the turning point when $U = 0$) to $r_{min}$. This term is proportional to the unperturbed integrand at its lower endpoint, which vanishes. The other term is the integral of the first-order variation of the integrand, which has only an integrable singularity $1/\sqrt{r - \rho}$. To first order, we can therefore take the lower limit at $\rho$,
+\begin{equation*}
+    J_R \simeq \int_\rho^R \sqrt{1 - \frac{\rho^2}{r^2}}\,\mathrm{d}r - \frac{1}{mv_\infty^2}\int_\rho^R \frac{U(r)\,r\,\mathrm{d}r}{\sqrt{r^2 - \rho^2}} = \int_\rho^R \sqrt{1 - \frac{\rho^2}{r^2}}\,\mathrm{d}r - \frac{K_R(\rho)}{mv_\infty^2},
+\end{equation*}
+where
+\begin{equation*}
+    K_R(\rho) = \int_\rho^R \frac{U(r)\,r\,\mathrm{d}r}{\sqrt{r^2 - \rho^2}}.
+\end{equation*}
+The free term can be integrated directly,
+\begin{equation*}
+    \int_\rho^R \sqrt{1 - \frac{\rho^2}{r^2}}\,\mathrm{d}r = \int_\rho^R \frac{\sqrt{r^2 - \rho^2}}{r}\,\mathrm{d}r = \left[ \sqrt{r^2 - \rho^2} - \rho\arccos{\frac{\rho}{r}} \right]_\rho^R = \sqrt{R^2 - \rho^2} - \rho\arccos{\frac{\rho}{R}},
+\end{equation*}
+as can be checked by differentiating the bracket with respect to $r$,
+\begin{equation*}
+    \frac{r}{\sqrt{r^2 - \rho^2}} - \frac{\rho^2}{r\sqrt{r^2 - \rho^2}} = \frac{\sqrt{r^2 - \rho^2}}{r}.
+\end{equation*}
+Its derivative with respect to $\rho$ is
+\begin{equation*}
+    \frac{\partial}{\partial\rho}\left( \sqrt{R^2 - \rho^2} - \rho\arccos{\frac{\rho}{R}} \right) = -\frac{\rho}{\sqrt{R^2 - \rho^2}} - \arccos{\frac{\rho}{R}} + \frac{\rho}{\sqrt{R^2 - \rho^2}} = -\arccos{\frac{\rho}{R}}.
+\end{equation*}
+Consequently,
+\begin{equation*}
+    \phi_{0,R} \simeq \arccos{\frac{\rho}{R}} + \frac{1}{mv_\infty^2}\frac{\partial K_R}{\partial\rho}.
+\end{equation*}
+We cannot differentiate $K_R$ directly under the integral sign, because its integrand is singular at the lower limit $r = \rho$. We therefore integrate by parts first, using
+\begin{equation*}
+    \frac{r\,\mathrm{d}r}{\sqrt{r^2 - \rho^2}} = \mathrm{d}\sqrt{r^2 - \rho^2},
+\end{equation*}
+which gives
+\begin{equation*}
+    K_R = \left[ U(r)\sqrt{r^2 - \rho^2} \right]_\rho^R - \int_\rho^R U'(r)\sqrt{r^2 - \rho^2}\,\mathrm{d}r = U(R)\sqrt{R^2 - \rho^2} - \int_\rho^R U'(r)\sqrt{r^2 - \rho^2}\,\mathrm{d}r.
+\end{equation*}
+The boundary term at $r = \rho$ vanishes since $\sqrt{r^2 - \rho^2} = 0$ there. The new integrand is finite at $r = \rho$, and it vanishes there. Hence, when we differentiate with respect to $\rho$, the variation of the lower limit again gives no contribution, and
+\begin{equation*}
+    \frac{\partial K_R}{\partial\rho} = -\frac{\rho U(R)}{\sqrt{R^2 - \rho^2}} + \rho\int_\rho^R \frac{U'(r)\,\mathrm{d}r}{\sqrt{r^2 - \rho^2}}.
+\end{equation*}
+Now we take $R \to \infty$. Then $\arccos(\rho/R) \to \pi/2$, and the first term vanishes since $U(R) \to 0$ and $\rho/\sqrt{R^2 - \rho^2} \to 0$. Assuming the remaining integral converges (\ie the force decreases fast enough), we get
+\begin{equation*}
+    \phi_0 \simeq \frac{\pi}{2} + \frac{\rho}{mv_\infty^2}\int_\rho^\infty \frac{U'(r)\,\mathrm{d}r}{\sqrt{r^2 - \rho^2}},
+\end{equation*}
+and therefore
+\begin{equation*}
+    \chi = \pi - 2\phi_0 \simeq -\frac{2\rho}{mv_\infty^2}\int_\rho^\infty \frac{U'(r)\,\mathrm{d}r}{\sqrt{r^2 - \rho^2}}.
+\end{equation*}
+For a repulsive field, $U' < 0$ and $\chi > 0$, as it should be. This result is valid only if the deflection is small, \ie if the field is weak along the whole path ($|U| \ll \frac{1}{2}mv_\infty^2$ for $r \gtrsim \rho$). Under this condition, the first-order expansion is justified.
+
+The angle $\chi$ is the scattering angle in the centre-of-mass system. Formula (20.3) gives instead $\theta_1$, the deflection of the incident particle in the laboratory system, where the particle $m_2$ is initially at rest. From equation (17.4) of the book, for small angles
+\begin{equation*}
+    \tan{\theta_1} = \frac{m_2\sin{\chi}}{m_1 + m_2\cos{\chi}} \Rightarrow \theta_1 \simeq \frac{m_2}{m_1 + m_2}\chi = \frac{m}{m_1}\chi, \qquad m = \frac{m_1m_2}{m_1 + m_2}.
+\end{equation*}
+Multiplying $\chi$ by $m/m_1$, the reduced mass cancels. We thus get
+}
+{
+\begin{gather*}
+    \theta_1 \simeq -\frac{2\rho}{m_1v_\infty^2}\int_\rho^\infty \frac{\mathrm{d}U}{\mathrm{d}r}\frac{\mathrm{d}r}{\sqrt{r^2 - \rho^2}}, \\
+    \chi \simeq -\frac{2\rho}{mv_\infty^2}\int_\rho^\infty \frac{\mathrm{d}U}{\mathrm{d}r}\frac{\mathrm{d}r}{\sqrt{r^2 - \rho^2}}
+\end{gather*}
+}
+\end{problem}
+
+% ============ Problem 15 ============ %
+
+\begin{problem}
+{
+Determine the effective cross-section for small-angle scattering in a field $U = \alpha/r^n \left( n > 0 \right)$.
+}
+{
+We take $\alpha > 0$ (a repulsive field). Let $m_2$ be the mass of the scattering particle, initially at rest, and
+\begin{equation*}
+    m = \frac{m_1m_2}{m_1 + m_2}
+\end{equation*}
+the reduced mass. As shown in Problem 14, when the scattering angle $\chi$ in the centre-of-mass system is small ($\chi \ll 1$), the deflection of the incident particle of mass $m_1$ is $\theta_1 \simeq (m/m_1)\chi$, and it is given by formula (20.3) of the book,
+\begin{equation*}
+    \theta_1 \simeq -\frac{2\rho}{m_1v_\infty^2}\int_\rho^\infty \frac{\mathrm{d}U}{\mathrm{d}r}\frac{\mathrm{d}r}{\sqrt{r^2 - \rho^2}}.
+\end{equation*}
+Since
+\begin{equation*}
+    \frac{\mathrm{d}U}{\mathrm{d}r} = -\frac{n\alpha}{r^{n+1}},
+\end{equation*}
+the deflection is
+\begin{equation*}
+    \theta_1 \simeq \frac{2n\alpha\rho}{m_1v_\infty^2}\int_\rho^\infty \frac{\mathrm{d}r}{r^{n+1}\sqrt{r^2 - \rho^2}}.
+\end{equation*}
+To evaluate the integral, we substitute
+\begin{equation*}
+    u = \frac{\rho^2}{r^2}, \qquad r = \rho u^{-1/2}, \qquad \mathrm{d}r = -\frac{\rho}{2}u^{-3/2}\,\mathrm{d}u.
+\end{equation*}
+When $r$ goes from $\rho$ to $\infty$, $u$ goes from $1$ to $0$, and the minus sign of $\mathrm{d}r$ is absorbed by reversing the limits. We also have
+\begin{equation*}
+    r^{n+1} = \rho^{n+1}u^{-(n+1)/2}, \qquad \sqrt{r^2 - \rho^2} = \rho\sqrt{\frac{1}{u} - 1} = \rho u^{-1/2}(1 - u)^{1/2}.
+\end{equation*}
+Collecting the powers of $u$, $-\frac{3}{2} + \frac{n+1}{2} + \frac{1}{2} = \frac{n-1}{2}$, so
+\begin{equation*}
+    \int_\rho^\infty \frac{\mathrm{d}r}{r^{n+1}\sqrt{r^2 - \rho^2}} = \frac{1}{2\rho^{n+1}}\int_0^1 u^{(n-1)/2}(1 - u)^{-1/2}\,\mathrm{d}u.
+\end{equation*}
+This is the Beta function $B(p,q) = \int_0^1 u^{p-1}(1 - u)^{q-1}\,\mathrm{d}u = \Gamma(p)\Gamma(q)/\Gamma(p+q)$ with $p = (n+1)/2$ and $q = 1/2$. Since $\Gamma(1/2) = \sqrt{\pi}$,
+\begin{equation*}
+    \int_\rho^\infty \frac{\mathrm{d}r}{r^{n+1}\sqrt{r^2 - \rho^2}} = \frac{1}{2\rho^{n+1}}B\left( \frac{n+1}{2}, \frac{1}{2} \right) = \frac{\sqrt{\pi}}{2\rho^{n+1}}\frac{\Gamma\left( (n+1)/2 \right)}{\Gamma\left( (n+2)/2 \right)}.
+\end{equation*}
+Using $\Gamma\left( (n+2)/2 \right) = \frac{n}{2}\Gamma(n/2)$, the factor $n$ cancels and
+\begin{equation*}
+    \theta_1 \simeq \frac{2\sqrt{\pi}\,\alpha}{m_1v_\infty^2\rho^n}\frac{\Gamma\left( (n+1)/2 \right)}{\Gamma(n/2)}.
+\end{equation*}
+Let us define
+\begin{equation*}
+    C_n = \frac{2\sqrt{\pi}\,\alpha}{m_1v_\infty^2}\frac{\Gamma\left( (n+1)/2 \right)}{\Gamma(n/2)},
+\end{equation*}
+so that $\theta_1 \simeq C_n/\rho^n$. The deflection decreases monotonically with $\rho$, and the relation can be inverted,
+\begin{equation*}
+    \rho \simeq \left( \frac{C_n}{\theta_1} \right)^{1/n}, \qquad \left| \frac{\mathrm{d}\rho}{\mathrm{d}\theta_1} \right| = \frac{1}{n}C_n^{1/n}\theta_1^{-1/n-1} = \frac{\rho}{n\theta_1}.
+\end{equation*}
+The particles deflected into the range $\mathrm{d}\theta_1$ pass through an annulus of area $2\pi\rho|\mathrm{d}\rho|$ in the incident beam. For small angles, the element of solid angle is
+\begin{equation*}
+    \mathrm{d}o_1 = 2\pi\sin{\theta_1}\,\mathrm{d}\theta_1 \simeq 2\pi\theta_1\,\mathrm{d}\theta_1,
+\end{equation*}
+so
+\begin{equation*}
+    \frac{\mathrm{d}\sigma}{\mathrm{d}o_1} \simeq \frac{\rho}{\theta_1}\left| \frac{\mathrm{d}\rho}{\mathrm{d}\theta_1} \right| = \frac{\rho^2}{n\theta_1^2} = \frac{1}{n}\frac{C_n^{2/n}}{\theta_1^{2+2/n}}.
+\end{equation*}
+This result requires weak scattering in the centre-of-mass system, $\chi \simeq (m_1/m)\theta_1 \ll 1$. Multiplying $\theta_1 \simeq C_n/\rho^n$ by $m_1/m$, the corresponding centre-of-mass deflection is
+\begin{equation*}
+    \chi \simeq \frac{2\sqrt{\pi}\,\Gamma\left( (n+1)/2 \right)}{\Gamma(n/2)}\frac{\alpha/\rho^n}{mv_\infty^2},
+\end{equation*}
+whose numerical coefficient is of order unity for $n$ of order unity. The condition $\chi \ll 1$ is thus the weak-field condition
+\begin{equation*}
+    \frac{\alpha}{\rho^n} \ll \frac{1}{2}mv_\infty^2,
+\end{equation*}
+\ie the potential energy at the distance of closest approach $r \simeq \rho$ must be small compared with the energy of the relative motion. Since $m \leq m_1$, it implies $\theta_1 \ll 1$, which justifies $\mathrm{d}o_1 \simeq 2\pi\theta_1\,\mathrm{d}\theta_1$. However, the converse does not hold for arbitrary masses. For instance, if $m_1 > m_2$, the laboratory angle never exceeds $\arcsin(m_2/m_1)$, so it can be small even when $\chi$ is not. The two conditions coincide only when $m_2 \gg m_1$, where $m \simeq m_1$ and $\theta_1 \simeq \chi$. The result must not be extended to arbitrary angles. Note also that $\mathrm{d}\sigma$ diverges as $\theta_1 \to 0$, so the total cross-section is infinite unless the angles are cut off.
+
+As a check, for $n = 1$ we have $\Gamma(1)/\Gamma(1/2) = 1/\sqrt{\pi}$, so $C_1 = 2\alpha/(m_1v_\infty^2)$ and
+\begin{equation*}
+    \frac{\mathrm{d}\sigma}{\mathrm{d}o_1} \simeq \frac{4\alpha^2}{m_1^2v_\infty^4\theta_1^4},
+\end{equation*}
+which is the small-angle limit of the Rutherford formula. For $n = 2$, $\Gamma(3/2)/\Gamma(1) = \sqrt{\pi}/2$, so $C_2 = \pi\alpha/(m_1v_\infty^2)$ and
+\begin{equation*}
+    \frac{\mathrm{d}\sigma}{\mathrm{d}o_1} \simeq \frac{\pi\alpha}{2m_1v_\infty^2\theta_1^3},
+\end{equation*}
+in agreement with the small-angle limit found in Problem 12 for a fixed centre ($m_1 = m$, $\theta_1 = \chi$). We thus get
+}
+{
+\begin{gather*}
+    \theta_1 \simeq \frac{2\sqrt{\pi}\,\Gamma\left( (n+1)/2 \right)}{\Gamma(n/2)}\frac{\alpha}{m_1v_\infty^2\rho^n}, \\
+    \mathrm{d}\sigma \simeq \frac{1}{n}\left[ \frac{2\sqrt{\pi}\,\Gamma\left( (n+1)/2 \right)}{\Gamma(n/2)}\frac{\alpha}{m_1v_\infty^2} \right]^{2/n}\frac{\mathrm{d}o_1}{\theta_1^{2+2/n}}, \\
+    \text{valid for } \frac{\alpha}{\rho^n} \ll \frac{1}{2}mv_\infty^2, \qquad m = \frac{m_1m_2}{m_1 + m_2}
+\end{gather*}
 }
 \end{problem}
