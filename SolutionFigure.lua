@@ -1,3 +1,6 @@
+-- SPDX-License-Identifier: MIT
+-- Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
+--
 -- Numerical fields for the figures of the Solution Manual (used by SolutionFigure.cls).
 --
 -- A field is the sum of attractive sources of three kinds, all given in the

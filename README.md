@@ -91,3 +91,34 @@ latexmk
 Review the rebuilt manual, then commit the new `template` reference together
 with any needed project changes. Never edit files inside `template/`; put
 customizations in this repository's own files instead.
+
+## Licenses
+
+Copyright (c) 2026 P.O. Bolduc. The licenses apply to my original contributions
+as follows:
+
+- **Manual content:** the original explanations, worked solutions and diagrams
+  are licensed under [Creative Commons Attribution 4.0 International
+  (CC BY 4.0)](LICENSE). This covers the original content in `Chapters/*.tex`,
+  the diagram sources in `Figures/*.tex`, the corresponding content in the
+  compiled PDFs, and this README. You may share and adapt this material,
+  including commercially, with appropriate credit, a license link and an
+  indication of any modifications.
+- **Code:** `main.tex` (document setup), `mypackages.sty`, `mycommands.sty`,
+  `myfigures.sty`, `SolutionFigure.lua`, `latexmkrc` and the VS Code
+  configuration are licensed under the [MIT License](LICENSE-CODE).
+  Reusing this code does not require your own written content to use CC BY.
+- **Shared framework:** the `template/` submodule is licensed separately by
+  the [Solution Manual Template](https://github.com/pobol2/Solution-Manual-Template).
+  Its MIT license applies to the framework, not to this manual's content.
+
+For attribution, identify P.O. Bolduc as the author, link to
+[this repository](https://github.com/pobol2/Mechanics-Landau-Solution) and
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), and indicate any
+modifications. Both licenses include disclaimers of warranty.
+
+Textbook problem statements, quotations and any other third-party material
+are excluded from these licenses and remain subject to their respective
+rights. No rights to Landau and Lifshitz's textbook are granted by these
+licenses. This is an unofficial project and is not endorsed by the textbook's
+authors or publisher.

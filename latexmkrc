@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
+#
 # Project build settings. The build rules are shared by every solution manual
 # and live in the framework folder of the template submodule; outputs stay in
 # this project (build/, Figures/*.pdf and main.pdf in this folder).
