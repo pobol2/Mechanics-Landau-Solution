@@ -144,17 +144,19 @@ solution, e.g. one answered only.
 
 References:
 
-- another problem: `\probref{\S 9}{1}` gives "§9 Prob. 1" with a link.
-  References written in the former chapter numbering, such as
-  `\probref{2}{3}`, are mapped to the new numbers in `mycommands.sty`;
-- equations: the usual `\label` and `\eqref`;
+- another problem: `\probref{\S 9}{1}` gives "§9 Prob. 1" with a link,
+  also in the problem statements ("The same as \probref{\S 18}{4}"); a part
+  is added after it, `\probref{\S 5}{3}(c)`;
+- equations: the usual `\label` and `\eqref`, with labels named after the
+  section and problem, `S9P1_M` for §9 Prob. 1;
 - the book's own figures and equations, "(Fig. 22)", "(44.10)", are plain
   text. When the manual has its own drawing of the system, link to the
   problem that shows it: `(see the figure in \probref{\S 5}{2})`.
 
 A figure is a standalone file `Figures/<name>.tex`, included with
-`\includegraphics{Figures/<name>.pdf}`; the build compiles it. The existing
-figures keep their original names (`C1P1`, `C2P5a`, ...).
+`\includegraphics{Figures/<name>.pdf}`; the build compiles it. Figures are
+named after their section and problem like the labels, with the part if any:
+`S5P1` for §5 Prob. 1, `S9P3a` for §9 Prob. 3(a).
 
 ## Getting the sources
 

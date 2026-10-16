@@ -14,25 +14,25 @@ The angles of the particles, in the $C$ system, are related by
 \begin{equation*}
 \theta_0 = \theta_{10} = \pi - \theta_{20},
 \end{equation*}
-where $\theta_0$ as been defined to simplify the notation. From the formulae (16.5) of the book, we have
+where $\theta_0$ as been defined to simplify the notation. From formula (16.5) of the book, we have
 \begin{align*}
     V + v_{10}\cos{\theta_0} &= v_{10} \sin{\theta_0} \cot{\theta_1} \\
     V - v_{20}\cos{\theta_0} &= v_{20} \sin{\theta_0} \cot{\theta_2} .
 \end{align*}
 We must eliminate $\theta_0$ from the two equations above. To do so, we can first solve for $\cos{\theta_0}$ and $\sin{\theta_0}$ which give us
 \begin{align}
-    &\sin{\theta_0} = \frac{V + v_{10}\cos{\theta_0}}{v_{10}\cot{\theta_1}} = \frac{V - v_{20}\cos{\theta_0}}{v_{20}\cot{\theta_2}} \label{C4P1_sin} \\
+    &\sin{\theta_0} = \frac{V + v_{10}\cos{\theta_0}}{v_{10}\cot{\theta_1}} = \frac{V - v_{20}\cos{\theta_0}}{v_{20}\cot{\theta_2}} \label{S16P1_sin} \\
     \Rightarrow& Vv_{20}\cot{\theta_2} + v_{10}v_{20}\cos{\theta_0}\cot{\theta_2} = Vv_{10}\cot{\theta_1} - v_{10}v_{20}\cos{\theta_0}\cot{\theta_1} \nonumber \\
-    \Rightarrow& \cos{\theta_0} = \frac{V\left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)}{v_{10}v_{20} \left( \cot{\theta_1} + \cot{\theta_2} \right)}.  \label{C4P1_cos}
+    \Rightarrow& \cos{\theta_0} = \frac{V\left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)}{v_{10}v_{20} \left( \cot{\theta_1} + \cot{\theta_2} \right)}.  \label{S16P1_cos}
 \end{align}
-Using the sum of square of \eqref{C4P1_sin} and \eqref{C4P1_cos}, we get
+Using the sum of square of \eqref{S16P1_sin} and \eqref{S16P1_cos}, we get
 \begin{align*}
     &\left( \frac{V + v_{10}\cos{\theta_0}}{v_{10}\cot{\theta_1}} \right)^2 + \left( \frac{V\left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)}{v_{10}v_{20} \left( \cot{\theta_1} + \cot{\theta_2} \right)} \right)^2 = 1 \\
     \Rightarrow& \left( v_{10} + v_{20} \right)^2 + \left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)^2 = \frac{v_{10}^2v_{20}^2}{V^2} \left( \cot{\theta_1} + \cot{\theta_2} \right)^2 \\
     \Rightarrow& v_{10}^2 \csc{\theta_1}^2 + v_{20}^2 \csc{\theta_2}^2 - 2 v_{10}v_{20}\cot{\theta_1}\cot{\theta_2} = \frac{v_{10}^2v_{20}^2\sin^2{(\theta_1+\theta_2)}}{V^2\sin^2{\theta_1}\sin^2{\theta_2}} \\ 
     \Rightarrow& v_{20}^2 \sin^2{\theta_1} + v_{10}^2 \sin^2{\theta_2} - 2 v_{10}v_{20}\sin{\theta_1}\sin{\theta_2}\cos{\theta_1}\cos{\theta_2} = \frac{v_{10}^2v_{20}^2}{V^2}\sin^2{(\theta_1+\theta_2)}.
 \end{align*}
-Using the equation (16.2) from the book and the relation $v_{10}/v_{20} = m_2/m_1$, we obtain
+Using formula (16.2) of the book and the relation $v_{10}/v_{20} = m_2/m_1$, we obtain
 }
 {
 \begin{equation*}
@@ -48,11 +48,11 @@ Using the equation (16.2) from the book and the relation $v_{10}/v_{20} = m_2/m_
     Find the angular distribution of the resulting particles in the $L$ system.
 }
 {
-The distribution of the resulting particles with respect to the angle $\theta_0$ is given by the equation (16.7) of the book, \ie
+The distribution of the resulting particles with respect to the angle $\theta_0$ is given by formula (16.7) of the book, \ie
 \begin{equation*}
     \frac{1}{2}\sin{\theta_0}d\theta_0 = \frac{1}{2}\mathrm{d}(\cos{\theta_0}).
 \end{equation*}
-Using equation (16.6) of the book yield
+Using formula (16.6) of the book yields
 \begin{equation*}
     \frac{1}{2}\mathrm{d}(\cos{\theta_0}) = -\frac{V}{v_0}\sin{\theta}\cos{\theta}\mathrm{d}\theta \pm \left( \sin{\theta}\sqrt{1-(V^2/v_0^2)\sin^2{\theta}} + \cos{\theta}\frac{(V^2/v_0^2)\sin{\theta}\cos{\theta}}{\sqrt{1-(V^2/v_0^2)\sin^2{\theta}}} \right) \mathrm{d}\theta.
 \end{equation*}
@@ -77,7 +77,7 @@ The tangent of the angle $\theta = \theta_1 + \theta_2$ is
 \begin{equation*}
     \tan{\theta} = \frac{\tan{\theta_1} + \tan{\theta_2}}{1 - \tan{\theta_1}\tan{\theta_2}}.
 \end{equation*}
-Using equation (16.5) of the book to get $\tan{\theta_1}$ and $\tan{\theta_1}$, and using $\theta_0 = \theta_{10} = \pi - \theta_{20}$, the last equation become
+Using formula (16.5) of the book to get $\tan{\theta_1}$ and $\tan{\theta_1}$, and using $\theta_0 = \theta_{10} = \pi - \theta_{20}$, the last equation become
 \begin{equation*}
     \tan{\theta} = \frac{(v_{10}+v_{20})V\sin{\theta_0}}{V^2+(v_{10}-v_{20})V\cos{\theta_0} - v_{10}v_{20}}
 \end{equation*}
@@ -148,11 +148,11 @@ where
 Express the velocity of each particle after a collision between a moving particle ($m_1$) and another at rest ($m_2$) in terms of their directions of motion in the $L$ system.
 }
 {
-To solve this problem with need to use the Fig. 16 of the book. First, using the law of sines, the magnitude of the momentum of the second particle after the collision is
+To solve this problem, we need to use Fig.~16 of the book. First, using the law of sines, the magnitude of the momentum of the second particle after the collision is
 \begin{equation*}
 p_2' = \mathrm{OB}\frac{\sin{\chi}}{\sin{\theta_2}} = mv\frac{\sin{\chi}}{\cos{(\chi/2)}} = 2mv\sin{\frac{\chi}{2}}.
 \end{equation*}
-We get the equation (17.5) of the book if we isolate the velocity
+We get formula (17.5) of the book if we isolate the velocity
 \begin{equation*}
     v_2' = \frac{2m_1v}{m_1+m_2}\sin{\frac{\chi}{2}}.
 \end{equation*}
@@ -162,7 +162,7 @@ Second, using the law of cosines, we get
     \Rightarrow &p_1' = \mathrm{AO}\cos{\theta_1} \pm \sqrt{\mathrm{AO}^2\cos^2{\theta_1} + \mathrm{OC}^2 - \mathrm{AO}^2} \\
     \Rightarrow &v_1' = \frac{m_1\cos{\theta_1} \pm \sqrt{m_2^2-m_1^2\sin^2{\theta_1}}}{m_1+m_2}v_1.
 \end{align*}
-For the case where $m_2 > m_1$ we also get the equation (17.5) of the book, but when $m_1 > m_2$, the radical may have either sign. To summarize, the answer is
+For the case where $m_2 > m_1$ we also get formula (17.5) of the book, but when $m_1 > m_2$, the radical may have either sign. To summarize, the answer is
 }
 {
 \begin{align*}
@@ -185,21 +185,21 @@ Determine the effective cross-section for scattering of particles from a perfect
 The particle is reflected from the sphere at the same angle $\phi_0$ to the normal (\ie the radius) as it is incident, as shown in the figure.
 \begin{figure}[H]
     \centering
-    \includegraphics{Figures/C4P5.pdf}
+    \includegraphics{Figures/S18P1.pdf}
 \end{figure}
 From the figure, we can see
 \begin{equation}
-    \rho = a\sin{\phi_0}=a\sin{\frac{1}{2}(\pi-\chi)}=a\cos{\frac{1}{2}\chi}. \label{C4P5_rho}
+    \rho = a\sin{\phi_0}=a\sin{\frac{1}{2}(\pi-\chi)}=a\cos{\frac{1}{2}\chi}. \label{S18P1_rho}
 \end{equation} 
-Subsituing \eqref{C4P5_rho} in equation (18.7) or (18.8) of the book, we have
+Subsituing \eqref{S18P1_rho} in formula (18.7) or (18.8) of the book, we have
 \begin{equation}
-    \mathrm{d}\sigma=\frac{1}{2}\pi a^2 \sin{\chi}\mathrm{d}\chi=\frac{1}{4}a^2\mathrm{d}o. \label{C4P5_disgma}
+    \mathrm{d}\sigma=\frac{1}{2}\pi a^2 \sin{\chi}\mathrm{d}\chi=\frac{1}{4}a^2\mathrm{d}o. \label{S18P1_dsigma}
 \end{equation}
 If we integrate $\mathrm{d}\sigma$ over all angles, we find
 \begin{equation*}
     \sigma = \frac{1}{2}\pi a^2  \int_{-\pi/2}^{\pi/2} \sin{\chi}\mathrm{d}\chi =\pi a^2, 
 \end{equation*}
-which is the projection of the sphere perpendicular to the the beam (\ie the impact area). We need to express \eqref{C4P5_disgma} in the $L$ system using the equation (17.4) of the book. If this equation is solve for $\cos{\theta_1}$, we get
+which is the projection of the sphere perpendicular to the beam (\ie the impact area). We need to express \eqref{S18P1_dsigma} in the $L$ system using formula (17.4) of the book. If this equation is solve for $\cos{\theta_1}$, we get, as in \probref{\S 16}{2} with $V/v_0$ replaced by $m_1/m_2$,
 \begin{align*}
     &\tan{\theta_1} = \frac{m_2\sin{\chi}}{m_1+m_2\cos{\chi}}\\
     &\Rightarrow \tan^2{\theta_1}\left( \frac{m_1}{m_2} + \cos{\chi} \right)^2 = 1 - \cos^2{\chi} \\
@@ -220,18 +220,18 @@ We thus get
 
 \begin{problem}
 {
-Express the effective cross-section (Problem 1) as a function of the energy $\epsilon$ lost by a scattered particle.
+Express the effective cross-section (\probref{\S 18}{1}) as a function of the energy $\epsilon$ lost by a scattered particle.
 }
 {
-The energy loss by a particle of mass $m_1$ is equal to the energy gained by the sphere of mass $m_2$. Knowing that the sphere is initially at rest, the energy gained is
+The energy loss by a particle of mass $m_1$ is equal to the energy gained by the sphere of mass $m_2$. Knowing that the sphere is initially at rest, and using $v_2'$ from \probref{\S 17}{1}, the energy gained is
 \begin{equation*}
-    \epsilon = E_2' = \frac{1}{2} m_2 v_2'^2 = \frac{2 m_1^2 m_2}{\left( m_1+m_2 \right)^2} v_\infty^2\sin{\frac{1}{2}\chi} = \epsilon_{max} \sin{\frac{1}{2}\chi}.
+    \epsilon = E_2' = \frac{1}{2} m_2 v_2'^2 = \frac{2 m_1^2 m_2}{\left( m_1+m_2 \right)^2} v_\infty^2\sin^2{\frac{1}{2}\chi} = \epsilon_{max} \sin^2{\frac{1}{2}\chi}.
 \end{equation*}
 Using the double angle identity, the variation of $\epsilon$ is
 \begin{equation*}
     \mathrm{d}\epsilon = \epsilon_{max}\sin{\frac{1}{2}\chi}\cos{\frac{1}{2}\chi}\mathrm{d}\chi = \frac{1}{2}\epsilon_{max}\sin{\chi}\mathrm{d}\chi.
 \end{equation*}
-Using \eqref{C4P5_disgma} from the last problem, the effective cross section can thus be express as
+Using \eqref{S18P1_dsigma} from \probref{\S 18}{1}, the effective cross section can thus be express as
 }
 {
 \begin{equation*}
@@ -309,7 +309,7 @@ where the effective potential energy is
 \begin{equation*}
     U_{\text{eff}}(r) = \frac{M^2}{2mr^2} - \frac{\alpha}{r^2} = \frac{1}{r^2}\left( \frac{M^2}{2m} - \alpha \right).
 \end{equation*}
-Since both terms vary as $r^{-2}$, the sign of the bracket determines the behaviour of the particle near the centre. If $M^2 > 2m\alpha$, then $U_{\text{eff}}$ is a repulsive centrifugal barrier which tends to $+\infty$ as $r \to 0$, so the particle reaches a turning point where $U_{\text{eff}}(r_{min}) = E$ and goes back to infinity. If $M^2 < 2m\alpha$, then $U_{\text{eff}} < 0$ for all $r$, so $E - U_{\text{eff}} > 0$ everywhere. The radial velocity never vanishes and an incoming particle has no radial turning point: it falls to the centre. In the limiting case $M^2 = 2m\alpha$, we have $U_{\text{eff}} = 0$, thus $\dot{r} = -v_\infty$ and the particle also reaches the centre. The critical trajectory falls to the centre because the centrifugal and attractive terms have the same dependence $r^{-2}$. At the critical value of $M$ they cancel identically, so there is no barrier at all and nothing can stop the particle at a finite distance. This differs from the next problem, where the two terms have different powers of $r$ and $U_{\text{eff}}$ has a maximum at a finite radius.
+This is the field of \probref{\S 15}{2}, where the same condition on $M^2$ separates the possible paths. Since both terms vary as $r^{-2}$, the sign of the bracket determines the behaviour of the particle near the centre. If $M^2 > 2m\alpha$, then $U_{\text{eff}}$ is a repulsive centrifugal barrier which tends to $+\infty$ as $r \to 0$, so the particle reaches a turning point where $U_{\text{eff}}(r_{min}) = E$ and goes back to infinity. If $M^2 < 2m\alpha$, then $U_{\text{eff}} < 0$ for all $r$, so $E - U_{\text{eff}} > 0$ everywhere. The radial velocity never vanishes and an incoming particle has no radial turning point: it falls to the centre. In the limiting case $M^2 = 2m\alpha$, we have $U_{\text{eff}} = 0$, thus $\dot{r} = -v_\infty$ and the particle also reaches the centre. The critical trajectory falls to the centre because the centrifugal and attractive terms have the same dependence $r^{-2}$. At the critical value of $M$ they cancel identically, so there is no barrier at all and nothing can stop the particle at a finite distance. This differs from \probref{\S 18}{5}, where the two terms have different powers of $r$ and $U_{\text{eff}}$ has a maximum at a finite radius.
 
 The particle therefore falls to the centre if $M^2 \leq 2m\alpha$, \ie if
 \begin{equation*}
@@ -332,10 +332,10 @@ We thus get
 
 \begin{problem}
 {
-The same as Problem 4, but for a field $U=-\alpha/r^n \left(n > 2, \alpha >0 \right)$.
+The same as \probref{\S 18}{4}, but for a field $U=-\alpha/r^n \left(n > 2, \alpha >0 \right)$.
 }
 {
-As in the last problem, the particle comes from infinity with velocity $v_\infty$ and impact parameter $\rho$, so that
+As in \probref{\S 18}{4}, the particle comes from infinity with velocity $v_\infty$ and impact parameter $\rho$, so that
 \begin{equation*}
     E = \frac{1}{2}mv_\infty^2, \qquad M = mv_\infty\rho.
 \end{equation*}
@@ -352,7 +352,7 @@ The height of this barrier is
 \begin{equation*}
     U_{\text{eff}}(r_b) = \frac{n\alpha}{2r_b^n} - \frac{\alpha}{r_b^n} = \frac{(n-2)\alpha}{2r_b^n}.
 \end{equation*}
-If $E$ is smaller than the barrier height, the particle reaches a turning point outside the barrier and goes back to infinity. If $E$ exceeds the barrier height, then $E - U_{\text{eff}} > 0$ for all $r$, so the particle has no radial turning point and falls to the centre. Since the barrier height increases with $M$, the capture occurs for $\rho < \rho_{max}$, where $\rho_{max}$ is the impact parameter for which $E$ is equal to the barrier height. In this limiting case, the incoming particle approaches asymptotically the unstable circular orbit $r = r_b$. Indeed, at $r = r_b$ both $E - U_{\text{eff}}$ and $U_{\text{eff}}'$ vanish, so $r_b$ is a point of (unstable) equilibrium of the radial motion. Near it, $\frac{1}{2}m\dot{r}^2 = E - U_{\text{eff}} \propto (r - r_b)^2$, so the time $\int \mathrm{d}r/|\dot{r}| \propto \int \mathrm{d}r/|r - r_b|$ needed to reach $r_b$ diverges logarithmically. In contrast with the last problem, the critical particle therefore never reaches the centre. This single value of $\rho$ does not affect the cross-section.
+If $E$ is smaller than the barrier height, the particle reaches a turning point outside the barrier and goes back to infinity. If $E$ exceeds the barrier height, then $E - U_{\text{eff}} > 0$ for all $r$, so the particle has no radial turning point and falls to the centre. Since the barrier height increases with $M$, the capture occurs for $\rho < \rho_{max}$, where $\rho_{max}$ is the impact parameter for which $E$ is equal to the barrier height. In this limiting case, the incoming particle approaches asymptotically the unstable circular orbit $r = r_b$. Indeed, at $r = r_b$ both $E - U_{\text{eff}}$ and $U_{\text{eff}}'$ vanish, so $r_b$ is a point of (unstable) equilibrium of the radial motion. Near it, $\frac{1}{2}m\dot{r}^2 = E - U_{\text{eff}} \propto (r - r_b)^2$, so the time $\int \mathrm{d}r/|\dot{r}| \propto \int \mathrm{d}r/|r - r_b|$ needed to reach $r_b$ diverges logarithmically. In contrast with \probref{\S 18}{4}, the critical particle therefore never reaches the centre. This single value of $\rho$ does not affect the cross-section.
 
 Denote by $r_c$ the position of the maximum at the critical impact parameter. The condition $E = U_{\text{eff}}(r_c)$ gives
 \begin{equation*}
@@ -528,7 +528,7 @@ we have
     &\quad - \int_{rw}^\infty \frac{\chi(\rho)\,\mathrm{d}\rho}{\sqrt{\rho^2 - r^2w^2}}.
 \end{align*}
 Two conditions on the behaviour of $\chi(\rho)$ at large $\rho$ are needed here. \textbf{(a)} The boundary term vanishes at $\rho = rw$ because $\operatorname{arcosh}{1} = 0$. At $\rho \to \infty$, $\operatorname{arcosh}(\rho/rw) \simeq \log(2\rho/rw)$ grows logarithmically, so the boundary term vanishes there only if $\chi(\rho)\log{\rho} \to 0$. \textbf{(b)} The remaining integral must converge. Its integrand behaves as $\chi(\rho)/\rho$ at large $\rho$, so at infinity its convergence is equivalent to that of $\int^\infty \chi(\rho)\,\mathrm{d}\rho/\rho$. Near the lower limit, the singularity $1/\sqrt{\rho - rw}$ is integrable.
-Condition (a) alone does not guarantee (b): for example, $\chi = 1/(\log{\rho}\,\log\log{\rho})$ satisfies $\chi\log{\rho} \to 0$, but $\int^\infty \chi\,\mathrm{d}\rho/\rho$ diverges. A sufficient condition for both is $\chi(\rho) = O(\rho^{-\varepsilon})$ with some $\varepsilon > 0$: then $\chi\log{\rho} = O(\rho^{-\varepsilon}\log{\rho}) \to 0$, and $\int^\infty \rho^{-1-\varepsilon}\,\mathrm{d}\rho$ converges. For instance, for a field decreasing as $r^{-n}$ at large distances, $\chi \propto \rho^{-n}$ for large $\rho$ (see Problem 15). Under these conditions,
+Condition (a) alone does not guarantee (b): for example, $\chi = 1/(\log{\rho}\,\log\log{\rho})$ satisfies $\chi\log{\rho} \to 0$, but $\int^\infty \chi\,\mathrm{d}\rho/\rho$ diverges. A sufficient condition for both is $\chi(\rho) = O(\rho^{-\varepsilon})$ with some $\varepsilon > 0$: then $\chi\log{\rho} = O(\rho^{-\varepsilon}\log{\rho}) \to 0$, and $\int^\infty \rho^{-1-\varepsilon}\,\mathrm{d}\rho$ converges. For instance, for a field decreasing as $r^{-n}$ at large distances, $\chi \propto \rho^{-n}$ for large $\rho$ (see \probref{\S 20}{2}). Under these conditions,
 \begin{equation*}
     w(r) = \exp{\left\{ -\frac{1}{\pi}\int_{rw(r)}^\infty \frac{\chi(\rho)\,\mathrm{d}\rho}{\sqrt{\rho^2 - r^2w^2(r)}} \right\}}.
 \end{equation*}
@@ -633,7 +633,7 @@ As in the book, we define the ratio
 \end{equation*}
 The trajectory is therefore made of straight segments, and its direction changes only at the boundary $r = a$, where the particle receives an impulse directed along the radius. This is analogous to the refraction of a light ray by a sphere with refractive index $n$.
 
-The geometry of the path is shown in Fig. 21 of the book. Let $\alpha$ be the angle of incidence and $\beta$ the angle of refraction, both measured from the normal to the sphere (\ie the radius) at the point of entry. At $r = a$, the angular momentum is conserved (the force is radial), so the component of the velocity perpendicular to the radius is the same on both sides,
+The geometry of the path is shown in Fig.~21 of the book. Let $\alpha$ be the angle of incidence and $\beta$ the angle of refraction, both measured from the normal to the sphere (\ie the radius) at the point of entry. At $r = a$, the angular momentum is conserved (the force is radial), so the component of the velocity perpendicular to the radius is the same on both sides,
 \begin{equation*}
     mv_\infty a\sin{\alpha} = mv_{\mathrm{in}}a\sin{\beta} \Rightarrow \frac{\sin{\alpha}}{\sin{\beta}} = n.
 \end{equation*}
@@ -784,7 +784,7 @@ and therefore
 \end{equation*}
 For a repulsive field, $U' < 0$ and $\chi > 0$, as it should be. This result is valid only if the deflection is small, \ie if the field is weak along the whole path ($|U| \ll \frac{1}{2}mv_\infty^2$ for $r \gtrsim \rho$). Under this condition, the first-order expansion is justified.
 
-The angle $\chi$ is the scattering angle in the centre-of-mass system. Formula (20.3) gives instead $\theta_1$, the deflection of the incident particle in the laboratory system, where the particle $m_2$ is initially at rest. From equation (17.4) of the book, for small angles
+The angle $\chi$ is the scattering angle in the centre-of-mass system. Formula (20.3) gives instead $\theta_1$, the deflection of the incident particle in the laboratory system, where the particle $m_2$ is initially at rest. From formula (17.4) of the book, for small angles
 \begin{equation*}
     \tan{\theta_1} = \frac{m_2\sin{\chi}}{m_1 + m_2\cos{\chi}} \Rightarrow \theta_1 \simeq \frac{m_2}{m_1 + m_2}\chi = \frac{m}{m_1}\chi, \qquad m = \frac{m_1m_2}{m_1 + m_2}.
 \end{equation*}
@@ -833,7 +833,7 @@ Collecting the powers of $u$, $-\frac{3}{2} + \frac{n+1}{2} + \frac{1}{2} = \fra
 \begin{equation*}
     \int_\rho^\infty \frac{\mathrm{d}r}{r^{n+1}\sqrt{r^2 - \rho^2}} = \frac{1}{2\rho^{n+1}}\int_0^1 u^{(n-1)/2}(1 - u)^{-1/2}\,\mathrm{d}u.
 \end{equation*}
-This is the Beta function $B(p,q) = \int_0^1 u^{p-1}(1 - u)^{q-1}\,\mathrm{d}u = \Gamma(p)\Gamma(q)/\Gamma(p+q)$ with $p = (n+1)/2$ and $q = 1/2$. Since $\Gamma(1/2) = \sqrt{\pi}$,
+As in \probref{\S 11}{2}, this is the Beta function $B(p,q) = \int_0^1 u^{p-1}(1 - u)^{q-1}\,\mathrm{d}u = \Gamma(p)\Gamma(q)/\Gamma(p+q)$ with $p = (n+1)/2$ and $q = 1/2$. Since $\Gamma(1/2) = \sqrt{\pi}$,
 \begin{equation*}
     \int_\rho^\infty \frac{\mathrm{d}r}{r^{n+1}\sqrt{r^2 - \rho^2}} = \frac{1}{2\rho^{n+1}}B\left( \frac{n+1}{2}, \frac{1}{2} \right) = \frac{\sqrt{\pi}}{2\rho^{n+1}}\frac{\Gamma\left( (n+1)/2 \right)}{\Gamma\left( (n+2)/2 \right)}.
 \end{equation*}

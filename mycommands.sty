@@ -2,71 +2,10 @@
 % Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
 %
 % Shortcuts
-\newcommand{\eg}{\textit{e}.\textit{g}. }
 \newcommand{\ie}{\textit{i}.\textit{e}. }
 
 % References
-\newcommand{\figref}[1]{Fig.~\ref{#1}}
-\newcommand{\tabref}[1]{Tableau~\ref{#1}}
 \renewcommand{\eqref}[1]{Eq.~(\ref{#1})}
-\newcommand{\problemref}[1]{Problem~\ref{#1}}
-
-% Problems are numbered within the textbook's sections: \probref{\S 9}{1}.
-% Compatibility: a reference in the former chapter numbering,
-% \probref{chapter}{problem}, links to the problem's textbook section and
-% number (\probref{2}{3} gives "§9 Prob. 1").
-\NewCommandCopy{\MechProbref}{\probref}
-\newcommand*{\MechOldProblem}[3]{\@namedef{MechOld@#1-#2}{#3}}
-\DeclareRobustCommand{\probref}[3][]{%
-    \ifcsname MechOld@\detokenize{#2}-\detokenize{#3}\endcsname
-        \expandafter\expandafter\expandafter\MechOldProbref
-            \csname MechOld@\detokenize{#2}-\detokenize{#3}\endcsname{#1}%
-    \else
-        \MechProbref[#1]{#2}{#3}%
-    \fi}
-% #1 = Section, #2 = Problem, #3 = Text (or empty)
-\newcommand{\MechOldProbref}[3]{\MechProbref[#3]{#1}{#2}}
-% Chapter 1
-\MechOldProblem{1}{1}{{\S 5}{1}}
-\MechOldProblem{1}{2}{{\S 5}{2}}
-\MechOldProblem{1}{3}{{\S 5}{3}}
-\MechOldProblem{1}{4}{{\S 5}{4}}
-% Chapter 2
-\MechOldProblem{2}{1}{{\S 7}{1}}
-\MechOldProblem{2}{2}{{\S 8}{1}}
-\MechOldProblem{2}{3}{{\S 9}{1}}
-\MechOldProblem{2}{4}{{\S 9}{2}}
-\MechOldProblem{2}{5}{{\S 9}{3}}
-\MechOldProblem{2}{6}{{\S 10}{1}}
-\MechOldProblem{2}{7}{{\S 10}{2}}
-% Chapter 3
-\MechOldProblem{3}{1}{{\S 11}{1}}
-\MechOldProblem{3}{2}{{\S 11}{2}}
-\MechOldProblem{3}{3}{{\S 13}{1}}
-\MechOldProblem{3}{4}{{\S 14}{1}}
-\MechOldProblem{3}{5}{{\S 14}{2}}
-\MechOldProblem{3}{6}{{\S 14}{3}}
-\MechOldProblem{3}{7}{{\S 15}{1}}
-\MechOldProblem{3}{8}{{\S 15}{2}}
-\MechOldProblem{3}{9}{{\S 15}{3}}
-% Chapter 4
-\MechOldProblem{4}{1}{{\S 16}{1}}
-\MechOldProblem{4}{2}{{\S 16}{2}}
-\MechOldProblem{4}{3}{{\S 16}{3}}
-\MechOldProblem{4}{4}{{\S 17}{1}}
-\MechOldProblem{4}{5}{{\S 18}{1}}
-\MechOldProblem{4}{6}{{\S 18}{2}}
-\MechOldProblem{4}{7}{{\S 18}{3}}
-\MechOldProblem{4}{8}{{\S 18}{4}}
-\MechOldProblem{4}{9}{{\S 18}{5}}
-\MechOldProblem{4}{10}{{\S 18}{6}}
-\MechOldProblem{4}{11}{{\S 18}{7}}
-\MechOldProblem{4}{12}{{\S 19}{1}}
-\MechOldProblem{4}{13}{{\S 19}{2}}
-\MechOldProblem{4}{14}{{\S 20}{1}}
-\MechOldProblem{4}{15}{{\S 20}{2}}
-% Chapter 6
-\MechOldProblem{6}{1}{{\S 32}{1}}
 
 % Math
 \newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}

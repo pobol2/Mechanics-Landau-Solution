@@ -14,16 +14,16 @@ The potential energy only depend on the co-ordinate perpendicular to the plane s
 \begin{align*}
     & P_1 \sin{\theta_1} = P_2 \sin{\theta_2} \\
     \Rightarrow & v_1 \sin{\theta_1} = v_2 \sin{\theta_2} \\
-    \Rightarrow & \frac{\sin{\theta_1}}{\sin{\theta_2}} = \frac{v_2}{v_1} . \numberthis \label{C2P1_P}
+    \Rightarrow & \frac{\sin{\theta_1}}{\sin{\theta_2}} = \frac{v_2}{v_1} . \numberthis \label{S7P1_P}
 \end{align*}
 The potential energy of the system is also independent of time, therefore the energy of the particle is conserved. Posing $E_1 = T_1 + U_1$ and $E_2 = T_2 + U_2$ as the energy of the particle before and after passing the plane, the law of conservation of energy requires
 \begin{align*}
     &E_1 = E_2 \\
     \Rightarrow & T_1 + U_1 = T_2 + U_2 \\
     \Rightarrow &\frac{1}{2} m v_1^2 + U_1 = \frac{1}{2} m v_2^2 + U_2 \\
-    \Rightarrow & v_2^2 = v_1^2 + \frac{2}{m}(U_1-U_2). \numberthis \label{C2P1_E}
+    \Rightarrow & v_2^2 = v_1^2 + \frac{2}{m}(U_1-U_2). \numberthis \label{S7P1_E}
 \end{align*}
-By substituting \eqref{C2P1_E} in the square of \eqref{C2P1_P}, we get
+By substituting \eqref{S7P1_E} in the square of \eqref{S7P1_P}, we get
 \begin{equation*}
     \left( \frac{\sin{\theta_1}}{\sin{\theta_2}} \right)^2 = \frac{v_1^2 + \frac{2}{m}(U_1-U_2)}{v_1^2}.
 \end{equation*}
@@ -58,9 +58,9 @@ If the frame $K'$ moves with velocity $\mathbf{V}$ relative to the frame $K$, th
 \begin{align*}
     L &= \frac{1}{2} \sum_a m_a (\mathbf{v}_a' + \mathbf{V})^2 - U \\ 
     &= \frac{1}{2} V^2 \sum_a m_a + \mathbf{V} \cdot \sum_a m_a \mathbf{v}_a' + \frac{1}{2} \sum_a m_a v_a^{'2} - U \\
-    &= L' + \mathbf{V} \cdot \mathbf{P}' + \frac{1}{2} \mu V^2 . \numberthis \label{C3P2_L}
+    &= L' + \mathbf{V} \cdot \mathbf{P}' + \frac{1}{2} \mu V^2 . \numberthis \label{S8P1_L}
 \end{align*}
-Integrating \eqref{C3P2_L} with respect to time, we obtain
+Integrating \eqref{S8P1_L} with respect to time, we obtain
 \begin{align*}
     S &= \int L dt \\
     &= S' + \int \left( \mathbf{V} \cdot \mathbf{P}' \right)dt + \frac{1}{2} \mu V^2 t \\
@@ -88,7 +88,7 @@ Obtain the expressions for the Cartesian components and the magnitude of the ang
 {
 The Cartesian components of the angular momentum are simply
 \begin{equation*}
-    \mathbf{M} = \mathbf{r} \times \mathbf{p} = \begin{bmatrix} x \\ y \\ z \end{bmatrix} \times m \begin{bmatrix} \Dot{x} \\ \Dot{y} \\ \Dot{z} \end{bmatrix} = m \begin{bmatrix} y \Dot{z} - z \Dot{y} \\ z \Dot{x} - x \Dot{z} \\ x \Dot{y} - y \Dot{x} \end{bmatrix} . \numberthis \label{C3P3_M}
+    \mathbf{M} = \mathbf{r} \times \mathbf{p} = \begin{bmatrix} x \\ y \\ z \end{bmatrix} \times m \begin{bmatrix} \Dot{x} \\ \Dot{y} \\ \Dot{z} \end{bmatrix} = m \begin{bmatrix} y \Dot{z} - z \Dot{y} \\ z \Dot{x} - x \Dot{z} \\ x \Dot{y} - y \Dot{x} \end{bmatrix} . \numberthis \label{S9P1_M}
 \end{equation*}
 In cylindrical co-ordinates, the Cartesian components are expressed by
 \begin{equation*}
@@ -98,12 +98,12 @@ and
 \begin{equation*}
     \begin{bmatrix} \Dot{x} \\ \Dot{y} \\ \Dot{z} \end{bmatrix} = \begin{bmatrix} \Dot{r}\cos{\phi} - r\Dot{\phi}\sin{\phi} \\ \Dot{r}\sin{\phi} + r\Dot{\phi}\cos{\phi} \\ \Dot{z} \end{bmatrix}.
 \end{equation*}
-By substituting those in \eqref{C3P3_M}, we get
+By substituting those in \eqref{S9P1_M}, we get
 \begin{align*}
     \mathbf{M} &= m \begin{bmatrix} y \Dot{z} - z \Dot{y} \\ z \Dot{x} - x \Dot{z} \\ x \Dot{y} - y \Dot{x} \end{bmatrix} \\
-    &= m \begin{bmatrix} (r\Dot{z} - z\Dot{r})\sin{\phi} - rz\Dot{\phi}\cos{\phi} \\ -(r\Dot{z} - z\Dot{r})\cos{\phi} - rz\Dot{\phi}\sin{\phi} \\ r^2\Dot{\phi} \end{bmatrix} . \numberthis \label{C3P3_M2}
+    &= m \begin{bmatrix} (r\Dot{z} - z\Dot{r})\sin{\phi} - rz\Dot{\phi}\cos{\phi} \\ -(r\Dot{z} - z\Dot{r})\cos{\phi} - rz\Dot{\phi}\sin{\phi} \\ r^2\Dot{\phi} \end{bmatrix} . \numberthis \label{S9P1_M2}
 \end{align*}
-By taking the magnitude of \eqref{C3P3_M2}, we finally get
+By taking the magnitude of \eqref{S9P1_M2}, we finally get
 }
 {
 \begin{align*}
@@ -130,12 +130,12 @@ and
 \begin{equation*}
     \begin{bmatrix} \Dot{x} \\ \Dot{y} \\ \Dot{z} \end{bmatrix} = \begin{bmatrix} \Dot{r}\sin{\phi}\cos{\theta} + r\Dot{\phi}\cos{\phi}\cos{\theta} - r\Dot{\theta}\sin{\phi}\sin{\theta} \\ \Dot{r}\sin{\phi}\sin{\theta} + r\Dot{\phi}\cos{\phi}\sin{\theta} + r\Dot{\theta}\sin{\phi}\cos{\theta} \\ \Dot{r}\cos{\phi} + r\sin{\phi} \end{bmatrix}.
 \end{equation*}
-By substituting those in \eqref{C3P3_M}, we get
+By substituting those in \eqref{S9P1_M} of \probref{\S 9}{1}, we get
 \begin{align*}
     \mathbf{M} &= m \begin{bmatrix} y \Dot{z} - z \Dot{y} \\ z \Dot{x} - x \Dot{z} \\ x \Dot{y} - y \Dot{x} \end{bmatrix} \\
-    &= m \begin{bmatrix} -r^2(\Dot{\theta}\sin{\phi} + \Dot{\phi}\sin{\theta}\cos{\theta}\cos{\phi}) \\ r^2(\Dot{\theta}\cos{\phi} - \Dot{\phi}\sin{\theta}\cos{\theta}\sin{\phi}) \\ r^2\Dot{\phi}\sin^2{\theta} \end{bmatrix} . \numberthis \label{C3P3_M3}
+    &= m \begin{bmatrix} -r^2(\Dot{\theta}\sin{\phi} + \Dot{\phi}\sin{\theta}\cos{\theta}\cos{\phi}) \\ r^2(\Dot{\theta}\cos{\phi} - \Dot{\phi}\sin{\theta}\cos{\theta}\sin{\phi}) \\ r^2\Dot{\phi}\sin^2{\theta} \end{bmatrix} . \numberthis \label{S9P2_M}
 \end{align*}
-By taking the magnitude of \eqref{C3P3_M3}, we finally get
+By taking the magnitude of \eqref{S9P2_M}, we finally get
 }
 {
 \begin{align*}
@@ -173,7 +173,7 @@ Similarly, in the cylindrical co-ordinates $r,\phi,z$, the Lagrangian is
 \begin{equation*}
     L = \frac{1}{2} m (\Dot{r}^2 + r^2\Dot{\phi}^2 + \Dot{z}^2) - U(r,\phi,z),
 \end{equation*}
-and $\pd{L}{\Dot{\phi}} = mr^2\Dot{\phi} = M_z$ is the component of the angular momentum along the $z$ axis found in \probref{2}{3}. Lagrange's equation for $\phi$ gives
+and $\pd{L}{\Dot{\phi}} = mr^2\Dot{\phi} = M_z$ is the component of the angular momentum along the $z$ axis found in \probref{\S 9}{1}. Lagrange's equation for $\phi$ gives
 \begin{equation*}
     \Dot{M}_z = \frac{d}{dt} \pd{L}{\Dot{\phi}} = \pd{L}{\phi} = -\pd{U}{\phi} .
 \end{equation*}
@@ -184,7 +184,7 @@ In each of the following figures, the body is shown on the left. The red arrows 
 Let the plane be $z = 0$, as in the figure. Each point of an infinite homogeneous plane is equivalent to any other, so its field depends only on the distance to the plane, \ie $U = U(z)$. It is thus unchanged by any translation along $x$ or $y$ and by any rotation about the $z$ axis: the field lines are perpendicular to the plane and the equipotentials are planes parallel to it.
 \begin{figure}[H]
     \centering
-    \includegraphics{Figures/C2P5a.pdf}
+    \includegraphics{Figures/S9P3a.pdf}
 \end{figure}
 In terms of the force, this means that
 \begin{equation*}
@@ -211,7 +211,7 @@ That of an infinite homogeneous cylinder.
 Let the axis of the cylinder be the $z$ axis, as in the figure, and $r$ the distance from that axis. The field of an infinite homogeneous cylinder is the same at every height and in every direction around the axis, so it depends only on $r$, \ie $U = U(r)$. It is thus unchanged by any translation along $z$ and by any rotation about the $z$ axis: in a cross-section, the field lines are radial and the equipotentials are circles.
 \begin{figure}[H]
     \centering
-    \includegraphics{Figures/C2P5b.pdf}
+    \includegraphics{Figures/S9P3b.pdf}
 \end{figure}
 The force $\mathbf{F} = -U'(r)\,\mathbf{\hat{r}}$ is radial. It has no axial component, so $\Dot{P}_z = F_z = 0$, and its line of action meets the axis, so it produces no torque about it. Indeed, $(F_x, F_y)$ is parallel to $(x, y)$ and
 \begin{equation*}
@@ -238,7 +238,7 @@ Let the edges of the prism be parallel to the $z$ axis, as in the figure. The pr
 However, its cross-section is a polygon, so the field generally depends on the direction about any axis parallel to the edges. In the figure, the equipotentials near the prism follow the triangular cross-section and only become circular far from it. Even for a regular polygon of $n$ sides, such as the equilateral triangle shown, the field is unchanged only by the rotations by multiples of $2\pi/n$ about its axis. These isolated rotations do not make $\partial U/\partial \phi$ vanish, so they do not imply the conservation of $M_z$.
 \begin{figure}[H]
     \centering
-    \includegraphics{Figures/C2P5c.pdf}
+    \includegraphics{Figures/S9P3c.pdf}
 \end{figure}
 The only conserved component is then
 }
@@ -261,7 +261,7 @@ Let the two points be on the $z$ axis, as in the figure. The field is the sum of
 where $\rho_1$ and $\rho_2$ are the distances from the particle to the two points. A rotation of the particle about the line joining the points leaves both distances unchanged, so $U$ does not depend on $\phi$. In other words, the force exerted by each point is directed towards that point, so its line of action meets the $z$ axis and it produces no torque about it. This holds whether or not the two points have the same strength. In the figure, the field lines and equipotentials are shown in a plane containing the axis; they are the same in every such plane.
 \begin{figure}[H]
     \centering
-    \includegraphics{Figures/C2P5d.pdf}
+    \includegraphics{Figures/S9P3d.pdf}
 \end{figure}
 On the other hand, a translation moves the particle with respect to the fixed points and changes these distances, so no component of $\mathbf{P}$ is generally conserved. The only conserved component is then
 }
@@ -284,7 +284,7 @@ Let the half-plane be $z = 0$, $x < 0$, as in the figure, so that its edge is th
 The edge removes the other symmetries of the whole plane. A translation along $x$ moves the edge, and the field depends on the distance to it: in the figure, the field lines bend towards the edge and the equipotentials curve around it. A rotation about the $z$ axis turns the edge, and a rotation about any other axis tilts the half-plane, so no rotation leaves the field unchanged and no component of $\mathbf{M}$ is generally conserved.
 \begin{figure}[H]
     \centering
-    \includegraphics{Figures/C2P5e.pdf}
+    \includegraphics{Figures/S9P3e.pdf}
 \end{figure}
 The only conserved component is then
 }
@@ -303,7 +303,7 @@ That of a homogeneous cone.
 Let the axis of the circular cone be the $z$ axis, as in the figure. A rotation about its axis maps the cone onto itself, so its field can depend on $r$ and $z$ but not on $\phi$, \ie $U = U(r,z)$, and $M_z$ is conserved. In the figure, the field lines and equipotentials are shown in a plane containing the axis; they are the same in every such plane.
 \begin{figure}[H]
     \centering
-    \includegraphics{Figures/C2P5f.pdf}
+    \includegraphics{Figures/S9P3f.pdf}
 \end{figure}
 On the other hand, the apex of the cone is a fixed point. Any translation moves it, even one along the axis, so the translated cone is not the same and the field changes. This would remain true for an infinite cone. Hence, no component of $\mathbf{P}$ is generally conserved. The only conserved component is then
 }
@@ -322,7 +322,7 @@ That of a homogeneous circular torus.
 Let the axis of the torus be the $z$ axis, as in the figure. A circular torus is generated by turning a circle about this axis, so any rotation about it maps the torus onto itself. Its field can then depend on $r$ and $z$ but not on $\phi$, \ie $U = U(r,z)$, and $M_z$ is conserved. In the figure, the field lines and equipotentials are shown in a plane containing the axis; they are the same in every such plane.
 \begin{figure}[H]
     \centering
-    \includegraphics{Figures/C2P5g.pdf}
+    \includegraphics{Figures/S9P3g.pdf}
 \end{figure}
 On the other hand, the torus has a fixed position, with its centre at the origin and its central circle in the plane $z = 0$. Any translation moves it to another position and changes the field, so no component of $\mathbf{P}$ is generally conserved. The only conserved component is then
 }
@@ -349,7 +349,7 @@ where $h$ is the pitch: the helix advances by $h$ along the axis during one posi
 maps each point of the helix to the point at $\phi + \delta\phi$, so it does preserve the helix and its field. Consequently, the field in the cross-section at the height $z$ is the one at $z = 0$ turned by the angle $2\pi z/h$. This is what the three cross-sections of the figure show: increasing $z$ by $h/4$ turns the pattern by $\pi/2$. In these cross-sections, the field lines show the components of the field in each plane, and not the complete three-dimensional field lines, since the field also has a component along $z$.
 \begin{figure}[H]
     \centering
-    \includegraphics{Figures/C2P5h.pdf}
+    \includegraphics{Figures/S9P3h.pdf}
 \end{figure}
 In cylindrical co-ordinates, the field thus depends on $\phi$ and $z$ only through the combination
 \begin{equation*}
@@ -391,7 +391,7 @@ Find the ratio of the times in the same path for particles having different mass
 }
 {
 If the two particles have the same path, then the ratio of linear dimension is
-\begin{equation} \label{C3P1_l}
+\begin{equation} \label{S10P1_l}
     \frac{l'}{l} = \alpha = 1.
 \end{equation}
 We can define the ratio of time and mass by
@@ -411,7 +411,7 @@ To leave the equation of motion unaltered, the ratio of the kinetic energy and t
     \frac{U'}{U} &= \frac{T'}{T} \\
     \Rightarrow \alpha^k &=  \frac{\gamma \alpha^2}{\beta^2}.
 \end{align*}
-Using \eqref{C3P1_l}, we get
+Using \eqref{S10P1_l}, we get
 \begin{align*}
     1 &= \frac{\gamma}{\beta^2} \\
     \Rightarrow \beta &= \sqrt{\gamma}.
@@ -432,8 +432,8 @@ The ratio of the times is then
 Find the ratio of the times in the same path for particles having the same mass but potential energies differing by a constant factor.
 }
 {
-If the two particles have the same path, then the ratio of linear dimension is
-\begin{equation} \label{C3P2_l}
+We proceed as in \probref{\S 10}{1}. If the two particles have the same path, then the ratio of linear dimension is
+\begin{equation} \label{S10P2_l}
     \frac{l'}{l} = \alpha = 1.
 \end{equation}
 We can define the ratio of time by
@@ -453,7 +453,7 @@ To leave the equation of motion unaltered, the ratio of the kinetic energy and t
     \frac{U'}{U} &= \frac{T'}{T} \\
     \Rightarrow \gamma &=  \frac{\alpha^2}{\beta^2}.
 \end{align*}
-Using \eqref{C3P2_l}, we get
+Using \eqref{S10P2_l}, we get
 \begin{align*}
     \gamma &= \frac{1}{\beta^2} \\
     \Rightarrow \beta &= \sqrt{\frac{1}{\gamma}}.
