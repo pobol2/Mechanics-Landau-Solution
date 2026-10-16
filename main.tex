@@ -1,13 +1,17 @@
-\documentclass[12pt]{SolutionManual}
+% 10pt keeps the text size of the earlier class, which ignored size options.
+\documentclass[10pt]{SolutionManual}
 
 \usepackage{mypackages} % put your packages in the file mypackages.sty
 \usepackage{mycommands} % put your commands in the file mycommands.sty
 
-\def \authorName{P.O. Bolduc} % name of the author
-
-% Some books have two titles (if not just put in \mainTitle)
-\def \firstTitle{Volume 1 of Course of Theoretical Physics}
-\def \mainTitle{Mechanics}
+% Titles and author (see template/README.md for every key)
+\SolutionManualSetup{
+    author={P.O. Bolduc},
+    title prefix={My Humble Solution to},
+    subtitle={Volume 1 of Course of Theoretical Physics},
+    title={Mechanics},
+    footer={Solution to \mainTitle~by \authorName},
+}
 
 \begin{document}
 

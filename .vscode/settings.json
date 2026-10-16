@@ -1,0 +1,24 @@
+{
+    // LaTeX Workshop runs the same `latexmk` as a terminal build; the options
+    // (pdfLaTeX, SyncTeX, LuaLaTeX figures, build/ folder) come from latexmkrc.
+    // outDir and auxDir tell LaTeX Workshop where the PDF, log and SyncTeX
+    // files are: keep them equal to $out_dir in latexmkrc.
+    // Copy this file to <project>/.vscode/settings.json.
+    "latex-workshop.latex.outDir": "%DIR%/build",
+    "latex-workshop.latex.auxDir": "%DIR%/build",
+    "latex-workshop.latex.recipe.default": "first",
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk (latexmkrc)",
+            "tools": ["latexmk"]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": ["%DOC%"],
+            "env": {}
+        }
+    ]
+}

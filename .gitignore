@@ -21,8 +21,9 @@ build/
 *.snm
 *.vrb
 
-# Editor / OS files
-.vscode/
+# Editor / OS files (the shared VS Code settings are tracked)
+.vscode/*
+!.vscode/settings.json
 *~
 *.bak
 *.swp

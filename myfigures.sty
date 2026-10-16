@@ -1,25 +1,7 @@
-% ============ Identification ============ %
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{SolutionFigure}[2026/10/16 Figures for the Solution Manual]
-
-% Every figure in Figures/ is a standalone document using this class, so that
-% they all share the same look. A figure file is simply
-%
-%   \documentclass{SolutionFigure}
-%   \begin{document}
-%   \begin{tikzpicture}
-%       ...
-%   \end{tikzpicture}
-%   \end{document}
-%
-% It must be compiled with LuaLaTeX: the fields are computed by SolutionFigure.lua.
-
-% ============ Preliminary declarations ============ %
-\LoadClass[tikz, border=2pt]{standalone}
-
-% Packages
-\RequirePackage{iftex}
-\RequireLuaTeX
+% Mechanics-specific drawing packages, styles and numerical field tools.
+% Loaded by the shared SolutionFigure.cls (template/solution-manual) after its
+% general styles; a change here, or in SolutionFigure.lua, rebuilds every figure.
+\ProvidesPackage{myfigures}[2026/10/16 Mechanics figure extensions]
 \RequirePackage{amsmath, amssymb, bm} % same math as the main document
 \usetikzlibrary{arrows.meta, calc, angles, quotes, decorations.markings}
 
@@ -227,3 +209,17 @@
 \newcommand\FieldLinesCircle[5]{\directlua{SF.linescircle(#1,#2,#3,#4,#5)}}    % {a}{b}{r}{number}{phase}
 \newcommand\FieldLinesSegment[5]{\directlua{SF.linessegment(#1,#2,#3,#4,#5)}}  % {a1}{b1}{a2}{b2}{number}
 \newcommand\Equipotentials[1]{\directlua{SF.equipotentials("\luaescapestring{#1}")}}
+
+
+% Preserve the original diagram placement conventions in this existing manual.
+% The positioning library changes diagonal offsets used by Mechanics figures.
+\tikzoption{left}[]{\def\tikz@anchor{east}\tikz@possibly@transform{x}{-}{#1}}
+\tikzoption{right}[]{\def\tikz@anchor{west}\tikz@possibly@transform{x}{}{#1}}
+\tikzoption{above}[]{\def\tikz@anchor{south}\tikz@possibly@transform{y}{}{#1}}
+\tikzoption{below}[]{\def\tikz@anchor{north}\tikz@possibly@transform{y}{-}{#1}}
+\tikzoption{above left}[]{\def\tikz@anchor{south east}\tikz@possibly@transform{x}{-}{#1}\tikz@possibly@transform{y}{}{#1}}
+\tikzoption{above right}[]{\def\tikz@anchor{south west}\tikz@possibly@transform{x}{}{#1}\tikz@possibly@transform{y}{}{#1}}
+\tikzoption{below left}[]{\def\tikz@anchor{north east}\tikz@possibly@transform{x}{-}{#1}\tikz@possibly@transform{y}{-}{#1}}
+\tikzoption{below right}[]{\def\tikz@anchor{north west}\tikz@possibly@transform{x}{}{#1}\tikz@possibly@transform{y}{-}{#1}}
+
+\endinput
