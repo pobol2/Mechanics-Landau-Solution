@@ -1,0 +1,35 @@
+% Chapter 1, Problem 3: pendulum whose point of support moves on a vertical circle
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    % Parameters
+    \def\a{2}       % radius a of the circle
+    \def\gt{40}     % angle gamma t of the point of support
+    \def\len{2.6}   % length l
+    \def\ang{45}    % angle phi
+
+    \coordinate (O) at (0,0);
+    \coordinate (S) at (\gt:\a);
+    \coordinate (m) at ($(S) + (-90+\ang:\len)$);
+
+    % Axes
+    \draw[axis] (O) -- (4,0) coordinate (X) node[right] {$x$};
+    \draw[axis] (O) -- (0,-3) node[below] {$y$};
+    \pic at (4.5,-0.75) {gravity};
+
+    % Circle of the point of support
+    \draw[track] (O) circle[radius=\a];
+    \draw[thin] (O) -- node[above left=-1pt] {$a$} (S);
+    \pic[angle arc, angle radius=0.5cm, angle eccentricity=2, "$\gamma t$"] {angle = X--O--S};
+
+    % Angle
+    \draw[guide] (S) -- ++(0,-1.1) coordinate (v);
+    \pic[angle arc, angle radius=1cm, angle eccentricity=0.65, "$\phi$"] {angle = v--S--m};
+
+    % Pendulum
+    \draw[rod] (S) -- node[pos=0.4, above right] {$l$} (m);
+    \node[pivot] at (S) {};
+    \node[mass, label=right:$m$] at (m) {};
+\end{tikzpicture}
+\end{document}

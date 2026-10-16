@@ -1,0 +1,229 @@
+% ============ Identification ============ %
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{SolutionFigure}[2026/10/16 Figures for the Solution Manual]
+
+% Every figure in Figures/ is a standalone document using this class, so that
+% they all share the same look. A figure file is simply
+%
+%   \documentclass{SolutionFigure}
+%   \begin{document}
+%   \begin{tikzpicture}
+%       ...
+%   \end{tikzpicture}
+%   \end{document}
+%
+% It must be compiled with LuaLaTeX: the fields are computed by SolutionFigure.lua.
+
+% ============ Preliminary declarations ============ %
+\LoadClass[tikz, border=2pt]{standalone}
+
+% Packages
+\RequirePackage{iftex}
+\RequireLuaTeX
+\RequirePackage{amsmath, amssymb, bm} % same math as the main document
+\usetikzlibrary{arrows.meta, calc, angles, quotes, decorations.markings}
+
+% Numerical fields (recorded as an input, so that latexmk tracks it)
+\directlua{
+    local file = kpse.find_file("SolutionFigure.lua")
+    dofile(file)
+    kpse.record_input_file(file)
+}
+
+% ============ Colors ============ %
+\colorlet{axis}{black!50}  % co-ordinate axes
+\colorlet{body}{black!15}  % fill of extended bodies (planes, cylinders, ...)
+\colorlet{body light}{black!6}   % faces of a body seen from above
+\colorlet{body dark}{black!25}   % faces of a body seen at a grazing angle
+\colorlet{symmetry}{red!50!black} % symmetries of a field (ThemeColor of SolutionManual.cls)
+
+% ============ Styles ============ %
+\tikzset{
+    >={To},
+    % --- Co-ordinate system ---
+    axis/.style={draw=axis, thick, ->},       % co-ordinate axis (label stays black)
+    axis label/.style={fill=white, inner sep=1pt, outer sep=2pt}, % label over a field
+    rotation axis/.style={draw=axis, thick, dash dot},
+    % --- Construction lines ---
+    guide/.style={thin, dashed},              % reference lines and projections
+    track/.style={semithick},                 % prescribed path of a support
+    % --- Physical objects ---
+    rod/.style={very thick, line cap=round},  % massless rod or string
+    pivot/.style={circle, fill, inner sep=0pt, minimum size=1.2mm},
+    mass/.style={circle, fill, inner sep=0pt, minimum size=3mm, label distance=0.5mm},
+    block/.style={rectangle, fill, inner sep=0pt, minimum width=4mm, minimum height=3mm, label distance=0.5mm},
+    body/.style={draw, fill=body},            % extended body (plane, cylinder, ...)
+    % --- Vectors and angles ---
+    vector/.style={thick, -{Latex}},          % physical vector (force, velocity, ...)
+    angle arc/.style={draw, thin, ->, angle radius=1.2cm, angle eccentricity=1.25},
+    dimension/.style={thin, |<->|},           % length between two marks
+    % --- Fields ---
+    field line/.style={semithick, postaction={decorate}, decoration={markings,
+        mark=at position 0.5 with {\arrow{Latex[length=1.8mm, width=1.5mm]}}}},
+    equipotential/.style={thin, draw=black!45, dash pattern=on 2pt off 1.5pt},
+    section frame/.style={thin, draw=black!30},
+    % --- Symmetries (with the conserved quantity as label) ---
+    translation/.style={draw=symmetry, very thick, {Latex}-{Latex}},
+    rotation/.style={draw=symmetry, very thick, -{Latex[length=2mm, width=2mm]}},
+    symmetry label/.style={text=symmetry},
+    % --- 3D view: orthographic projection with z vertical ---
+    % Horizontal circles of radius R project to ellipses of radii R and R*sin(#2).
+    view3d/.style 2 args={                    % {azimuth}{elevation}
+        x={({-sin(#1)*1cm}, {-cos(#1)*sin(#2)*1cm})},
+        y={({cos(#1)*1cm}, {-sin(#1)*sin(#2)*1cm})},
+        z={(0cm, {cos(#2)*1cm})},
+    },
+    default view3d/.style={view3d={30}{20}},
+}
+
+% ============ Pictures ============ %
+\tikzset{
+    % Uniform gravitational field: \pic at (x,y) {gravity};
+    pics/gravity/.style={code={
+        \draw[vector] (0,0) -- (0,-1) node[right] {$g$};
+    }},
+}
+
+% --- Symmetries, in a default view3d scope, placed on the z axis ---
+\tikzset{
+    % Rotation about the z axis: \pic at (0,0,z) {zrotation={radius}{label}};
+    % The gap of the circle is behind the axis.
+    pics/zrotation/.style 2 args={code={
+        \draw[rotation] plot[domain=235:545, samples=100, variable=\t] ({#1*cos(\t)}, {#1*sin(\t)}, 0);
+        \node[symmetry label, right=2pt] at (0,#1,0) {#2};
+    }},
+    % Translation along the z axis, drawn on its left:
+    % \pic at (0,0,z) {ztranslation={length}{label}};
+    pics/ztranslation/.style 2 args={code={
+        \draw[translation] (0.4,-0.7,0) -- node[symmetry label, pos=1, left=1pt] {#2} (0.4,-0.7,#1);
+    }},
+    % Screw motion about the z axis (rotation with a translation h per turn):
+    % \pic at (0,0,z) {zscrew={radius}{h}{label}};
+    pics/zscrew/.style n args={3}{code={
+        \draw[rotation] plot[domain=235:545, samples=100, variable=\t] ({#1*cos(\t)}, {#1*sin(\t)}, {#2*(\t-235)/360});
+        \node[symmetry label, right=2pt] at (0,#1,{#2*0.4}) {#3};
+    }},
+}
+
+% --- Bodies, in a default view3d scope (azimuth 30, elevation 20) ---
+% Dashed lines are hidden edges; open ends of infinite bodies are left open.
+\tikzset{
+    % Plane z = 0: \pic {plane3d={half-size along x}{half-size along y}};
+    pics/plane3d/.style 2 args={code={
+        \filldraw[fill=body] (-#1,-#2,0) -- (#1,-#2,0) -- (#1,#2,0) -- (-#1,#2,0) -- cycle;
+    }},
+    % Half-plane z = 0, x < 0 (edge on the y axis): \pic {halfplane3d={size along x}{half-size along y}};
+    pics/halfplane3d/.style 2 args={code={
+        \filldraw[fill=body] (0,-#2,0) -- (0,#2,0) -- (-#1,#2,0) -- (-#1,-#2,0) -- cycle;
+        \draw[very thick] (0,-#2,0) -- (0,#2,0);
+    }},
+    % Cylinder of axis z between -H and H: \pic {cylinder3d={R}{H}};
+    % (its silhouette lines are at the azimuths 120 and 300 degrees)
+    pics/cylinder3d/.style 2 args={code={
+        \draw[guide] plot[domain=120:300, variable=\t] ({#1*cos(\t)}, {#1*sin(\t)}, -#2);
+        \filldraw[fill=body] plot[domain=300:480, variable=\t] ({#1*cos(\t)}, {#1*sin(\t)}, -#2)
+            -- plot[domain=120:-60, variable=\t] ({#1*cos(\t)}, {#1*sin(\t)}, #2) -- cycle;
+        \filldraw[fill=body light] plot[domain=0:360, samples=50, variable=\t] ({#1*cos(\t)}, {#1*sin(\t)}, #2) -- cycle;
+        \foreach \t in {120,300} {
+            \draw[guide] ({#1*cos(\t)}, {#1*sin(\t)}, #2) -- ++(0,0,0.5);
+            \draw[guide] ({#1*cos(\t)}, {#1*sin(\t)}, -#2) -- ++(0,0,-0.5);
+        }
+    }},
+    % Triangular prism of axis z between -H and H, edges at the distance R from
+    % the axis at the azimuths 30 (front), 150 and 270: \pic {prism3d={R}{H}};
+    pics/prism3d/.style 2 args={code={
+        \foreach \t [count=\i] in {30,150,270} {
+            \coordinate (T\i) at ({#1*cos(\t)}, {#1*sin(\t)}, #2);
+            \coordinate (B\i) at ({#1*cos(\t)}, {#1*sin(\t)}, -#2);
+        }
+        \draw[guide] (B2) -- (B3);
+        \filldraw[fill=body] (B3) -- (B1) -- (T1) -- (T3) -- cycle;
+        \filldraw[fill=body dark] (B1) -- (B2) -- (T2) -- (T1) -- cycle;
+        \filldraw[fill=body light] (T1) -- (T2) -- (T3) -- cycle;
+        \foreach \i in {1,2,3} {
+            \draw[guide] (T\i) -- ++(0,0,0.5);
+            \draw[guide] (B\i) -- ++(0,0,-0.5);
+        }
+    }},
+    % Cone of axis z, base of radius R at z = 0 and apex at z = H: \pic {cone3d={R}{H}};
+    % (drawn in canvas co-ordinates: the base is an ellipse of radii a and b)
+    pics/cone3d/.style 2 args={code={
+        \pgfmathsetmacro\sfa{#1}
+        \pgfmathsetmacro\sfb{#1*sin(20)}
+        \pgfmathsetmacro\sfh{#2*cos(20)}
+        \pgfmathsetmacro\sft{asin(\sfb/\sfh)} % tangent points on the ellipse
+        \filldraw[fill=body] (0cm,\sfh cm) -- (\sft:\sfa cm and \sfb cm)
+            arc[start angle=\sft, end angle=-180-\sft, x radius=\sfa cm, y radius=\sfb cm] -- cycle;
+        \draw[guide] (\sft:\sfa cm and \sfb cm) arc[start angle=\sft, end angle=180-\sft, x radius=\sfa cm, y radius=\sfb cm];
+    }},
+    % Torus of axis z, radius R and tube radius r: \pic {torus3d={R}{r}};
+    % (drawn in canvas co-ordinates: the hole is bounded by the inner
+    % silhouettes of the back and front of the tube, close to ellipses of radii
+    % a and b centred at the heights -c and c)
+    pics/torus3d/.style 2 args={code={
+        \pgfmathsetmacro\sfA{#1+#2}
+        \pgfmathsetmacro\sfB{(#1+#2*sin(20))*sin(20) + #2*cos(20)*cos(20)}
+        \pgfmathsetmacro\sfa{#1 - #2*sin(20)}
+        \pgfmathsetmacro\sfb{\sfa*sin(20)}
+        \pgfmathsetmacro\sfc{#2*cos(20)*cos(20)}
+        \pgfmathsetmacro\sfcut{acos(sqrt(1 - (\sfc/\sfb)^2))}
+        \filldraw[fill=body] (0cm,0cm) ellipse[x radius=\sfA cm, y radius=\sfB cm];
+        \filldraw[fill=white] (0cm,-\sfc cm) ++(\sfcut:\sfa cm and \sfb cm)
+            arc[start angle=\sfcut, end angle=180-\sfcut, x radius=\sfa cm, y radius=\sfb cm]
+            arc[start angle=180+\sfcut, end angle=360-\sfcut, x radius=\sfa cm, y radius=\sfb cm] -- cycle;
+    }},
+    % Helix of axis z, radius R and pitch h, three turns centred on z = 0:
+    % \pic {helix3d={R}{h}}; (the half-turns behind the axis are gray)
+    pics/helix3d/.style 2 args={code={
+        \foreach \a/\b in {-540/-420, -240/-60, 120/300, 480/540}
+            \draw[rod, black!40] plot[domain=\a:\b, samples=30, variable=\t] ({#1*cos(\t)}, {#1*sin(\t)}, {#2*\t/360});
+        \draw[guide] plot[domain=-600:-540, samples=10, variable=\t] ({#1*cos(\t)}, {#1*sin(\t)}, {#2*\t/360});
+        \draw[guide] plot[domain=540:600, samples=10, variable=\t] ({#1*cos(\t)}, {#1*sin(\t)}, {#2*\t/360});
+        \foreach \a/\b in {-420/-240, -60/120, 300/480}
+            \draw[rod] plot[domain=\a:\b, samples=30, variable=\t] ({#1*cos(\t)}, {#1*sin(\t)}, {#2*\t/360});
+    }},
+}
+
+% ============ Fields ============ %
+% A cross-section of the field, seen face on, in the region a1 < a < a2,
+% b1 < b < b2 of its co-ordinates (a,b):
+%
+%   \begin{fieldsection}[tikz options]{a1}{a2}{b1}{b2}{caption}
+%       \FieldCylinder...           sources (see SolutionFigure.lua)
+%       \Equipotentials{a/b, ...}   equipotentials through these points
+%       \FieldLines{a/b, ...}       field lines from these points
+%       ...                         section of the body, axes, ...
+%   \end{fieldsection}
+\newenvironment{fieldsection}[6][]{%
+    \begin{scope}[#1]
+    \def\sf@box{(#2,#4) rectangle (#3,#5)}%
+    \def\sf@caption{\node[below] at ({(#2+#3)/2},#4) {#6};}%
+    \directlua{SF.reset() SF.bounds(#2,#3,#4,#5)}%
+    \begin{scope}
+    \clip \sf@box;
+}{%
+    \end{scope}
+    \draw[section frame] \sf@box;
+    \sf@caption
+    \end{scope}
+}
+
+% Sources (3D: the section is the plane y = 0; 2D: infinite in the direction
+% perpendicular to the section)
+\newcommand\FieldPlane{\directlua{SF.plane()}}                       % plane b = 0
+\newcommand\FieldHalfPlane{\directlua{SF.halfplane()}}               % half-plane b = 0, a < 0
+\newcommand\FieldDisc[3]{\directlua{SF.disc2(#1,#2,#3)}}             % {a}{b}{R} (cylinder)
+\newcommand\FieldPolygon[1]{\directlua{SF.polygon("\luaescapestring{#1}")}} % {a1/b1, ...} (prism)
+\newcommand\FieldPoint[3]{\directlua{SF.point(#1,#2,#3)}}            % {x}{y}{z}
+\newcommand\FieldCone[2]{\directlua{SF.cone(#1,#2)}}                 % {R}{H}
+\newcommand\FieldTorus[2]{\directlua{SF.torus(#1,#2)}}               % {R}{r}
+\newcommand\FieldHelix[2]{\directlua{SF.helix(#1,#2)}}               % {R}{h}
+
+% Cross-section z = c for the 3D sources (instead of the plane y = 0)
+\newcommand\FieldSectionZ[1]{\directlua{SF.sectionz(#1)}}
+
+% Field lines and equipotentials
+\newcommand\FieldLines[1]{\directlua{SF.lines("\luaescapestring{#1}")}}
+\newcommand\FieldLinesCircle[5]{\directlua{SF.linescircle(#1,#2,#3,#4,#5)}}    % {a}{b}{r}{number}{phase}
+\newcommand\FieldLinesSegment[5]{\directlua{SF.linessegment(#1,#2,#3,#4,#5)}}  % {a1}{b1}{a2}{b2}{number}
+\newcommand\Equipotentials[1]{\directlua{SF.equipotentials("\luaescapestring{#1}")}}

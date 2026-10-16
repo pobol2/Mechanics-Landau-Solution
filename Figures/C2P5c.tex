@@ -1,0 +1,27 @@
+% Chapter 2, Problem 5(c): field of an infinite homogeneous prism
+% The field is the same in every cross-section perpendicular to the edges, but
+% it is not symmetric about any axis: it is unchanged by translations along z only.
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    \def\R{0.9}     % distance from the axis to the edges
+
+    % Prism and its symmetry
+    \begin{scope}[default view3d]
+        \pic {prism3d={\R}{1.3}};
+        \draw[axis] (0,0,1.3) -- (0,0,3.3) node[above] {$z$};
+        \pic at (0,0,1.6) {ztranslation={1.2}{$P_z$}};
+    \end{scope}
+
+    % Field in a cross-section (edges at the azimuths 30, 150 and 270 degrees)
+    \begin{fieldsection}[xshift=5cm, yshift=0.3cm]{-2}{2}{-2}{2}{cross-section $z = \text{const.}$}
+        \FieldPolygon{0.779/0.45, -0.779/0.45, 0/-0.9}
+        \Equipotentials{0/0.62, 0/0.95, 0/1.45, 0/2.1}
+        \FieldLinesCircle{0}{0}{2.9}{18}{0}
+        \filldraw[fill=body] (30:\R) -- (150:\R) -- (270:\R) -- cycle;
+        \draw[axis] (0,0) -- (1.4,0) node[axis label, below] {$x$};
+        \draw[axis] (0,0) -- (0,1.4) node[axis label, right] {$y$};
+    \end{fieldsection}
+\end{tikzpicture}
+\end{document}

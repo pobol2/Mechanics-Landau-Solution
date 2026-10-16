@@ -29,3 +29,6 @@ build/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Figures are compiled from Figures/*.tex by latexmk
+Figures/*.pdf

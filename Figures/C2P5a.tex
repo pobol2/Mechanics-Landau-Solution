@@ -1,0 +1,30 @@
+% Chapter 2, Problem 5(a): field of an infinite homogeneous plane
+% The field is uniform and perpendicular to the plane: it is unchanged by
+% translations along x and y and by rotations about z.
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    % Plane and its symmetries
+    \begin{scope}[default view3d]
+        \pic {plane3d={1.3}{1.9}};
+        \draw[axis] (0,0,0) -- (1.1,0,0) node[below left=-2pt] {$x$};
+        \draw[axis] (0,0,0) -- (0,1.1,0) node[below right=-2pt] {$y$};
+        \draw[axis] (0,0,0) -- (0,0,2) node[above] {$z$};
+        \draw[translation] (-1,-1.2,0) -- node[symmetry label, below right=-2pt] {$P_x$} (1,-1.2,0);
+        \draw[translation] (1,0.2,0) -- node[symmetry label, below] {$P_y$} (1,1.5,0);
+        \pic at (0,0,1.2) {zrotation={0.4}{$M_z$}};
+    \end{scope}
+
+    % Field in a cross-section
+    \begin{fieldsection}[xshift=5cm]{-2}{2}{-1.6}{1.6}{cross-section $y = \text{const.}$}
+        \FieldPlane
+        \Equipotentials{0/0.5, 0/1, 0/1.5}
+        \FieldLinesSegment{-2}{1.7}{2}{1.7}{8}
+        \FieldLinesSegment{-2}{-1.7}{2}{-1.7}{8}
+        \filldraw[fill=body] (-2.1,-0.05) rectangle (2.1,0.05);
+        \draw[axis] (0,0) -- (1.2,0) node[axis label, below] {$x$};
+        \draw[axis] (0,0) -- (0,1.2) node[axis label, right] {$z$};
+    \end{fieldsection}
+\end{tikzpicture}
+\end{document}

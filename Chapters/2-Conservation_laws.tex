@@ -150,14 +150,47 @@ Which components of momentum $\mathbf{P}$ and angular momentum $\mathbf{M}$ are 
 The field of an infinite homogeneous plane.
 }
 {
-solution
+Let us first see how a symmetry of the field leads to the conservation of a component. For a particle of mass $m$ in a stationary external field $U$, the Lagrangian in Cartesian co-ordinates is
+\begin{equation*}
+    L = \frac{1}{2} m (\Dot{x}^2 + \Dot{y}^2 + \Dot{z}^2) - U(x,y,z).
+\end{equation*}
+Since $P_x = \pd{L}{\Dot{x}} = m\Dot{x}$, Lagrange's equation for $x$ gives
+\begin{equation*}
+    \Dot{P}_x = \frac{d}{dt} \pd{L}{\Dot{x}} = \pd{L}{x} = -\pd{U}{x} .
+\end{equation*}
+If the field is unchanged by any translation along $x$, \ie $U(x+a,y,z) = U(x,y,z)$ for every $a$, then $U$ does not depend on $x$ and $P_x$ is constant. Any direction can be taken as the $x$ axis, so a component of $\mathbf{P}$ is conserved when the field is unchanged by arbitrary translations along that direction.
+
+Similarly, in the cylindrical co-ordinates $r,\phi,z$, the Lagrangian is
+\begin{equation*}
+    L = \frac{1}{2} m (\Dot{r}^2 + r^2\Dot{\phi}^2 + \Dot{z}^2) - U(r,\phi,z),
+\end{equation*}
+and $\pd{L}{\Dot{\phi}} = mr^2\Dot{\phi} = M_z$ is the component of the angular momentum along the $z$ axis found in \probref{2}{3}. Lagrange's equation for $\phi$ gives
+\begin{equation*}
+    \Dot{M}_z = \frac{d}{dt} \pd{L}{\Dot{\phi}} = \pd{L}{\phi} = -\pd{U}{\phi} .
+\end{equation*}
+If the field is unchanged by any rotation about the $z$ axis, then $U$ does not depend on $\phi$ and $M_z$ is constant. Here, the angular momentum is measured about the symmetry axis, \ie with the origin on that axis. The symmetries involved are continuous: the field must be unchanged by translations or rotations of any amount, however small, for the corresponding derivative of $U$ to vanish. Invariance under a few isolated rotations is not enough. The same reasoning holds for the total momentum and angular momentum of a system of particles in the field.
+
+In each of the following figures, the body is shown on the left. The red arrows are the transformations leaving its field unchanged (a double arrow for a translation, a circular arrow for a rotation), each labelled with the quantity it conserves. The field is shown on the right in a cross-section. The arrows of the field lines give the direction of the force $\mathbf{F} = -\nabla U$ on the particle, and the dashed curves are equipotentials, along which $U$ is constant.
+
+Let the plane be $z = 0$, as in the figure. Each point of an infinite homogeneous plane is equivalent to any other, so its field depends only on the distance to the plane, \ie $U = U(z)$. It is thus unchanged by any translation along $x$ or $y$ and by any rotation about the $z$ axis: the field lines are perpendicular to the plane and the equipotentials are planes parallel to it.
 \begin{figure}[H]
     \centering
-    \includegraphics[page=5]{Figures/tikzpics.pdf}
+    \includegraphics{Figures/C2P5a.pdf}
 \end{figure}
+In terms of the force, this means that
+\begin{equation*}
+    F_x = -\pd{U}{x} = 0 \quad \text{and} \quad F_y = -\pd{U}{y} = 0,
+\end{equation*}
+and the torque about the $z$ axis vanishes:
+\begin{equation*}
+    \Dot{M}_z = xF_y - yF_x = 0 .
+\end{equation*}
+However, there is generally a force $F_z = -dU/dz$ normal to the plane, so $P_z$ is not conserved, and neither are $M_x$ and $M_y$, whose torques $yF_z$ and $-xF_z$ do not vanish. The conserved components are then
 }
 {
-answer
+\begin{equation*}
+    P_x, \quad P_y, \quad M_z
+\end{equation*}
 }
 \end{subproblem}
 
@@ -166,10 +199,21 @@ answer
 The field of an infinite homogeneous cylinder.
 }
 {
-solution
+Let the axis of the cylinder be the $z$ axis, as in the figure, and $r$ the distance from that axis. The field of an infinite homogeneous cylinder is the same at every height and in every direction around the axis, so it depends only on $r$, \ie $U = U(r)$. It is thus unchanged by any translation along $z$ and by any rotation about the $z$ axis: in a cross-section, the field lines are radial and the equipotentials are circles.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/C2P5b.pdf}
+\end{figure}
+The force $\mathbf{F} = -U'(r)\,\mathbf{\hat{r}}$ is radial. It has no axial component, so $\Dot{P}_z = F_z = 0$, and its line of action meets the axis, so it produces no torque about it. Indeed, $(F_x, F_y)$ is parallel to $(x, y)$ and
+\begin{equation*}
+    \Dot{M}_z = xF_y - yF_x = 0 .
+\end{equation*}
+The components $F_x$ and $F_y$ do not vanish, so $P_x$ and $P_y$ are not conserved, nor are $M_x$ and $M_y$. The conserved components are then
 }
 {
-answer
+\begin{equation*}
+    P_z, \quad M_z
+\end{equation*}
 }
 \end{subproblem}
 
@@ -178,10 +222,21 @@ answer
 The field of an infinite homogeneous prism.
 }
 {
-solution
+Let the edges of the prism be parallel to the $z$ axis, as in the figure. The prism is the same in every cross-section perpendicular to its edges, so its field is unchanged by any translation along $z$, \ie $U = U(x,y)$, and
+\begin{equation*}
+    \Dot{P}_z = -\pd{U}{z} = 0 .
+\end{equation*}
+However, its cross-section is a polygon, so the field generally depends on the direction about any axis parallel to the edges. In the figure, the equipotentials near the prism follow the triangular cross-section and only become circular far from it. Even for a regular polygon of $n$ sides, such as the equilateral triangle shown, the field is unchanged only by the rotations by multiples of $2\pi/n$ about its axis. These isolated rotations do not make $\partial U/\partial \phi$ vanish, so they do not imply the conservation of $M_z$.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/C2P5c.pdf}
+\end{figure}
+The only conserved component is then
 }
 {
-answer
+\begin{equation*}
+    P_z
+\end{equation*}
 }
 \end{subproblem}
 
@@ -190,10 +245,21 @@ answer
 The field of two points.
 }
 {
-solution
+Let the two points be on the $z$ axis, as in the figure. The field is the sum of the fields of the two points, each depending only on the distance from the particle to that point, \ie
+\begin{equation*}
+    U = U_1(\rho_1) + U_2(\rho_2),
+\end{equation*}
+where $\rho_1$ and $\rho_2$ are the distances from the particle to the two points. A rotation of the particle about the line joining the points leaves both distances unchanged, so $U$ does not depend on $\phi$. In other words, the force exerted by each point is directed towards that point, so its line of action meets the $z$ axis and it produces no torque about it. This holds whether or not the two points have the same strength. In the figure, the field lines and equipotentials are shown in a plane containing the axis; they are the same in every such plane.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/C2P5d.pdf}
+\end{figure}
+On the other hand, a translation moves the particle with respect to the fixed points and changes these distances, so no component of $\mathbf{P}$ is generally conserved. The only conserved component is then
 }
 {
-answer
+\begin{equation*}
+    M_z
+\end{equation*}
 }
 \end{subproblem}
 
@@ -202,10 +268,21 @@ answer
 The field of an infinite homogeneous half-plane.
 }
 {
-solution
+Let the half-plane be $z = 0$, $x < 0$, as in the figure, so that its edge is the $y$ axis. A translation parallel to the edge maps the half-plane onto itself, so its field is the same in every cross-section $y = \text{constant}$, \ie $U = U(x,z)$, and
+\begin{equation*}
+    \Dot{P}_y = -\pd{U}{y} = 0 .
+\end{equation*}
+The edge removes the other symmetries of the whole plane. A translation along $x$ moves the edge, and the field depends on the distance to it: in the figure, the field lines bend towards the edge and the equipotentials curve around it. A rotation about the $z$ axis turns the edge, and a rotation about any other axis tilts the half-plane, so no rotation leaves the field unchanged and no component of $\mathbf{M}$ is generally conserved.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/C2P5e.pdf}
+\end{figure}
+The only conserved component is then
 }
 {
-answer
+\begin{equation*}
+    P_y
+\end{equation*}
 }
 \end{subproblem}
 
@@ -214,10 +291,17 @@ answer
 The field of a homogeneous cone.
 }
 {
-solution
+Let the axis of the circular cone be the $z$ axis, as in the figure. A rotation about its axis maps the cone onto itself, so its field can depend on $r$ and $z$ but not on $\phi$, \ie $U = U(r,z)$, and $M_z$ is conserved. In the figure, the field lines and equipotentials are shown in a plane containing the axis; they are the same in every such plane.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/C2P5f.pdf}
+\end{figure}
+On the other hand, the apex of the cone is a fixed point. Any translation moves it, even one along the axis, so the translated cone is not the same and the field changes. This would remain true for an infinite cone. Hence, no component of $\mathbf{P}$ is generally conserved. The only conserved component is then
 }
 {
-answer
+\begin{equation*}
+    M_z
+\end{equation*}
 }
 \end{subproblem}
 
@@ -226,10 +310,17 @@ answer
 The field of a homogeneous circular torus.
 }
 {
-solution
+Let the axis of the torus be the $z$ axis, as in the figure. A circular torus is generated by turning a circle about this axis, so any rotation about it maps the torus onto itself. Its field can then depend on $r$ and $z$ but not on $\phi$, \ie $U = U(r,z)$, and $M_z$ is conserved. In the figure, the field lines and equipotentials are shown in a plane containing the axis; they are the same in every such plane.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/C2P5g.pdf}
+\end{figure}
+On the other hand, the torus has a fixed position, with its centre at the origin and its central circle in the plane $z = 0$. Any translation moves it to another position and changes the field, so no component of $\mathbf{P}$ is generally conserved. The only conserved component is then
 }
 {
-answer
+\begin{equation*}
+    M_z
+\end{equation*}
 }
 \end{subproblem}
 
@@ -238,10 +329,45 @@ answer
 The field of an infinite homogeneous cylindrical helix.
 }
 {
-solution
+Let the axis of the helix be the $z$ axis and $R$ its radius. As in the figure, its points are
+\begin{equation*}
+    (x, y, z) = \left( R\cos{\phi}, R\sin{\phi}, \frac{h\phi}{2\pi} \right),
+\end{equation*}
+where $h$ is the pitch: the helix advances by $h$ along the axis during one positive rotation of $2\pi$. A rotation by $\delta\phi$ alone does not map the helix onto itself, nor does an arbitrary translation $\delta z$ alone (the translations by whole multiples of $h$ do, but they are isolated transformations, as the rotations of the prism). However, the combined screw displacement
+\begin{equation*}
+    \delta z = \frac{h}{2\pi}\delta\phi
+\end{equation*}
+maps each point of the helix to the point at $\phi + \delta\phi$, so it does preserve the helix and its field. Consequently, the field in the cross-section at the height $z$ is the one at $z = 0$ turned by the angle $2\pi z/h$. This is what the three cross-sections of the figure show: increasing $z$ by $h/4$ turns the pattern by $\pi/2$. In these cross-sections, the field lines show the components of the field in each plane, and not the complete three-dimensional field lines, since the field also has a component along $z$.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/C2P5h.pdf}
+\end{figure}
+In cylindrical co-ordinates, the field thus depends on $\phi$ and $z$ only through the combination
+\begin{equation*}
+    \xi = z - \frac{h}{2\pi}\phi, \qquad U = U(r, \xi).
+\end{equation*}
+Since $\phi$ and $\phi + 2\pi$ describe the same point while $\xi$ changes by $h$, the function $U(r,\xi)$ is periodic in $\xi$ with period $h$. The Lagrangian is
+\begin{equation*}
+    L = \frac{1}{2} m (\Dot{r}^2 + r^2\Dot{\phi}^2 + \Dot{z}^2) - U\left(r, z - \frac{h\phi}{2\pi}\right),
+\end{equation*}
+and its derivatives with respect to $\phi$ and $z$ are
+\begin{equation*}
+    \pd{L}{\phi} = \frac{h}{2\pi} \pd{U}{\xi} \quad \text{and} \quad \pd{L}{z} = -\pd{U}{\xi}.
+\end{equation*}
+Using Lagrange's equations for $\phi$ and $z$, with $M_z = mr^2\Dot{\phi}$ and $P_z = m\Dot{z}$, we get
+\begin{equation*}
+    \Dot{M}_z = \frac{h}{2\pi} \pd{U}{\xi} \quad \text{and} \quad \Dot{P}_z = -\pd{U}{\xi},
+\end{equation*}
+so that
+\begin{equation*}
+    \frac{d}{dt} \left( M_z + \frac{h}{2\pi} P_z \right) = \frac{h}{2\pi} \pd{U}{\xi} - \frac{h}{2\pi} \pd{U}{\xi} = 0 .
+\end{equation*}
+No individual Cartesian component of $\mathbf{P}$ or $\mathbf{M}$ is generally conserved here. The screw symmetry conserves a combination of the axial angular momentum and the axial momentum, whose two terms have the same dimensions since $h$ is a length. The conserved quantity is then
 }
 {
-answer
+\begin{equation*}
+    M_z + \frac{h}{2\pi} P_z = \text{constant}
+\end{equation*}
 }
 \end{subproblem}
 

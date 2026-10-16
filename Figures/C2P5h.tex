@@ -1,0 +1,38 @@
+% Chapter 2, Problem 5(h): field of an infinite homogeneous cylindrical helix
+% The field is unchanged by a rotation by an angle dphi about the axis combined
+% with a translation h dphi / 2pi along it (a screw motion), h being the pitch:
+% the cross-section at the height z is the one at z = 0 turned by 2 pi z / h.
+% The field drawn in each cross-section is its component in that plane.
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    \def\R{0.8}     % radius of the helix
+    \def\h{1.1}     % pitch
+
+    % Helix and its symmetry
+    \begin{scope}[default view3d]
+        \pic {helix3d={\R}{\h}};
+        \draw[axis] (0,0,-2.1) -- (0,0,3.6) node[above] {$z$};
+        \draw[dimension] ({(\R+0.3)*cos(300)}, {(\R+0.3)*sin(300)}, {-\h/6})
+            -- node[left] {$h$} ({(\R+0.3)*cos(300)}, {(\R+0.3)*sin(300)}, {5*\h/6});
+        \pic at (0,0,2.4) {zscrew={0.4}{0.55}{$M_z + \dfrac{h}{2\pi} P_z$}};
+    \end{scope}
+
+    % Field in the cross-sections z = 0, h/4 and h/2, where the helix crosses
+    % at the azimuths 0, 90 and 180 degrees
+    \foreach \i/\f/\t/\caption in {0/0/0/{$z = 0$}, 1/0.25/90/{$z = h/4$}, 2/0.5/180/{$z = h/2$}} {
+        \pgfmathsetmacro\ca{cos(\t)}
+        \pgfmathsetmacro\cb{sin(\t)}
+        \begin{fieldsection}[xshift=4.3cm+\i*3.4cm, yshift=0.3cm]{-1.5}{1.5}{-1.5}{1.5}{\caption}
+            \FieldSectionZ{\f*\h}
+            \FieldHelix{\R}{\h}
+            \Equipotentials{0/0, 1.05*\ca/1.05*\cb, 1.45*\ca/1.45*\cb}
+            \FieldLinesCircle{0}{0}{2.2}{16}{11.25}
+            \fill ({\R*\ca},{\R*\cb}) circle[radius=0.1];
+            \draw[axis] (0,0) -- (0.6,0) node[axis label, below left=-1pt] {$x$};
+            \draw[axis] (0,0) -- (0,0.6) node[axis label, left] {$y$};
+        \end{fieldsection}
+    }
+\end{tikzpicture}
+\end{document}

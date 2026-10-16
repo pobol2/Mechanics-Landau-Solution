@@ -1,0 +1,35 @@
+% Chapter 1, Problem 4: system rotating about a vertical axis with angular velocity Omega
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    % Parameters
+    \def\a{2}       % length a of the rods
+    \def\ang{35}    % angle theta
+
+    \coordinate (P) at (0,0);
+    \coordinate (mL) at (-90-\ang:\a);
+    \coordinate (mR) at (-90+\ang:\a);
+    \coordinate (m2) at (0,{-2*\a*cos(\ang)});
+
+    % Rotation axis
+    \draw[rotation axis] (0,1.2) -- (0,-4.2);
+    \draw[thin, ->] (0,0.75) ++(110:0.45 and 0.12) arc[start angle=110, end angle=430, x radius=0.45, y radius=0.12];
+    \node[right] at (0.5,0.75) {$\Omega$};
+    \pic at (2.5,-0.25) {gravity};
+
+    % Angle
+    \coordinate (v) at (0,-1);
+    \pic[angle arc, "$\theta$"] {angle = v--P--mR};
+
+    % Rods
+    \draw[rod] (P) -- node[above left]  {$a$} (mL) -- node[below left]  {$a$} (m2);
+    \draw[rod] (P) -- node[above right] {$a$} (mR) -- node[below right] {$a$} (m2);
+
+    % Masses
+    \node[pivot] at (P) {};
+    \node[mass, label=left:$m_1$]  at (mL) {};
+    \node[mass, label=right:$m_1$] at (mR) {};
+    \node[block, label=right:$m_2$] at (m2) {};
+\end{tikzpicture}
+\end{document}

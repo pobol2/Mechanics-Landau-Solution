@@ -1,0 +1,30 @@
+% Chapter 2, Problem 5(d): field of two points
+% The field is symmetric about the line joining the points: it is unchanged by
+% rotations about it only.
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    \def\d{0.8}     % distance from the origin to each point
+
+    % Points and their symmetry
+    \begin{scope}[default view3d]
+        \draw[axis] (0,0,-1.6) -- (0,0,2.8) node[above] {$z$};
+        \node[mass, minimum size=2mm] at (0,0,\d) {};
+        \node[mass, minimum size=2mm] at (0,0,-\d) {};
+        \pic at (0,0,2) {zrotation={0.4}{$M_z$}};
+    \end{scope}
+
+    % Field in a plane containing the points
+    \begin{fieldsection}[xshift=4cm, yshift=0.5cm]{-2}{2}{-2}{2}{plane $y = 0$}
+        \FieldPoint{0}{0}{\d}
+        \FieldPoint{0}{0}{-\d}
+        \Equipotentials{0.3/0.8, 0.62/0, 1.1/0, 1.8/0}
+        \FieldLinesCircle{0}{0}{2.9}{20}{9}
+        \fill (0,\d) circle[radius=0.1];
+        \fill (0,-\d) circle[radius=0.1];
+        \draw[axis] (0,0) -- (1.4,0) node[axis label, below] {$x$};
+        \draw[axis] (0,\d) -- (0,1.8) node[axis label, right] {$z$};
+    \end{fieldsection}
+\end{tikzpicture}
+\end{document}

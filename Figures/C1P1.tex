@@ -1,0 +1,33 @@
+% Chapter 1, Problem 1: coplanar double pendulum
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    % Parameters
+    \def\lA{2}      % length l_1
+    \def\lB{2}      % length l_2
+    \def\phiA{20}   % angle phi_1
+    \def\phiB{35}   % angle phi_2
+
+    \coordinate (O) at (0,0);
+    \coordinate (m1) at ($(O) + (-90+\phiA:\lA)$);
+    \coordinate (m2) at ($(m1) + (-90+\phiB:\lB)$);
+
+    % Axes
+    \draw[axis] (O) -- (3,0) node[right] {$x$};
+    \draw[axis] (O) -- (0,-4) node[below] {$y$};
+    \pic at (2.5,-1) {gravity};
+
+    % Angles
+    \draw[guide] (m1) -- ++(0,-1.75) coordinate (v2);
+    \coordinate (v1) at (0,-1);
+    \pic[angle arc, "$\phi_1$"] {angle = v1--O--m1};
+    \pic[angle arc, "$\phi_2$"] {angle = v2--m1--m2};
+
+    % Pendulum
+    \draw[rod] (O) -- node[above right] {$l_1$} (m1) -- node[above right] {$l_2$} (m2);
+    \node[pivot] at (O) {};
+    \node[mass, label=right:$m_1$] at (m1) {};
+    \node[mass, label=right:$m_2$] at (m2) {};
+\end{tikzpicture}
+\end{document}

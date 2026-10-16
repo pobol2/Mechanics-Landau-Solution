@@ -1,0 +1,44 @@
+% Chapter 3, Problem 4: spherical pendulum
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    % Parameters
+    \def\len{3}     % length l
+    \def\th{35}     % angle theta
+    \def\ph{75}     % angle phi
+    \pgfmathsetmacro\rad{\len*sin(\th)}
+    \pgfmathsetmacro\zc{-\len*cos(\th)}
+
+    \begin{scope}[default view3d]
+        \coordinate (O) at (0,0,0);
+        \coordinate (C) at (0,0,\zc);
+        \coordinate (m) at ({\rad*cos(\ph)}, {\rad*sin(\ph)}, \zc);
+
+        % Axes
+        \draw[axis] (O) -- (1.6,0,0) node[below left=-2pt] {$x$};
+        \draw[axis] (O) -- (0,2.2,0) node[right] {$y$};
+        \draw[axis] (O) -- (0,0,1.2) node[above] {$z$};
+
+        % Circle described at constant theta
+        \draw[guide] plot[domain=0:360, samples=73, variable=\t] ({\rad*cos(\t)}, {\rad*sin(\t)}, \zc);
+        \draw[guide] (O) -- (C);
+        \draw[guide] (C) -- (\rad,0,\zc);
+        \draw[guide] (C) -- (m);
+
+        % Angles
+        \draw[thin, ->] plot[domain=0:\th, variable=\t]
+            ({1.2*sin(\t)*cos(\ph)}, {1.2*sin(\t)*sin(\ph)}, {-1.2*cos(\t)});
+        \node at ({1.6*sin(\th/2)*cos(\ph)}, {1.6*sin(\th/2)*sin(\ph)}, {-1.6*cos(\th/2)}) {$\theta$};
+        \draw[thin, ->] plot[domain=0:\ph, variable=\t] ({1.25*cos(\t)}, {1.25*sin(\t)}, \zc);
+        \node at ({0.7*cos(\ph/2)}, {0.7*sin(\ph/2)}, \zc) {$\phi$};
+
+        % Pendulum
+        \draw[rod] (O) -- node[pos=0.4, above right] {$l$} (m);
+        \node[pivot] at (O) {};
+        \node[mass, label=below right:$m$] at (m) {};
+    \end{scope}
+
+    \pic at (2.75,0) {gravity};
+\end{tikzpicture}
+\end{document}

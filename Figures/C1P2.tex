@@ -1,0 +1,29 @@
+% Chapter 1, Problem 2: pendulum whose point of support m_1 moves on a horizontal line
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    % Parameters
+    \def\xpos{1}    % position x of m_1
+    \def\len{2.5}   % length l
+    \def\ang{25}    % angle phi
+
+    \coordinate (O) at (0,0);
+    \coordinate (m1) at (\xpos,0);
+    \coordinate (m2) at ($(m1) + (-90+\ang:\len)$);
+
+    % Axes
+    \draw[axis] (O) -- (3.5,0) node[right] {$x$};
+    \draw[axis] (O) -- (0,-3.5) node[below] {$y$};
+    \pic at (3,-1) {gravity};
+
+    % Angle
+    \draw[guide] (m1) -- ++(0,-1.75) coordinate (v);
+    \pic[angle arc, "$\phi$"] {angle = v--m1--m2};
+
+    % Pendulum
+    \draw[rod] (m1) -- node[pos=0.65, above right] {$l$} (m2);
+    \node[mass, label=above:$m_1$] at (m1) {};
+    \node[mass, label=right:$m_2$] at (m2) {};
+\end{tikzpicture}
+\end{document}

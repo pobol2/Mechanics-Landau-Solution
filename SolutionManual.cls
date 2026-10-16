@@ -68,11 +68,20 @@
 
 % Define solution command
 \newcommand*{\solution}{%
+  % Keep a closing display attached to the answer (also within subproblems).
+  \postdisplaypenalty=10000\relax
   {\scshape Solution:}
   }
 
+% Keep answer boxes with the preceding solution text. If space runs out,
+% LaTeX moves the end of the solution together with the box.
+\tcbset{keep with solution/.style={
+    before={\par\nobreak\smallskip\noindent}
+}}
+
 % Define answer environment
 \newtcolorbox{answer}{enhanced,
+                      keep with solution,
                       colback=red!5!white,
                       colframe=ThemeColor,
                       title=\scshape Answer to Problem \theProblemNum.
@@ -80,6 +89,7 @@
 
 % Define subanswer environment
 \newtcolorbox{subanswer}{enhanced,
+                         keep with solution,
                          colback=red!5!white,
                          colframe=red!50!black,
                          title=Answer to Problem \theProblemNum~\theSubProblemNum. 
