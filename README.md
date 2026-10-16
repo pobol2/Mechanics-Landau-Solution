@@ -135,9 +135,9 @@ rebuild with `latexmk`.
 Completion is tracked automatically: a problem or part is done when its
 solution is not empty, and a problem in parts when all its parts are done.
 Unfinished problems show "Not done" in their title and in the contents; the
-completion overview after the contents and the [Progress](#progress) section
-of this README list them by chapter and section. Both are refreshed by every
-build, so there is no list to maintain; commit `README.md` with `main.pdf`.
+[Progress](#progress) section of this README lists them by chapter and
+section. Both are refreshed by every build, so there is no list to maintain; the commit hook (see
+[Committing](#committing)) commits `README.md` with `main.pdf`.
 To mark a problem whose solution is only partial, add `[not done]`
 (`\begin{problem}[not done]`); `[done]` marks a part complete without a
 solution, e.g. one answered only.
@@ -172,6 +172,12 @@ In an existing clone, or if `template/` is empty:
 git submodule update --init --recursive
 ```
 
+Then enable the commit hook (once per clone, see [Committing](#committing)):
+
+```sh
+git config core.hooksPath .githooks
+```
+
 ## Building
 
 Prerequisites: a TeX distribution (MiKTeX or TeX Live) with pdfLaTeX,
@@ -193,6 +199,14 @@ source, `myfigures.sty`, `SolutionFigure.lua` or a shared class changes.
 | `README.md`   | Its Progress section is rewritten when completion changes |
 | `Figures/*.pdf` | Generated figures (ignored by Git)                      |
 | `build/`      | Temporary files: logs, SyncTeX, figure compilations (`build/figures-aux/`) |
+
+### Committing
+
+The hook `.githooks/pre-commit` runs `latexmk` before each commit (from the
+terminal or VS Code) and adds `main.pdf` and `README.md` to it, so the
+committed PDF always matches the committed sources; a failed build stops the
+commit. The PDF has no build date or random ID (see `main.tex`), so it only
+changes when its content does. `git commit --no-verify` skips the hook.
 
 ### VS Code
 
@@ -228,8 +242,8 @@ as follows:
   including commercially, with appropriate credit, a license link and an
   indication of any modifications.
 - **Code:** `main.tex` (document setup), `mypackages.sty`, `mycommands.sty`,
-  `myfigures.sty`, `SolutionFigure.lua`, `latexmkrc` and the VS Code
-  configuration are licensed under the [MIT License](LICENSE-CODE).
+  `myfigures.sty`, `SolutionFigure.lua`, `latexmkrc`, the commit hook and the
+  VS Code configuration are licensed under the [MIT License](LICENSE-CODE).
   Reusing this code does not require your own written content to use CC BY.
 - **Shared framework:** the `template/` submodule is licensed separately by
   the [Solution Manual Template](https://github.com/pobol2/Solution-Manual-Template).
