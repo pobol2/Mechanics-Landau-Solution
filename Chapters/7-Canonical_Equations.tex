@@ -9,8 +9,42 @@
 {
 Find the Hamiltonian for a single particle in Cartesian, cylindrical and spherical co-ordinates.
 }
-{}
-{}
+{
+For a particle with a velocity-independent potential energy $U$, the generalized momenta and the Hamiltonian are
+\begin{equation*}
+    p_i = \pd{L}{\Dot{q}_i}, \qquad H = \sum_i p_i\Dot{q}_i - L.
+\end{equation*}
+The kinetic energy is quadratic in the velocities, so the Legendre transform gives $H = T + U$, with the velocities expressed in terms of the canonical momenta.
+
+In Cartesian co-ordinates, we have
+\begin{equation*}
+    L = \frac{1}{2}m\left(\Dot{x}^2 + \Dot{y}^2 + \Dot{z}^2\right) - U(x, y, z), \qquad p_x = m\Dot{x}, \quad p_y = m\Dot{y}, \quad p_z = m\Dot{z}.
+\end{equation*}
+In cylindrical co-ordinates, the Lagrangian is
+\begin{equation*}
+    L = \frac{1}{2}m\left(\Dot{r}^2 + r^2\Dot{\phi}^2 + \Dot{z}^2\right) - U(r, \phi, z),
+\end{equation*}
+so that
+\begin{equation*}
+    p_r = m\Dot{r}, \qquad p_\phi = mr^2\Dot{\phi}, \qquad p_z = m\Dot{z}.
+\end{equation*}
+In spherical co-ordinates, with $\theta$ the polar angle and $\phi$ the azimuth, the Lagrangian is
+\begin{equation*}
+    L = \frac{1}{2}m\left(\Dot{r}^2 + r^2\Dot{\theta}^2 + r^2\Dot{\phi}^2\sin^2{\theta}\right) - U(r, \theta, \phi),
+\end{equation*}
+and hence
+\begin{equation*}
+    p_r = m\Dot{r}, \qquad p_\theta = mr^2\Dot{\theta}, \qquad p_\phi = mr^2\Dot{\phi}\sin^2{\theta}.
+\end{equation*}
+Substituting these momenta in $H = T + U$ gives the three Hamiltonians.
+}
+{
+\begin{align*}
+    \text{Cartesian:} \quad H &= \frac{1}{2m}\left(p_x^2 + p_y^2 + p_z^2\right) + U(x, y, z) \\
+    \text{Cylindrical:} \quad H &= \frac{1}{2m}\left(p_r^2 + \frac{p_\phi^2}{r^2} + p_z^2\right) + U(r, \phi, z) \\
+    \text{Spherical:} \quad H &= \frac{1}{2m}\left(p_r^2 + \frac{p_\theta^2}{r^2} + \frac{p_\phi^2}{r^2\sin^2{\theta}}\right) + U(r, \theta, \phi)
+\end{align*}
+}
 \end{problem}
 
 % ============ Problem 2 ============ %
@@ -19,8 +53,32 @@ Find the Hamiltonian for a single particle in Cartesian, cylindrical and spheric
 {
 Find the Hamiltonian for a particle in a uniformly rotating frame of reference.
 }
-{}
-{}
+{
+Let $\mathbf{v} = \Dot{\mathbf{r}}$ be the velocity relative to a frame rotating with constant angular velocity $\boldsymbol{\Omega}$ about a fixed origin. The inertial velocity, expressed along the rotating axes, is $\mathbf{v} + \boldsymbol{\Omega}\times\mathbf{r}$. Thus, the Lagrangian is
+\begin{equation*}
+    L = \frac{1}{2}m\left(\mathbf{v} + \boldsymbol{\Omega}\times\mathbf{r}\right)^2 - U,
+\end{equation*}
+and the canonical momentum is
+\begin{equation*}
+    \mathbf{p} = \pd{L}{\mathbf{v}} = m\left(\mathbf{v} + \boldsymbol{\Omega}\times\mathbf{r}\right).
+\end{equation*}
+Consequently,
+\begin{equation*}
+    \mathbf{v} = \frac{\mathbf{p}}{m} - \boldsymbol{\Omega}\times\mathbf{r}.
+\end{equation*}
+The Legendre transform gives
+\begin{align*}
+    H &= \mathbf{p}\cdot\mathbf{v} - L \\
+    &= \mathbf{p}\cdot\left(\frac{\mathbf{p}}{m} - \boldsymbol{\Omega}\times\mathbf{r}\right) - \frac{\mathbf{p}^2}{2m} + U \\
+    &= \frac{\mathbf{p}^2}{2m} - \boldsymbol{\Omega}\cdot\left(\mathbf{r}\times\mathbf{p}\right) + U,
+\end{align*}
+where we used $\mathbf{p}\cdot\left(\boldsymbol{\Omega}\times\mathbf{r}\right) = \boldsymbol{\Omega}\cdot\left(\mathbf{r}\times\mathbf{p}\right)$. Here, $\mathbf{p}$ is the canonical momentum, rather than $m\mathbf{v}$.
+}
+{
+\begin{equation*}
+    H = \frac{\mathbf{p}^2}{2m} - \boldsymbol{\Omega}\cdot\left(\mathbf{r}\times\mathbf{p}\right) + U
+\end{equation*}
+}
 \end{problem}
 
 % ============ Problem 3 ============ %
@@ -29,8 +87,35 @@ Find the Hamiltonian for a particle in a uniformly rotating frame of reference.
 {
 Find the Hamiltonian for a system comprising one particle of mass $M$ and $n$ particles each of mass $m$, excluding the motion of the centre of mass (see \probref{\S 13}{1}).
 }
-{}
-{}
+{
+We use the relative co-ordinates of \probref{\S 13}{1}, namely $\mathbf{r}_a = \mathbf{R}_a - \mathbf{R}$ and $\mathbf{v}_a = \Dot{\mathbf{r}}_a$, with $\mu \equiv M + nm$ the total mass. The reduced Lagrangian, including the potential energy, is
+\begin{equation*}
+    L = \frac{1}{2}m\sum_a\mathbf{v}_a^2 - \frac{1}{2}\frac{m^2}{\mu}\left(\sum_a\mathbf{v}_a\right)^2 - U.
+\end{equation*}
+The canonical momenta are
+\begin{equation*}
+    \mathbf{p}_a = \pd{L}{\mathbf{v}_a} = m\mathbf{v}_a - \frac{m^2}{\mu}\sum_b\mathbf{v}_b.
+\end{equation*}
+Summing over $a$, we get
+\begin{equation*}
+    \sum_a\mathbf{p}_a = \left(m - \frac{nm^2}{\mu}\right)\sum_a\mathbf{v}_a = \frac{mM}{\mu}\sum_a\mathbf{v}_a.
+\end{equation*}
+Substituting this relation back in the expression for $\mathbf{p}_a$ yields
+\begin{equation*}
+    \mathbf{v}_a = \frac{\mathbf{p}_a}{m} + \frac{1}{M}\sum_b\mathbf{p}_b.
+\end{equation*}
+Since the reduced kinetic energy is quadratic in the velocities, we have $\sum_a\mathbf{p}_a\cdot\mathbf{v}_a = 2T$ and
+\begin{align*}
+    H &= T + U = \frac{1}{2}\sum_a\mathbf{p}_a\cdot\mathbf{v}_a + U \\
+    &= \frac{1}{2m}\sum_a\mathbf{p}_a^2 + \frac{1}{2M}\left(\sum_a\mathbf{p}_a\right)^2 + U.
+\end{align*}
+The momenta $\mathbf{p}_a$ are conjugate to the relative co-ordinates $\mathbf{r}_a$, and the kinetic energy of the centre of mass has already been removed.
+}
+{
+\begin{equation*}
+    H = \frac{1}{2m}\sum_a\mathbf{p}_a^2 + \frac{1}{2M}\left(\sum_a\mathbf{p}_a\right)^2 + U(\mathbf{r}_1, \ldots, \mathbf{r}_n)
+\end{equation*}
+}
 \end{problem}
 
 \textbooknumber{\S 41}
@@ -42,8 +127,31 @@ Find the Hamiltonian for a system comprising one particle of mass $M$ and $n$ pa
 {
 Find the Routhian for a symmetrical top in an external field $U(\phi, \theta)$, eliminating the cyclic co-ordinate $\psi$ (where $\psi$, $\phi$, $\theta$ are Eulerian angles).
 }
-{}
-{}
+{
+Let $I_1' = I_2'$ be the transverse moments of inertia about the fixed point and $I_3$ the moment of inertia about the axis of symmetry. In Eulerian angles, the Lagrangian is
+\begin{equation*}
+    L = \frac{I_1'}{2}\left(\Dot{\theta}^2 + \Dot{\phi}^2\sin^2{\theta}\right) + \frac{I_3}{2}\left(\Dot{\psi} + \Dot{\phi}\cos{\theta}\right)^2 - U(\phi, \theta).
+\end{equation*}
+Since $L$ is independent of $\psi$, its conjugate momentum is conserved:
+\begin{equation*}
+    p_\psi = \pd{L}{\Dot{\psi}} = I_3\left(\Dot{\psi} + \Dot{\phi}\cos{\theta}\right).
+\end{equation*}
+Solving for the velocity to be eliminated gives
+\begin{equation*}
+    \Dot{\psi} = \frac{p_\psi}{I_3} - \Dot{\phi}\cos{\theta}.
+\end{equation*}
+The Routhian is the partial Legendre transform $R = p_\psi\Dot{\psi} - L$. Substituting the expression for $\Dot{\psi}$, we get
+\begin{equation*}
+    R = p_\psi\left(\frac{p_\psi}{I_3} - \Dot{\phi}\cos{\theta}\right) - \frac{I_1'}{2}\left(\Dot{\theta}^2 + \Dot{\phi}^2\sin^2{\theta}\right) - \frac{p_\psi^2}{2I_3} + U(\phi, \theta).
+\end{equation*}
+Thus, $\psi$ and $\Dot{\psi}$ are eliminated, while $p_\psi$ is retained as a constant parameter.
+}
+{
+\begin{equation*}
+    R(\phi, \theta, \Dot{\phi}, \Dot{\theta}; p_\psi) = \frac{p_\psi^2}{2I_3} - p_\psi\Dot{\phi}\cos{\theta} - \frac{I_1'}{2}\left(\Dot{\theta}^2 + \Dot{\phi}^2\sin^2{\theta}\right) + U(\phi, \theta)
+\end{equation*}
+}
+For a given value of $p_\psi$, the term $p_\psi^2/2I_3$ is a constant, so it may be omitted when deriving the reduced equations of motion for $\phi$ and $\theta$.
 \end{problem}
 
 \textbooknumber{\S 42}
@@ -55,8 +163,30 @@ Find the Routhian for a symmetrical top in an external field $U(\phi, \theta)$, 
 {
 Determine the Poisson brackets formed from the Cartesian components of the momentum $\mathbf{p}$ and the angular momentum $\mathbf{M} = \mathbf{r} \times \mathbf{p}$ of a particle.
 }
-{}
-{}
+{
+We use Landau's definition of the Poisson bracket,
+\begin{equation*}
+    [F, G] = \sum_{k = x, y, z}\left(\pd{F}{p_k}\pd{G}{x_k} - \pd{F}{x_k}\pd{G}{p_k}\right).
+\end{equation*}
+Since the momentum components are independent canonical variables, we have
+\begin{equation*}
+    [p_i, p_j] = 0.
+\end{equation*}
+For a bracket involving one momentum component, the definition reduces to
+\begin{equation*}
+    [F, p_j] = -\pd{F}{x_j}.
+\end{equation*}
+Using $M_x = yp_z - zp_y$, we obtain
+\begin{equation*}
+    [M_x, p_x] = 0, \qquad [M_x, p_y] = -p_z, \qquad [M_x, p_z] = p_y.
+\end{equation*}
+The remaining brackets follow by cyclically permuting $x$, $y$, $z$. In index notation, with $\epsilon_{xyz} = 1$, these results take the form given below. Brackets with the arguments reversed follow from antisymmetry.
+}
+{
+\begin{equation*}
+    [p_i, p_j] = 0, \qquad [M_i, p_j] = -\sum_k\epsilon_{ijk}p_k
+\end{equation*}
+}
 \end{problem}
 
 % ============ Problem 2 ============ %
@@ -65,8 +195,28 @@ Determine the Poisson brackets formed from the Cartesian components of the momen
 {
 Determine the Poisson brackets formed from the components of $\mathbf{M}$.
 }
-{}
-{}
+{
+The components of the angular momentum are
+\begin{equation*}
+    M_x = yp_z - zp_y, \qquad M_y = zp_x - xp_z, \qquad M_z = xp_y - yp_x.
+\end{equation*}
+For $M_x$ and $M_y$, only the pair $z$, $p_z$ contributes to the bracket defined in \probref{\S 42}{1}:
+\begin{align*}
+    [M_x, M_y] &= \pd{M_x}{p_z}\pd{M_y}{z} - \pd{M_x}{z}\pd{M_y}{p_z} \
+    &= yp_x - (-p_y)(-x) \
+    &= yp_x - xp_y = -M_z.
+\end{align*}
+Cyclic permutation gives the other two independent brackets. Brackets of a component with itself vanish by antisymmetry.
+}
+{
+\begin{equation*}
+    [M_x, M_y] = -M_z, \qquad [M_y, M_z] = -M_x, \qquad [M_z, M_x] = -M_y
+\end{equation*}
+or, equivalently,
+\begin{equation*}
+    [M_i, M_j] = -\sum_k\epsilon_{ijk}M_k
+\end{equation*}
+}
 \end{problem}
 
 % ============ Problem 3 ============ %
@@ -75,8 +225,33 @@ Determine the Poisson brackets formed from the components of $\mathbf{M}$.
 {
 Show that $[\phi, M_z] = 0$, where $\phi$ is any function, spherically symmetrical about the origin, of the co-ordinates and momentum of a particle.
 }
-{}
-{}
+{
+Since $M_z = xp_y - yp_x$, the bracket of \probref{\S 42}{1} with any smooth function $F(\mathbf{r}, \mathbf{p})$ is
+\begin{equation*}
+    [F, M_z] = y\pd{F}{x} - x\pd{F}{y} + p_y\pd{F}{p_x} - p_x\pd{F}{p_y}.
+\end{equation*}
+We denote this differential operator by $\mathcal{D}_zF$.
+
+A scalar invariant under simultaneous rotations of $\mathbf{r}$ and $\mathbf{p}$ can depend on these vectors only through
+\begin{equation*}
+    u = \mathbf{r}^2, \qquad v = \mathbf{p}^2, \qquad w = \mathbf{r}\cdot\mathbf{p}.
+\end{equation*}
+Applying the operator to these combinations gives
+\begin{align*}
+    \mathcal{D}_zu &= 2xy - 2xy = 0, \
+    \mathcal{D}_zv &= 2p_xp_y - 2p_xp_y = 0, \
+    \mathcal{D}_zw &= yp_x - xp_y + xp_y - yp_x = 0.
+\end{align*}
+For $\phi = \Phi(u, v, w)$, the chain rule therefore yields
+\begin{equation*}
+    [\phi, M_z] = \pd{\Phi}{u}\mathcal{D}_zu + \pd{\Phi}{v}\mathcal{D}_zv + \pd{\Phi}{w}\mathcal{D}_zw = 0.
+\end{equation*}
+}
+{
+\begin{equation*}
+    [\phi, M_z] = 0
+\end{equation*}
+}
 \end{problem}
 
 % ============ Problem 4 ============ %
@@ -85,8 +260,33 @@ Show that $[\phi, M_z] = 0$, where $\phi$ is any function, spherically symmetric
 {
 Show that $[\mathbf{f}, M_z] = \mathbf{f} \times \mathbf{n}$, where $\mathbf{f}$ is a vector function of the co-ordinates and momentum of a particle, and $\mathbf{n}$ is a unit vector parallel to the $z$-axis.
 }
-{}
-{}
+{
+Here, a vector function means a function that transforms as a vector under simultaneous rotations of its arguments.
+
+Under an infinitesimal active rotation through an angle $\delta\alpha$ about the $z$-axis, we have
+\begin{equation*}
+    \delta\mathbf{r} = \delta\alpha\,\mathbf{n}\times\mathbf{r}, \qquad \delta\mathbf{p} = \delta\alpha\,\mathbf{n}\times\mathbf{p}.
+\end{equation*}
+For each component $f_i$, the chain rule gives
+\begin{align*}
+    \frac{\delta f_i}{\delta\alpha} &= \left(\mathbf{n}\times\mathbf{r}\right)\cdot\nabla_{\mathbf{r}}f_i + \left(\mathbf{n}\times\mathbf{p}\right)\cdot\nabla_{\mathbf{p}}f_i \
+    &= -y\pd{f_i}{x} + x\pd{f_i}{y} - p_y\pd{f_i}{p_x} + p_x\pd{f_i}{p_y} \
+    &= -[f_i, M_z],
+\end{align*}
+using the operator derived in \probref{\S 42}{3}. Because $\mathbf{f}$ transforms as a vector, its change under the same rotation is
+\begin{equation*}
+    \frac{\delta\mathbf{f}}{\delta\alpha} = \mathbf{n}\times\mathbf{f}.
+\end{equation*}
+Comparing these expressions component by component gives
+\begin{equation*}
+    [\mathbf{f}, M_z] = -\mathbf{n}\times\mathbf{f} = \mathbf{f}\times\mathbf{n}.
+\end{equation*}
+}
+{
+\begin{equation*}
+    [\mathbf{f}, M_z] = \mathbf{f}\times\mathbf{n}
+\end{equation*}
+}
 \end{problem}
 
 \textbooknumber{\S 44}
