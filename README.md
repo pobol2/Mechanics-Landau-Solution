@@ -1,15 +1,19 @@
-# Solution Manual to Mechanics by Landau and Lifshitz
+# Landau and Lifshitz Mechanics: Solution Manual
 
-These are my humble, unofficial solutions to *Mechanics* by Landau and
-Lifshitz (Volume 1 of the Course of Theoretical Physics). I am an engineer,
-not a physicist, and this manual is a personal learning project. The work is
-ongoing, and corrections and suggestions are welcome: feel free to open an
-issue or a pull request.
+Worked solutions to the problems of *Mechanics* by L. D. Landau and
+E. M. Lifshitz (Course of Theoretical Physics, Volume 1, third edition),
+written in LaTeX by **Pierre-Olivier Bolduc**. The solutions follow the book
+chapter by chapter and section by section, with the book's numbering.
 
-Author: P.O. Bolduc
+This is an unofficial, ongoing solution manual and a personal learning
+project: I am an engineer, not a physicist. Corrections and suggestions are
+welcome: feel free to open an issue or a pull request.
 
-**[Read the manual (main.pdf)](main.pdf)** · **[Website](https://pobol2.github.io/Mechanics-Landau-Solution/)**
-(one PDF per problem) · **[Progress](#progress)**
+- **[Website](https://pobol2.github.io/Mechanics-Landau-Solution/)**: every
+  problem by chapter and section, with a page and a PDF for each solved
+  problem
+- **[Full manual (main.pdf)](main.pdf)**: all the solutions in one PDF
+- **[Progress](#progress)**: which problems are solved so far
 
 ## Organization
 
@@ -222,15 +226,22 @@ tracked `.vscode/settings.json` makes **LaTeX Workshop: Build LaTeX project**
 
 ## Website
 
-The [website](https://pobol2.github.io/Mechanics-Landau-Solution/) is a single
-page: the progress, a link to download the full manual, and every problem of
-the book by chapter and section. Each problem opens its own PDF, cut from
-`main.pdf`; unsolved problems are greyed out and marked *Not done* (their PDF
-has the statement only). In a problem PDF, links to another problem open that
-problem's PDF, at the right page.
+The [website](https://pobol2.github.io/Mechanics-Landau-Solution/) has a
+catalogue page: the progress, a link to download the full manual, and every
+problem of the book by chapter and section. Each solved problem opens its own
+page, which shows its PDF (cut from `main.pdf`) with links to open or download
+it, its parts, the problems it uses or is used in, the other problems of its
+section and the previous and next solved problems. Unsolved problems have no
+page: they are greyed out, marked *Not done* and open their PDF, which has the
+statement only. In a problem PDF, links to another problem open that problem's
+PDF, at the right page.
 
 Each problem has a stable ID from the book's numbering: `s9-p3` is §9
-Problem 3, its PDF is `pdf/s9-p3.pdf` and `#s9-p3` is its line on the page.
+Problem 3, its page is `problems/s9-p3.html`, its PDF `pdf/s9-p3.pdf`, and
+`#s9-p3` is its line in the catalogue. The pages carry a title, description,
+canonical URL and structured data (schema.org) of their own, built from the
+section titles and `site/problems.toml`; they never reproduce the book's
+problem statements.
 
 `site/build.py` builds the site from committed files only (no LaTeX, no
 `build/`, no `template/`):
@@ -241,11 +252,13 @@ Problem 3, its PDF is `pdf/s9-p3.pdf` and `#s9-p3` is its line on the page.
 - `site/problems.toml`: a short descriptive title for each problem.
 
 The build stops if they disagree (counts, sections, unknown IDs in
-`problems.toml`) or if a problem PDF does not check out (pages, running
-headers, links, bookmarks). The output goes to `_site/` (ignored by Git):
-`index.html`, `style.css`, `main.pdf`, `pdf/<id>.pdf`, `catalogue.json` (the
-catalogue as data) and `sitemap.xml` (the homepage, the full manual and the
-PDFs of the solved problems).
+`problems.toml`), if a problem PDF does not check out (pages, running
+headers, links, bookmarks) or if a page does not (its canonical URL, a title
+and description shared with another page, a link to a missing file, anchor or
+PDF page, the sitemap). The output goes to `_site/` (ignored by Git):
+`index.html`, `problems/<id>.html`, `style.css`, `main.pdf`, `pdf/<id>.pdf`,
+`catalogue.json` (the catalogue as data) and `sitemap.xml` (the homepage, the
+pages of the solved problems, the full manual and their PDFs).
 
 **Setup (once):** Python 3.11 or later, then
 
@@ -282,8 +295,9 @@ there instead.)
 
 **When you solve a problem**, nothing else is needed: `latexmk` (or the commit
 hook) updates `main.pdf` and the progress, and the next push updates the
-site, including the sitemap. Adjust its title in `site/problems.toml` if
-needed.
+site, including its new page and the sitemap. Adjust its title in
+`site/problems.toml` if needed: it is also the title of the page in search
+results.
 
 ## Updating the template
 

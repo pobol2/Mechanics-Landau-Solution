@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 /* Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE. */
-/* Single page of the website, in the manual's theme color (red!50!black). */
+/* Pages of the website, in the manual's theme color (red!50!black). */
 
 :root {
   --paper: #fbf9f4;
@@ -56,5 +56,38 @@ header { padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
 .problems a { text-decoration: none; }
 .problems a:hover { text-decoration: underline; }
 .todo a, .todo .number { color: var(--muted); }
+
+.lead { margin: 12px 0 0; }
+
+/* Problem pages */
+.breadcrumb { margin-bottom: 16px; color: var(--muted); font-size: 0.9em; }
+.breadcrumb a { text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+h1 .label { display: block; margin-bottom: 4px; color: var(--theme); font-size: 1.1rem; }
+.problem-page h1 { font-size: 1.9rem; }
+.problem-page .actions { margin: 16px 0 0; }
+.problem-page .actions > a:not(.button) { margin: 0 8px; }
+.viewer {
+  display: block; width: 100%; height: 85vh; margin-top: 24px;
+  border: 1px solid var(--rule); background: var(--paper);
+}
+.viewer p { padding: 16px; }
+
+/* Phones: no embedded viewer (mobile browsers rarely show it), the PDF button
+   above takes its place */
+@media (max-width: 640px) {
+  .viewer { display: none; }
+  .problem-page .actions .button {
+    display: block; margin-bottom: 8px; padding: 12px 14px; text-align: center;
+  }
+  .problem-page .actions > a:not(.button) { margin-left: 0; }
+}
+.parts { margin: 12px 0 0; }
+.related { margin: 0; padding-left: 1.2em; }
+.related li { padding: 2px 0; }
+.pager {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px;
+  margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--rule);
+}
 
 footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 0.9em; }

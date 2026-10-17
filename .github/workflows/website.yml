@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
 #
-# Builds the website (a single page and one PDF per problem) from the
-# committed main.pdf, README.md and site/ files, and deploys it to GitHub
-# Pages on each push to master. LaTeX is never compiled here: the
+# Builds the website (the catalogue, a page per solved problem and one PDF
+# per problem) from the committed main.pdf, README.md and site/ files, and
+# deploys it to GitHub Pages on each push to master. LaTeX is never compiled here: the
 # local commit hook (.githooks/pre-commit) keeps main.pdf and the README
 # progress up to date in every commit.
 # Pull requests and manual runs on other branches are built and checked, but

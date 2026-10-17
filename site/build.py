@@ -12,12 +12,17 @@ Only tracked files are read, so no LaTeX build is needed:
 
 The output folder (default: _site, ignored by Git) receives:
 
-  index.html          the single page: progress and every problem by chapter
+  index.html          the catalogue: progress and every problem by chapter
+  problems/<id>.html  one page per solved problem, showing its PDF
   pdf/<id>.pdf        one PDF per problem, its parts included
   main.pdf            the full manual
   catalogue.json      catalogue data
-  sitemap.xml         the homepage, the full manual and the solved-problem PDFs
+  sitemap.xml         the homepage, the solved-problem pages, the full manual
+                      and the solved-problem PDFs
   style.css
+
+Unsolved problems have no page: the catalogue links to their PDF (the
+statement only), and they are left out of the sitemap.
 
 Problem IDs follow the book's numbering, so they do not change when problems
 are solved or pages move: s9-p3 is §9 Problem 3, s9-p3a its part (a).
@@ -28,13 +33,16 @@ Usage: python site/build.py [--out DIR] [--base-url URL] [--repository URL]
 import argparse
 import html
 import json
+import posixpath
 import re
 import shutil
 import sys
 import tomllib
 import urllib.parse
 from dataclasses import dataclass, field
+from html.parser import HTMLParser
 from pathlib import Path
+from xml.etree import ElementTree
 
 try:
     from pypdf import PdfReader, PdfWriter
@@ -49,6 +57,11 @@ HERE = Path(__file__).resolve().parent
 DEFAULT_REPOSITORY = "https://github.com/pobol2/Mechanics-Landau-Solution"
 # Google Search Console ownership check of the site (HTML tag method)
 GOOGLE_SITE_VERIFICATION = "I9Mnn8Ch39GMAo9_cUExA_0P-YiiCN3OjdxbqU2lAYk"
+# The author's full name, shown on the website (the PDFs keep the author of
+# main.pdf)
+SITE_AUTHOR = "Pierre-Olivier Bolduc"
+SITE_TITLE = "Solutions to Landau and Lifshitz, Mechanics"
+LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
 BOOK = "Mechanics"
 BOOK_AUTHORS = "Landau and Lifshitz"
 BOOK_SERIES = "Course of Theoretical Physics, Volume 1"
@@ -136,6 +149,16 @@ class Problem:
     @property
     def pdf(self):
         return f"pdf/{self.id}.pdf"
+
+    @property
+    def page(self):
+        """Its web page, for a solved problem only."""
+        return f"problems/{self.id}.html" if self.done else None
+
+    @property
+    def href(self):
+        """Where the catalogue sends a visitor: the page, or the PDF."""
+        return self.page or self.pdf
 
 
 @dataclass
@@ -678,6 +701,95 @@ def verify_pdfs(out, problems, links, errors):
     errors.check("problem PDFs")
 
 
+class PageParser(HTMLParser):
+    """Links, ids and metadata of a generated page."""
+
+    def __init__(self):
+        super().__init__()
+        self.links, self.ids, self.meta, self.canonical = [], set(), {}, []
+        self.title, self.h1, self._in = "", 0, None
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if "id" in attrs:
+            self.ids.add(attrs["id"])
+        for name in ("href", "src", "data"):
+            if attrs.get(name) is not None and not (tag == "link" and attrs.get("rel") == "canonical"):
+                self.links.append(attrs[name])
+        if tag == "link" and attrs.get("rel") == "canonical":
+            self.canonical.append(attrs.get("href"))
+        if tag == "meta":
+            key = attrs.get("name") or attrs.get("property")
+            if key:
+                self.meta[key] = attrs.get("content")
+        if tag == "h1":
+            self.h1 += 1
+        self._in = tag
+
+    def handle_endtag(self, tag):
+        self._in = None
+
+    def handle_data(self, data):
+        if self._in == "title":
+            self.title += data
+
+
+def verify_site(out, problems, links, manual_pages, errors):
+    """Reopen every page: one canonical URL (its own address), unique titles and
+    descriptions, and links to files, anchors and PDF pages that exist; then
+    the sitemap: exactly the expected URLs, all published."""
+    pages = {"index.html": ""} | {p.page: p.page for p in problems if p.done}
+    pdf_pages = {p.pdf: p.pages for p in problems} | {"main.pdf": manual_pages}
+    if sorted(f.relative_to(out).as_posix() for f in out.rglob("*.html")) != sorted(pages):
+        errors.append("the HTML pages are not the homepage and the solved-problem pages")
+    errors.check("website pages")
+    parsed = {}
+    for path in pages:
+        parser = PageParser()
+        parser.feed((out / path).read_text(encoding="utf-8"))
+        parsed[path] = parser
+    for path, page in parsed.items():
+        if page.canonical != [links.site(pages[path])]:
+            errors.append(f"{path}: canonical {page.canonical}, expected {links.site(pages[path])}")
+        if page.meta.get("og:url") != links.site(pages[path]):
+            errors.append(f"{path}: og:url {page.meta.get('og:url')}")
+        if not page.title.strip() or not page.meta.get("description") or page.h1 != 1:
+            errors.append(f"{path}: needs a title, a description and one h1")
+        for link in page.links:
+            url = urllib.parse.urlsplit(link)
+            if url.scheme or url.netloc:
+                continue      # external
+            target = (Path(path).parent / urllib.parse.unquote(url.path)).as_posix() \
+                if url.path else path
+            target = posixpath.normpath(target)
+            if url.path.endswith("/") or target == ".":
+                target = posixpath.join(target, "index.html").removeprefix("./")
+            if target.startswith("../") or not (out / target).is_file():
+                errors.append(f"{path}: broken link {link}")
+            elif url.fragment and target.endswith(".html") and url.fragment not in parsed[target].ids:
+                errors.append(f"{path}: link to a missing anchor {link}")
+            elif url.fragment and target.endswith(".pdf"):
+                m = re.fullmatch(r"page=(\d+)", url.fragment)
+                if not m or not 1 <= int(m[1]) <= pdf_pages[target]:
+                    errors.append(f"{path}: link to a missing PDF page {link}")
+    for key in ("title", "description"):
+        values = [p.title if key == "title" else p.meta.get("description") for p in parsed.values()]
+        if len(set(values)) != len(values):
+            errors.append(f"two pages have the same {key}")
+    if parsed["index.html"].meta.get("google-site-verification") != GOOGLE_SITE_VERIFICATION:
+        errors.append("index.html: the Google Search Console verification tag is missing")
+
+    root = ElementTree.parse(out / "sitemap.xml").getroot()
+    locs = [e.text for e in root.iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")]
+    if locs != [links.site(u) for u in site_paths(problems)]:
+        errors.append("sitemap.xml does not list the expected URLs")
+    for loc in locs:
+        path = loc.removeprefix(links.site()) or "index.html"
+        if not loc.startswith(links.site()) or not (out / path).is_file():
+            errors.append(f"sitemap.xml: {loc} is not a published file")
+    errors.check("website pages")
+
+
 # ============ Catalogue ============ #
 
 def catalogue_data(chapters, links, manual_pages, author):
@@ -690,6 +802,7 @@ def catalogue_data(chapters, links, manual_pages, author):
             "label": p.label,
             "title": p.title or None,
             "done": p.done,
+            "page": p.page,
             "pdf": p.pdf,
             "pages": p.pages,
             "manual_pages": [p.start + 1, p.end + 1],
@@ -731,8 +844,10 @@ def catalogue_data(chapters, links, manual_pages, author):
 
 
 # ============ Website ============ #
-# A single page listing every problem by chapter and section; each problem
-# links to its PDF. No script: the page is plain HTML and CSS.
+# The catalogue lists every problem by chapter and section; a solved problem
+# links to its page, which shows its PDF, and an unsolved one to its PDF. No
+# script: the pages are plain HTML and CSS. Links between pages are relative,
+# so the site works under any base URL; canonical URLs are absolute.
 
 def esc(text):
     return html.escape(str(text), quote=True)
@@ -743,15 +858,65 @@ def rich(text):
     return re.sub(r"(?<=\S)_([A-Za-z0-9]+)", r"<sub>\1</sub>", esc(text))
 
 
+def plain(text):
+    """Text without the subscript marks, for titles and metadata."""
+    return re.sub(r"(?<=\S)_([A-Za-z0-9]+)", r"\1", text)
+
+
+def json_ld(data):
+    text = json.dumps(data, ensure_ascii=False, indent=1).replace("</", "<\\/")
+    return f'<script type="application/ld+json">\n{text}\n</script>'
+
+
+def person(name):
+    return {"@type": "Person", "name": name}
+
+
+def book_ld():
+    b = BOOK_REFERENCE
+    return {"@type": "Book", "name": b["title"], "author": [person(a) for a in b["authors"]],
+            "bookEdition": b["edition"], "datePublished": str(b["year"]),
+            "isbn": b["isbn"], "publisher": {"@type": "Organization", "name": b["publisher"]}}
+
+
+def render_head(title, description, canonical, root, og_type, structured, extra=""):
+    """<head> of a page; root is the relative path to the site root."""
+    return f"""<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{esc(title)}</title>
+<meta name="description" content="{esc(description)}">
+<meta name="author" content="{esc(SITE_AUTHOR)}">
+<link rel="canonical" href="{esc(canonical)}">
+<meta property="og:type" content="{og_type}">
+<meta property="og:site_name" content="{esc(SITE_TITLE)}">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(description)}">
+<meta property="og:url" content="{esc(canonical)}">
+<meta name="twitter:card" content="summary">
+{extra}<link rel="stylesheet" href="{root}style.css">
+{json_ld(structured)}
+</head>"""
+
+
+def render_footer(links):
+    return f"""<footer>
+<p>Solutions © 2026 {esc(SITE_AUTHOR)},
+<a href="{LICENSE_URL}">CC BY 4.0</a>.
+Unofficial: not endorsed by the authors or the publisher of the book.
+<a href="{esc(links.repository)}/issues/new">Report an error on GitHub</a>.</p>
+</footer>"""
+
+
 def render_problem(problem):
     title = f'<span class="number">{PROBLEM} {problem.number}</span> {rich(problem.heading)}'
     if problem.done:
-        return f'<li id="{problem.id}"><a href="{problem.pdf}">{title}</a></li>'
-    return (f'<li id="{problem.id}" class="todo"><a href="{problem.pdf}">{title}</a> '
+        return f'<li id="{problem.id}"><a href="{problem.href}">{title}</a></li>'
+    return (f'<li id="{problem.id}" class="todo"><a href="{problem.href}">{title}</a> '
             f'<span class="status">Not done</span></li>')
 
 
-def render_index(chapters, links, author, manual_pages, manual_size):
+def render_index(chapters, links, manual_pages, manual_size):
     problems = [p for c in chapters for p in c.problems]
     done, total = done_count(problems), len(problems)
     b = BOOK_REFERENCE
@@ -765,24 +930,33 @@ def render_index(chapters, links, author, manual_pages, manual_size):
             body.extend(render_problem(p) for p in s.problems)
             body.append("</ul>")
         body.append("</section>")
-    description = (f"Unofficial worked solutions to the problems of {BOOK} by {BOOK_AUTHORS}, "
-                   f"one PDF per problem: {done} of {total} solved.")
+    title = f"{BOOK_AUTHORS} {BOOK}: Worked Solutions and Solution Manual"
+    description = (f"Unofficial solution manual for {BOOK_AUTHORS}, {BOOK} ({BOOK_SERIES}): "
+                   f"worked solutions to the problems by chapter and section, each with its "
+                   f"own page and PDF. {done} of {total} problems solved.")
+    structured = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": SITE_TITLE,
+        "url": links.site(),
+        "description": description,
+        "inLanguage": "en",
+        "author": person(SITE_AUTHOR),
+        "license": LICENSE_URL,
+        "about": book_ld(),
+    }
+    verification = f'<meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">\n'
     return f"""<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Humble Solution to {esc(BOOK)} ({esc(BOOK_AUTHORS)})</title>
-<meta name="description" content="{esc(description)}">
-<meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">
-<link rel="canonical" href="{esc(links.site())}">
-<link rel="stylesheet" href="style.css">
-</head>
+{render_head(title, description, links.site(), "", "website", structured, verification)}
 <body>
 <header>
-<h1>My Humble Solution to <em>{esc(BOOK)}</em></h1>
+<h1>Solutions to {esc(BOOK_AUTHORS)}, <em>{esc(BOOK)}</em></h1>
+<p class="lead">An unofficial solution manual: worked solutions to the problems of
+<cite>{esc(BOOK)}</cite>, {esc(BOOK_SERIES)}, by chapter and section of the book.
+Each solved problem has its own page and PDF; the whole manual is a single PDF.</p>
 <p class="reference">{esc(" and ".join(b["authors"]))}, <cite>{esc(BOOK)}</cite>, 3rd ed. ({b["year"]}) ·
-solutions by {esc(author)}</p>
+solutions by {esc(SITE_AUTHOR)}</p>
 <p class="actions"><a class="button" href="main.pdf">Download the full manual</a>
 <span class="note">PDF, {manual_pages} pages, {human_size(manual_size)}</span> ·
 <a href="{esc(links.repository)}">GitHub</a></p>
@@ -791,22 +965,121 @@ solutions by {esc(author)}</p>
 <main>
 {chr(10).join(body)}
 </main>
-<footer>
-<p>Solutions © 2026 {esc(author)},
-<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
-Unofficial: not endorsed by the authors or the publisher of the book.
-<a href="{esc(links.repository)}/issues/new">Report an error on GitHub</a>.</p>
-</footer>
+{render_footer(links)}
 </body>
 </html>
 """
 
 
-def render_sitemap(chapters, links):
-    """The homepage, the full manual and the PDFs of the solved problems."""
-    urls = [links.site(), links.site("main.pdf")]
-    urls += [links.site(p.pdf) for c in chapters for p in c.problems if p.done]
-    entries = "".join(f"  <url><loc>{esc(u)}</loc></url>\n" for u in urls)
+def page_link(problem):
+    """Link to a problem from a problem page (in problems/)."""
+    href = f"{problem.id}.html" if problem.done else f"../{problem.pdf}"
+    status = "" if problem.done else ' <span class="status">Not done</span>'
+    return f'<a href="{href}">{esc(problem.label)}</a>: {rich(problem.heading)}{status}'
+
+
+def render_problem_page(problem, previous, following, order, links, pdf_size):
+    s, c = problem.section, problem.section.chapter
+    subject = problem.title or s.title
+    canonical = links.site(problem.page)
+    pdf = f"../{problem.pdf}"
+    pages = f"{problem.pages} page{'s' if problem.pages > 1 else ''}"
+    title = f"{problem.label}: {plain(subject)} | {BOOK_AUTHORS} {BOOK} Solutions"
+    description = (f"Worked solution to {problem.label} ({s.title}, {CHAPTER} {c.number}) of "
+                   f"{BOOK_AUTHORS}, {BOOK}: {plain(subject)}. Unofficial solution manual, "
+                   f"{problem.pages}-page PDF.")
+    crumbs = [(SITE_TITLE, links.site(), "../"),
+              (f"{CHAPTER} {c.number}. {c.title}", links.site(f"#{c.id}"), f"../#{c.id}"),
+              (f"{s.label} {s.title}", links.site(f"#{s.id}"), f"../#{s.id}"),
+              (problem.label, canonical, None)]
+    structured = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": i, "name": name, "item": url}
+                for i, (name, url, _) in enumerate(crumbs, 1)]},
+            {"@type": "LearningResource",
+             "name": f"{problem.label}: {plain(subject)}",
+             "description": description,
+             "url": canonical,
+             "learningResourceType": "Worked solution",
+             "inLanguage": "en",
+             "author": person(SITE_AUTHOR),
+             "license": LICENSE_URL,
+             "isPartOf": {"@type": "WebSite", "name": SITE_TITLE, "url": links.site()},
+             "about": book_ld(),
+             "encoding": {"@type": "MediaObject", "contentUrl": links.site(problem.pdf),
+                          "encodingFormat": "application/pdf"}},
+        ],
+    }
+
+    trail = " › ".join(f'<a href="{href}">{esc(name)}</a>' for name, _, href in crumbs[:-1])
+    body = [f'<nav class="breadcrumb" aria-label="Breadcrumb">{trail}</nav>',
+            "<header>",
+            f'<h1><span class="label">{esc(problem.label)}</span> {rich(subject)}</h1>',
+            f'<p class="lead">A worked solution to {PROBLEM} {problem.number} of {esc(s.label)}, '
+            f'<i>{esc(s.title)}</i>, in {CHAPTER} {c.number}, <i>{esc(c.title)}</i>, of '
+            f'{esc(" and ".join(BOOK_REFERENCE["authors"]))}, <cite>{esc(BOOK)}</cite>, '
+            f'3rd ed. ({BOOK_REFERENCE["year"]}). Solution by {esc(SITE_AUTHOR)}.</p>',
+            f'<p class="actions"><a class="button" href="{pdf}">Open the solution (PDF)</a> '
+            f'<a href="{pdf}" download>Download</a> '
+            f'<span class="note">{pages}, {human_size(pdf_size)} · pages '
+            f'{problem.start + 1}–{problem.end + 1} of the '
+            f'<a href="../main.pdf#page={problem.start + 1}">full manual</a></span></p>',
+            "</header>",
+            "<main>",
+            f'<object class="viewer" data="{pdf}" type="application/pdf" '
+            f'aria-label="{esc(problem.label)} solution (PDF)">',
+            f'<p class="note">Your browser cannot show the PDF here: '
+            f'<a href="{pdf}">open the solution (PDF)</a>.</p>',
+            "</object>"]
+    if problem.parts:
+        parts = " · ".join(f'<a href="{pdf}#page={x.page - problem.start + 1}">({x.letter})</a>'
+                           for x in problem.parts)
+        body.append(f'<p class="parts">Parts: {parts}</p>')
+    for heading, ids in (("Uses", problem.refs), ("Used in", problem.cited_by)):
+        if ids:
+            body.append(f"<h2>{heading}</h2>")
+            body.append('<ul class="related">')
+            body.extend(f"<li>{page_link(order[i])}</li>" for i in order if i in ids)
+            body.append("</ul>")
+    body.append(f"<h2>{esc(s.label)} {esc(s.title)}</h2>")
+    body.append('<ul class="related">')
+    for other in s.problems:
+        if other is problem:
+            body.append(f'<li aria-current="page"><b>{esc(other.label)}</b>: {rich(other.heading)}</li>')
+        else:
+            body.append(f"<li>{page_link(other)}</li>")
+    body.append("</ul>")
+    pager = []
+    if previous:
+        pager.append(f'<a rel="prev" href="{previous.id}.html">← {esc(previous.label)}</a>')
+    pager.append('<a href="../">All problems</a>')
+    if following:
+        pager.append(f'<a rel="next" href="{following.id}.html">{esc(following.label)} →</a>')
+    body.append(f'<nav class="pager" aria-label="Solved problems">{" ".join(pager)}</nav>')
+    body.append("</main>")
+    return f"""<!doctype html>
+<html lang="en">
+{render_head(title, description, canonical, "../", "article", structured)}
+<body class="problem-page">
+{chr(10).join(body)}
+{render_footer(links)}
+</body>
+</html>
+"""
+
+
+def site_paths(problems):
+    """Paths of the sitemap: the homepage, the solved-problem pages, the full
+    manual and the solved-problem PDFs."""
+    solved = [p for p in problems if p.done]
+    return [""] + [p.page for p in solved] + ["main.pdf"] + [p.pdf for p in solved]
+
+
+def render_sitemap(problems, links):
+    entries = "".join(f"  <url><loc>{esc(links.site(u))}</loc></url>\n"
+                      for u in site_paths(problems))
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             f"{entries}</urlset>\n")
@@ -836,6 +1109,7 @@ def prepare_output(out):
             sys.exit(f"{out} is not empty and is not a previous website build: choose another --out")
         shutil.rmtree(out)
     (out / "pdf").mkdir(parents=True)
+    (out / "problems").mkdir()
     write_text(out / MARKER, "Written by site/build.py: deleted at each build.\n")
 
 
@@ -878,10 +1152,18 @@ def main():
     manual_pages = len(reader.pages)
     data = catalogue_data(chapters, links, manual_pages, author)
     write_text(out / "catalogue.json", json.dumps(data, ensure_ascii=False, indent=2) + "\n")
-    write_text(out / "index.html", render_index(chapters, links, author, manual_pages,
+    write_text(out / "index.html", render_index(chapters, links, manual_pages,
                                                 (ROOT / "main.pdf").stat().st_size))
-    write_text(out / "sitemap.xml", render_sitemap(chapters, links))
+    solved = [p for p in problems if p.done]
+    for i, problem in enumerate(solved):
+        previous = solved[i - 1] if i > 0 else None
+        following = solved[i + 1] if i + 1 < len(solved) else None
+        write_text(out / problem.page,
+                   render_problem_page(problem, previous, following, by_id, links,
+                                       (out / problem.pdf).stat().st_size))
+    write_text(out / "sitemap.xml", render_sitemap(problems, links))
     shutil.copyfile(HERE / "style.css", out / "style.css")
+    verify_site(out, problems, links, manual_pages, errors)
 
     sections = [s for c in chapters for s in c.sections]
     pdf_size = sum((out / p.pdf).stat().st_size for p in problems)
@@ -889,7 +1171,7 @@ def main():
           f"({done_count(problems)} solved, {sum(len(p.parts) for p in problems)} parts, "
           f"{sum(len(p.refs) for p in problems)} cross-problem links)")
     print(f"{len(problems)} problem PDFs, {sum(p.pages for p in problems)} pages, "
-          f"{human_size(pdf_size)}; website in {out}")
+          f"{human_size(pdf_size)}; {len(solved)} problem pages; website in {out}")
 
 
 if __name__ == "__main__":
