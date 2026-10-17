@@ -61,6 +61,11 @@ GOOGLE_SITE_VERIFICATION = "I9Mnn8Ch39GMAo9_cUExA_0P-YiiCN3OjdxbqU2lAYk"
 # main.pdf)
 SITE_AUTHOR = "Pierre-Olivier Bolduc"
 SITE_TITLE = "Solutions to Landau and Lifshitz, Mechanics"
+SITE_NAME = "Landau Mechanics"      # short, in page titles when it fits
+# Lengths that search results show in full (titles are cut at about 60
+# characters, descriptions at about 160); the build checks every page
+TITLE_MAX = 60
+DESCRIPTION_RANGE = (25, 160)
 LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
 BOOK = "Mechanics"
 BOOK_AUTHORS = "Landau and Lifshitz"
@@ -544,6 +549,10 @@ def read_titles(chapters, errors):
             errors.append(f"{path.name}: [{key}] needs a title, and only a title")
         else:
             problem.title = " ".join(entry["title"].split())
+            # Every problem, so that its page fits once it is solved
+            if len(page_title(problem)) > TITLE_MAX:
+                errors.append(f"{path.name}: [{key}] is too long for the page title "
+                              f'"{page_title(problem)}" ({TITLE_MAX} characters at most)')
     errors.check("problem titles")
     for problem in problems.values():
         if not problem.title:
@@ -755,9 +764,12 @@ def verify_site(out, problems, links, manual_pages, errors):
             errors.append(f"{path}: og:url {page.meta.get('og:url')}")
         if not page.title.strip() or not page.meta.get("description") or page.h1 != 1:
             errors.append(f"{path}: needs a title, a description and one h1")
-        elif not 25 <= len(page.meta["description"]) <= 160:
+        elif not DESCRIPTION_RANGE[0] <= len(page.meta["description"]) <= DESCRIPTION_RANGE[1]:
             errors.append(f"{path}: description of {len(page.meta['description'])} characters, "
-                          f"not 25-160 (shorten its title in site/problems.toml)")
+                          f"not {DESCRIPTION_RANGE[0]}-{DESCRIPTION_RANGE[1]} "
+                          f"(shorten its title in site/problems.toml)")
+        elif len(page.title) > TITLE_MAX:
+            errors.append(f"{path}: title of {len(page.title)} characters, over {TITLE_MAX}")
         for link in page.links:
             url = urllib.parse.urlsplit(link)
             if url.scheme or url.netloc:
@@ -933,7 +945,7 @@ def render_index(chapters, links, manual_pages, manual_size):
             body.extend(render_problem(p) for p in s.problems)
             body.append("</ul>")
         body.append("</section>")
-    title = f"{BOOK_AUTHORS} {BOOK}: Worked Solutions and Solution Manual"
+    title = f"{BOOK_AUTHORS} {BOOK}: Solution Manual"
     description = (f"Unofficial solution manual for {BOOK_AUTHORS}, {BOOK} (Course of "
                    f"Theoretical Physics, Vol. 1): worked solutions to the problems, "
                    f"{done} of {total} so far.")
@@ -974,13 +986,21 @@ solutions by {esc(SITE_AUTHOR)}</p>
 """
 
 
+def page_title(problem):
+    """<title> of a problem page: label and title, with the site name when it
+    fits in TITLE_MAX characters."""
+    title = f"{problem.label}: {plain(problem.title or problem.section.title)}"
+    named = f"{title} | {SITE_NAME}"
+    return named if len(named) <= TITLE_MAX else title
+
+
 def render_problem_page(problem, previous, following, links, pdf_size):
     s, c = problem.section, problem.section.chapter
     subject = problem.title or s.title
     canonical = links.site(problem.page)
     pdf = f"../{problem.pdf}"
     pages = f"{problem.pages} page{'s' if problem.pages > 1 else ''}"
-    title = f"{problem.label}: {plain(subject)} | {BOOK_AUTHORS} {BOOK} Solutions"
+    title = page_title(problem)
     # At most 160 characters, as search results show (checked by verify_site)
     description = (f"Worked solution to {problem.label} of {BOOK_AUTHORS}, {BOOK}: "
                    f"{plain(subject)}. PDF, {pages}.")
