@@ -1,0 +1,60 @@
+/* SPDX-License-Identifier: MIT */
+/* Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE. */
+/* Single page of the website, in the manual's theme color (red!50!black). */
+
+:root {
+  --paper: #fbf9f4;
+  --ink: #1f1c18;
+  --muted: #6a645c;
+  --rule: #e3ddd2;
+  --theme: #800000;
+  --theme-ink: #ffffff;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #161412;
+    --ink: #ece7e0;
+    --muted: #a49c92;
+    --rule: #35302b;
+    --theme: #e3928c;
+    --theme-ink: #1a0f0e;
+    color-scheme: dark;
+  }
+}
+
+body {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 32px 16px 48px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.55 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+a { color: var(--theme); }
+h1, h2, h3 { line-height: 1.25; }
+h1 { margin: 0; font-size: 2.2rem; }
+h1 em { font-style: normal; color: var(--theme); }
+h2 { margin: 40px 0 0; padding-bottom: 6px; border-bottom: 2px solid var(--theme); font-size: 1.4rem; }
+h3 { margin: 20px 0 4px; font-size: 1.1rem; }
+
+header { padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+.reference, .note, .status, footer { color: var(--muted); }
+.reference { margin: 6px 0 16px; }
+.button {
+  display: inline-block; padding: 6px 14px; border-radius: 6px;
+  background: var(--theme); color: var(--theme-ink); text-decoration: none;
+}
+.note, .status { font-size: 0.9em; }
+.progress { margin: 12px 0 0; font-weight: 600; }
+
+.problems { list-style: none; margin: 0; padding: 0; }
+.problems li { padding: 3px 0; }
+.number { display: inline-block; min-width: 5.5rem; color: var(--ink); }
+.problems a { text-decoration: none; }
+.problems a:hover { text-decoration: underline; }
+.todo a, .todo .number { color: var(--muted); }
+
+footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 0.9em; }

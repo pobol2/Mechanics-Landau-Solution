@@ -1,0 +1,79 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
+#
+# Builds the website (a single page and one PDF per problem) from the
+# committed main.pdf, README.md and site/ files, and deploys it to GitHub
+# Pages on each push to master. LaTeX is never compiled here: the
+# local commit hook (.githooks/pre-commit) keeps main.pdf and the README
+# progress up to date in every commit.
+# Pull requests and manual runs on other branches are built and checked, but
+# not deployed.
+# One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions.
+
+name: Website
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deployment at a time; a newer push waits for the running one
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DEPLOY: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read   # configure-pages reads the site URL
+    steps:
+      # The template submodule is not needed (only committed files are read)
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: site/requirements.txt
+
+      - run: python -m pip install -r site/requirements.txt
+
+      - id: pages
+        if: env.DEPLOY == 'true'
+        uses: actions/configure-pages@v5
+
+      # Fails, and deploys nothing, when main.pdf, the README progress and
+      # site/problems.toml disagree or a problem PDF does not check out
+      - name: Build the website
+        run: >-
+          python site/build.py --out _site
+          --base-url "${{ steps.pages.outputs.base_url }}"
+          --repository "${{ github.server_url }}/${{ github.repository }}"
+
+      - if: env.DEPLOY == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

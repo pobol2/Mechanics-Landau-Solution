@@ -8,11 +8,14 @@ issue or a pull request.
 
 Author: P.O. Bolduc
 
-**[Read the manual (main.pdf)](main.pdf)** · **[Progress](#progress)**
+**[Read the manual (main.pdf)](main.pdf)** · **[Website](https://pobol2.github.io/Mechanics-Landau-Solution/)**
+(one PDF per problem) · **[Progress](#progress)**
 
 ## Organization
 
-The manual follows the book. Its seven chapters are divided into the book's
+The manual follows the book: L. D. Landau and E. M. Lifshitz, *Mechanics*,
+third edition (1976), Course of Theoretical Physics, Volume 1,
+Butterworth-Heinemann, ISBN 978-0-7506-2896-9. Its seven chapters are divided into the book's
 sections that have problems, shown with the book's numbers (§5, §7, ...), and
 the problems are numbered within their section as in the book: §9 Problem 3
 is the third problem of §9. Sections without problems are left out. Every
@@ -99,6 +102,8 @@ myfigures.sty         Physics figure styles: bodies, vectors, 3D views, fields
 SolutionFigure.lua    Numerical field lines and equipotentials for the figures
 latexmkrc             Loads template/solution-manual/latexmkrc; writes the
                       completion report into this README
+site/                 Website: builder, style and problem titles
+.github/workflows/    Website deployment to GitHub Pages (see Website)
 ```
 
 The physics-specific figure styles and the Lua field tools are deliberately
@@ -215,6 +220,71 @@ tracked `.vscode/settings.json` makes **LaTeX Workshop: Build LaTeX project**
 (or saving a file) run the same `latexmk` command. The viewer shows
 `build/main.pdf`, with SyncTeX forward and inverse search.
 
+## Website
+
+The [website](https://pobol2.github.io/Mechanics-Landau-Solution/) is a single
+page: the progress, a link to download the full manual, and every problem of
+the book by chapter and section. Each problem opens its own PDF, cut from
+`main.pdf`; unsolved problems are greyed out and marked *Not done* (their PDF
+has the statement only). In a problem PDF, links to another problem open that
+problem's PDF, at the right page.
+
+Each problem has a stable ID from the book's numbering: `s9-p3` is §9
+Problem 3, its PDF is `pdf/s9-p3.pdf` and `#s9-p3` is its line on the page.
+
+`site/build.py` builds the site from committed files only (no LaTeX, no
+`build/`, no `template/`):
+
+- `main.pdf`: chapters, sections and problems (its bookmarks), the pages of
+  each problem, their parts and the links between problems;
+- the [Progress](#progress) section of this README: which problems are done;
+- `site/problems.toml`: a short descriptive title for each problem.
+
+The build stops if they disagree (counts, sections, unknown IDs in
+`problems.toml`) or if a problem PDF does not check out (pages, running
+headers, links, bookmarks). The output goes to `_site/` (ignored by Git):
+`index.html`, `style.css`, `main.pdf`, `pdf/<id>.pdf`, `catalogue.json` (the
+catalogue as data) and `sitemap.xml` (the homepage, the full manual and the
+PDFs of the solved problems).
+
+**Setup (once):** Python 3.11 or later, then
+
+```sh
+python -m pip install -r site/requirements.txt
+```
+
+and on GitHub, **Settings > Pages > Build and deployment > Source: GitHub
+Actions**.
+
+**Preview locally:**
+
+```sh
+python site/build.py --base-url http://localhost:8000/
+python -m http.server 8000 -d _site
+```
+
+then open <http://localhost:8000/> (Ctrl+C stops the server). `--base-url`
+makes the links between problem PDFs point to the preview.
+
+**Deployment:** the workflow `.github/workflows/website.yml` runs the same
+build on each push to `master` and publishes `_site/` to GitHub Pages. It
+never compiles LaTeX: it uses the committed `main.pdf`, which the commit hook
+rebuilds. Pull requests are built and checked, but not deployed.
+
+**Google Search Console:** the page carries the site's verification tag
+(`GOOGLE_SITE_VERIFICATION` in `site/build.py`). After the first deployment,
+add the URL-prefix property `https://pobol2.github.io/Mechanics-Landau-Solution/`,
+verify it with the *HTML tag* method, then submit the sitemap
+`https://pobol2.github.io/Mechanics-Landau-Solution/sitemap.xml` under
+**Sitemaps**. (A project site cannot have its own `robots.txt`, which would
+have to be at the root of `pobol2.github.io`, so the sitemap is submitted
+there instead.)
+
+**When you solve a problem**, nothing else is needed: `latexmk` (or the commit
+hook) updates `main.pdf` and the progress, and the next push updates the
+site, including the sitemap. Adjust its title in `site/problems.toml` if
+needed.
+
 ## Updating the template
 
 The submodule is pinned to a specific template commit, so template changes
@@ -238,12 +308,15 @@ as follows:
   are licensed under [Creative Commons Attribution 4.0 International
   (CC BY 4.0)](LICENSE). This covers the original content in `Chapters/*.tex`,
   the diagram sources in `Figures/*.tex`, the corresponding content in the
-  compiled PDFs, and this README. You may share and adapt this material,
+  compiled PDFs, the problem titles in `site/problems.toml` and this README.
+  You may share and adapt this material,
   including commercially, with appropriate credit, a license link and an
   indication of any modifications.
 - **Code:** `main.tex` (document setup), `mypackages.sty`, `mycommands.sty`,
-  `myfigures.sty`, `SolutionFigure.lua`, `latexmkrc`, the commit hook and the
-  VS Code configuration are licensed under the [MIT License](LICENSE-CODE).
+  `myfigures.sty`, `SolutionFigure.lua`, `latexmkrc`, the commit hook, the
+  VS Code configuration, the website builder in `site/` (except
+  `problems.toml`, which is content) and the GitHub workflow are licensed
+  under the [MIT License](LICENSE-CODE).
   Reusing this code does not require your own written content to use CC BY.
 - **Shared framework:** the `template/` submodule is licensed separately by
   the [Solution Manual Template](https://github.com/pobol2/Solution-Manual-Template).

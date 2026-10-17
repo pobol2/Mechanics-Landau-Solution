@@ -1,0 +1,309 @@
+# SPDX-License-Identifier: CC-BY-4.0
+# Copyright (c) 2026 P.O. Bolduc. See LICENSE.
+#
+# Descriptive titles of the problems, shown on the website. Each table is a
+# problem ID (s<section>-p<problem>, from the book's numbering), with a title:
+# what the problem is about, in a few words. Plain text: Unicode symbols
+# (φ, ω, ²) are fine; an underscore makes a subscript (M_z).
+
+# ---- Chapter 1. The Equations of Motion ----
+
+[s5-p1]
+title = "Lagrangian of a coplanar double pendulum"
+
+[s5-p2]
+title = "Pendulum hanging from a support that slides horizontally"
+
+[s5-p3]
+title = "Pendulum with a support moving in a prescribed way"
+
+[s5-p4]
+title = "Rotating governor with a mass sliding on its axis"
+
+# ---- Chapter 2. Conservation Laws ----
+
+[s7-p1]
+title = "Refraction of a particle at a step in potential energy"
+
+[s8-p1]
+title = "Transformation of the action between inertial frames"
+
+[s9-p1]
+title = "Angular momentum in cylindrical co-ordinates"
+
+[s9-p2]
+title = "Angular momentum in spherical co-ordinates"
+
+[s9-p3]
+title = "Conserved momenta in fields of symmetric bodies"
+
+[s10-p1]
+title = "Travel times for particles of different masses on the same path"
+
+[s10-p2]
+title = "Travel times on the same path for scaled potential energies"
+
+# ---- Chapter 3. Integration of the Equations of Motion ----
+
+[s11-p1]
+title = "Period of a simple pendulum as a function of amplitude"
+
+[s11-p2]
+title = "Period as a function of energy in three potential wells"
+
+[s13-p1]
+title = "Eliminating the centre of mass of one heavy and n equal particles"
+
+[s14-p1]
+title = "Spherical pendulum"
+
+[s14-p2]
+title = "Particle on the surface of a vertical cone"
+
+[s14-p3]
+title = "Integrating the pendulum with a sliding support"
+
+[s15-p1]
+title = "Time dependence on a parabolic Kepler orbit"
+
+[s15-p2]
+title = "Motion in an inverse-cube attractive force"
+
+[s15-p3]
+title = "Precession of the perihelion from a small perturbation"
+
+# ---- Chapter 4. Collisions Between Particles ----
+
+[s16-p1]
+title = "Relation between the laboratory angles after a disintegration"
+
+[s16-p2]
+title = "Angular distribution of disintegration products in the laboratory"
+
+[s16-p3]
+title = "Range of angles between two disintegration products"
+
+[s17-p1]
+title = "Velocities after an elastic collision with a particle at rest"
+
+[s18-p1]
+title = "Scattering by a perfectly rigid sphere"
+
+[s18-p2]
+title = "Rigid-sphere cross-section as a function of energy loss"
+
+[s18-p3]
+title = "Velocity dependence of the cross-section for power-law fields"
+
+[s18-p4]
+title = "Fall to the centre in an attractive inverse-square field"
+
+[s18-p5]
+title = "Fall to the centre in a field −α/rⁿ with n > 2"
+
+[s18-p6]
+title = "Capture by a gravitating sphere"
+
+[s18-p7]
+title = "Recovering a repulsive field from its cross-section (Firsov)"
+
+[s19-p1]
+title = "Scattering in a repulsive inverse-square field"
+
+[s19-p2]
+title = "Scattering by a spherical potential well"
+
+[s20-p1]
+title = "Deriving the small-angle scattering formula"
+
+[s20-p2]
+title = "Small-angle cross-section in a field α/rⁿ"
+
+# ---- Chapter 5. Small Oscillations ----
+
+[s21-p1]
+title = "Amplitude and phase from the initial conditions"
+
+[s21-p2]
+title = "Vibration frequencies of isotopic diatomic molecules"
+
+[s21-p3]
+title = "Particle on a line held by a spring"
+
+[s21-p4]
+title = "Particle on a circle held by a spring"
+
+[s21-p5]
+title = "Small oscillations of the pendulum with a sliding support"
+
+[s21-p6]
+title = "Curve with an amplitude-independent period (tautochrone)"
+
+[s22-p1]
+title = "Forced oscillations under four forms of force"
+
+[s22-p2]
+title = "Final amplitude after a force ramps up to a constant"
+
+[s22-p3]
+title = "Final amplitude after a constant force of finite duration"
+
+[s22-p4]
+title = "Final amplitude after a linearly growing force of finite duration"
+
+[s22-p5]
+title = "Final amplitude after one period of a sinusoidal force"
+
+[s23-p1]
+title = "Two identical coupled oscillators"
+
+[s23-p2]
+title = "Small oscillations of a coplanar double pendulum"
+
+[s23-p3]
+title = "Path of a space oscillator"
+
+[s24-p1]
+title = "Vibrations of a symmetric linear triatomic molecule"
+
+[s24-p2]
+title = "Vibrations of a triangular triatomic molecule"
+
+[s24-p3]
+title = "Vibrations of an unsymmetrical linear triatomic molecule"
+
+[s26-p1]
+title = "Damped oscillator driven by an exponentially modulated force"
+
+[s27-p1]
+title = "Second-order limits of instability near γ = 2ω₀"
+
+[s27-p2]
+title = "Region of instability near γ = ω₀"
+
+[s27-p3]
+title = "Parametric resonance of a pendulum with a vertically oscillating support"
+
+[s29-p1]
+title = "Non-linear resonance near three times the eigenfrequency"
+
+[s30-p1]
+title = "Stability of a pendulum with a rapidly oscillating vertical support"
+
+[s30-p2]
+title = "Stability of a pendulum with a rapidly oscillating horizontal support"
+
+# ---- Chapter 6. Motion of a Rigid Body ----
+
+[s32-p1]
+title = "Principal moments of inertia of molecules"
+
+[s32-p2]
+title = "Principal moments of inertia of homogeneous bodies"
+
+[s32-p3]
+title = "Frequency of a compound pendulum"
+
+[s32-p4]
+title = "Kinetic energy of two hinged rods"
+
+[s32-p5]
+title = "Kinetic energy of an unbalanced rolling cylinder"
+
+[s32-p6]
+title = "Kinetic energy of a cylinder rolling inside a cylinder"
+
+[s32-p7]
+title = "Kinetic energy of a cone rolling on a plane"
+
+[s32-p8]
+title = "Kinetic energy of a cone rolling with its axis horizontal"
+
+[s32-p9]
+title = "Kinetic energy of an ellipsoid turning about two perpendicular axes"
+
+[s32-p10]
+title = "Kinetic energy of a symmetric ellipsoid turning about two inclined axes"
+
+[s35-p1]
+title = "Heavy symmetrical top reduced to quadratures"
+
+[s35-p2]
+title = "Stability of a top spinning about the vertical"
+
+[s35-p3]
+title = "Motion of a fast top"
+
+[s37-p1]
+title = "Free rotation of a top near a principal axis"
+
+[s37-p2]
+title = "Free rotation of an asymmetrical top with M² = 2EI₂"
+
+[s38-p1]
+title = "Sphere rolling on a plane by d'Alembert's principle"
+
+[s38-p2]
+title = "Rod against a wall held by a string"
+
+[s38-p3]
+title = "Rod between two planes held by two strings"
+
+[s38-p4]
+title = "Reactions of two hinged rods joined by a string"
+
+[s39-p1]
+title = "Deflection of a falling body by the Earth's rotation"
+
+[s39-p2]
+title = "Deflection of a projectile by the Earth's rotation"
+
+[s39-p3]
+title = "Foucault's pendulum"
+
+# ---- Chapter 7. The Canonical Equations ----
+
+[s40-p1]
+title = "Hamiltonian of a particle in three co-ordinate systems"
+
+[s40-p2]
+title = "Hamiltonian in a uniformly rotating frame"
+
+[s40-p3]
+title = "Hamiltonian of one heavy and n equal particles"
+
+[s41-p1]
+title = "Routhian of a symmetrical top"
+
+[s42-p1]
+title = "Poisson brackets of momentum and angular momentum"
+
+[s42-p2]
+title = "Poisson brackets of the components of angular momentum"
+
+[s42-p3]
+title = "Bracket of a spherically symmetric function with M_z"
+
+[s42-p4]
+title = "Bracket of a vector function with M_z"
+
+[s44-p1]
+title = "Differential equation of the path from Maupertuis' principle"
+
+[s48-p1]
+title = "Hamilton–Jacobi equation for a Coulomb field plus a uniform field"
+
+[s48-p2]
+title = "Hamilton–Jacobi equation for two fixed Coulomb centres"
+
+[s50-p1]
+title = "Canonical equations of an oscillator with time-dependent frequency"
+
+[s51-p1]
+title = "Change of the adiabatic invariant for a smoothly varying frequency"
+
+[s51-p2]
+title = "Energy of an oscillating particle under weak friction"
+
+[s52-p1]
+title = "Action variables for elliptic Kepler motion"

@@ -34,3 +34,7 @@ desktop.ini
 
 # Figures are compiled from Figures/*.tex by latexmk
 Figures/*.pdf
+
+# Website built by site/build.py (deployed by the GitHub workflow)
+_site/
+__pycache__/
