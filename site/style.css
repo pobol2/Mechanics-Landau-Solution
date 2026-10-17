@@ -67,9 +67,11 @@ h1 .label { display: block; margin-bottom: 4px; color: var(--theme); font-size: 
 .problem-page h1 { font-size: 1.9rem; }
 .problem-page .actions { margin: 16px 0 0; }
 .problem-page .actions > a:not(.button) { margin: 0 8px; }
+/* Wider than the text column: the window width, centred, up to 80rem */
 .viewer {
-  display: block; width: 100%; height: 85vh; margin-top: 24px;
-  border: 1px solid var(--rule); background: var(--paper);
+  display: block; position: relative; left: 50%; transform: translateX(-50%);
+  width: min(calc(100vw - 32px), 80rem); height: calc(100vh - 32px); min-height: 600px;
+  margin-top: 24px; border: 1px solid var(--rule); background: var(--paper);
 }
 .viewer p { padding: 16px; }
 
@@ -83,8 +85,6 @@ h1 .label { display: block; margin-bottom: 4px; color: var(--theme); font-size: 
   .problem-page .actions > a:not(.button) { margin-left: 0; }
 }
 .parts { margin: 12px 0 0; }
-.related { margin: 0; padding-left: 1.2em; }
-.related li { padding: 2px 0; }
 .pager {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px;
   margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--rule);

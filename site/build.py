@@ -755,6 +755,9 @@ def verify_site(out, problems, links, manual_pages, errors):
             errors.append(f"{path}: og:url {page.meta.get('og:url')}")
         if not page.title.strip() or not page.meta.get("description") or page.h1 != 1:
             errors.append(f"{path}: needs a title, a description and one h1")
+        elif not 25 <= len(page.meta["description"]) <= 160:
+            errors.append(f"{path}: description of {len(page.meta['description'])} characters, "
+                          f"not 25-160 (shorten its title in site/problems.toml)")
         for link in page.links:
             url = urllib.parse.urlsplit(link)
             if url.scheme or url.netloc:
@@ -931,9 +934,9 @@ def render_index(chapters, links, manual_pages, manual_size):
             body.append("</ul>")
         body.append("</section>")
     title = f"{BOOK_AUTHORS} {BOOK}: Worked Solutions and Solution Manual"
-    description = (f"Unofficial solution manual for {BOOK_AUTHORS}, {BOOK} ({BOOK_SERIES}): "
-                   f"worked solutions to the problems by chapter and section, each with its "
-                   f"own page and PDF. {done} of {total} problems solved.")
+    description = (f"Unofficial solution manual for {BOOK_AUTHORS}, {BOOK} (Course of "
+                   f"Theoretical Physics, Vol. 1): worked solutions to the problems, "
+                   f"{done} of {total} so far.")
     structured = {
         "@context": "https://schema.org",
         "@type": "WebSite",
@@ -971,23 +974,16 @@ solutions by {esc(SITE_AUTHOR)}</p>
 """
 
 
-def page_link(problem):
-    """Link to a problem from a problem page (in problems/)."""
-    href = f"{problem.id}.html" if problem.done else f"../{problem.pdf}"
-    status = "" if problem.done else ' <span class="status">Not done</span>'
-    return f'<a href="{href}">{esc(problem.label)}</a>: {rich(problem.heading)}{status}'
-
-
-def render_problem_page(problem, previous, following, order, links, pdf_size):
+def render_problem_page(problem, previous, following, links, pdf_size):
     s, c = problem.section, problem.section.chapter
     subject = problem.title or s.title
     canonical = links.site(problem.page)
     pdf = f"../{problem.pdf}"
     pages = f"{problem.pages} page{'s' if problem.pages > 1 else ''}"
     title = f"{problem.label}: {plain(subject)} | {BOOK_AUTHORS} {BOOK} Solutions"
-    description = (f"Worked solution to {problem.label} ({s.title}, {CHAPTER} {c.number}) of "
-                   f"{BOOK_AUTHORS}, {BOOK}: {plain(subject)}. Unofficial solution manual, "
-                   f"{problem.pages}-page PDF.")
+    # At most 160 characters, as search results show (checked by verify_site)
+    description = (f"Worked solution to {problem.label} of {BOOK_AUTHORS}, {BOOK}: "
+                   f"{plain(subject)}. PDF, {pages}.")
     crumbs = [(SITE_TITLE, links.site(), "../"),
               (f"{CHAPTER} {c.number}. {c.title}", links.site(f"#{c.id}"), f"../#{c.id}"),
               (f"{s.label} {s.title}", links.site(f"#{s.id}"), f"../#{s.id}"),
@@ -1037,20 +1033,6 @@ def render_problem_page(problem, previous, following, order, links, pdf_size):
         parts = " · ".join(f'<a href="{pdf}#page={x.page - problem.start + 1}">({x.letter})</a>'
                            for x in problem.parts)
         body.append(f'<p class="parts">Parts: {parts}</p>')
-    for heading, ids in (("Uses", problem.refs), ("Used in", problem.cited_by)):
-        if ids:
-            body.append(f"<h2>{heading}</h2>")
-            body.append('<ul class="related">')
-            body.extend(f"<li>{page_link(order[i])}</li>" for i in order if i in ids)
-            body.append("</ul>")
-    body.append(f"<h2>{esc(s.label)} {esc(s.title)}</h2>")
-    body.append('<ul class="related">')
-    for other in s.problems:
-        if other is problem:
-            body.append(f'<li aria-current="page"><b>{esc(other.label)}</b>: {rich(other.heading)}</li>')
-        else:
-            body.append(f"<li>{page_link(other)}</li>")
-    body.append("</ul>")
     pager = []
     if previous:
         pager.append(f'<a rel="prev" href="{previous.id}.html">← {esc(previous.label)}</a>')
@@ -1159,7 +1141,7 @@ def main():
         previous = solved[i - 1] if i > 0 else None
         following = solved[i + 1] if i + 1 < len(solved) else None
         write_text(out / problem.page,
-                   render_problem_page(problem, previous, following, by_id, links,
+                   render_problem_page(problem, previous, following, links,
                                        (out / problem.pdf).stat().st_size))
     write_text(out / "sitemap.xml", render_sitemap(problems, links))
     shutil.copyfile(HERE / "style.css", out / "style.css")

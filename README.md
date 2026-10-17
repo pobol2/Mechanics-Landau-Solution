@@ -230,8 +230,7 @@ The [website](https://pobol2.github.io/Mechanics-Landau-Solution/) has a
 catalogue page: the progress, a link to download the full manual, and every
 problem of the book by chapter and section. Each solved problem opens its own
 page, which shows its PDF (cut from `main.pdf`) with links to open or download
-it, its parts, the problems it uses or is used in, the other problems of its
-section and the previous and next solved problems. Unsolved problems have no
+it, its parts and the previous and next solved problems. Unsolved problems have no
 page: they are greyed out, marked *Not done* and open their PDF, which has the
 statement only. In a problem PDF, links to another problem open that problem's
 PDF, at the right page.
