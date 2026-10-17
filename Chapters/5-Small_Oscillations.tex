@@ -9,8 +9,34 @@
 {
 Express the amplitude and initial phase of the oscillations in terms of the initial co-ordinate $x_0$ and velocity $v_0$.
 }
-{}
-{}
+{
+The general solution of $\Ddot{x} + \omega^2x = 0$, with angular frequency $\omega > 0$, that satisfies $x(0) = x_0$ and $\Dot{x}(0) = v_0$ is
+\begin{equation*}
+    x(t) = x_0\cos{\omega t} + \frac{v_0}{\omega}\sin{\omega t}.
+\end{equation*}
+We write the same harmonic motion as
+\begin{equation*}
+    x(t) = a\cos{(\omega t + \alpha)} = a\cos{\alpha}\cos{\omega t} - a\sin{\alpha}\sin{\omega t}, \qquad a \geq 0.
+\end{equation*}
+Comparing the coefficients of $\cos{\omega t}$ and $\sin{\omega t}$, we get
+\begin{equation*}
+    a\cos{\alpha} = x_0, \qquad a\sin{\alpha} = -\frac{v_0}{\omega}.
+\end{equation*}
+These are the relations $x_0 = a\cos{\alpha}$ and $v_0 = -a\omega\sin{\alpha}$ obtained by evaluating $x$ and $\Dot{x}$ directly at $t = 0$. Squaring them and adding gives
+\begin{equation*}
+    x_0^2 + \frac{v_0^2}{\omega^2} = a^2\left(\cos^2{\alpha} + \sin^2{\alpha}\right) = a^2.
+\end{equation*}
+For a nonzero amplitude, the phase is fixed modulo $2\pi$ by
+\begin{equation*}
+    \cos{\alpha} = \frac{x_0}{a}, \qquad \sin{\alpha} = -\frac{v_0}{a\omega}.
+\end{equation*}
+Thus, $\tan{\alpha} = -v_0/(\omega x_0)$ when $x_0 \neq 0$, with the quadrant determined by the signs of the sine and cosine. The two-argument arctangent $\operatorname{atan2}(Y, X)$ returns the angle whose cosine and sine have the signs of $X$ and $Y$ respectively, and so selects the correct quadrant. If $x_0 = v_0 = 0$, the particle remains at equilibrium and the phase is arbitrary.
+}
+{
+\begin{equation*}
+    a = \sqrt{x_0^2 + \frac{v_0^2}{\omega^2}}, \qquad \alpha = \operatorname{atan2}\left(-\frac{v_0}{\omega}, x_0\right) \pmod{2\pi}
+\end{equation*}
+}
 \end{problem}
 
 % ============ Problem 2 ============ %
@@ -19,8 +45,44 @@ Express the amplitude and initial phase of the oscillations in terms of the init
 {
 Find the ratio of frequencies $\omega$ and $\omega'$ of the oscillations of two diatomic molecules consisting of atoms of different isotopes, the masses of the atoms being $m_1$, $m_2$ and $m_1'$, $m_2'$.
 }
-{}
-{}
+{
+Within the harmonic approximation, isotopic substitution changes the masses while leaving the interatomic potential, and hence its curvature $k$ at equilibrium, unchanged.
+
+Let $u_1$ and $u_2$ be the displacements of the atoms from their equilibrium positions along the molecular axis, with atom $2$ on the positive side of atom $1$. We define the centre-of-mass displacement $X$ and the change $q$ in interatomic separation from equilibrium by
+\begin{equation*}
+    X = \frac{m_1u_1 + m_2u_2}{m_1 + m_2}, \qquad q = u_2 - u_1.
+\end{equation*}
+Inverting these relations gives
+\begin{equation*}
+    u_1 = X - \frac{m_2}{m_1 + m_2}q, \qquad u_2 = X + \frac{m_1}{m_1 + m_2}q.
+\end{equation*}
+Substituting them into the kinetic energy, the cross terms in $\Dot{X}\Dot{q}$ cancel, and we get
+\begin{equation*}
+    T = \frac{1}{2}m_1\Dot{u}_1^2 + \frac{1}{2}m_2\Dot{u}_2^2 = \frac{1}{2}(m_1 + m_2)\Dot{X}^2 + \frac{1}{2}\frac{m_1m_2}{m_1 + m_2}\Dot{q}^2.
+\end{equation*}
+The first term describes the free translation of the molecule as a whole, and the second describes its vibration. The potential energy depends only on the interatomic separation, and hence only on $q$; in the harmonic approximation, it is $\frac{1}{2}kq^2$. Dropping the translational term, the vibrational Lagrangian is
+\begin{equation*}
+    L_\mathrm{vib} = \frac{1}{2}\mu\Dot{q}^2 - \frac{1}{2}kq^2, \qquad \mu = \frac{m_1m_2}{m_1 + m_2}.
+\end{equation*}
+The equation of motion is
+\begin{equation*}
+    \mu\Ddot{q} + kq = 0,
+\end{equation*}
+so that
+\begin{equation*}
+    \omega = \sqrt{\frac{k}{\mu}}.
+\end{equation*}
+For the isotopically substituted molecule,
+\begin{equation*}
+    \mu' = \frac{m_1'm_2'}{m_1' + m_2'}, \qquad \omega' = \sqrt{\frac{k}{\mu'}}.
+\end{equation*}
+Taking the ratio eliminates the common force constant.
+}
+{
+\begin{equation*}
+    \frac{\omega'}{\omega} = \sqrt{\frac{\mu}{\mu'}} = \sqrt{\frac{m_1m_2\left(m_1' + m_2'\right)}{m_1'm_2'\left(m_1 + m_2\right)}}
+\end{equation*}
+}
 \end{problem}
 
 % ============ Problem 3 ============ %
@@ -29,8 +91,44 @@ Find the ratio of frequencies $\omega$ and $\omega'$ of the oscillations of two 
 {
 Find the frequency of oscillations of a particle of mass $m$ which is free to move along a line and is attached to a spring whose other end is fixed at a point $A$ (Fig.~22) at a distance $l$ from the line. A force $F$ is required to extend the spring to length $l$.
 }
-{}
-{}
+{
+Let $x$ be the displacement along the line from the point nearest the fixed end $A$. The length of the spring is
+\begin{equation*}
+    d(x) = \sqrt{l^2 + x^2}.
+\end{equation*}
+Here, $l$ is the length of the spring in the constrained equilibrium configuration $x = 0$, where the spring is already stretched and carries a tension $F > 0$; it is not the natural length of the spring. For $|x| \ll l$, the additional extension from this equilibrium length is
+\begin{equation*}
+    \delta l = d(x) - l = l\left(\sqrt{1 + \frac{x^2}{l^2}} - 1\right) \simeq \frac{x^2}{2l}.
+\end{equation*}
+Let $V(d)$ denote the potential energy of the spring. The force required to hold it at length $l$ is $F = V'(l) > 0$. Expanding about that length and dropping the constant $V(l)$, we get
+\begin{equation*}
+    U(x) = V(l + \delta l) - V(l) = F\,\delta l + \frac{1}{2}V''(l)\left(\delta l\right)^2 + \cdots.
+\end{equation*}
+Since $\delta l$ is already quadratic in $x$, its square contributes only at fourth order. Thus, the harmonic approximation gives
+\begin{equation*}
+    U(x) \simeq \frac{F}{2l}x^2.
+\end{equation*}
+The restoring potential therefore comes from the first-order term $F\,\delta l$, \ie from the tension already present at equilibrium, and not from the stiffness $V''(l)$ of the spring.
+
+The kinetic energy is
+\begin{equation*}
+    T = \frac{1}{2}m\Dot{x}^2,
+\end{equation*}
+and the equation of motion becomes
+\begin{equation*}
+    m\Ddot{x} + \frac{F}{l}x = 0.
+\end{equation*}
+As an independent check, the tension $V'(d)$ pulls the particle towards $A$ along the spring, and its component along the line is
+\begin{equation*}
+    F_x = -V'(d)\frac{x}{d} \simeq -\frac{F}{l}x
+\end{equation*}
+to first order in $x$, which reproduces this equation of motion. Comparison with $\Ddot{x} + \omega^2x = 0$ gives the angular frequency.
+}
+{
+\begin{equation*}
+    \omega = \sqrt{\frac{F}{ml}}
+\end{equation*}
+}
 \end{problem}
 
 % ============ Problem 4 ============ %
@@ -39,8 +137,50 @@ Find the frequency of oscillations of a particle of mass $m$ which is free to mo
 {
 The same as \probref{\S 21}{3}, but for a particle of mass $m$ moving on a circle of radius $r$ (Fig.~23).
 }
-{}
-{}
+{
+Let $O$ be the centre of the circle of radius $r$. The fixed end $A$ lies outside the circle, with $OA = l + r$, so that the spring has length $l$ when the particle is at the point nearest $A$. (If $A$ were inside the circle, with $OA = r - l$, the same steps would give $\omega^2 = F(r - l)/(mrl)$.) Let $\phi$ be the angle between $OA$ and the radius to the particle.
+
+By the cosine rule, the length of the spring is
+\begin{align*}
+    d(\phi) &= \sqrt{r^2 + (l + r)^2 - 2r(l + r)\cos{\phi}} \\
+    &= \sqrt{l^2 + 2r(l + r)(1 - \cos{\phi})}.
+\end{align*}
+For small oscillations, $1 - \cos{\phi} \simeq \phi^2/2$. Factoring out $l$ and using $\sqrt{1 + \epsilon} \simeq 1 + \epsilon/2$, we get
+\begin{equation*}
+    d = l\sqrt{1 + \frac{2r(l + r)}{l^2}(1 - \cos{\phi})} \simeq l + \frac{r(l + r)}{2l}\phi^2,
+\end{equation*}
+and therefore
+\begin{equation*}
+    \delta l = d(\phi) - l \simeq \frac{r(l + r)}{2l}\phi^2.
+\end{equation*}
+The amplitude must be small enough for both expansions to hold: $\phi \ll 1$ for the cosine, and $r(l + r)\phi^2/l^2 \ll 1$ for the square root.
+As in \probref{\S 21}{3}, the leading change in the energy of the spring is $F\,\delta l$. Hence,
+\begin{equation*}
+    U(\phi) \simeq \frac{Fr(l + r)}{2l}\phi^2.
+\end{equation*}
+The speed of the particle is $r\Dot{\phi}$, giving
+\begin{equation*}
+    T = \frac{1}{2}mr^2\Dot{\phi}^2.
+\end{equation*}
+The linearized equation of motion is
+\begin{equation*}
+    mr^2\Ddot{\phi} + \frac{Fr(l + r)}{l}\phi = 0,
+\end{equation*}
+or
+\begin{equation*}
+    \Ddot{\phi} + \frac{F(l + r)}{mrl}\phi = 0.
+\end{equation*}
+As a consistency check, at fixed $l$ the circle becomes a straight line at distance $l$ from $A$ as $r \to \infty$, and
+\begin{equation*}
+    \omega^2 = \frac{F}{ml}\left(1 + \frac{l}{r}\right) \longrightarrow \frac{F}{ml} \quad \text{as } r \to \infty,
+\end{equation*}
+which recovers the result of \probref{\S 21}{3}.
+}
+{
+\begin{equation*}
+    \omega = \sqrt{\frac{F(l + r)}{mrl}}
+\end{equation*}
+}
 \end{problem}
 
 % ============ Problem 5 ============ %
@@ -49,8 +189,56 @@ The same as \probref{\S 21}{3}, but for a particle of mass $m$ moving on a circl
 {
 Find the frequency of oscillations of the pendulum shown in the figure in \probref{\S 5}{2}, whose point of support carries a mass $m_1$ and is free to move horizontally (its motion is integrated in \probref{\S 14}{3}).
 }
-{}
-{}
+{
+Let $x$ denote the horizontal position of the support and $\phi$ the angle of the pendulum from the downward vertical. The support has mass $m_1$, the bob has mass $m_2$, and the length of the pendulum is $l$.
+
+From \probref{\S 5}{2}, the Lagrangian is
+\begin{equation*}
+    L = \frac{1}{2}(m_1 + m_2)\Dot{x}^2 + \frac{1}{2}m_2l^2\Dot{\phi}^2 + m_2l\Dot{x}\Dot{\phi}\cos{\phi} + m_2gl\cos{\phi}.
+\end{equation*}
+Because $x$ is cyclic, the total horizontal momentum is conserved:
+\begin{equation*}
+    p_x = \pd{L}{\Dot{x}} = (m_1 + m_2)\Dot{x} + m_2l\Dot{\phi}\cos{\phi}.
+\end{equation*}
+A constant horizontal translation of the whole system does not affect its oscillation frequency. We may therefore work in the inertial frame in which $p_x = 0$, as in \probref{\S 14}{3}. In this frame,
+\begin{equation*}
+    \Dot{x} = -\frac{m_2l}{m_1 + m_2}\Dot{\phi}\cos{\phi}.
+\end{equation*}
+Substituting this expression into the kinetic energy, we get
+\begin{align*}
+    T &= \frac{1}{2}(m_1 + m_2)\Dot{x}^2 + \frac{1}{2}m_2l^2\Dot{\phi}^2 + m_2l\Dot{x}\Dot{\phi}\cos{\phi} \\
+    &= \frac{m_2^2l^2}{2(m_1 + m_2)}\Dot{\phi}^2\cos^2{\phi} + \frac{1}{2}m_2l^2\Dot{\phi}^2 - \frac{m_2^2l^2}{m_1 + m_2}\Dot{\phi}^2\cos^2{\phi} \\
+    &= \frac{1}{2}m_2l^2\left(1 - \frac{m_2}{m_1 + m_2}\cos^2{\phi}\right)\Dot{\phi}^2.
+\end{align*}
+For small oscillations, we retain terms of second order in the displacement and velocity. Since $\Dot{\phi}^2$ is already of second order, replacing $\cos^2{\phi}$ by $1$ changes $T$ only at fourth order. Hence,
+\begin{equation*}
+    T \simeq \frac{1}{2}\frac{m_1m_2}{m_1 + m_2}l^2\Dot{\phi}^2.
+\end{equation*}
+Taking the gravitational potential energy to vanish at $\phi = 0$, we have
+\begin{equation*}
+    U = m_2gl(1 - \cos{\phi}) \simeq \frac{1}{2}m_2gl\phi^2.
+\end{equation*}
+Eliminating a cyclic velocity directly in the Lagrangian is not legitimate in general. The correct Lagrangian for the remaining co-ordinate is $L - p_x\Dot{x}$ (minus the Routhian), with $\Dot{x}$ expressed in terms of $p_x$ and $\phi$. Here, $p_x = 0$, so the extra term vanishes and the Lagrangian for $\phi$ is simply $T - U$ with $\Dot{x}$ eliminated. Equivalently, the energy $E = T + U$ then takes the one-dimensional form $\frac{1}{2}M(\phi)\Dot{\phi}^2 + U(\phi)$, which determines the frequency.
+
+The quadratic Lagrangian for the oscillation is therefore
+\begin{equation*}
+    L^{(2)} = \frac{1}{2}\frac{m_1m_2}{m_1 + m_2}l^2\Dot{\phi}^2 - \frac{1}{2}m_2gl\phi^2.
+\end{equation*}
+Its Euler--Lagrange equation gives
+\begin{equation*}
+    \frac{m_1m_2}{m_1 + m_2}l^2\Ddot{\phi} + m_2gl\phi = 0,
+\end{equation*}
+or
+\begin{equation*}
+    \Ddot{\phi} + \frac{g(m_1 + m_2)}{m_1l}\phi = 0.
+\end{equation*}
+The freedom of the support to recoil reduces the effective inertia of the oscillatory co-ordinate. Consequently, the frequency exceeds that of a pendulum with a fixed support. In the limit $m_1 \to \infty$, the fixed-support result $\sqrt{g/l}$ is recovered.
+}
+{
+\begin{equation*}
+    \omega = \sqrt{\frac{g(m_1 + m_2)}{m_1l}}
+\end{equation*}
+}
 \end{problem}
 
 % ============ Problem 6 ============ %
@@ -59,8 +247,89 @@ Find the frequency of oscillations of the pendulum shown in the figure in \probr
 {
 Determine the form of a curve such that the frequency of oscillations of a particle on it under the force of gravity is independent of the amplitude.
 }
-{}
-{}
+{
+Consider a particle constrained to slide without friction along a plane curve in a uniform gravitational field. We set the lowest point at $x = y = 0$, with $y$ measured vertically upwards, and let $s$ be the signed arc length along the curve, measured from that point.
+
+The arc length is a useful generalized co-ordinate because the speed is exactly $|\Dot{s}|$. Thus,
+\begin{equation*}
+    T = \frac{1}{2}m\Dot{s}^2, \qquad U = mgy(s),
+\end{equation*}
+and the equation of motion is
+\begin{equation*}
+    \Ddot{s} + g\frac{\mathrm{d}y}{\mathrm{d}s} = 0.
+\end{equation*}
+To construct the required curve, we require the motion in $s$ to be exactly harmonic with a prescribed constant angular frequency $\omega$:
+\begin{equation*}
+    \Ddot{s} + \omega^2s = 0.
+\end{equation*}
+This is sufficient to make the frequency independent of the amplitude. Comparing the two equations and integrating, with $y(0) = 0$, gives
+\begin{equation*}
+    g\frac{\mathrm{d}y}{\mathrm{d}s} = \omega^2s, \qquad y = \frac{\omega^2s^2}{2g}.
+\end{equation*}
+No small-amplitude expansion has been used.
+
+The required relation between height and arc length now determines the geometry. On the right-hand branch, $s > 0$, we have
+\begin{equation*}
+    s = \frac{\sqrt{2gy}}{\omega}, \qquad \left(\frac{\mathrm{d}s}{\mathrm{d}y}\right)^2 = \frac{g}{2\omega^2y}.
+\end{equation*}
+Since $\mathrm{d}s^2 = \mathrm{d}x^2 + \mathrm{d}y^2$,
+\begin{equation*}
+    \left(\frac{\mathrm{d}x}{\mathrm{d}y}\right)^2 = \left(\frac{\mathrm{d}s}{\mathrm{d}y}\right)^2 - 1 = \frac{g}{2\omega^2y} - 1.
+\end{equation*}
+We introduce the length $a = g/(4\omega^2)$. Then,
+\begin{equation*}
+    \frac{\mathrm{d}x}{\mathrm{d}y} = \sqrt{\frac{2a - y}{y}}.
+\end{equation*}
+We use the substitution
+\begin{equation*}
+    y = a(1 - \cos{\theta}), \qquad 0 \leq \theta < \pi,
+\end{equation*}
+for which
+\begin{equation*}
+    \mathrm{d}y = a\sin{\theta}\,\mathrm{d}\theta, \qquad \sqrt{\frac{2a - y}{y}} = \cot{\frac{\theta}{2}}.
+\end{equation*}
+Therefore,
+\begin{equation*}
+    \mathrm{d}x = a\sin{\theta}\cot{\frac{\theta}{2}}\,\mathrm{d}\theta = a(1 + \cos{\theta})\,\mathrm{d}\theta.
+\end{equation*}
+Integrating from the lowest point yields
+\begin{equation*}
+    x = a(\theta + \sin{\theta}), \qquad y = a(1 - \cos{\theta}).
+\end{equation*}
+Reflection gives the left-hand branch, represented by the same formulae with negative $\theta$. This is a cycloidal trough, with its lowest point at $\theta = 0$ and adjacent cusps at $\theta = \pm\pi$.
+
+We now verify the exact independence of the amplitude explicitly. On the smooth arc $-\pi < \theta < \pi$,
+\begin{align*}
+    \left(\frac{\mathrm{d}s}{\mathrm{d}\theta}\right)^2 &= \left(\frac{\mathrm{d}x}{\mathrm{d}\theta}\right)^2 + \left(\frac{\mathrm{d}y}{\mathrm{d}\theta}\right)^2 \\
+    &= a^2(1 + \cos{\theta})^2 + a^2\sin^2{\theta} \\
+    &= 4a^2\cos^2{\frac{\theta}{2}}.
+\end{align*}
+Choosing $s$ to increase with $\theta$, we get
+\begin{equation*}
+    s = 4a\sin{\frac{\theta}{2}}.
+\end{equation*}
+It follows that
+\begin{equation*}
+    y = 2a\sin^2{\frac{\theta}{2}} = \frac{s^2}{8a}.
+\end{equation*}
+Thus, the exact Lagrangian becomes
+\begin{equation*}
+    L = \frac{1}{2}m\Dot{s}^2 - \frac{mg}{8a}s^2,
+\end{equation*}
+and the exact equation of motion is
+\begin{equation*}
+    \Ddot{s} + \frac{g}{4a}s = 0.
+\end{equation*}
+Hence, every oscillation with amplitude $|s| < 4a$, \ie whose turning points lie below the height $2a$ of the cusps, has the same angular frequency $\omega = \sqrt{g/4a}$ and period $\tau = 2\pi/\omega$. This applies to finite amplitudes, not merely to infinitesimal oscillations.
+}
+{
+The curve is a cycloidal trough, where $a > 0$ is the radius of its generating circle, with angular frequency $\omega$ and period $\tau$:
+\begin{align*}
+    x &= a(\theta + \sin{\theta}), \\
+    y &= a(1 - \cos{\theta}), \qquad -\pi < \theta < \pi, \\
+    \omega &= \sqrt{\frac{g}{4a}}, \qquad \tau = 4\pi\sqrt{\frac{a}{g}}.
+\end{align*}
+}
 \end{problem}
 
 \textbooknumber{\S 22}
