@@ -16,6 +16,18 @@ welcome: feel free to open an issue or a pull request.
 - **[Progress](#progress)**: which problems are solved so far
 - **[Numerical studies](#numerical-studies)**: independent checks and how to run them
 
+## Quick start
+
+Clone with the submodules, enable the commit hook and build (details in
+[Getting the sources](#getting-the-sources) and [Building](#building)):
+
+```sh
+git clone --recurse-submodules https://github.com/pobol2/Mechanics-Landau-Solution.git
+cd Mechanics-Landau-Solution
+git config core.hooksPath .githooks
+latexmk
+```
+
 ## Organization
 
 The manual follows the book: L. D. Landau and E. M. Lifshitz, *Mechanics*,
@@ -246,7 +258,9 @@ These are checks of selected cases, not general proofs. Saved CSV data and
 PGFPlots sources let `latexmk` build the manual without rerunning simulations.
 
 To run a study, install CMake 3.20+, a C++17 compiler and Python 3.11+, then
-run from the repository root:
+run from the repository root.
+
+On Windows:
 
 ```sh
 git submodule update --init physics-engine
@@ -258,9 +272,21 @@ build/simulations-venv/Scripts/python Simulations/study.py S7P1
 latexmk
 ```
 
+On Linux and macOS:
+
+```sh
+git submodule update --init physics-engine
+cmake -S Simulations -B build/simulations -DCMAKE_BUILD_TYPE=Release
+cmake --build build/simulations --config Release
+python -m venv build/simulations-venv
+build/simulations-venv/bin/python -m pip install -r Simulations/requirements.txt
+build/simulations-venv/bin/python Simulations/study.py S7P1
+latexmk
+```
+
 Replace `S7P1` with another study ID, such as `S10P1` or
-`S10P2`. On Linux and macOS, use `bin/` instead of `Scripts/`; with MinGW,
-add `-G Ninja` to the configure command. Eigen is downloaded if needed.
+`S10P2`. With MinGW, add `-G Ninja` to the configure command. Eigen is
+downloaded if needed.
 See [the simulation notes](Simulations/README.md) for parameters, error
 bounds, regression commands and how to add a study.
 
@@ -341,16 +367,33 @@ results.
 ## Updating the template
 
 The submodule is pinned to a specific template commit, so template changes
-are adopted deliberately:
+are adopted deliberately. Check out a release tag inside `template/` (here
+`v1.0.0`), rebuild, then commit the new reference:
 
 ```sh
-git submodule update --remote template
+git -C template fetch --tags
+git -C template checkout v1.0.0
 latexmk
+git add template
+git commit -m "Update template to v1.0.0"
 ```
 
-Review the rebuilt manual, then commit the new `template` reference together
-with any needed project changes. Never edit files inside `template/`; put
-customizations in this repository's own files instead.
+Review the rebuilt manual before committing, and commit any needed project
+changes with the new `template` reference. Never edit files inside
+`template/`; put customizations in this repository's own files instead.
+
+The `physics-engine` submodule is updated the same way:
+
+```sh
+git -C physics-engine fetch --tags
+git -C physics-engine checkout v1.0.0
+latexmk
+git add physics-engine
+git commit -m "Update physics-engine to v1.0.0"
+```
+
+Before committing, rerun the [numerical studies](#numerical-studies) so their
+saved data come from the new engine.
 
 ## Licenses
 
