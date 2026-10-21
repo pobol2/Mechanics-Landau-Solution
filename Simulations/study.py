@@ -2,8 +2,8 @@
 # Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
 """Numerically checks a solution: python Simulations/study.py <problem>
 
-Section 7/10 problem modules provide verify(exe, work) for independent
-analytical comparisons. Section 5 uses the Lagrangian workflow below.
+A problem module may provide verify(exe, work) for independent analytical
+comparisons; otherwise it defines the Lagrangian comparison below.
 
 <problem>/problem.py defines
     COORDINATES  generalized coordinates, functions of t (e.g. phi1(t))
@@ -138,7 +138,7 @@ def main(problem_name):
     spec.loader.exec_module(problem)
     exe = next((p for p in (ROOT / "build/simulations/bin").glob(problem_name + "*") if p.is_file()), None)
     if exe is None:
-        sys.exit(f"No build/simulations/bin/{problem_name}: build it first (see Simulations/README.md)")
+        sys.exit(f"No build/simulations/bin/{problem_name}: build it first (see README.md, Numerical studies)")
     work = ROOT / "build/simulations/runs"
     work.mkdir(parents=True, exist_ok=True)
 

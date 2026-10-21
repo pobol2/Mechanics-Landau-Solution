@@ -242,15 +242,11 @@ tracked `.vscode/settings.json` makes **LaTeX Workshop: Build LaTeX project**
 
 ## Numerical studies
 
-Selected solutions include numerical checks using the
+Some solutions end with a numerical verification, made with the
 [`physics-engine`](physics-engine) particle-mechanics library. The engine
 integrates Newton's equations independently of the manual's analytical results.
-
-| Solutions | Checks |
-| --- | --- |
-| §5 Problems 1–4 (including 3(a–c)) | Cartesian particle motion against equations derived from the Lagrangian |
-| §7 Problem 1 | Transmission angles and reflection at a smooth potential step, excluding the exact threshold |
-| §10 Problems 1–2 | Time scaling for masses m and 4m, and potentials U and 4U, in an anharmonic well |
+The manual describes each check after the solution's answer: the cases, the
+measured agreement, convergence and limits.
 
 The studies report quantitative errors and check numerical convergence;
 verification fails if the required agreement or convergence is missing.
@@ -268,7 +264,7 @@ cmake -S Simulations -B build/simulations -DCMAKE_BUILD_TYPE=Release
 cmake --build build/simulations --config Release
 python -m venv build/simulations-venv
 build/simulations-venv/Scripts/python -m pip install -r Simulations/requirements.txt
-build/simulations-venv/Scripts/python Simulations/study.py S7P1
+build/simulations-venv/Scripts/python Simulations/study.py <ID>
 latexmk
 ```
 
@@ -280,15 +276,40 @@ cmake -S Simulations -B build/simulations -DCMAKE_BUILD_TYPE=Release
 cmake --build build/simulations --config Release
 python -m venv build/simulations-venv
 build/simulations-venv/bin/python -m pip install -r Simulations/requirements.txt
-build/simulations-venv/bin/python Simulations/study.py S7P1
+build/simulations-venv/bin/python Simulations/study.py <ID>
 latexmk
 ```
 
-Replace `S7P1` with another study ID, such as `S10P1` or
-`S10P2`. With MinGW, add `-G Ninja` to the configure command. Eigen is
-downloaded if needed.
-See [the simulation notes](Simulations/README.md) for parameters, error
-bounds, regression commands and how to add a study.
+`<ID>` is the name of a study folder in `Simulations/`, named after the
+problem like the figures. With MinGW, add `-G Ninja` to the configure
+command. Eigen is downloaded if needed. Engine output goes to
+`build/simulations/runs/`; the saved data go to `Figures/Data/`.
+
+To add a study:
+
+1. Create `Simulations/<ID>/engine.cpp`: build an independent Cartesian
+   particle model with the engine, call `study::run` (`Simulations/study.hpp`)
+   and document its coordinate convention. Add `add_study(<ID>)` to
+   `Simulations/CMakeLists.txt`.
+2. Create `Simulations/<ID>/problem.py`: either the Lagrangian comparison
+   described in `Simulations/study.py`, or a `verify(exe, work)` function for
+   analytical comparisons, using the helpers of `Simulations/verification.py`.
+3. Build and run the study, then add standalone PGFPlots sources in
+   `Figures/` using the saved CSVs and the existing figure styles.
+4. Write the verification in the solution (`[...]` after the answer): the
+   cases, the measured agreement, convergence and limits of the check.
+
+After updating `physics-engine`, rerun every study in `Simulations/`, then
+`latexmk`. The engine's own tests run separately:
+
+```sh
+cmake -S physics-engine -B build/engine-checks -DCMAKE_BUILD_TYPE=Release
+cmake --build build/engine-checks --config Release --target physics_library_tests physics_tests
+ctest --test-dir build/engine-checks -C Release --output-on-failure -R "^(force_library|forces_energy|oscillator_accuracy|oscillator_convergence|conservation|simulation_time|mass_gravity|adaptive_integration|diagnostics)$"
+```
+
+For MinGW, add `-G Ninja -DCMAKE_EXE_LINKER_FLAGS=-static` when configuring
+these tests. Pass `-DEigen3_DIR=<package-directory>` to reuse an Eigen install.
 
 ## Website
 

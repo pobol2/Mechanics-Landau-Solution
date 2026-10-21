@@ -1,0 +1,47 @@
+% §11 Problem 1: measured pendulum periods against the exact formula and its
+% truncated expansions, and their relative errors
+% Data: Data/S11P1-periods.csv and -curves.csv, written by python Simulations/study.py S11P1
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{groupplot}[
+        group style={group size=1 by 2, vertical sep=12mm, xticklabels at=edge bottom},
+        width=9cm, height=4.2cm,
+        xmin=0, xmax=180, xtick={0,30,...,180},
+        xlabel={$\phi_0$ (degrees)},
+        table/col sep=comma,
+    ]
+        \nextgroupplot[title={(a) Period}, ylabel={$T/T_0$}, ymin=0.9, ymax=3.1,
+            legend pos=north west, legend columns=2,
+            legend style={/tikz/every even column/.append style={column sep=2mm}}]
+            \addplot table[x=amplitude, y=exact] {Figures/Data/S11P1-curves.csv};
+            \addlegendentry{exact, $2K(k)/\pi$}
+            \addplot table[x=amplitude, y=quadratic] {Figures/Data/S11P1-curves.csv};
+            \addlegendentry{through $\phi_0^2$}
+            \addplot table[x=amplitude, y=quartic] {Figures/Data/S11P1-curves.csv};
+            \addlegendentry{through $\phi_0^4$}
+            \addplot table[x=amplitude, y=small] {Figures/Data/S11P1-curves.csv};
+            \addlegendentry{small angle}
+            \addplot[plot points, restrict expr to domain={\thisrow{string}}{1:1}]
+                table[x=amplitude, y=measured] {Figures/Data/S11P1-periods.csv};
+            \addlegendentry{string}
+            \addplot[plot points, fill=white, restrict expr to domain={\thisrow{string}}{0:0}]
+                table[x=amplitude, y=measured] {Figures/Data/S11P1-periods.csv};
+            \addlegendentry{rigid rod}
+            \addplot[guide, forget plot] coordinates {(90,0.9) (90,3.1)};
+
+        \nextgroupplot[title={(b) Relative error}, ylabel={relative error}, ymode=log, ymin=1e-13, ymax=1,
+            ytick={1e-12,1e-9,1e-6,1e-3,1e0},
+            cycle list shift=1] % the same line styles as above, without the exact curve
+            \addplot table[x=amplitude, y=error_quadratic] {Figures/Data/S11P1-curves.csv};
+            \addplot table[x=amplitude, y=error_quartic] {Figures/Data/S11P1-curves.csv};
+            \addplot table[x=amplitude, y=error_small] {Figures/Data/S11P1-curves.csv};
+            \addplot[plot points, restrict expr to domain={\thisrow{string}}{1:1}]
+                table[x=amplitude, y=error] {Figures/Data/S11P1-periods.csv};
+            \addplot[plot points, fill=white, restrict expr to domain={\thisrow{string}}{0:0}]
+                table[x=amplitude, y=error] {Figures/Data/S11P1-periods.csv};
+            \addplot[guide] coordinates {(90,1e-13) (90,1)};
+    \end{groupplot}
+\end{tikzpicture}
+\end{document}

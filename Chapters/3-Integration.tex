@@ -108,6 +108,17 @@ we finally get
     T = 2\pi\sqrt{\frac{l}{g}}\left( 1 + \frac{1}{16}\phi_0^2 + \frac{11}{3072}\phi_0^4 + \ldots \right)
 \end{equation*}
 }
+[
+We check the period by integrating Newton's equations for a particle of mass $m=1$~kg held at the distance $l=1$~m from a fixed pivot by a massless rod, with $g=9.81$~m/s$^2$, so that $T_0=2\pi\sqrt{l/g}=2.006$~s. The model is Cartesian, with only gravity and the constraint $|\mathbf{r}|=l$, and the particle is released at rest at $\phi_0=10^\circ,20^\circ,\ldots,80^\circ$ and $89^\circ$. The period is measured from the trajectory alone, as the mean time between successive crossings of the equilibrium $x=0$ in the same direction over the 13 to 15 complete periods within $32$~s; each crossing is located by cubic interpolation of the sampled positions and velocities. Halving the RK4 step from $1/32$ to $1/1024$~s reduces the change in the measured period at each halving by a factor of at least two, typically about 16, to below $3\times10^{-11}T_0$; halving the sample interval from $1/32$ to $1/256$~s at the finest step changes it by less than $2\times10^{-13}T_0$. The measured periods then agree with $T=4\sqrt{l/g}\,K(k)$, evaluated with the modulus $k=\sin\frac{\phi_0}{2}$ (not the parameter $k^2$ used by some numerical libraries), within a relative error of $2.2\times10^{-12}$. The energy drift divided by $\max(1~\mathrm{J},|E|)$ is below $6\times10^{-11}$, and $|\mathbf{r}|-l$ is below $2\times10^{-15}$~m. The force in the rod, computed from the trajectory as $mv^2/l+mg\cos\phi$, has its minimum $mg\cos\phi_0>0$, so a string would stay taut in these cases.
+
+The amplitudes $\phi_0=100^\circ,120^\circ,140^\circ,160^\circ$ and $170^\circ$ (open points) extend the check to a rigid rod: there the force in the rod becomes negative (the rod pushes on the particle), so a string would go slack and the particle would leave the circle. The same formula applies to the rod, and the measured periods agree with it within $6.6\times10^{-11}$, the largest error at $170^\circ$, where the step changes decrease by about 30 to $5.1\times10^{-9}T_0$. In all cases, the errors of the truncated expansions found from the measured periods agree with those found from $K(k)$ to better than $10^{-10}$. The small-angle period is in error by $1\%$ at $\phi_0=23^\circ$; the expansion through $\phi_0^2$ by $10^{-3}$ at $42^\circ$ and $1\%$ at $74^\circ$; the expansion through $\phi_0^4$ by $10^{-3}$ at $73^\circ$, $0.34\%$ at $89^\circ$, $1\%$ at $106^\circ$ and $25\%$ at $170^\circ$. A truncated series in $\phi_0$ cannot follow the logarithmic divergence of $K(k)$ as $\phi_0\to\pi$, where the pendulum takes ever longer to leave the top. These checks support the result in the selected cases; they are not a general proof.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S11P1-period.pdf}
+    \caption{(a) Measured periods (points: filled for a string, $\phi_0<90^\circ$; open for the rigid-rod extension) against the exact period $2K(k)/\pi$, with $k=\sin\frac{\phi_0}{2}$, and its truncated expansions, in units of $T_0=2\pi\sqrt{l/g}$. (b) Relative errors of the truncated expansions with respect to the exact period (curves) and of the measured periods (points). The dashed line at $90^\circ$ separates the string from the rigid rod.}
+    \label{fig:S11P1-period}
+\end{figure}
+]
 \end{problem}
 
 % ============ Problem 2 ============ %

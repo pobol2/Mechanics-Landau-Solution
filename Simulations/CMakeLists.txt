@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
 #
-# Engine side of the numerical studies (see README.md): one executable per
+# Engine side of the numerical studies (see ../README.md): one executable per
 # problem folder, each linked to the physics-engine library only.
 cmake_minimum_required(VERSION 3.20)
 project(landau_simulations LANGUAGES CXX)
@@ -32,3 +32,4 @@ add_study(S5P4)
 add_study(S7P1)
 add_study(S10P1)
 add_study(S10P2)
+add_study(S11P1)
