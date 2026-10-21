@@ -5,3 +5,4 @@
 [submodule "physics-engine"]
 	path = physics-engine
 	url = https://github.com/pobol2/Physics-Engine.git
+	shallow = true
