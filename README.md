@@ -12,19 +12,19 @@ welcome: feel free to open an issue or a pull request.
 - **[Website](https://pobol2.github.io/Mechanics-Landau-Solution/)**: every
   problem by chapter and section, with a page and a PDF for each solved
   problem
-- **[Full manual (main.pdf)](main.pdf)**: all the solutions in one PDF
+- **[Full manual (main.pdf)](https://pobol2.github.io/Mechanics-Landau-Solution/main.pdf)**:
+  all the solutions in one PDF
 - **[Progress](#progress)**: which problems are solved so far
 - **[Numerical studies](#numerical-studies)**: independent checks and how to run them
 
 ## Quick start
 
-Clone with the submodules, enable the commit hook and build (details in
+Clone with the submodules and build (details in
 [Getting the sources](#getting-the-sources) and [Building](#building)):
 
 ```sh
 git clone --recurse-submodules https://github.com/pobol2/Mechanics-Landau-Solution.git
 cd Mechanics-Landau-Solution
-git config core.hooksPath .githooks
 latexmk
 ```
 
@@ -123,7 +123,7 @@ site/                 Website: builder, style and problem titles
 Simulations/          Numerical checks of solutions (see Numerical studies);
                       run separately, the manual includes their saved figures
 physics-engine/       Submodule: the particle-mechanics library they use
-.github/workflows/    Website deployment to GitHub Pages (see Website)
+.github/workflows/    Manual build and website deployment (see Website)
 ```
 
 The physics-specific figure styles and the Lua field tools are deliberately
@@ -161,8 +161,9 @@ Completion is tracked automatically: a problem or part is done when its
 solution is not empty, and a problem in parts when all its parts are done.
 Unfinished problems show "Not done" in their title and in the contents; the
 [Progress](#progress) section of this README lists them by chapter and
-section. Both are refreshed by every build, so there is no list to maintain; the commit hook (see
-[Committing](#committing)) commits `README.md` with `main.pdf`.
+section. Both are refreshed by every build, so there is no list to maintain;
+commit the refreshed `README.md` with the solution (see
+[Committing](#committing)).
 To mark a problem whose solution is only partial, add `[not done]`
 (`\begin{problem}[not done]`); `[done]` marks a part complete without a
 solution, e.g. one answered only.
@@ -197,12 +198,6 @@ In an existing clone, or if `template/` is empty:
 git submodule update --init --recursive
 ```
 
-Then enable the commit hook (once per clone, see [Committing](#committing)):
-
-```sh
-git config core.hooksPath .githooks
-```
-
 ## Building
 
 Prerequisites: a TeX distribution (MiKTeX or TeX Live) with pdfLaTeX,
@@ -220,18 +215,17 @@ source, `myfigures.sty`, `SolutionFigure.lua` or a shared class changes.
 
 | Location      | Contents                                                  |
 | ------------- | --------------------------------------------------------- |
-| `main.pdf`    | The finished manual (kept in Git)                         |
-| `README.md`   | Its Progress section is rewritten when completion changes |
+| `main.pdf`    | The finished manual (ignored by Git; CI builds and publishes it) |
+| `README.md`   | Its Progress section is rewritten when completion changes (tracked) |
 | `Figures/*.pdf` | Generated figures (ignored by Git)                      |
 | `build/`      | Temporary files: logs, SyncTeX, figure compilations (`build/figures-aux/`) |
 
 ### Committing
 
-The hook `.githooks/pre-commit` runs `latexmk` before each commit (from the
-terminal or VS Code) and adds `main.pdf` and `README.md` to it, so the
-committed PDF always matches the committed sources; a failed build stops the
-commit. The PDF has no build date or random ID (see `main.tex`), so it only
-changes when its content does. `git commit --no-verify` skips the hook.
+Run `latexmk` before committing, so that the [Progress](#progress) table of
+this README matches the sources, and commit `README.md` with them. CI builds
+the PDF itself (see [Website](#website)) and fails if the committed table is
+stale.
 
 ### VS Code
 
@@ -329,8 +323,8 @@ canonical URL and structured data (schema.org) of their own, built from the
 section titles and `site/problems.toml`; they never reproduce the book's
 problem statements.
 
-`site/build.py` builds the site from committed files only (no LaTeX, no
-`build/`, no `template/`):
+`site/build.py` builds the site from the `main.pdf` of a `latexmk` build and
+from committed files (it does not read `build/` or `template/`):
 
 - `main.pdf`: chapters, sections and problems (its bookmarks), the pages of
   each problem, their parts and the links between problems;
@@ -358,6 +352,7 @@ Actions**.
 **Preview locally:**
 
 ```sh
+latexmk
 python site/build.py --base-url http://localhost:8000/
 python -m http.server 8000 -d _site
 ```
@@ -365,10 +360,17 @@ python -m http.server 8000 -d _site
 then open <http://localhost:8000/> (Ctrl+C stops the server). `--base-url`
 makes the links between problem PDFs point to the preview.
 
-**Deployment:** the workflow `.github/workflows/website.yml` runs the same
-build on each push to `master` and publishes `_site/` to GitHub Pages. It
-never compiles LaTeX: it uses the committed `main.pdf`, which the commit hook
-rebuilds. Pull requests are built and checked, but not deployed.
+**Deployment:** the workflow `.github/workflows/website.yml` checks out the
+`template` submodule (not `physics-engine`: the manual uses the saved data in
+`Figures/Data/`), builds the manual with `latexmk` in TeX Live, fails if the
+[Progress](#progress) section of the committed README differs from the build,
+then runs `site/build.py` on the fresh `main.pdf`. The figure PDFs are cached
+between runs, keyed on `Figures/*.tex`, `myfigures.sty`, `SolutionFigure.lua`,
+`Figures/Data/` and the template commit, so LuaLaTeX only reruns when one of
+them changes. Pushes to `master` publish `_site/` to GitHub Pages, with the
+full manual at
+<https://pobol2.github.io/Mechanics-Landau-Solution/main.pdf>; pull requests
+are built and checked, but not deployed.
 
 **Google Search Console:** the page carries the site's verification tag
 (`GOOGLE_SITE_VERIFICATION` in `site/build.py`). After the first deployment,
@@ -379,9 +381,9 @@ verify it with the *HTML tag* method, then submit the sitemap
 have to be at the root of `pobol2.github.io`, so the sitemap is submitted
 there instead.)
 
-**When you solve a problem**, nothing else is needed: `latexmk` (or the commit
-hook) updates `main.pdf` and the progress, and the next push updates the
-site, including its new page and the sitemap. Adjust its title in
+**When you solve a problem**, nothing else is needed: `latexmk` updates the
+progress in this README, which you commit, and the next push to `master`
+rebuilds the manual and the site, including its new page and the sitemap. Adjust its title in
 `site/problems.toml` if needed: it is also the title of the page in search
 results.
 
@@ -389,14 +391,14 @@ results.
 
 The submodule is pinned to a specific template commit, so template changes
 are adopted deliberately. Check out a release tag inside `template/` (here
-`v1.0.0`), rebuild, then commit the new reference:
+`v1.1.0`), rebuild, then commit the new reference:
 
 ```sh
 git -C template fetch --tags
-git -C template checkout v1.0.0
+git -C template checkout v1.1.0
 latexmk
 git add template
-git commit -m "Update template to v1.0.0"
+git commit -m "Update template to v1.1.0"
 ```
 
 Review the rebuilt manual before committing, and commit any needed project
@@ -430,7 +432,7 @@ as follows:
   including commercially, with appropriate credit, a license link and an
   indication of any modifications.
 - **Code:** `main.tex` (document setup), `mypackages.sty`, `mycommands.sty`,
-  `myfigures.sty`, `SolutionFigure.lua`, `latexmkrc`, the commit hook, the
+  `myfigures.sty`, `SolutionFigure.lua`, `latexmkrc`, the
   VS Code configuration, the website builder in `site/` (except
   `problems.toml`, which is content) and the GitHub workflow are licensed
   under the [MIT License](LICENSE-CODE).

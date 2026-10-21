@@ -1,6 +1,9 @@
-# All LaTeX compilation files go in build/ (only main.pdf is kept in the root;
-# the completion report goes into README.md)
+# All LaTeX compilation files go in build/ (the completion report goes into
+# README.md)
 build/
+
+# Copy of build/main.pdf made by latexmk; CI builds and publishes it
+/main.pdf
 
 # Safety net in case something is compiled outside of latexmk
 *.aux

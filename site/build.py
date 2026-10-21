@@ -3,7 +3,7 @@
 # Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
 """Build the website of the manual (GitHub Pages).
 
-Only tracked files are read, so no LaTeX build is needed:
+It reads main.pdf, built by latexmk (it is not tracked), and tracked files:
 
   main.pdf            structure (bookmarks), page ranges, parts (hyperref
                       anchors) and links between problems
@@ -1131,6 +1131,8 @@ def main():
     out = Path(args.out).resolve()
     errors = Errors()
 
+    if not (ROOT / "main.pdf").is_file():
+        sys.exit("main.pdf is missing: build the manual first with latexmk")
     reader = PdfReader(ROOT / "main.pdf")
     anchors = Anchors(reader)
     author = (reader.metadata or {}).get("/Author") or "P.O. Bolduc"

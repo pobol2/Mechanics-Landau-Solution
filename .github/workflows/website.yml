@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
 #
-# Builds the website (the catalogue, a page per solved problem and one PDF
-# per problem) from the committed main.pdf, README.md and site/ files, and
-# deploys it to GitHub Pages on each push to master. LaTeX is never compiled here: the
-# local commit hook (.githooks/pre-commit) keeps main.pdf and the README
-# progress up to date in every commit.
+# Builds the manual (main.pdf, which is not tracked) with TeX Live, checks that
+# the committed README progress matches it, then builds the website (the
+# catalogue, a page per solved problem and one PDF per problem) from the fresh
+# main.pdf, README.md and site/ files, and deploys it to GitHub Pages on each
+# push to master.
 # Pull requests and manual runs on other branches are built and checked, but
 # not deployed.
 # One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions.
@@ -36,8 +36,55 @@ jobs:
       contents: read
       pages: read   # configure-pages reads the site URL
     steps:
-      # The template submodule is not needed (only committed files are read)
       - uses: actions/checkout@v5
+
+      # Only the template submodule is needed: the manual reads the saved
+      # simulation data in Figures/Data/, not physics-engine
+      - name: Check out the template submodule
+        id: template
+        run: |
+          git submodule update --init --depth 1 template
+          echo "commit=$(git rev-parse HEAD:template)" >> "$GITHUB_OUTPUT"
+
+      # Figures/*.pdf (LuaLaTeX, slow) from an earlier run with the same
+      # figure sources and template
+      - name: Restore the figures
+        id: figures
+        uses: actions/cache/restore@v4
+        with:
+          path: Figures/*.pdf
+          key: figures-${{ steps.template.outputs.commit }}-${{ hashFiles('Figures/*.tex', 'myfigures.sty', 'SolutionFigure.lua', 'Figures/Data/**') }}
+
+      # Without build/main.fdb_latexmk, latexmk rebuilds a figure older than
+      # its source, and the checkout is newer than the restored PDFs
+      - name: Mark the restored figures as up to date
+        if: steps.figures.outputs.cache-hit == 'true'
+        run: touch Figures/*.pdf
+
+      # TeX Live image with pdfLaTeX, LuaLaTeX, latexmk and Perl. latexmk reads
+      # ./latexmkrc, which copies main.pdf to the root and rewrites the
+      # Progress section of README.md.
+      - name: Build the manual
+        uses: xu-cheng/latex-action@4.1.0
+        with:
+          root_file: main.tex
+          # No -halt-on-error: missing Figures/*.pdf must not stop pdfLaTeX before latexmk builds them all
+          args: -file-line-error -interaction=nonstopmode
+
+      # Saved right away, so a stale README below does not lose the figures
+      - name: Save the figures
+        if: steps.figures.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: Figures/*.pdf
+          key: ${{ steps.figures.outputs.cache-primary-key }}
+
+      - name: Check that the README progress is up to date
+        run: |
+          if ! git diff --exit-code README.md; then
+            echo "::error file=README.md::The Progress section of README.md does not match the manual: run latexmk and commit README.md"
+            exit 1
+          fi
 
       - uses: actions/setup-python@v6
         with:
