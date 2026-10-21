@@ -666,7 +666,7 @@ def write_problem_pdf(reader, anchors, problem, chapters, owner, links, author, 
 
 # ============ Checks of the output ============ #
 
-HEADER_RE = re.compile(rf"(\S+) {PROBLEM} (\d+)\.$")
+HEADER_RE = re.compile(rf"(?:§|(?<!\S))([^\s§]+) {PROBLEM} (\d+)\.$")
 
 
 def count_bookmarks(outline):
