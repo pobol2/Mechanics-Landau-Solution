@@ -1,0 +1,17 @@
+% Engine trajectories: python Simulations/study.py S7P1
+\documentclass{SolutionFigure}
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel={$x$ (m)}, ylabel={$y$ (m)},
+        xmin=-1.1, xmax=1.1, ymin=0, ymax=4,
+        legend pos=north east, table/col sep=comma,
+    ]
+        \addplot[guide, forget plot] coordinates {(0,0) (0,4)};
+        \addplot table[x=x, y=y] {Figures/Data/S7P1-trajectory-30.csv};
+        \addlegendentry{$30^\circ$: transmitted}
+        \addplot table[x=x, y=y] {Figures/Data/S7P1-trajectory-60.csv};
+        \addlegendentry{$60^\circ$: reflected}
+    \end{axis}
+\end{tikzpicture}
+\end{document}

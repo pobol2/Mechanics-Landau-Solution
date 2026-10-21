@@ -39,11 +39,17 @@ public:
     }
     std::string csv;
 
+    double value_or(const std::string& name, double fallback) const {
+        const auto it = values_.find(name);
+        return it == values_.end() ? fallback : it->second;
+    }
+
 private:
     std::map<std::string, double> values_;
 };
 
-// Advances `sim` to --duration with adaptive steps (--tolerance), and writes a
+// Advances `sim` to --duration with adaptive steps (--tolerance), or fixed RK4
+// steps when --fixed_step is supplied, and writes a
 // row every --dt: the time, the given columns, each particle's position and
 // velocity in the engine frame (X1, Y1, Z1, VX1, ..., numbered from 1), then
 // the engine's linear momentum, energy, scaled energy-balance error (energy
@@ -65,9 +71,18 @@ inline void run(const Options& options, physics::Simulation& sim, const std::vec
     physics::AdaptiveSettings settings;
     settings.relative_tolerance = settings.absolute_tolerance = options["tolerance"];
     const double duration = options["duration"];
+    // Optional fixed RK4 steps for explicit step-refinement studies. Existing
+    // Lagrangian studies retain their adaptive integration unchanged.
+    const double fixed_step = options.value_or("fixed_step", 0.0);
+    if (!std::isfinite(fixed_step) || fixed_step < 0.0)
+        throw std::invalid_argument("fixed_step must be finite and nonnegative");
     const long samples = std::lround(duration / options["dt"]);
     for (long k = 0; k <= samples; ++k) {
-        if (k > 0) sim.advanceAdaptive(k == samples ? duration : duration * k / samples, settings);
+        if (k > 0) {
+            const double target = k == samples ? duration : duration * k / samples;
+            if (fixed_step > 0.0) sim.advanceTo(target, fixed_step);
+            else sim.advanceAdaptive(target, settings);
+        }
         const physics::Diagnostics d = sim.diagnostics();
         out << sim.time();
         for (double value : sample(sim.state(), sim.time())) out << ',' << value;

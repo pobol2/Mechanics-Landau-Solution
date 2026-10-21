@@ -1,6 +1,9 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
-"""Checks a solution's Lagrangian against the engine: python Simulations/study.py S5P1
+"""Numerically checks a solution: python Simulations/study.py <problem>
+
+Section 7/10 problem modules provide verify(exe, work) for independent
+analytical comparisons. Section 5 uses the Lagrangian workflow below.
 
 <problem>/problem.py defines
     COORDINATES  generalized coordinates, functions of t (e.g. phi1(t))
@@ -138,6 +141,11 @@ def main(problem_name):
         sys.exit(f"No build/simulations/bin/{problem_name}: build it first (see Simulations/README.md)")
     work = ROOT / "build/simulations/runs"
     work.mkdir(parents=True, exist_ok=True)
+
+    # Conservation/similarity studies compare measured engine motion directly
+    # with analytical results rather than integrating a second Lagrangian.
+    if hasattr(problem, "verify"):
+        return problem.verify(exe, work)
 
     model = LagrangianModel(problem)
     conserved = model.conserved

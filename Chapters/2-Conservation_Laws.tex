@@ -34,6 +34,21 @@ After taking the square root, the result is
     \frac{\sin{\theta_1}}{\sin{\theta_2}} = \sqrt{1 + \frac{2}{mv_1^2}(U_1-U_2)}
 \end{equation*}
 }
+[
+We check selected cases by integrating Newton's equations for a particle with $m=1$~kg and $v_1=2$~m/s in the smooth potential $U(x)=\Delta U[1+\tanh(x/w)]/2$, with the consistent force $F_x=-\Delta U\,\operatorname{sech}^2(x/w)/(2w)$ and $F_y=0$. Starting at $x=-1$~m, we measure the outgoing velocity after reaching $x=1$~m or returning to $x=-1$~m. For $\Delta U=1$~J, incidence angles $0^\circ,15^\circ,30^\circ,40^\circ,44^\circ,44.5^\circ$ transmit and $45.5^\circ,46^\circ,50^\circ,60^\circ$ reflect, as predicted by $mv_1^2\cos^2\theta_1/2<\Delta U$ for reflection. The exact threshold $45^\circ$ is excluded. We also test a downward step $\Delta U=-0.6$~J at $0^\circ,30^\circ,60^\circ$. Reducing $w$ from $0.2$ to $0.1$ to $0.05$~m removes finite-endpoint tail effects; independently halving the RK4 step from $0.008$ to $0.001$~s reduces integration errors, checked against energy conservation with the actual endpoint potentials. At the finest settings, the angle error relative to the half-space formula is below $10^{-9}$~rad, tangential momentum is constant to $10^{-12}$~kg\,m/s, and the energy-balance error divided by the initial energy is below $10^{-9}$. These checks support the result in the selected cases; they are not a general proof.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S7P1-trajectories.pdf}
+    \caption{Engine trajectories at the upward step: transmission at $30^\circ$ and reflection at $60^\circ$, with $w=0.05$~m. The dashed line is the interface $x=0$.}
+    \label{fig:S7P1-trajectories}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S7P1-angles.pdf}
+    \caption{Predicted transmission angles (curves) and measured outgoing angles (points). The vertical line marks the upward step's reflection threshold, which is not sampled.}
+    \label{fig:S7P1-angles}
+\end{figure}
+]
 \end{problem}
 
 \textbooknumber{\S 8}
@@ -423,6 +438,21 @@ The ratio of the times is then
     \frac{t'}{t} = \sqrt{\frac{m'}{m}}
 \end{equation*}
 }
+[
+We check the mass scaling by independently integrating particles of masses $m$ and $4m$ released from rest at $x=A$ in the anharmonic potential $U(x)=kx^2/2+\alpha x^4/4$, with force $F_x=-kx-\alpha x^3$. Two positive-coefficient cases are used: $(m,k,\alpha,A)=(1,1,1,1)$ and $(1.5,0.7,1.3,0.8)$ in SI units. Over $0\leq t\leq16$~s, the maximum difference $|x_{4m}(2t)-x_m(t)|$ is below $1.1\times10^{-8}$~m and the corresponding velocity difference $|2v_{4m}(2t)-v_m(t)|$ is below $1.6\times10^{-8}$~m/s. Halving the common physical RK4 step from $0.04$ to $0.02$ to $0.01$~s reduces both differences by factors greater than 16; each trajectory also converges independently to the analytic anharmonic-oscillator solution. The scaled energy drift is below $4.1\times10^{-10}$. The plots show the first case at physical and corresponding times. This is a check of selected cases, not a general proof.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S10P1-physical.pdf}
+    \caption{Positions versus physical time for masses $m=1$~kg (solid) and $4m$ (dashed), released from the same position at rest in the same anharmonic well.}
+    \label{fig:S10P1-physical}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S10P1-rescaled.pdf}
+    \caption{The independently integrated positions coincide at corresponding times: $x_m(t)$ (curve) and $x_{4m}(2t)$ (points).}
+    \label{fig:S10P1-rescaled}
+\end{figure}
+]
 \end{problem}
 
 % ============ Problem 2 ============ %
@@ -465,4 +495,19 @@ The ratio of the times is then
     \frac{t'}{t} = \sqrt{\frac{U}{U'}}
 \end{equation*}
 }
+[
+We use the same two anharmonic wells and rest releases as in \probref{\S 10}{1}, keeping each mass fixed and comparing $U$ with $4U$. Both the potential and its force are multiplied by four in the second engine run. Over $0\leq t\leq16$~s, the maximum difference $|x_{4U}(t/2)-x_U(t)|$ is below $1.8\times10^{-7}$~m and $|v_{4U}(t/2)/2-v_U(t)|$ is below $2.6\times10^{-7}$~m/s. Halving the common physical RK4 step from $0.04$ to $0.02$ to $0.01$~s reduces both errors by factors greater than 16; independent comparison with the analytic anharmonic-oscillator solution and trajectory self-convergence also pass. The scaled energy drift is below $2.2\times10^{-8}$. The first case is plotted against physical and corresponding times. These are checks of selected cases, not a general proof.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S10P2-physical.pdf}
+    \caption{Positions versus physical time at fixed mass $m=1$~kg for potentials $U$ (solid) and $4U$ (dashed), with the same initial position and zero initial velocity.}
+    \label{fig:S10P2-physical}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S10P2-rescaled.pdf}
+    \caption{Positions at corresponding times: $x_U(t)$ (curve) and the independent engine samples $x_{4U}(t/2)$ (points).}
+    \label{fig:S10P2-rescaled}
+\end{figure}
+]
 \end{problem}

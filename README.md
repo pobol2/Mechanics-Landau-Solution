@@ -14,6 +14,7 @@ welcome: feel free to open an issue or a pull request.
   problem
 - **[Full manual (main.pdf)](main.pdf)**: all the solutions in one PDF
 - **[Progress](#progress)**: which problems are solved so far
+- **[Numerical studies](#numerical-studies)**: independent checks and how to run them
 
 ## Organization
 
@@ -107,7 +108,7 @@ SolutionFigure.lua    Numerical field lines and equipotentials for the figures
 latexmkrc             Loads template/solution-manual/latexmkrc; writes the
                       completion report into this README
 site/                 Website: builder, style and problem titles
-Simulations/          Numerical checks of solutions (see Simulations/README.md);
+Simulations/          Numerical checks of solutions (see Numerical studies);
                       run separately, the manual includes their saved figures
 physics-engine/       Submodule: the particle-mechanics library they use
 .github/workflows/    Website deployment to GitHub Pages (see Website)
@@ -226,6 +227,42 @@ Install the LaTeX Workshop extension and open the repository folder. The
 tracked `.vscode/settings.json` makes **LaTeX Workshop: Build LaTeX project**
 (or saving a file) run the same `latexmk` command. The viewer shows
 `build/main.pdf`, with SyncTeX forward and inverse search.
+
+## Numerical studies
+
+Selected solutions include numerical checks using the
+[`physics-engine`](physics-engine) particle-mechanics library. The engine
+integrates Newton's equations independently of the manual's analytical results.
+
+| Solutions | Checks |
+| --- | --- |
+| §5 Problems 1–4 (including 3(a–c)) | Cartesian particle motion against equations derived from the Lagrangian |
+| §7 Problem 1 | Transmission angles and reflection at a smooth potential step, excluding the exact threshold |
+| §10 Problems 1–2 | Time scaling for masses m and 4m, and potentials U and 4U, in an anharmonic well |
+
+The studies report quantitative errors and check numerical convergence;
+verification fails if the required agreement or convergence is missing.
+These are checks of selected cases, not general proofs. Saved CSV data and
+PGFPlots sources let `latexmk` build the manual without rerunning simulations.
+
+To run a study, install CMake 3.20+, a C++17 compiler and Python 3.11+, then
+run from the repository root:
+
+```sh
+git submodule update --init physics-engine
+cmake -S Simulations -B build/simulations -DCMAKE_BUILD_TYPE=Release
+cmake --build build/simulations --config Release
+python -m venv build/simulations-venv
+build/simulations-venv/Scripts/python -m pip install -r Simulations/requirements.txt
+build/simulations-venv/Scripts/python Simulations/study.py S7P1
+latexmk
+```
+
+Replace `S7P1` with another study ID, such as `S10P1` or
+`S10P2`. On Linux and macOS, use `bin/` instead of `Scripts/`; with MinGW,
+add `-G Ninja` to the configure command. Eigen is downloaded if needed.
+See [the simulation notes](Simulations/README.md) for parameters, error
+bounds, regression commands and how to add a study.
 
 ## Website
 
