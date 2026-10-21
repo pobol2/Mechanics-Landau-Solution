@@ -1,0 +1,22 @@
+% §5 Problem 4: angle of the oscillating case, Lagrangian against particle simulation
+% Data: Data/S5P4-verification.csv, written by python Simulations/study.py S5P4
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel={$t$ (s)}, ylabel={$\theta$ (rad)},
+        xmin=0, xmax=5, ymin=0.4, ymax=1.4,
+        legend pos=north west, legend columns=2,
+        legend style={/tikz/every even column/.append style={column sep=2mm}},
+        table/col sep=comma,
+    ]
+        % Lagrangian curve, particle markers
+        \addplot table[x=t, y=theta] {Figures/Data/S5P4-verification.csv};
+        \addlegendentry{Lagrangian}
+        \addplot[plot points, mark size=0.45mm, each nth point=4]
+            table[x=t, y=theta-engine] {Figures/Data/S5P4-verification.csv};
+        \addlegendentry{particles}
+    \end{axis}
+\end{tikzpicture}
+\end{document}

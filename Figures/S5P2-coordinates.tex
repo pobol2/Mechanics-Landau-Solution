@@ -1,0 +1,29 @@
+% §5 Problem 2: coordinates of the looping case, Lagrangian against particle simulation
+% Data: Data/S5P2-verification.csv, written by python Simulations/study.py S5P2
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{groupplot}[
+        subplot grid, % two 6 x 4 cm panels
+        group style={ylabels at=all, horizontal sep=20mm}, % different units
+        xlabel={$t$ (s)}, xmin=0, xmax=5,
+        table/col sep=comma,
+    ]
+        % Lagrangian curves, particle markers
+        \nextgroupplot[title={(a) Support}, ylabel={$x$ (m)}, ymin=-0.5, ymax=1.5,
+            legend pos=north west, legend columns=2,
+            legend style={/tikz/every even column/.append style={column sep=2mm}}]
+            \addplot table[x=t, y=x] {Figures/Data/S5P2-verification.csv};
+            \addlegendentry{Lagrangian}
+            \addplot[plot points, mark size=0.45mm, each nth point=4]
+                table[x=t, y=x-engine] {Figures/Data/S5P2-verification.csv};
+            \addlegendentry{particles}
+
+        \nextgroupplot[title={(b) Angle}, ylabel={$\phi$ (rad)}, ymin=0, ymax=25]
+            \addplot table[x=t, y=phi] {Figures/Data/S5P2-verification.csv};
+            \addplot[plot points, mark size=0.45mm, each nth point=4]
+                table[x=t, y=phi-engine] {Figures/Data/S5P2-verification.csv};
+    \end{groupplot}
+\end{tikzpicture}
+\end{document}

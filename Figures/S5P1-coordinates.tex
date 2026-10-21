@@ -1,0 +1,26 @@
+% §5 Problem 1: angles of the tumbling case, Lagrangian against particle simulation
+% Data: Data/S5P1-verification.csv, written by python Simulations/study.py S5P1
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel={$t$ (s)}, ylabel={angle (rad)},
+        xmin=0, xmax=5, ymin=-5, ymax=25,
+        legend pos=north west, legend columns=3,
+        legend style={/tikz/every even column/.append style={column sep=2mm}},
+        table/col sep=comma,
+    ]
+        % Lagrangian curves, particle markers
+        \addplot table[x=t, y=phi1] {Figures/Data/S5P1-verification.csv};
+        \addlegendentry{$\phi_1$}
+        \addplot table[x=t, y=phi2] {Figures/Data/S5P1-verification.csv};
+        \addlegendentry{$\phi_2$}
+        \addplot[plot points, mark size=0.45mm, each nth point=4]
+            table[x=t, y=phi1-engine] {Figures/Data/S5P1-verification.csv};
+        \addlegendentry{particles}
+        \addplot[plot points, mark size=0.45mm, each nth point=4, forget plot]
+            table[x=t, y=phi2-engine] {Figures/Data/S5P1-verification.csv};
+    \end{axis}
+\end{tikzpicture}
+\end{document}

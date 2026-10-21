@@ -107,6 +107,9 @@ SolutionFigure.lua    Numerical field lines and equipotentials for the figures
 latexmkrc             Loads template/solution-manual/latexmkrc; writes the
                       completion report into this README
 site/                 Website: builder, style and problem titles
+Simulations/          Numerical checks of solutions (see Simulations/README.md);
+                      run separately, the manual includes their saved figures
+physics-engine/       Submodule: the particle-mechanics library they use
 .github/workflows/    Website deployment to GitHub Pages (see Website)
 ```
 

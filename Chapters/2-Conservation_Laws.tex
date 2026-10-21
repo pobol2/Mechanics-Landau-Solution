@@ -122,13 +122,13 @@ By taking the magnitude of \eqref{S9P1_M2}, we finally get
 Obtain the expressions for the Cartesian components and the magnitude of the angular momentum of a particle in spherical co-ordinates $r,\theta,\phi$.
 }
 {
-In spherical co-ordinates, the Cartesian components are expressed by
+Let $\theta$ be the polar angle (measured from the $z$ axis) and $\phi$ the azimuth (measured in the $xy$ plane from the $x$ axis). In spherical co-ordinates, the Cartesian components are expressed by
 \begin{equation*}
-    \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} r \sin{\phi} \cos{\theta} \\ r \sin{\phi} \sin{\theta} \\ r \cos{\phi} \end{bmatrix}
+    \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} r \sin{\theta} \cos{\phi} \\ r \sin{\theta} \sin{\phi} \\ r \cos{\theta} \end{bmatrix}
 \end{equation*}
 and
 \begin{equation*}
-    \begin{bmatrix} \Dot{x} \\ \Dot{y} \\ \Dot{z} \end{bmatrix} = \begin{bmatrix} \Dot{r}\sin{\phi}\cos{\theta} + r\Dot{\phi}\cos{\phi}\cos{\theta} - r\Dot{\theta}\sin{\phi}\sin{\theta} \\ \Dot{r}\sin{\phi}\sin{\theta} + r\Dot{\phi}\cos{\phi}\sin{\theta} + r\Dot{\theta}\sin{\phi}\cos{\theta} \\ \Dot{r}\cos{\phi} + r\sin{\phi} \end{bmatrix}.
+    \begin{bmatrix} \Dot{x} \\ \Dot{y} \\ \Dot{z} \end{bmatrix} = \begin{bmatrix} \Dot{r}\sin{\theta}\cos{\phi} + r\Dot{\theta}\cos{\theta}\cos{\phi} - r\Dot{\phi}\sin{\theta}\sin{\phi} \\ \Dot{r}\sin{\theta}\sin{\phi} + r\Dot{\theta}\cos{\theta}\sin{\phi} + r\Dot{\phi}\sin{\theta}\cos{\phi} \\ \Dot{r}\cos{\theta} - r\Dot{\theta}\sin{\theta} \end{bmatrix}.
 \end{equation*}
 By substituting those in \eqref{S9P1_M} of \probref{\S 9}{1}, we get
 \begin{align*}
@@ -402,9 +402,9 @@ and
 \begin{equation*}
     \frac{m'}{m} = \gamma .
 \end{equation*}
-Then, the ratio of kinetic energy is 
+Corresponding lengths scale as $\alpha$ and corresponding times as $\beta$, so the speeds at corresponding points of the two paths scale as $v'/v = \alpha/\beta$. Then, the ratio of kinetic energy is the ratio of the masses times the ratio of the squared speeds,
 \begin{equation*}
-    \frac{T'}{T} = \frac{m' \mathbf{v}'}{m \mathbf{v}} = \frac{m'}{m} \left( \frac{\mathbf{dr}'}{\mathbf{dr}} \frac{dt}{dt'} \right)^2 = \frac{\gamma \alpha^2}{\beta^2}.
+    \frac{T'}{T} = \frac{m' v'^2}{m v^2} = \frac{m'}{m} \left( \frac{\alpha}{\beta} \right)^2 = \frac{\gamma \alpha^2}{\beta^2}.
 \end{equation*}
 To leave the equation of motion unaltered, the ratio of the kinetic energy and the potential energy must be the same, \ie,
 \begin{align*}

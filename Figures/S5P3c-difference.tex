@@ -1,0 +1,30 @@
+% §5 Problem 3(c): largest distance between the same particle in the Lagrangian
+% and particle models, at standard (dashed) and tight (solid) tolerances
+% Data: Data/S5P3c-verification.csv, written by python Simulations/study.py S5P3c
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel={$t$ (s)}, ylabel={$\max_i |\Delta\mathbf{r}_i|$ (m)},
+        xmin=0, xmax=5, ymode=log, ymin=1e-16, ymax=1e0,
+        ytick={1e-16, 1e-12, 1e-8, 1e-4, 1e0},
+        legend pos=north west, legend columns=2,
+        legend style={/tikz/every even column/.append style={column sep=2mm}},
+        table/col sep=comma,
+    ]
+        \addplot[curve, FigureAccent, dashed]
+            table[x=t, y=diff-Kapitza-standard] {Figures/Data/S5P3c-verification.csv};
+        \addlegendentry{Kapitza, standard}
+        \addplot[curve, FigureAccent]
+            table[x=t, y=diff-Kapitza-tight] {Figures/Data/S5P3c-verification.csv};
+        \addlegendentry{Kapitza, tight}
+        \addplot[curve, black, dashed]
+            table[x=t, y=diff-parametric-standard] {Figures/Data/S5P3c-verification.csv};
+        \addlegendentry{parametric, standard}
+        \addplot[curve, black]
+            table[x=t, y=diff-parametric-tight] {Figures/Data/S5P3c-verification.csv};
+        \addlegendentry{parametric, tight}
+    \end{axis}
+\end{tikzpicture}
+\end{document}

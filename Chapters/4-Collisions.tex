@@ -29,14 +29,15 @@ Using the sum of square of \eqref{S16P1_sin} and \eqref{S16P1_cos}, we get
 \begin{align*}
     &\left( \frac{V + v_{10}\cos{\theta_0}}{v_{10}\cot{\theta_1}} \right)^2 + \left( \frac{V\left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)}{v_{10}v_{20} \left( \cot{\theta_1} + \cot{\theta_2} \right)} \right)^2 = 1 \\
     \Rightarrow& \left( v_{10} + v_{20} \right)^2 + \left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)^2 = \frac{v_{10}^2v_{20}^2}{V^2} \left( \cot{\theta_1} + \cot{\theta_2} \right)^2 \\
-    \Rightarrow& v_{10}^2 \csc{\theta_1}^2 + v_{20}^2 \csc{\theta_2}^2 - 2 v_{10}v_{20}\cot{\theta_1}\cot{\theta_2} = \frac{v_{10}^2v_{20}^2\sin^2{(\theta_1+\theta_2)}}{V^2\sin^2{\theta_1}\sin^2{\theta_2}} \\ 
-    \Rightarrow& v_{20}^2 \sin^2{\theta_1} + v_{10}^2 \sin^2{\theta_2} - 2 v_{10}v_{20}\sin{\theta_1}\sin{\theta_2}\cos{\theta_1}\cos{\theta_2} = \frac{v_{10}^2v_{20}^2}{V^2}\sin^2{(\theta_1+\theta_2)}.
+    \Rightarrow& v_{10}^2 \csc{\theta_1}^2 + v_{20}^2 \csc{\theta_2}^2 + 2v_{10}v_{20} - 2 v_{10}v_{20}\cot{\theta_1}\cot{\theta_2} = \frac{v_{10}^2v_{20}^2\sin^2{(\theta_1+\theta_2)}}{V^2\sin^2{\theta_1}\sin^2{\theta_2}} \\
+    \Rightarrow& v_{20}^2 \sin^2{\theta_1} + v_{10}^2 \sin^2{\theta_2} + 2 v_{10}v_{20}\sin{\theta_1}\sin{\theta_2}\left(\sin{\theta_1}\sin{\theta_2} - \cos{\theta_1}\cos{\theta_2}\right) = \frac{v_{10}^2v_{20}^2}{V^2}\sin^2{(\theta_1+\theta_2)} \\
+    \Rightarrow& v_{20}^2 \sin^2{\theta_1} + v_{10}^2 \sin^2{\theta_2} - 2 v_{10}v_{20}\sin{\theta_1}\sin{\theta_2}\cos{(\theta_1+\theta_2)} = \frac{v_{10}^2v_{20}^2}{V^2}\sin^2{(\theta_1+\theta_2)},
 \end{align*}
-Using formula (16.2) of the book and the relation $v_{10}/v_{20} = m_2/m_1$, we obtain
+where we used $(v_{10}+v_{20})^2 = v_{10}^2 + 2v_{10}v_{20} + v_{20}^2$ and $1+\cot^2{\theta} = \csc^2{\theta}$. Dividing by $v_{10}v_{20}$, and using formula (16.2) of the book, which gives $v_{10}v_{20} = p_0^2/(m_1m_2) = 2\epsilon/(m_1+m_2)$, and the relation $v_{10}/v_{20} = m_2/m_1$, we obtain
 }
 {
 \begin{equation*}
-    \frac{m_2}{m_1} \sin^2{\theta_2} + \frac{m_1}{m_2} \sin^2{\theta_1} - 2 \sin{\theta_1}\sin{\theta_2}\cos{\theta_1}\cos{\theta_2} = \frac{2\epsilon}{(m_1+m_2)V^2} \sin^2{(\theta_1+\theta_2)}.
+    \frac{m_2}{m_1} \sin^2{\theta_2} + \frac{m_1}{m_2} \sin^2{\theta_1} - 2 \sin{\theta_1}\sin{\theta_2}\cos{(\theta_1+\theta_2)} = \frac{2\epsilon}{(m_1+m_2)V^2} \sin^2{(\theta_1+\theta_2)}
 \end{equation*}
 }
 \end{problem}
@@ -48,19 +49,43 @@ Using formula (16.2) of the book and the relation $v_{10}/v_{20} = m_2/m_1$, we 
     Find the angular distribution of the resulting particles in the $L$ system.
 }
 {
-The distribution of the resulting particles with respect to the angle $\theta_0$ is given by formula (16.7) of the book, \ie
+The distribution of the resulting particles with respect to the angle $\theta_0$ is given by formula (16.7) of the book, \ie, for increasing $\theta_0$,
 \begin{equation*}
-    \frac{1}{2}\sin{\theta_0}d\theta_0 = \frac{1}{2}\mathrm{d}(\cos{\theta_0}).
+    \mathrm{d}P = \frac{1}{2}\sin{\theta_0}\mathrm{d}\theta_0 = -\frac{1}{2}\mathrm{d}(\cos{\theta_0}).
 \end{equation*}
-Using formula (16.6) of the book yields
+To transform it into a probability density in $\theta$, we must use the absolute value of the Jacobian, $\mathrm{d}P/\mathrm{d}\theta = \frac{1}{2}\left|\mathrm{d}(\cos{\theta_0})/\mathrm{d}\theta\right|$, summed over all the values of $\theta_0$ that give the same $\theta$. Let
 \begin{equation*}
-    \frac{1}{2}\mathrm{d}(\cos{\theta_0}) = -\frac{V}{v_0}\sin{\theta}\cos{\theta}\mathrm{d}\theta \pm \left( \sin{\theta}\sqrt{1-(V^2/v_0^2)\sin^2{\theta}} + \cos{\theta}\frac{(V^2/v_0^2)\sin{\theta}\cos{\theta}}{\sqrt{1-(V^2/v_0^2)\sin^2{\theta}}} \right) \mathrm{d}\theta.
+    q = \frac{V}{v_0}, \qquad A_q(\theta) = \frac{1+q^2\cos{2\theta}}{\sqrt{1-q^2\sin^2{\theta}}}.
 \end{equation*}
-After simplification, the angular distribution become
+Formula (16.6) of the book reads $\cos{\theta_0} = -q\sin^2{\theta} \pm \cos{\theta}\sqrt{1-q^2\sin^2{\theta}}$, so that
+\begin{align*}
+    \frac{\mathrm{d}(\cos{\theta_0})}{\mathrm{d}\theta} &= -2q\sin{\theta}\cos{\theta} \mp \left( \sin{\theta}\sqrt{1-q^2\sin^2{\theta}} + \frac{q^2\sin{\theta}\cos^2{\theta}}{\sqrt{1-q^2\sin^2{\theta}}} \right) \\
+    &= -\sin{\theta}\left[ 2q\cos{\theta} \pm A_q(\theta) \right],
+\end{align*}
+since $1-q^2\sin^2{\theta}+q^2\cos^2{\theta} = 1+q^2\cos{2\theta}$. Where $1-q^2\sin^2{\theta}>0$, the numerator of $A_q$ is positive (for $q>1$, $\sin^2{\theta}<1/q^2$ gives $1+q^2\cos{2\theta} > q^2-1$), and one verifies that
+\begin{equation*}
+    A_q^2 - 4q^2\cos^2{\theta} = \frac{(1-q^2)^2}{1-q^2\sin^2{\theta}} \geq 0,
+\end{equation*}
+so that $A_q \geq 2q|\cos{\theta}|$ and both $A_q \pm 2q\cos{\theta}$ are nonnegative. Three cases must be distinguished.
+\begin{itemize}
+    \item $0 \leq q < 1$: only the upper sign of (16.6) is valid, and it maps $0<\theta_0<\pi$ one-to-one onto $0<\theta<\pi$. The density is $\frac{1}{2}\sin{\theta}\left[2q\cos{\theta} + A_q(\theta)\right]$.
+    \item $q = 1$: $\sqrt{1-\sin^2{\theta}} = |\cos{\theta}|$, and the upper sign gives $\theta_0 = 2\theta$, $0<\theta<\pi/2$, while the lower sign gives $\theta_0 = \pi$, for which the particle is at rest in the $L$ system and has no direction. The density is $\frac{1}{2}|\mathrm{d}(\cos{2\theta})/\mathrm{d}\theta| = 2\sin{\theta}\cos{\theta}$, which is also the formula of the first case with $A_1 = 2\cos{\theta}$.
+    \item $q > 1$: the angle is limited by $\sin{\theta} < 1/q$, and both signs are valid: each $\theta$ is reached from two values of $\theta_0$. The two nonnegative branch densities are $\frac{1}{2}\sin{\theta}\left[A_q(\theta) \pm 2q\cos{\theta}\right]$, and they must be added, giving $\sin{\theta}\,A_q(\theta)$.
+\end{itemize}
+The density is zero outside these supports, and its values at the endpoints are defined by limits (for $q>1$ it diverges, integrably, at $\sin{\theta} = 1/q$). In each case, it is normalized to $1$. The angular distribution is thus
 }
 {
 \begin{equation*}
-    \frac{1}{2}\sin{\theta} \mathrm{d}\theta \left( 2\frac{V}{v_0}\cos{\theta} \pm \frac{1+(V^2/v_0^2)\cos{2\theta}}{\sqrt{1-(V^2/v_0^2)\sin^2{\theta}}} \right)
+    \frac{\mathrm{d}P}{\mathrm{d}\theta} =
+    \begin{cases}
+        \frac{1}{2}\sin{\theta}\left[2q\cos{\theta} + A_q(\theta)\right], & 0 \leq q < 1, \quad 0<\theta<\pi, \\[1mm]
+        2\sin{\theta}\cos{\theta}, & q = 1, \quad 0<\theta<\pi/2, \\[1mm]
+        \sin{\theta}\,A_q(\theta), & q > 1, \quad 0<\theta<\sin^{-1}(1/q),
+    \end{cases}
+\end{equation*}
+and zero outside these intervals, with
+\begin{equation*}
+    q = \frac{V}{v_0}, \qquad A_q(\theta) = \frac{1+q^2\cos{2\theta}}{\sqrt{1-q^2\sin^2{\theta}}}.
 \end{equation*}
 }
 \end{problem}
@@ -77,7 +102,7 @@ The tangent of the angle $\theta = \theta_1 + \theta_2$ is
 \begin{equation*}
     \tan{\theta} = \frac{\tan{\theta_1} + \tan{\theta_2}}{1 - \tan{\theta_1}\tan{\theta_2}}.
 \end{equation*}
-Using formula (16.5) of the book to get $\tan{\theta_1}$ and $\tan{\theta_1}$, and using $\theta_0 = \theta_{10} = \pi - \theta_{20}$, the last equation become
+Using formula (16.5) of the book to get $\tan{\theta_1}$ and $\tan{\theta_2}$, and using $\theta_0 = \theta_{10} = \pi - \theta_{20}$, the last equation become
 \begin{equation*}
     \tan{\theta} = \frac{(v_{10}+v_{20})V\sin{\theta_0}}{V^2+(v_{10}-v_{20})V\cos{\theta_0} - v_{10}v_{20}}
 \end{equation*}
@@ -85,55 +110,70 @@ or equivalently
 \begin{equation*}
     \cot{\theta} = \frac{V^2+(v_{10}-v_{20})V\cos{\theta_0} - v_{10}v_{20}}{(v_{10}+v_{20})V\sin{\theta_0}}.
 \end{equation*}
-In order to find the extrema, we take the derivative with respect to $\theta_0$,
+Exchanging the two particles ($v_{10} \leftrightarrow v_{20}$, $\theta_0 \rightarrow \pi-\theta_0$) leaves this expression unchanged, so only the smaller and the larger of the two (positive) speeds matter. Let
+\begin{equation*}
+    a = \min(v_{10}, v_{20}), \qquad b = \max(v_{10}, v_{20});
+\end{equation*}
+we may label the particles so that $v_{10} = a$ and $v_{20} = b$. The expression of $\cot{\theta}$ holds for $0<\theta_0<\pi$. At $\theta_0 = 0$ or $\pi$, the emission is collinear: both particles move along the line of $\mathbf{V}$, with the velocities $V \pm v_{10}$ and $V \mp v_{20}$, and $\theta$ is $0$ if these have the same sign, or $\pi$ if they have opposite signs. When one of them vanishes, the corresponding particle is at rest in the $L$ system and its direction is undefined; such configurations are excluded. In order to find the extrema, we take the derivative with respect to $\theta_0$,
 \begin{align*}
     &\pd{\cot{\theta}}{\theta_0} = 0 = \frac{(v_{20}-v_{10})V^2 - V\cos{\theta_0}(V^2-v_{10}v_{20})}{(v_{10}+v_{20})V^2\sin^2{\theta_0}}\\
     \Rightarrow &\cos{\theta_0} = \frac{(v_{20}-v_{10})V}{V^2-v_{10}v_{20}}.
 \end{align*}
-We know that $-1 \leq \cos{\theta_0} \leq 1$, thus $v_{10} < V < v_{20}$. Moreover, we could calculate the derivative of the cotangent with respect to $ V $ and find the expression:
+We know that $-1 \leq \cos{\theta_0} \leq 1$, thus the stationary point exists only if
+\begin{equation*}
+    (V^2-v_{10}v_{20})^2 - (v_{20}-v_{10})^2V^2 = (V^2-a^2)(V^2-b^2) \geq 0,
+\end{equation*}
+\ie if $V \leq a$ or $V \geq b$: there is no stationary point in the middle regime $a<V<b$. It is an interior point, $0<\theta_0<\pi$, when $V<a$ or $V>b$. For $V=a$ or $V=b$, it reaches an end, $\cos{\theta_0} = \pm 1$, where one particle is at rest in the $L$ system: these are limiting cases, which are not attained. Moreover, we could calculate the derivative of the cotangent with respect to $V$ and find the expression:
 \begin{equation*}
     \frac{\partial \cot{\theta}}{\partial V} = \frac{V^2 + v_{10}v_{20}}{(v_{10}+v_{20})V^2 \sin{\theta_0}}
 \end{equation*}
-which is positive for all values of $ V $.
+which is positive for all values of $V$: at fixed $\theta_0$, the angle $\theta$ decreases when $V$ increases.
 
-This is why $ \cot{\theta} $ may assume all the values between 0 and $ \pi $ when $ v_{10} < V < v_{20} $, because $ \frac{\partial \cot{\theta}}{\partial \theta_0} \neq 0 $ and $ \frac{\partial \cot{\theta}}{\partial V} \neq 0 $ for all $ V, \theta_0 $ in that interval. It is easy to see that if $ V $ is kept constant and $ \theta_0 $ is varied between 0 and $ \pi $, $ \cot{\theta} $ spans the interval $ (-\infty, +\infty) $; similarly, if $ \theta_0 $ is kept constant and $ V $ is varied between 0 and $ +\infty $, $ \cot{\theta} $ spans the interval $ (-\infty, +\infty) $.
+The range of $\theta$ follows from the behaviour of $\cot{\theta}$ at the ends. When $\theta_0 \rightarrow 0^+$ and $\theta_0 \rightarrow \pi^-$, its denominator tends to $0^+$ and its numerator tends to
+\begin{equation*}
+    (V-b)(V+a) \qquad \text{and} \qquad (V+b)(V-a),
+\end{equation*}
+respectively. We have the following regimes.
 
-When $ V \leq v_{10} $, it is easy to see that $ \cot{\theta} $ has a maximum value. In fact,
-\begin{equation*}
-    \lim_{\theta_0 \to 0^+} \cot(x) = -\infty, \quad \lim_{\theta_0 \to \pi^-} \cot(x) = -\infty
-\end{equation*}
-and the maximum value of the cotangent is reached when:
-\begin{equation*}
-    \cos{\theta_0} = \frac{(v_{20} - v_{10})V}{V^2 - v_{10}v_{20}}
-\end{equation*}
-The calculation of the maximum value leads to:
+\vspace{1ex}\textbf{Middle regime, $a<V<b$.} We have $\cot{\theta} \rightarrow -\infty$ when $\theta_0 \rightarrow 0^+$ and $\cot{\theta} \rightarrow +\infty$ when $\theta_0 \rightarrow \pi^-$, with no stationary point in between. The cotangent therefore takes every real value, \ie the angle $\theta$ takes every value between $0$ and $\pi$. The two collinear emissions are attained at finite $V$: for $\theta_0 = 0$, the particles move in opposite directions ($V+a>0$, $V-b<0$), so $\theta = \pi$; for $\theta_0 = \pi$, they move in the same direction ($V-a>0$, $V+b>0$), so $\theta = 0$. Hence $0 \leq \theta \leq \pi$.
+
+\vspace{1ex}\textbf{Slow regime, $0<V<a$.} We have $\cot{\theta} \rightarrow -\infty$ at both ends (both collinear emissions give opposite directions, $\theta = \pi$), so $\cot{\theta}$ has a maximum at the interior stationary point. The calculation of the maximum value leads to:
 \begin{equation*}
     \cot{\theta} = \frac{V^2 + (v_{10} - v_{20})V\cos{\theta_0} - v_{10}v_{20}}{(v_{10}+v_{20})V \sin{\theta_0}} = -\frac{\sqrt{(V^2 - v_{10}v_{20})^2 - (v_{20} - v_{10})^2 V^2}}{(v_{10} + v_{20})V}
 \end{equation*}
-Then, after transforming the cotangent into a sine, one gets:
+Then, after transforming the cotangent into a sine, using $(a+b)^2V^2 + (V^2-a^2)(V^2-b^2) = (V^2+ab)^2$, one gets:
 \begin{equation*}
-    \sin{\theta} = \frac{(v_{20} + v_{10})V}{V^2 + v_{10}v_{20}}
+    \sin{\theta} = \frac{(a+b)V}{V^2 + ab}
 \end{equation*}
 If we put:
 \begin{equation*}
-    \alpha = \sin^{-1}\left( \frac{(v_{20} + v_{10})V}{V^2 + v_{10}v_{20}} \right)
+    \alpha = \sin^{-1}\left( \frac{(a+b)V}{V^2 + ab} \right),
 \end{equation*}
-then, in the interval where $ V \leq v_{10} $, we have the following ranges for $ \theta $: $ \pi - \alpha \leq \theta \leq \pi $.
-Similarly, when $ V \geq v_{20} $, it is easy to see that $ \cot{\theta} $ has a minimum value. In fact,
-\begin{equation*}
-    \lim_{\theta_0 \to 0^+} \cot(x) = +\infty, \quad \lim_{\theta_0 \to \pi^-} \cot(x) = +\infty
-\end{equation*}
-and the minimum value of the cotangent is reached when $ \theta = \alpha $. In this case, the ranges for $ \theta $ are $ 0 \leq \theta \leq \alpha $ (the equality $ \theta = 0 $ is satisfied only when $ V \to +\infty $). The final solution is thus
+which is defined because $V^2 + ab - (a+b)V = (V-a)(V-b) \geq 0$ outside the middle regime, then, since $\cot{\theta}<0$ at the maximum, the smallest angle is $\pi - \alpha$, and we have the range $\pi - \alpha \leq \theta \leq \pi$. For $V = 0$, the particles fly apart in opposite directions and $\theta = \pi$.
+
+\vspace{1ex}\textbf{Fast regime, $V>b$.} Similarly, $\cot{\theta} \rightarrow +\infty$ at both ends: both collinear emissions, $\theta_0 = 0$ and $\theta_0 = \pi$, give particles moving in the same direction, so $\theta = 0$ is attained at finite $V$. The cotangent has a minimum at the interior stationary point, where its value is the same as above with the opposite sign, and the largest angle is $\alpha$. In this case, the range for $\theta$ is $0 \leq \theta \leq \alpha$.
+
+\vspace{1ex}\textbf{Boundary cases.} For $V = a < b$, the stationary point is at the excluded end $\theta_0 = \pi$, where the particle of speed $a$ is at rest. The angle decreases monotonically from $\theta = \pi$ ($\theta_0 = 0$) and tends to $\pi/2$ (here $\alpha = \pi/2$) when $\theta_0 \rightarrow \pi^-$, without reaching it, so $\pi/2 < \theta \leq \pi$. For $V = b > a$, the end $\theta_0 = 0$ is excluded instead (the particle of speed $b$ is at rest), $\theta \rightarrow \pi/2$ when $\theta_0 \rightarrow 0^+$, and $\theta = 0$ is attained at $\theta_0 = \pi$, so $0 \leq \theta < \pi/2$. For $V = a = b$, the numerator of $\cot{\theta}$ vanishes identically, so $\theta = \pi/2$ for every $0<\theta_0<\pi$, both ends being excluded. The final solution is thus
 }
 {
-\begin{align*}
-    &\text{if } v_{10} < V < v_{20} \quad \Rightarrow \quad 0 < \theta < \pi \\
-    &\text{if } V \leq v_{10} \quad \Rightarrow \quad \pi - \alpha \leq \theta \leq \pi \\
-    &\text{if } V \geq v_{20} \quad \Rightarrow \quad 0 \leq \theta \leq \alpha
-\end{align*}
-where
+With $a = \min(v_{10},v_{20})$, $b = \max(v_{10},v_{20})$ and
 \begin{equation*}
-    \alpha = \sin^{-1} \left( \frac{(v_{20} + v_{10})V}{V^2 + v_{10}v_{20}} \right).
+    \alpha = \sin^{-1} \left( \frac{(a+b)V}{V^2 + ab} \right),
+\end{equation*}
+the attainable values of $\theta$, excluding the configurations where a particle is at rest in the $L$ system, are
+\begin{equation*}
+    \begin{array}{ll}
+        V=0: & \theta = \pi, \\
+        0<V<a: & \pi-\alpha \leq \theta \leq \pi, \\
+        a<V<b: & 0 \leq \theta \leq \pi, \\
+        V>b: & 0 \leq \theta \leq \alpha,
+    \end{array}
+    \qquad\qquad
+    \begin{array}{ll}
+        V=a<b: & \pi/2 < \theta \leq \pi, \\
+        V=b>a: & 0 \leq \theta < \pi/2, \\
+        V=a=b: & \theta = \pi/2.
+    \end{array}
 \end{equation*}
 }
 \end{problem}
@@ -148,27 +188,28 @@ where
 Express the velocity of each particle after a collision between a moving particle ($m_1$) and another at rest ($m_2$) in terms of their directions of motion in the $L$ system.
 }
 {
-To solve this problem, we need to use Fig.~16 of the book. First, using the law of sines, the magnitude of the momentum of the second particle after the collision is
+To solve this problem, we need to use Fig.~16 of the book, where $v$ is the initial speed of the particle $m_1$ and $m = m_1m_2/(m_1+m_2)$ is the reduced mass, so that $\mathrm{AO} = m_1^2v/(m_1+m_2)$ and $\mathrm{OB} = \mathrm{OC} = mv$. The triangle OBC is isosceles, so the direction of the second particle makes the angle $\theta_2 = \frac{1}{2}(\pi-\chi)$ with the incident direction. First, using the law of sines, the magnitude of the momentum of the second particle after the collision is
 \begin{equation*}
-p_2' = \mathrm{OB}\frac{\sin{\chi}}{\sin{\theta_2}} = mv\frac{\sin{\chi}}{\cos{(\chi/2)}} = 2mv\sin{\frac{\chi}{2}}.
+p_2' = \mathrm{OB}\frac{\sin{\chi}}{\sin{\theta_2}} = mv\frac{\sin{\chi}}{\cos{(\chi/2)}} = 2mv\sin{\frac{\chi}{2}} = 2mv\cos{\theta_2}.
 \end{equation*}
-We get formula (17.5) of the book if we isolate the velocity
+We get formula (17.5) of the book if we isolate the velocity, and then express it in terms of the direction $\theta_2$ of the second particle,
 \begin{equation*}
-    v_2' = \frac{2m_1v}{m_1+m_2}\sin{\frac{\chi}{2}}.
+    v_2' = \frac{2m_1v}{m_1+m_2}\sin{\frac{\chi}{2}} = \frac{2m_1v}{m_1+m_2}\cos{\theta_2}.
 \end{equation*}
 Second, using the law of cosines, we get
 \begin{align*}
     &\mathrm{OC}^2 = \mathrm{AO}^2 + p_1'^2 - 2\mathrm{AO}p_1'\cos{\theta_1} \\
     \Rightarrow &p_1' = \mathrm{AO}\cos{\theta_1} \pm \sqrt{\mathrm{AO}^2\cos^2{\theta_1} + \mathrm{OC}^2 - \mathrm{AO}^2} \\
-    \Rightarrow &v_1' = \frac{m_1\cos{\theta_1} \pm \sqrt{m_2^2-m_1^2\sin^2{\theta_1}}}{m_1+m_2}v_1.
+    \Rightarrow &v_1' = \frac{m_1\cos{\theta_1} \pm \sqrt{m_2^2-m_1^2\sin^2{\theta_1}}}{m_1+m_2}v.
 \end{align*}
-For the case where $m_2 > m_1$ we also get formula (17.5) of the book, but when $m_1 > m_2$, the radical may have either sign. To summarize, the answer is
+Only the roots giving a nonnegative speed are physical. For the case where $m_2 > m_1$, the radical is larger than $m_1|\cos{\theta_1}|$, so only the upper sign is physical and we also get formula (17.5) of the book, but when $m_1 > m_2$, the angle is limited by $\sin{\theta_1} \leq m_2/m_1$ and both roots are nonnegative: the radical may have either sign. To summarize, the answer is
 }
 {
 \begin{align*}
-    &v_2' = \frac{2m_1v}{m_1+m_2}\sin{\frac{\chi}{2}} \\
-    &v_1' = \frac{m_1\cos{\theta_1} \pm \sqrt{m_2^2-m_1^2\sin^2{\theta_1}}}{m_1+m_2}v_1.
+    &v_2' = \frac{2m_1v}{m_1+m_2}\cos{\theta_2} \\
+    &v_1' = \frac{m_1\cos{\theta_1} \pm \sqrt{m_2^2-m_1^2\sin^2{\theta_1}}}{m_1+m_2}v,
 \end{align*}
+where $v$ is the initial speed of $m_1$ and only the nonnegative roots for $v_1'$ are physical (both signs for $m_1>m_2$, the upper sign only for $m_1<m_2$).
 }
 \end{problem}
 
@@ -197,22 +238,44 @@ Subsituing \eqref{S18P1_rho} in formula (18.7) or (18.8) of the book, we have
 \end{equation}
 If we integrate $\mathrm{d}\sigma$ over all angles, we find
 \begin{equation*}
-    \sigma = \frac{1}{2}\pi a^2  \int_{-\pi/2}^{\pi/2} \sin{\chi}\mathrm{d}\chi =\pi a^2, 
+    \sigma = \frac{1}{2}\pi a^2  \int_{0}^{\pi} \sin{\chi}\mathrm{d}\chi =\pi a^2,
 \end{equation*}
-which is the projection of the sphere perpendicular to the beam (\ie the impact area). We need to express \eqref{S18P1_dsigma} in the $L$ system using formula (17.4) of the book. If this equation is solve for $\cos{\theta_1}$, we get, as in \probref{\S 16}{2} with $V/v_0$ replaced by $m_1/m_2$,
+which is the projection of the sphere perpendicular to the beam (\ie the impact area). We need to express \eqref{S18P1_dsigma} in the $L$ system using formula (17.4) of the book. If this equation is solve for $\cos{\chi}$, we get, as in \probref{\S 16}{2} with $V/v_0$ replaced by
+\begin{equation*}
+    q = \frac{m_1}{m_2}, \qquad A_q(\theta_1) = \frac{1+q^2\cos{2\theta_1}}{\sqrt{1-q^2\sin^2{\theta_1}}},
+\end{equation*}
+and $\theta_0$ by $\chi$,
 \begin{align*}
     &\tan{\theta_1} = \frac{m_2\sin{\chi}}{m_1+m_2\cos{\chi}}\\
-    &\Rightarrow \tan^2{\theta_1}\left( \frac{m_1}{m_2} + \cos{\chi} \right)^2 = 1 - \cos^2{\chi} \\
-    &\Rightarrow \cos{\chi} = -\frac{m_1}{m_2}\sin^2{\theta_1} \pm \cos{\theta_1}\sqrt{1-\frac{m_1^2}{m_2^2}\sin^2{\theta_1}} \\
-    &\Rightarrow \frac{1}{2}\sin{\chi}\mathrm{d}\chi = \frac{1}{2}\sin{\theta_1} \mathrm{d}\theta_1 \left( 2\frac{m_1}{m_2}\cos{\theta_1} \pm \frac{1+(m_1^2/m_2^2)\cos{2\theta_1}}{\sqrt{1-(m_1^2/m_2^2)\sin^2{\theta_1}}} \right).
+    &\Rightarrow \tan^2{\theta_1}\left( q + \cos{\chi} \right)^2 = 1 - \cos^2{\chi} \\
+    &\Rightarrow \cos{\chi} = -q\sin^2{\theta_1} \pm \cos{\theta_1}\sqrt{1-q^2\sin^2{\theta_1}} \\
+    &\Rightarrow \frac{\mathrm{d}(\cos{\chi})}{\mathrm{d}\theta_1} = -\sin{\theta_1}\left[ 2q\cos{\theta_1} \pm A_q(\theta_1) \right].
 \end{align*}
-We thus get
+Since $\mathrm{d}\sigma = \frac{1}{2}\pi a^2|\mathrm{d}(\cos{\chi})|$ and $\mathrm{d}o_1 = 2\pi\sin{\theta_1}\mathrm{d}\theta_1$, each branch contributes $\frac{a^2}{4}\left|2q\cos{\theta_1} \pm A_q(\theta_1)\right|$ to $\mathrm{d}\sigma_1/\mathrm{d}o_1$, the absolute value of the Jacobian being needed because $\cos{\chi}$ decreases when $\chi$ increases. As shown in \probref{\S 16}{2}, $A_q \geq 2q|\cos{\theta_1}|$, so these contributions are $\frac{a^2}{4}\left[A_q(\theta_1) \pm 2q\cos{\theta_1}\right]$. For $q<1$ ($m_1<m_2$), only the upper sign is valid, and it maps $0<\chi<\pi$ onto $0<\theta_1<\pi$. For $q=1$, the upper sign gives $\chi = 2\theta_1$, $0<\theta_1<\pi/2$, while the lower sign gives the head-on collision $\chi=\pi$, after which the particle is at rest and has no direction. For $q>1$ ($m_1>m_2$), the angle is limited by $\sin{\theta_1} < 1/q$, and each $\theta_1$ is reached from two values of $\chi$: the two branch contributions must be added, giving $\frac{a^2}{2}A_q(\theta_1)$. In every case, the integral of $\mathrm{d}\sigma_1$ over the physical support is $\pi a^2$, and the cross-section is zero outside it.
+
+For the recoiling sphere, $\theta_2 = \frac{1}{2}(\pi-\chi)$, so $\cos{\chi} = -\cos{2\theta_2}$, and $\chi$ from $0$ to $\pi$ corresponds to $\theta_2$ from $\pi/2$ to $0$. Hence
+\begin{equation*}
+    \mathrm{d}\sigma = \frac{1}{2}\pi a^2 \left|\mathrm{d}(\cos{2\theta_2})\right| = 2\pi a^2 \sin{\theta_2}\cos{\theta_2}\mathrm{d}\theta_2 = a^2\cos{\theta_2}\,\mathrm{d}o_2,
+\end{equation*}
+whose integral over $0<\theta_2<\pi/2$ is again $\pi a^2$. We thus get
 }
 {
-\begin{align*}
-    \mathrm{d}\sigma_1 &= \frac{1}{4}a^2\left( 2\frac{m_1}{m_2}\cos{\theta_1} \pm \frac{1+(m_1^2/m_2^2)\cos{2\theta_1}}{\sqrt{1-(m_1^2/m_2^2)\sin^2{\theta_1}}} \right) \mathrm{d}o_1 \\
-    \mathrm{d}\sigma_2 &= a^2|\cos{\theta_2}|\mathrm{d}o_2.
-\end{align*}
+\begin{equation*}
+    \frac{\mathrm{d}\sigma_1}{\mathrm{d}o_1} =
+    \begin{cases}
+        \frac{a^2}{4}\left[2q\cos{\theta_1} + A_q(\theta_1)\right], & q<1, \quad 0<\theta_1<\pi, \\[1mm]
+        a^2\cos{\theta_1}, & q=1, \quad 0<\theta_1<\pi/2, \\[1mm]
+        \frac{a^2}{2}A_q(\theta_1), & q>1, \quad 0<\theta_1<\sin^{-1}(1/q),
+    \end{cases}
+\end{equation*}
+and zero outside these intervals, with
+\begin{equation*}
+    q = \frac{m_1}{m_2}, \qquad A_q(\theta_1) = \frac{1+q^2\cos{2\theta_1}}{\sqrt{1-q^2\sin^2{\theta_1}}}.
+\end{equation*}
+For the recoiling particle,
+\begin{equation*}
+    \frac{\mathrm{d}\sigma_2}{\mathrm{d}o_2} = a^2\cos{\theta_2}, \qquad 0<\theta_2<\pi/2.
+\end{equation*}
 }
 \end{problem}
 
@@ -251,7 +314,7 @@ For a central potential field, the scattering angle is determined by the integra
 \begin{equation*}
     \chi = \pi - 2\int_{r_{min}}^\infty \frac{\rho \mathrm{d}r}{r^2 \sqrt{1 - \frac{\rho^2}{r^2} - \frac{2U(r)}{mv_\infty^2}}}.
 \end{equation*}
-Subsituing $U(r) = \alpha r^{-n}$ and define the dimensionless variable $x = \frac{r}{\rho}$, then
+Subsituing $U(r) = \alpha r^{-n}$, with $n>0$, and define the dimensionless variable $x = \frac{r}{\rho}$, then
 \begin{equation*}
     \chi = \pi - 2\int_{x_{min}}^\infty \frac{\mathrm{d}x}{x^2 \sqrt{1 - \frac{1}{x^2} - \frac{2\alpha}{mv_\infty^2\rho^nx^n}}}.
 \end{equation*}
@@ -263,7 +326,7 @@ Thus, the scattering angle depends only on $\xi$,
 \begin{equation*}
     \chi = f(\xi),
 \end{equation*}
-where $f(\xi)$ is a dimensionless function determined by the integral. To invert this relationship, solve for $\rho$ in terms of $\chi$ and $v_\infty$,
+where $f(\xi)$ is a dimensionless function determined by the integral. We take $\alpha>0$ (repulsive field), so that $\xi>0$, and we assume that $\chi = f(\xi)$ can be inverted, \ie that each scattering angle comes from a single impact parameter. (For an attractive field, $\alpha<0$, the same argument holds with $\alpha$ and $\xi$ replaced by $|\alpha|$ and $|\xi|$, in the range of $\rho$ where the particle is scattered rather than captured and $f$ is invertible.) To invert this relationship, solve for $\rho$ in terms of $\chi$ and $v_\infty$,
 \begin{equation*}
     \xi = \frac{2\alpha}{mv_\infty^2\rho^n} \Rightarrow \rho = \left( \frac{2\alpha}{mv_\infty^2\xi} \right)^{1/n}.
 \end{equation*}
@@ -275,18 +338,28 @@ Let $\xi = g(\chi)$, where $g(\chi)$ is a function encoding the angular dependen
 The differential cross-section is thus
 \begin{align*}
     \mathrm{d}\sigma &= \frac{\rho}{\sin{\chi}} \left| \frac{\mathrm{d}\rho}{\mathrm{d}\chi} \right| \mathrm{d}o \\
-    \mathrm{d}\sigma &\sim v_\infty^{-4/n} \frac{F(\chi)}{\sin{\chi}} \mathrm{d}o,
+    &= \left( \frac{2\alpha}{mv_\infty^2} \right)^{2/n} \frac{F(\chi)}{\sin{\chi}} \mathrm{d}o \\
+    \Rightarrow \mathrm{d}\sigma &\sim v_\infty^{-4/n} \frac{F(\chi)}{\sin{\chi}} \mathrm{d}o,
 \end{align*}
-where $F(\chi) = \left| \frac{\mathrm{d}}{\mathrm{d}\chi} \left( g(\chi) \right)^{-1/n} \right|$. Integrate over the solid angle
+where
 \begin{equation*}
-    \sigma \sim v_\infty^{-4/n} \int F(\chi) \mathrm{d}\chi.
+    F(\chi) = \left( g(\chi) \right)^{-1/n} \left| \frac{\mathrm{d}}{\mathrm{d}\chi} \left( g(\chi) \right)^{-1/n} \right|
 \end{equation*}
-Knowing that the integral depends only on $n$, not $v_\infty$, we have
+depends on $n$ and $\chi$ only. At a fixed scattering angle, the differential cross-section thus varies as $\mathrm{d}\sigma/\mathrm{d}o \propto v_\infty^{-4/n}$.
+
+The total cross-section, however, is not finite. Because the field extends to infinity and does not vanish, a particle with any impact parameter is deflected, by an angle which tends to zero only as $\rho \rightarrow \infty$ ($\xi \rightarrow 0$). Integrating over all angles therefore amounts to integrating $2\pi\rho\,\mathrm{d}\rho$ over all $0<\rho<\infty$, which diverges at small angles. Only the cross-section for scattering into a fixed angular interval $\chi_1 < \chi < \chi_2$ that excludes $\chi = 0$ is finite:
+\begin{equation*}
+    \sigma(\chi_1,\chi_2) = 2\pi\left( \frac{2\alpha}{mv_\infty^2} \right)^{2/n} \int_{\chi_1}^{\chi_2} F(\chi) \mathrm{d}\chi.
+\end{equation*}
+Knowing that the integral depends only on $n$ and the interval, not $v_\infty$, we have
 }
 {
 \begin{equation*}
-    \sigma \sim v_\infty^{-4/n}
+    \frac{\mathrm{d}\sigma}{\mathrm{d}o} \propto v_\infty^{-4/n} \quad \text{at fixed } \chi,
+    \qquad
+    \sigma(\chi_1<\chi<\chi_2) \propto v_\infty^{-4/n} \quad (\chi_1>0).
 \end{equation*}
+The unrestricted total cross-section diverges because of the small deflections at large impact parameters.
 }
 \end{problem}
 

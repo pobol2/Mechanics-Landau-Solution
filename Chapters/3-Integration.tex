@@ -55,7 +55,7 @@ We can also write
 \end{equation*}
 where 
 \begin{equation} \label{S11P1_K}
-    K(k) = \int_{0}^{\frac{\pi}{2}} \frac{d\xi}{\sqrt{1-k\sin^2{\xi}}}.
+    K(k) = \int_{0}^{\frac{\pi}{2}} \frac{d\xi}{\sqrt{1-k^2\sin^2{\xi}}}.
 \end{equation}
 The integral $K$ is known as the complete elliptic integral of the first kind. To solve this integral, we first need to see that the integrand is of the form 
 \begin{equation*}
@@ -63,7 +63,7 @@ The integral $K$ is known as the complete elliptic integral of the first kind. T
 \end{equation*}
 The $n$ derivative of this function is
 \begin{equation*}
-    f^{(n)}(x) = \frac{\left( 2n-1 \right)!!}{2^n}\left( 1-x \right)^{\frac{-2n+1}{2}},
+    f^{(n)}(x) = \frac{\left( 2n-1 \right)!!}{2^n}\left( 1-x \right)^{-\frac{2n+1}{2}},
 \end{equation*}
 thus the Maclaurin Series is
 \begin{equation*}
@@ -78,11 +78,11 @@ This last integral can be solve using the beta function
 \begin{equation*}
     \mathcal{B}(x,y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)} = 2\int_0^{\frac{\pi}{2}} \sin^{2x-1}{t}\cos^{2y-1}{t}\;dt,
 \end{equation*}
-with $x=\frac{2n+1}{2}$ and $y=\frac{1}{2}$. Thus, the beta function become
+with $x=\frac{2n+1}{2}$ and $y=\frac{1}{2}$. Thus, using $\Gamma\left(n+\frac{1}{2}\right) = \frac{(2n-1)!!}{2^n}\sqrt{\pi}$, the beta function become
 \begin{align*}
-    \frac{1}{2}\mathcal{B}(x,y) &= \frac{\Gamma(x)\Gamma(y)}{2\Gamma(x+y)} \\
+    \frac{1}{2}\mathcal{B}\left(n+\frac{1}{2},\frac{1}{2}\right) &= \frac{\Gamma(n+\frac{1}{2})\Gamma(\frac{1}{2})}{2\Gamma(n+1)} \\
     &= \frac{\sqrt{\pi}}{2}\frac{\Gamma(\frac{2n+1}{2})}{n!} \\
-    &= \frac{\pi}{2}\frac{(2n+1)!!}{2^n \cdot n!}
+    &= \frac{\pi}{2}\frac{(2n-1)!!}{2^n \cdot n!}
 \end{align*}
 The elliptic integral is thereby
 \begin{align*}
@@ -95,7 +95,7 @@ The period of a simple pendulum is
 \end{equation*}
 By expanding the sum, we get
 \begin{equation*}
-    T = 2\pi\sqrt{\frac{l}{g}}\left( 1 + \left(\frac{1}{2}\right)^2\sin^2{\frac{\phi}{2}} + \left(\frac{1\cdot3}{2\cdot4}\right)^2\sin^4{\frac{\phi}{2}} + \left(\frac{1\cdot3\cdot5}{2\cdot4\cdot6}\right)^2\sin^6{\frac{\phi}{2}} + \ldots \right).
+    T = 2\pi\sqrt{\frac{l}{g}}\left( 1 + \left(\frac{1}{2}\right)^2\sin^2{\frac{\phi_0}{2}} + \left(\frac{1\cdot3}{2\cdot4}\right)^2\sin^4{\frac{\phi_0}{2}} + \left(\frac{1\cdot3\cdot5}{2\cdot4\cdot6}\right)^2\sin^6{\frac{\phi_0}{2}} + \ldots \right).
 \end{equation*}
 Using the Maclaurin series
 \begin{equation*}
@@ -124,11 +124,11 @@ Determine the period of oscillation, as a function of the energy, when a particl
 \end{equation*}
 }
 {
-The total energy of the particle is
+For the motion to be an oscillation, we assume $A>0$, $n>0$ and $E>0$. The total energy of the particle is
 \begin{equation*}
     E = \frac{1}{2}m\Dot{x}^2 + U(x).
 \end{equation*}
-Knowing that the maximum value of $E$ is at $x_1$, this position is
+At the turning points $x_1$ of the motion, the kinetic energy vanishes, so they satisfy $E = U(x_1)$, that is
 \begin{align*}
     &E = U(x_1) = A|x_1|^n \\
     \Rightarrow &|x_1| = \left( \frac{E}{A} \right)^{1/n}, \\
@@ -144,9 +144,9 @@ It is possible to remove the absolute value, because the integral is over positi
     T &= 2\sqrt{2m} \int_0^{\left( \frac{E}{A}\right)^{1/n} }\frac{dx}{\sqrt{E-Ax^n}} \\
     &= 2\sqrt{\frac{2m}{E}} \int_0^{\left( \frac{E}{A}\right)^{1/n} }\frac{dx}{\sqrt{1-\frac{A}{E}x^n}}.
 \end{align*}
-Using the substitution $y = \left(\frac{A}{E}\right)^{\frac{1}{n}}x$, we get
+Using the substitution $y = \left(\frac{A}{E}\right)^{\frac{1}{n}}x$, for which $dx = \left(\frac{E}{A}\right)^{\frac{1}{n}}dy$, we get
 \begin{align*}
-    T &= 2\sqrt{\frac{2m}{E}} \int_0^1 \frac{\left(\frac{A}{E}\right)^{\frac{1}{n}}dy}{\sqrt{1-\frac{A}{E}\left(\left(\frac{A}{E}\right)^{\frac{-1}{n}}y\right)^n}} \\
+    T &= 2\sqrt{\frac{2m}{E}} \int_0^1 \frac{\left(\frac{E}{A}\right)^{\frac{1}{n}}dy}{\sqrt{1-\frac{A}{E}\left(\left(\frac{A}{E}\right)^{\frac{-1}{n}}y\right)^n}} \\
     &= 2\sqrt{\frac{2m}{E}} \left(\frac{E}{A}\right)^{\frac{1}{n}} \int_0^1 \frac{dy}{\sqrt{1-y^n}} .
 \end{align*}
 Using another substitution $u = y^n$, we get
@@ -177,37 +177,32 @@ Knowing that $\Gamma\left(\frac{1}{2}\right) = \sqrt{\pi}$, we finally have
 \end{equation*}
 }
 {
-The two boundaries of the energy are at $E=0 \Rightarrow x=x_1$ and $E=-U_0 \Rightarrow x=0$. The period of oscillation is thus
+Since $E<0$, we write $E=-|E|$. The motion is symmetric about $x=0$, where the potential has its minimum $-U_0$, and the turning points $\pm x_1$ are where the kinetic energy vanishes, $E = U(x_1)$, that is
+\begin{equation*}
+    \cosh^2{(\alpha x_1)} = \frac{U_0}{|E|},
+\end{equation*}
+which has a real solution $x_1>0$ because $|E|<U_0$. The period of oscillation is thus
 \begin{align*}
     T &= 2\sqrt{2m} \int_0^{x_1}\frac{dx}{\sqrt{E-U}} \\
-    &= 2\sqrt{2m} \int_0^{x_1}\frac{dx}{\sqrt{E+\frac{U_0}{\cosh^2{\alpha x}}}} \\
-    &= 2\sqrt{2m} \int_0^{x_1}\frac{\cosh^2{\alpha x} \quad dx}{\sqrt{E\cosh^2{\alpha x}+U_0}}.
+    &= 2\sqrt{2m} \int_0^{x_1}\frac{dx}{\sqrt{\frac{U_0}{\cosh^2{(\alpha x)}}-|E|}} \\
+    &= 2\sqrt{2m} \int_0^{x_1}\frac{\cosh{(\alpha x)}\,dx}{\sqrt{U_0-|E|\cosh^2{(\alpha x)}}},
 \end{align*}
-Using the identity $\cosh^2{\alpha x} = 1 + \sinh^2{\alpha x}$, we get
+where we multiplied the numerator and the denominator by $\cosh{(\alpha x)}>0$. Using $\cosh^2{(\alpha x)} = 1 + \sinh^2{(\alpha x)}$, we get
 \begin{equation*}
-    T = 2\sqrt{2m} \int_0^{x_1}\frac{\cosh^2{\alpha x} \quad dx}{\sqrt{E\left(1+\sinh^2{\alpha x}\right)+U_0}}.
+    T = 2\sqrt{2m} \int_0^{x_1}\frac{\cosh{(\alpha x)}\,dx}{\sqrt{U_0-|E|-|E|\sinh^2{(\alpha x)}}}.
 \end{equation*}
-The substitution $y=\sinh{\alpha x}$, give us $dy = \alpha\cosh{\alpha x}dx$ and
-\begin{align*}
-    y(x_1) &= \sinh{\alpha x} \\
-    &= \sqrt{\sinh^2{\alpha x}} \\
-    &= \sqrt{ \cosh^2{\alpha x} - 1 }\\
-    &= \sqrt{\frac{-U_0}{E} - 1}.
-\end{align*}
-Using this substitution, we get
-\begin{align*}
-    T &= \frac{2}{\alpha}\sqrt{2m} \int_0^{\sqrt{\frac{-U_0}{E} - 1}} \frac{dy}{E\left( 1 + y^2 \right) + U_0} \\
-    &= \frac{2}{\alpha}\sqrt{2m} \int_0^{\sqrt{\frac{-U_0}{E} - 1}} \frac{dy}{E+ Ey^2 - E\cosh^2{\alpha x}}
-\end{align*}
-Factoring $|E|$ out of the square root (because $E<0$), we have
-\begin{align*}
-    T &= \frac{2}{\alpha}\sqrt{\frac{2m}{|E|}} \int_0^{\sqrt{\frac{-U_0}{E} - 1}} \frac{dy}{1-\cosh^2{\alpha x} + y^2} \\
-    &= \frac{2}{\alpha}\sqrt{\frac{2m}{|E|}} \int_0^{\sqrt{\frac{-U_0}{E} - 1}} \frac{dy}{\sqrt{\frac{-U_0}{E} - 1} + y^2}
-\end{align*}
-This integral is of the form
+The substitution $y=\sinh{(\alpha x)}$ gives us $dy = \alpha\cosh{(\alpha x)}\,dx$ and, since $x_1>0$,
 \begin{equation*}
-    \int_0^a \frac{dz}{\sqrt{a + z^2}} = \sin^{-1}{\left(\frac{z}{a}\right)} = \frac{\pi}{2}.
+    y(x_1) = \sinh{(\alpha x_1)} = \sqrt{ \cosh^2{(\alpha x_1)} - 1 } = \sqrt{\frac{U_0}{|E|} - 1} \equiv a,
+    \qquad a^2 = \frac{U_0}{|E|} - 1 .
 \end{equation*}
+Using this substitution and factoring $|E|$ out of the square root, we get
+\begin{align*}
+    T &= \frac{2}{\alpha}\sqrt{2m} \int_0^{a} \frac{dy}{\sqrt{U_0-|E|-|E|y^2}} \\
+    &= \frac{2}{\alpha}\sqrt{\frac{2m}{|E|}} \int_0^{a} \frac{dy}{\sqrt{a^2-y^2}} \\
+    &= \frac{2}{\alpha}\sqrt{\frac{2m}{|E|}} \left[\sin^{-1}{\left(\frac{y}{a}\right)}\right]_0^a \\
+    &= \frac{2}{\alpha}\sqrt{\frac{2m}{|E|}}\,\frac{\pi}{2}.
+\end{align*}
 Thus, the period of oscillation is
 }
 {
@@ -224,29 +219,31 @@ Thus, the period of oscillation is
 \end{equation*}
 }
 {
+We assume $U_0>0$ and $E>0$; the particle oscillates in the well $|\alpha x|<\pi/2$, symmetrically about $x=0$, between the turning points $\pm x_1$ where $E = U(x_1)$, that is
+\begin{equation*}
+    x_1 = \frac{1}{\alpha} \tan^{-1}{\sqrt{\frac{E}{U_0}}}.
+\end{equation*}
 The period of oscillation is
 \begin{align*}
     T &= 2 \sqrt{2m} \int_0^{x_1} \frac{dx}{\sqrt{E-U}} \\
-    &= 2 \sqrt{2m} \int_0^{x_1} \frac{dx}{\sqrt{E-U_0\tan^2{\alpha x}}} \\
-    &= 2 \sqrt{2m} \int_0^{x_1} \frac{\cos{\alpha x} \quad dx}{\sqrt{E\cos^2{\alpha x}-U_0\sin^2{\alpha x}}} \\
-    &= 2 \sqrt{2m} \int_0^{x_1} \frac{\cos{\alpha x} \quad dx}{\sqrt{E-(E+U_0)\sin^2{\alpha x}}}.
+    &= 2 \sqrt{2m} \int_0^{x_1} \frac{dx}{\sqrt{E-U_0\tan^2{(\alpha x)}}} \\
+    &= 2 \sqrt{2m} \int_0^{x_1} \frac{\cos{(\alpha x)}\,dx}{\sqrt{E\cos^2{(\alpha x)}-U_0\sin^2{(\alpha x)}}} \\
+    &= 2 \sqrt{2m} \int_0^{x_1} \frac{\cos{(\alpha x)}\,dx}{\sqrt{E-(E+U_0)\sin^2{(\alpha x)}}},
 \end{align*}
-Using the substitution $y=i\sin{\alpha x}$ $\left(dy = i\alpha\cos{\alpha x}\right)$, we get
-\begin{align*}
-    T &= \frac{2\sqrt{2m}}{i\alpha} \int_0^{i\sin{\alpha x_1}} \frac{dy}{\sqrt{E+\left( E+U_0 \right)y^2}} \\
-    &=  \frac{2}{i\alpha}\sqrt{\frac{2m}{E+U_0}} \int_0^{i\sin{\alpha x_1}} \frac{dy}{\sqrt{\frac{E}{\left( E+U_0 \right)}+y^2}} \\
-    &= \frac{2}{i\alpha}\sqrt{\frac{2m}{E+U_0}} \sin^{-1}{\left( \frac{i\sin{\alpha x_1}}{\sqrt{\frac{E}{\left(E+U_0\right)}}} \right)}
-\end{align*}
-Knowing
+where we multiplied the numerator and the denominator by $\cos{(\alpha x)}>0$. We use the real substitution
 \begin{equation*}
-    x_1 = \frac{1}{\alpha} \tan^{-1}{\sqrt{\frac{E}{U_0}}},
+    y=\sin{(\alpha x)}, \qquad dy = \alpha\cos{(\alpha x)}\,dx,
 \end{equation*}
-we finally get
+whose upper limit is
+\begin{equation*}
+    y(x_1) = \sin{\left(\tan^{-1}{\sqrt{\frac{E}{U_0}}}\right)} = \frac{\sqrt{E/U_0}}{\sqrt{1+E/U_0}} = \sqrt{\frac{E}{E+U_0}} \equiv a .
+\end{equation*}
+Factoring $E+U_0$ out of the square root, we get
 \begin{align*}
-    T &= \frac{2}{i\alpha}\sqrt{\frac{2m}{E+U_0}} \sin^{-1}{\left( \frac{i\sin{\left(\tan^{-1}{\sqrt{\frac{E}{U_0}}}\right)}}{\sqrt{\frac{E}{\left(E+U_0\right)}}} \right)} \\
-    &= \frac{2}{i\alpha}\sqrt{\frac{2m}{E+U_0}} \sin^{-1}{\left( \frac{i\sqrt{\frac{E}{U_0}}}{\sqrt{1+\frac{E}{U_0}}\sqrt{\frac{E}{\left(E+U_0\right)}}} \right)} \\
-    &= \frac{2}{i\alpha}\sqrt{\frac{2m}{E+U_0}} \sin^{-1}{i} \\
-    &= \frac{2}{i\alpha}\sqrt{\frac{2m}{E+U_0}} \frac{\pi i}{2}.
+    T &= \frac{2\sqrt{2m}}{\alpha} \int_0^{a} \frac{dy}{\sqrt{E-\left( E+U_0 \right)y^2}} \\
+    &=  \frac{2}{\alpha}\sqrt{\frac{2m}{E+U_0}} \int_0^{a} \frac{dy}{\sqrt{a^2-y^2}} \\
+    &= \frac{2}{\alpha}\sqrt{\frac{2m}{E+U_0}} \left[\sin^{-1}{\left(\frac{y}{a}\right)}\right]_0^a \\
+    &= \frac{2}{\alpha}\sqrt{\frac{2m}{E+U_0}}\,\frac{\pi}{2}.
 \end{align*}
 Thus, the period of oscillation is
 }
@@ -282,14 +279,15 @@ where $\mu \equiv M + nm$. The Lagrangian of the system is
 If we substitute \eqref{S13P1_R} and $\mathbf{R}_a = \mathbf{R} + \mathbf{r}_a$, we get
 \begin{align*}
     L &= \frac{1}{2}\frac{Mm^2}{\mu^2} \left( \sum_a \Dot{\mathbf{r}}_a \right)^2 + \frac{1}{2}nm\Dot{\mathbf{R}}^2 + \frac{1}{2}m\sum_a\Dot{\mathbf{r}}_a^2 + m\Dot{\mathbf{R}}\sum_a \Dot{\mathbf{r}}_a - U \\
-    &= \frac{1}{2}\frac{Mm^2}{\mu^2} \left( \sum_a \Dot{\mathbf{r}}_a \right)^2 + \frac{1}{2}\frac{m^3}{\mu^2}\left( \sum_a \Dot{\mathbf{r}}_a \right)^2 + \frac{1}{2}m\sum_a\Dot{\mathbf{r}}_a^2 - \frac{m^2}{\mu}\left(\sum_a \Dot{\mathbf{r}}_a\right)^2 - U \\
-    &= \frac{1}{2}m\sum_a\Dot{\mathbf{r}}_a^2 - \frac{1}{2}\frac{m^2}{\mu}\left( \frac{2\mu-M-nm}{\mu} \right)\left(\sum_a \Dot{\mathbf{r}}_a\right)^2.
+    &= \frac{1}{2}\frac{Mm^2}{\mu^2} \left( \sum_a \Dot{\mathbf{r}}_a \right)^2 + \frac{1}{2}\frac{nm^3}{\mu^2}\left( \sum_a \Dot{\mathbf{r}}_a \right)^2 + \frac{1}{2}m\sum_a\Dot{\mathbf{r}}_a^2 - \frac{m^2}{\mu}\left(\sum_a \Dot{\mathbf{r}}_a\right)^2 - U \\
+    &= \frac{1}{2}m\sum_a\Dot{\mathbf{r}}_a^2 - \frac{1}{2}\frac{m^2}{\mu}\left( \frac{2\mu-M-nm}{\mu} \right)\left(\sum_a \Dot{\mathbf{r}}_a\right)^2 - U \\
+    &= \frac{1}{2}m\sum_a\Dot{\mathbf{r}}_a^2 - \frac{1}{2}\frac{m^2}{\mu}\left(\sum_a \Dot{\mathbf{r}}_a\right)^2 - U.
 \end{align*}
-The Lagrangian is thus only a function of $\mathbf{r}_a$ and it's time derivative, which is
+The potential energy depends only on the relative positions of the particles, so $U = U(\mathbf{r}_1, \ldots, \mathbf{r}_n)$. The Lagrangian is thus only a function of $\mathbf{r}_a$ and their time derivatives, which is
 }
 {
 \begin{equation*}
-    L = \frac{1}{2}m\sum_a\Dot{\mathbf{r}}_a^2 - \frac{1}{2}\frac{m^2}{\mu}\left(\sum_a \Dot{\mathbf{r}}_a\right)^2
+    L = \frac{1}{2}m\sum_a\Dot{\mathbf{r}}_a^2 - \frac{1}{2}\frac{m^2}{\mu}\left(\sum_a \Dot{\mathbf{r}}_a\right)^2 - U(\mathbf{r}_1, \ldots, \mathbf{r}_n), \qquad \mu = M + nm
 \end{equation*}
 }
 \end{problem}
@@ -338,23 +336,23 @@ Substituting $\Dot{\phi}$ with \eqref{S14P1_Mz} in the energy we get
     E &= \frac{1}{2}ml^2\Dot{\theta}^2 + \frac{M_z^2}{2ml^2\sin^2{\theta}} - mgl\cos{\theta} \\
     &= \frac{1}{2}ml^2\Dot{\theta}^2 + U_{\text{eff}}(\theta),
 \end{align*}
-where $U_{\text{eff}}(\theta)$ is the effective potential energy. Notice that the energy was re-written as a function of only one co-ordinate (\ie $\theta$). This is equivalent to the one particle problem we have already see, thus
+where $U_{\text{eff}}(\theta)$ is the effective potential energy. Notice that the energy was re-written as a function of only one co-ordinate (\ie $\theta$). This is equivalent to the one-dimensional problem we have already seen. On a branch of the motion where $\theta$ increases, $\Dot{\theta}$ is the positive square root, thus
 \begin{align*}
     & \frac{d\theta}{dt} = \sqrt{\frac{2\left( E - U_{\text{eff}}(\theta) \right)}{ml^2}} \\
-    \Rightarrow & t = \int \frac{d\theta}{\sqrt{2\left( E - U_{\text{eff}}(\theta) \right)}} .
+    \Rightarrow & t - t_0 = l\sqrt{\frac{m}{2}} \int_{\theta_0}^{\theta} \frac{d\vartheta}{\sqrt{E - U_{\text{eff}}(\vartheta)}} ,
 \end{align*}
-This integral lead to an elliptic integral of the first kind see \probref{\S 11}{1}. We also need to find the solution to the angle $\phi$. To do so, we can use the \eqref{S14P1_Mz} with the chain rule from calculus, that is
+where $\theta_0 = \theta(t_0)$ and $\vartheta$ is the integration variable. On a branch where $\theta$ decreases, $\Dot{\theta}$ is the negative square root, and the right-hand side changes sign. This integral lead to an elliptic integral of the first kind see \probref{\S 11}{1}. We also need to find the solution to the angle $\phi$. To do so, we can use the \eqref{S14P1_Mz} with the chain rule from calculus, that is, on an increasing-$\theta$ branch,
 \begin{align*}
     \frac{M_z}{ml^2\sin^2{\theta}} &= \frac{d\phi}{dt} \\
     &= \frac{d\phi}{d\theta}\frac{d\theta}{dt} \\
     &= \frac{d\phi}{d\theta}\sqrt{\frac{2\left( E - U_{\text{eff}}(\theta) \right)}{ml^2}}.
 \end{align*}
-Finally, we get 
+Finally, we get
 \begin{align*}
     & \frac{d\phi}{d\theta} =  \frac{M_z}{l\sin^2{\theta}} \sqrt{\frac{1}{2m\left( E - U_{\text{eff}}(\theta) \right)}} \\
-    \Rightarrow & \phi = \frac{M_z}{l}\sqrt{\frac{1}{2m}}\int\frac{d\theta}{\sin^2{\theta}\left( E - U_{\text{eff}}(\theta) \right)}.
+    \Rightarrow & \phi - \phi_0 = \frac{M_z}{l\sqrt{2m}}\int_{\theta_0}^{\theta}\frac{d\vartheta}{\sin^2{\vartheta}\sqrt{E - U_{\text{eff}}(\vartheta)}},
 \end{align*}
-This integral lead to an elliptic integral of the third kind (I really don't want to solve this). It is possible to find the range of angle $\theta$. At the maximum and minimum value of $\theta$, the pendulum as no kinetic energy, thus
+with $\phi_0 = \phi(t_0)$. Again, the sign of the right-hand side is reversed on a decreasing-$\theta$ branch, so that $\phi$ always changes in the direction given by the sign of $M_z$, as \eqref{S14P1_Mz} requires. This integral lead to an elliptic integral of the third kind (I really don't want to solve this). When $\theta$ reaches a turning point, $\Dot{\theta}$ changes sign: the motion is continued by restarting both integrals from that turning point with the opposite sign, so that $t$ keeps increasing and $\phi$ keeps changing monotonically. It is possible to find the range of angle $\theta$. At the maximum and minimum value of $\theta$, $\Dot{\theta}=0$, while the azimuthal kinetic energy $M_z^2/(2ml^2\sin^2{\theta})$ can remain nonzero, thus
 \begin{align*}
     E &= U_{\text{eff}} \\
     &= \frac{M_z^2}{2ml^2\sin^2{\theta}} - mgl\cos{\theta} \\
@@ -369,16 +367,19 @@ The centrifugal part of the effective potential $U_{\text{eff}}$, namely
 \begin{equation*}
     \frac{M_z^2}{2ml^2\sin^2{\theta}},
 \end{equation*}
-must be positive. As we can see, this term diverge at $\theta \rightarrow 0$ and $\theta \rightarrow \pi$, thus the angle $\theta$ is bound. This can be write as
+is never negative. If $M_z \neq 0$, it is positive and, as we can see, diverges at $\theta \rightarrow 0$ and $\theta \rightarrow \pi$, thus the angle $\theta$ is bound away from the poles. This can be write as
 \begin{align*}
-  \theta &\in \left[ \theta_p, \theta_a\right] & 0 &< \theta_p \leq \theta_a < \pi,
+  \theta &\in \left[ \theta_p, \theta_a\right] & 0 &< \theta_p \leq \theta_a < \pi \qquad (M_z \neq 0),
 \end{align*}
-where the subscripts of the angles $\theta_p$ and $\theta_a$ are for the perigee and apogee. This mean that the two roots of the cubic algebraic equation for $\cos{\theta}$ is bound between $-1$ and $+1$. To summarize, the solution of the equation of motion of the spherical pendulum is
+where the subscripts of the angles $\theta_p$ and $\theta_a$ are for the perigee and apogee. This mean that the two roots of the cubic algebraic equation for $\cos{\theta}$ giving the turning points are bound between $-1$ and $+1$ (the cubic is positive at $\cos{\theta}=\pm 1$, so its third root is smaller than $-1$). Except for the solution with constant $\theta$ at the minimum of $U_{\text{eff}}$ (when $E$ equals this minimum, the two roots merge and $\theta_p = \theta_a$), the turning points are distinct, $\theta_p < \theta_a$, and $\theta$ oscillates between them. If $M_z = 0$, there is no centrifugal barrier: the motion is planar (a pendulum swinging, or revolving, in a fixed vertical plane) and it can reach a pole. To summarize, the solution of the equation of motion of the spherical pendulum is
 }
 {
 \begin{align*}
-  t &= \int_{\theta_p}^{\theta_a} \frac{d\theta}{\sqrt{2\left( E - U_{\text{eff}}(\theta) \right)}} & \phi &= \frac{M_z}{l}\sqrt{\frac{1}{2m}}\int_{\theta_p}^{\theta_a}\frac{d\theta}{\sin^2{\theta}\left( E - U_{\text{eff}}(\theta) \right)}
+  t - t_0 &= l\sqrt{\frac{m}{2}}\int_{\theta_0}^{\theta} \frac{d\vartheta}{\sqrt{E - U_{\text{eff}}(\vartheta)}} \\
+  \phi - \phi_0 &= \frac{M_z}{l\sqrt{2m}}\int_{\theta_0}^{\theta}\frac{d\vartheta}{\sin^2{\vartheta}\sqrt{E - U_{\text{eff}}(\vartheta)}} \\
+  U_{\text{eff}}(\theta) &= \frac{M_z^2}{2ml^2\sin^2{\theta}} - mgl\cos{\theta}
 \end{align*}
+on a branch where $\theta$ increases; both right-hand sides change sign on a branch where $\theta$ decreases, and the integrals are restarted from each turning point $\theta_p$, $\theta_a$ (roots of $E = U_{\text{eff}}(\theta)$) with the opposite sign.
 }
 \end{problem}
 
@@ -423,18 +424,23 @@ and substituting in \eqref{S14P2_E}, we get
     E &= \frac{1}{2}m\Dot{r}^2 + \frac{M_z^2}{2mr^2\sin^2{\alpha}} + mgr\cos{\alpha} \\
     &= \frac{1}{2}m\Dot{r}^2 + U_{\text{eff}}(r).
 \end{align*}
-Hence,
+Hence, on a branch where $r$ increases,
 \begin{align*}
     t = \sqrt{\frac{m}{2}} \int \frac{dr}{\sqrt{E-U_{\text{eff}}(r)}}.
 \end{align*}
-From \eqref{S14P2_Mz}, it is possible to write
+From \eqref{S14P2_Mz}, it is possible to write, on the same branch,
 \begin{align*}
     &\frac{d\phi}{dt} = \frac{M_z}{mr^2\sin^2{\alpha}} \\
     \Rightarrow &\frac{d\phi}{dr}\frac{dr}{dt} = \frac{M_z}{mr^2\sin^2{\alpha}} \\
     \Rightarrow &\frac{d\phi}{dr} \sqrt{\frac{2\left(E-U_{\text{eff}}(r)\right)}{m}} = \frac{M_z}{mr^2\sin^2{\alpha}} \\
     \Rightarrow &\phi =\frac{M_z}{\sqrt{2m}\sin^2{\alpha}} \int \frac{dr}{r^2\sqrt{E-U_{\text{eff}}(r)}}.
 \end{align*}
-It is possible to find the range of $r$. At the maximum and minimum value of $r$, the particle as no kinetic energy, thus
+Written with explicit limits, the co-ordinates evolve as
+\begin{align*}
+    t - t_0 &= \sqrt{\frac{m}{2}} \int_{r_0}^{r} \frac{ds}{\sqrt{E-U_{\text{eff}}(s)}}, \\
+    \phi - \phi_0 &=\frac{M_z}{\sqrt{2m}\sin^2{\alpha}} \int_{r_0}^{r} \frac{ds}{s^2\sqrt{E-U_{\text{eff}}(s)}},
+\end{align*}
+where $r_0 = r(t_0)$, $\phi_0 = \phi(t_0)$ and $s$ is the integration variable. On a branch where $r$ decreases, $\Dot{r}$ is the negative square root and both right-hand sides change sign, so that $t$ always increases and $\phi$ always changes in the direction given by the sign of $M_z$. At a turning point, $\Dot{r}$ changes sign and the integrals are restarted from it with the opposite sign. It is possible to find the range of $r$. At the maximum and minimum value of $r$, the radial velocity is zero (the azimuthal velocity is not), thus
 \begin{align*}
     E &= U_{\text{eff}} \\
     &= \frac{M_z^2}{2mr^2\sin^2{\alpha}} + mgr\cos{\alpha} \\
@@ -444,12 +450,15 @@ We can find a cubic algebraic equation for $r$, that is
     0 &= r^2\left( E - mgr\cos{\alpha} \right) - \frac{M_z^2}{2m\sin^2{\alpha}} \\
     &= mgr^3\cos{\alpha} - Er^2 + \frac{M_z^2}{2m\sin^2{\alpha}}.
 \end{align*}
-This equation as two positive roots, $r_p$ and $r_a$, which are the turning points of the motion. To summarize, the solution of the equation of motion for a particle moving on the surface of a cone is
+When $M_z \neq 0$ and $E$ is above the minimum of $U_{\text{eff}}(r)$, this equation has two distinct positive roots, $r_p < r_a$, which are the turning points of the motion (the third root is negative). When $E$ equals the minimum of $U_{\text{eff}}$, the two roots merge and the orbit is a circle, $r = \text{constant}$. When $M_z = 0$, there is no centrifugal barrier at the vertex: the particle moves along a generator of the cone and reaches the vertex $r=0$. To summarize, the solution of the equation of motion for a particle moving on the surface of a cone is
 }
 {
 \begin{align*}
-  t &=  \sqrt{\frac{m}{2}} \int_{r_p}^{r_a} \frac{dr}{\sqrt{E-U_{\text{eff}}(r)}} & \phi &= \frac{M_z}{\sqrt{2m}\sin^2{\alpha}} \int_{r_p}^{r_a} \frac{dr}{r^2\sqrt{E-U_{\text{eff}}(r)}}
+  t - t_0 &=  \sqrt{\frac{m}{2}} \int_{r_0}^{r} \frac{ds}{\sqrt{E-U_{\text{eff}}(s)}} \\
+  \phi - \phi_0 &= \frac{M_z}{\sqrt{2m}\sin^2{\alpha}} \int_{r_0}^{r} \frac{ds}{s^2\sqrt{E-U_{\text{eff}}(s)}} \\
+  U_{\text{eff}}(r) &= \frac{M_z^2}{2mr^2\sin^2{\alpha}} + mgr\cos{\alpha}
 \end{align*}
+on a branch where $r$ increases; both right-hand sides change sign on a branch where $r$ decreases, and the integrals are restarted from each turning point $r_p$, $r_a$ (roots of $E = U_{\text{eff}}(r)$) with the opposite sign.
 }
 \end{problem}
 
@@ -492,13 +501,15 @@ Hence,
 \end{align*}
 Using \eqref{S14P3_Rx}, we can express the position of the mass $m_2$ as
 \begin{equation*}
-    \begin{bmatrix} x_2 \\ y_2 \end{bmatrix} = \begin{bmatrix} x + l\sin{\phi} \\ l\cos{\phi} \end{bmatrix}=\begin{bmatrix} R_x - l\sin{\phi}\left(1 - \frac{m_2}{m_1+m_2} \right) \\ l\cos{\phi} \end{bmatrix} .
+    \begin{bmatrix} x_2 \\ y_2 \end{bmatrix} = \begin{bmatrix} x + l\sin{\phi} \\ l\cos{\phi} \end{bmatrix}=\begin{bmatrix} R_x + l\sin{\phi}\left(1 - \frac{m_2}{m_1+m_2} \right) \\ l\cos{\phi} \end{bmatrix} = \begin{bmatrix} R_x + \frac{m_1}{m_1+m_2}l\sin{\phi} \\ l\cos{\phi} \end{bmatrix},
 \end{equation*}
+since \eqref{S14P3_Rx} gives $x = R_x - \frac{m_2}{m_1+m_2}l\sin{\phi}$.
 The path of the particle of mass $m_2$ is thus an arc of an ellipse center at $(R_x,0)$ with horizontal semi-axis $lm_1/(m_1+m_2)$ and vertical semi-axis $l$. It is possible to see that when $m_1 \rightarrow \infty$, the path return to the simple pendulum. The solution of the equations of motion is thus
 }
 {
 \begin{align*}
-  t &= l\sqrt{\frac{m_2}{2}}\int\sqrt{\frac{1-\frac{m_2}{m_1+m_2}\cos^2{\phi}}{E+m_2gl\cos{\phi}}}d\phi & \begin{bmatrix} x_2 \\ y_2 \end{bmatrix} &= \begin{bmatrix} R_x - l\sin{\phi}\left(1 - \frac{m_2}{m_1+m_2} \right) \\ l\cos{\phi} \end{bmatrix}
+  t &= l\sqrt{\frac{m_2}{2}}\int\sqrt{\frac{1-\frac{m_2}{m_1+m_2}\cos^2{\phi}}{E+m_2gl\cos{\phi}}}d\phi \\
+  \begin{bmatrix} x_2 \\ y_2 \end{bmatrix} &= \begin{bmatrix} R_x + l\sin{\phi}\left(1 - \frac{m_2}{m_1+m_2} \right) \\ l\cos{\phi} \end{bmatrix} = \begin{bmatrix} R_x + \frac{m_1}{m_1+m_2}l\sin{\phi} \\ l\cos{\phi} \end{bmatrix}
 \end{align*}
 }
 \end{problem}
@@ -517,26 +528,31 @@ From formula (14.6) of the book, we have the integral
 \begin{align*}
     t &= \int \frac{dr}{\sqrt{\frac{2}{m}\left(E-U(r)\right)-\frac{M^2}{m^2r^2}}} \\
     &= \int \frac{dr}{\sqrt{\frac{2\alpha}{mr}-\frac{M^2}{m^2r^2}}} \\
-    &= \int \frac{rdr}{\sqrt{\frac{2\alpha}{m}r-\frac{M^2}{m^2}}}.
+    &= \int \frac{rdr}{\sqrt{\frac{2\alpha}{m}r-\frac{M^2}{m^2}}},
 \end{align*}
-We use the substitution
+written here for the outgoing branch ($\Dot{r}>0$), and taking $M>0$. We define the parameter of the parabola
+\begin{equation*}
+    p = \frac{M^2}{m\alpha}
+\end{equation*}
+and use the substitution
 \begin{align}
-    &\frac{m}{M}\eta = \sqrt{\frac{2\alpha}{m}r - \frac{M^2}{m^2}} \nonumber \\
-    \Rightarrow & r = \frac{M^2}{2m\alpha}\left(1+\eta^2\right) = \frac{1}{2}p\left(1+\eta^2\right), \label{S15P1_r}
+    & r = \frac{M^2}{2m\alpha}\left(1+\eta^2\right) = \frac{1}{2}p\left(1+\eta^2\right), \label{S15P1_r} \\
+    \Rightarrow & \sqrt{\frac{2\alpha}{m}r - \frac{M^2}{m^2}} = \sqrt{\frac{M^2}{m^2}\eta^2} = \frac{M}{m}|\eta| , \nonumber
 \end{align}
 with the differential form
 \begin{equation*}
-    dr = \frac{M^2}{m\alpha}\eta d\eta.
+    dr = \frac{M^2}{m\alpha}\eta d\eta = p\,\eta\,d\eta.
 \end{equation*}
-Hence, the integral become
+On the outgoing branch we take $\eta \geq 0$, so that $|\eta| = \eta$, and the integral become
 \begin{align*}
-    t &= \frac{M^3}{2m\alpha^2}\int\left(1+\eta^2\right)d\eta \\
+    t - t_0 &= \frac{m}{M}\int_0^\eta \frac{1}{2}p\left(1+\eta'^2\right) p \, d\eta' \\
+    &= \frac{M^3}{2m\alpha^2}\int_0^\eta\left(1+\eta'^2\right)d\eta' \\
     &= \frac{M^3}{2m\alpha^2}\left(\eta+\frac{1}{3}\eta^3\right) \\
-    &= \sqrt{\frac{mp^3}{\alpha}}\frac{1}{2}\eta\left(\eta+\frac{1}{3}\eta^3\right).
+    &= \frac{1}{2}\sqrt{\frac{mp^3}{\alpha}}\left(\eta+\frac{1}{3}\eta^3\right),
 \end{align*}
-It is important to specify that the parameter $\eta$ varies from $-\infty$ to $\infty$. Using \eqref{S15P1_r} and
+where $t_0$ is the time of passage at the perihelion $r = p/2$ ($\eta = 0$). On the incoming branch ($\Dot{r}<0$), the integrand of $t$ changes sign; taking there $\eta \leq 0$, so that $|\eta| = -\eta$, the two sign changes cancel and the same formula holds. It is thus important to specify that the parameter $\eta$ is signed and varies from $-\infty$ to $\infty$: $\eta<0$ before the perihelion and $\eta>0$ after it. Using \eqref{S15P1_r} and the equation of the parabola (eccentricity $e=1$)
 \begin{equation*}
-    \cos{\phi} = \frac{p}{r} - 1 ,
+    \cos{\phi} = \frac{p}{r} - 1 = \frac{1-\eta^2}{1+\eta^2},
 \end{equation*}
 it is possible to find the Cartesian co-ordinates
 \begin{equation*}
@@ -544,15 +560,16 @@ it is possible to find the Cartesian co-ordinates
 \end{equation*}
 and
 \begin{equation*}
-    y = \sqrt{r^2 - x^2} = p\eta .
+    y^2 = r^2 - x^2 = \frac{p^2}{4}\left[\left(1+\eta^2\right)^2-\left(1-\eta^2\right)^2\right] = p^2\eta^2 ,
 \end{equation*}
-The parametric form of the required dependence are thus
+whose branch is selected by the sign of $\eta$: for $M>0$ the particle moves counterclockwise, so $y = p\eta$ (negative before the perihelion, positive after it). The parametric form of the required dependence are thus
 }
 {
 \begin{align*}
-    r &= \frac{1}{2}p\left(1+\eta^2\right) & t &=  \sqrt{\frac{mp^3}{\alpha}}\frac{1}{2}\eta\left(\eta+\frac{1}{3}\eta^3\right) \\
+    r &= \frac{1}{2}p\left(1+\eta^2\right) & t - t_0 &= \frac{1}{2}\sqrt{\frac{mp^3}{\alpha}}\left(\eta+\frac{1}{3}\eta^3\right) \\
     x &= \frac{1}{2}p\left(1-\eta^2\right) & y &= p\eta
 \end{align*}
+with $p = M^2/(m\alpha)$ ($M>0$), the signed parameter $-\infty<\eta<\infty$, and $t_0$ the time of passage at the perihelion.
 }
 \end{problem}
 
@@ -566,31 +583,45 @@ Integrate the equations of motion for a particle in a central field
 \end{align*}
 }
 {
-From formula (14.6) of the book, we have the integral
-\begin{align*}
-    t &= \int \frac{dr}{\sqrt{\frac{2}{m}\left(E-U(r)\right)-\frac{M^2}{m^2r^2}}} \\
-    &= \int \frac{dr}{\sqrt{\frac{2E}{m}r^2+\frac{2\alpha}{m}-\frac{M^2}{m^2}}} \\
-    &= \sqrt{\frac{m}{2E}}\int \frac{rdr}{\sqrt{r^2+\left( \frac{\alpha}{E} - \frac{M^2}{2mE}\right)}}.
-\end{align*}
-We use the substitution
+The energy of the particle, written with the effective potential energy, is
 \begin{equation*}
-    u = r^2 + \left( \frac{\alpha}{E} - \frac{M^2}{2mE}\right)
+    E = \frac{1}{2}m\Dot{r}^2 + \frac{M^2}{2mr^2} - \frac{\alpha}{r^2} = \frac{1}{2}m\Dot{r}^2 - \frac{C}{2mr^2},
+    \qquad C \equiv 2m\alpha - M^2 .
 \end{equation*}
-with the differential form
-\begin{equation*}
-    du = 2rdr.
-\end{equation*}
-Hence, the integral become
+The real constant $C$ compares the attraction with the centrifugal barrier: the effective potential energy $-C/(2mr^2)$ is repulsive for $C<0$, attractive for $C>0$, and vanishes identically for the critical angular momentum $M^2 = 2m\alpha$ ($C=0$). From formula (14.6) of the book, we have
 \begin{align*}
-    t &= \frac{1}{2} \sqrt{\frac{m}{2E}} \int\frac{du}{\sqrt{u}} \\
-    &= \sqrt{\frac{m}{2E}} \sqrt{u} \\
-    &= \sqrt{\frac{m}{2E}} \sqrt{r^2 + \frac{\alpha}{E} - \frac{M^2}{2mE}} \\
-    &= \frac{1}{E} \sqrt{\frac{m}{2}\left( Er^2 + \alpha - \frac{M^2}{2m} \right)} .
+    dt &= \pm\frac{dr}{\sqrt{\frac{2}{m}\left(E-U(r)\right)-\frac{M^2}{m^2r^2}}} \\
+    &= \pm\frac{dr}{\sqrt{\frac{2E}{m}+\frac{C}{m^2r^2}}} \\
+    &= \pm\frac{mr\,dr}{\sqrt{2mEr^2+C}},
 \end{align*}
-Formula (14.7) of the book gives us the equation of the path
+with the upper sign on a branch where $r$ increases and the lower sign on a branch where $r$ decreases.
+
+\vspace{2ex}\textbf{Time dependence of $r$.} Rather than integrating this case by case, which would require dividing by $E$, we use the radial equation of motion, obtained by differentiating the energy with respect to time,
+\begin{equation*}
+    m\Ddot{r} = -\frac{C}{mr^3}.
+\end{equation*}
+With the energy equation $\Dot{r}^2 = 2E/m + C/(m^2r^2)$, it gives
+\begin{equation*}
+    \frac{d^2}{dt^2}\left(r^2\right) = 2\Dot{r}^2 + 2r\Ddot{r} = 2\left(\frac{2E}{m}+\frac{C}{m^2r^2}\right) - \frac{2C}{m^2r^2} = \frac{4E}{m},
+\end{equation*}
+a constant. Integrating twice from a reference time $t_{\text{ref}}$, at which $r = r_0$ and $\Dot{r} = \Dot{r}_0$, we get
+\begin{equation} \label{S15P2_r2}
+    r^2(t) = r_0^2 + 2r_0\Dot{r}_0\left(t-t_{\text{ref}}\right) + \frac{2E}{m}\left(t-t_{\text{ref}}\right)^2,
+\end{equation}
+where the initial data must satisfy the energy equation, $\Dot{r}_0^2 = 2E/m + C/(m^2r_0^2)$. This law is valid on each physical segment of the motion, \ie as long as $r>0$: if $r^2$ reaches zero, the particle falls into the centre, where the field is singular. It covers the case $E=0$, where $r^2$ is a linear function of time, without any division by zero. When $E \neq 0$, completing the square and using the energy equation give
+\begin{equation*}
+    r^2 = \frac{2E}{m}\left(t-t_c\right)^2 - \frac{C}{2mE},
+    \qquad t_c = t_{\text{ref}} - \frac{mr_0\Dot{r}_0}{2E},
+\end{equation*}
+which is also what the direct integration of $dt$ gives (with the substitution $w = 2mEr^2 + C$, $dw = 4mEr\,dr$):
+\begin{equation*}
+    t - t_c = \pm\frac{1}{2E}\sqrt{2mEr^2+C} .
+\end{equation*}
+
+\vspace{2ex}\textbf{Equation of the path.} Formula (14.7) of the book gives, on the same branches,
 \begin{align*}
-    \phi &= \int \frac{Mdr}{r^2\sqrt{2m\left(E-U(r)\right)-\frac{M^2}{r^2}}} \\
-    &= \int \frac{Mdr}{r^2\sqrt{2mE+\frac{2m\alpha}{r^2}-\frac{M^2}{r^2}}}.
+    d\phi &= \pm\frac{M\,dr}{r^2\sqrt{2m\left(E-U(r)\right)-\frac{M^2}{r^2}}} \\
+    &= \pm\frac{M\,dr}{r^2\sqrt{2mE+\frac{C}{r^2}}}.
 \end{align*}
 Using the substitution
 \begin{equation*}
@@ -600,100 +631,64 @@ with the differential form
 \begin{equation*}
     du = -\frac{1}{r^2}dr,
 \end{equation*}
-the integral become
-\begin{align}
-    \phi &= - \int \frac{du}{\sqrt{2mE + \left( 2m\alpha - M^2 \right)u^2}} \nonumber \\
-    &= -\frac{1}{\sqrt{2mE}} \int \frac{du}{\sqrt{1 + (ku)^2}}, \label{S15P2_phi}
-\end{align}
-with
-\begin{equation} \label{S15P2_k}
-    k = \sqrt{\frac{2m\alpha-M^2}{2mE}}.
+it becomes
+\begin{equation} \label{S15P2_phi}
+    d\phi = -\frac{M\,du}{\sqrt{2mE + Cu^2}}
 \end{equation}
-From there, the solution must be divided for the three possible cases : \textbf{(a)} $E>0$, $M^2>2m\alpha$; \textbf{(b)} $E>0$, $M^2<2m\alpha$;  \textbf{(c)} $E<0$ $M^2<2m\alpha$. It is also interesting to know that the path is a Cotes's spiral\footnote{Whittaker ET (1937). A Treatise on the Analytical Dynamics of Particles and Rigid Bodies, with an Introduction to the Problem of Three Bodies (4th ed.). New York: Dover Publications. pp. 80–83. ISBN 978-0-521-35883-5.}.
+on a branch where $r$ increases ($u$ decreases), with the opposite sign on a branch where $r$ decreases. In both cases $\phi$ changes in the direction of $\Dot{\phi} = M/(mr^2)$. Rather than integrating \eqref{S15P2_phi} with a different substitution for each sign of $C$ and $E$, we take $M>0$ (the case $M<0$ follows by changing $\phi$ into $-\phi$) and consider $u$ as a function of $\phi$, primes meaning differentiation with respect to $\phi$. Since $\Dot{r} = -u'\Dot{\phi}/u^2 = -Mu'/m$, the energy becomes
+\begin{equation*}
+    E = \frac{M^2}{2m}\left(u'^2+u^2\right) - \alpha u^2,
+\end{equation*}
+\ie
+\begin{equation} \label{S15P2_first}
+    (u')^2 - \frac{C}{M^2}u^2 = \frac{2mE}{M^2},
+\end{equation}
+which is also \eqref{S15P2_phi} squared. Differentiating with respect to $\phi$ (or using the Binet equation $u''+u = -\frac{m}{M^2}\frac{dU}{du}$ with $U = -\alpha u^2$) gives the linear equation
+\begin{equation*}
+    u'' - \frac{C}{M^2}u = 0 .
+\end{equation*}
+Its real solutions must also satisfy the first integral \eqref{S15P2_first}, which fixes their amplitude, and they describe a motion only where $u>0$. This gives the following orbit families.
+\begin{itemize}
+    \item $C<0$, $E>0$: $u = \sqrt{\frac{2mE}{-C}}\cos{\left(\frac{\sqrt{-C}}{M}(\phi-\phi_0)\right)}$, with $|\phi-\phi_0| < \frac{\pi M}{2\sqrt{-C}}$. The particle comes from infinity, reaches the minimum distance $r_{\text{min}} = \sqrt{-C/(2mE)}$ at $\phi = \phi_0$ and goes back to infinity, after turning through the angle $\pi M/\sqrt{-C} > \pi$.
+    \item $C>0$, $E>0$: $u = \sqrt{\frac{2mE}{C}}\sinh{\left(\frac{\sqrt{C}}{M}(\phi-\phi_0)\right)}$, with $\phi>\phi_0$. The particle comes from infinity ($\phi\rightarrow\phi_0$) and spirals into the centre ($\phi\rightarrow\infty$). The reflected branch, $u = \sqrt{\frac{2mE}{C}}\sinh{\left(\frac{\sqrt{C}}{M}(\phi_0-\phi)\right)}$ with $\phi<\phi_0$, describes a particle spiralling out of the centre to infinity.
+    \item $C>0$, $E<0$: $u = \sqrt{\frac{2m|E|}{C}}\cosh{\left(\frac{\sqrt{C}}{M}(\phi-\phi_0)\right)}$. The particle spirals out of the centre, reaches the maximum distance $r_{\text{max}} = \sqrt{C/(2m|E|)}$ at $\phi = \phi_0$, and spirals back into the centre.
+    \item $C>0$, $E=0$: $u = A\exp{\left[\pm\frac{\sqrt{C}}{M}(\phi-\phi_0)\right]}$, $A>0$, a logarithmic spiral, traversed inwards (upper sign) or outwards (lower sign).
+    \item $C=0$, $E>0$: $u = \pm\frac{\sqrt{2mE}}{M}(\phi-\phi_0)$, with the sign making $u>0$: a hyperbolic spiral, traversed inwards for $\phi>\phi_0$ (upper sign) or outwards for $\phi<\phi_0$ (lower sign).
+    \item $C=0$, $E=0$: $u = A>0$, a uniform circular motion of arbitrary positive radius $1/A$, the centrifugal barrier exactly balancing the attraction.
+\end{itemize}
+One verifies each of them by substitution in the linear equation and in \eqref{S15P2_first}; for instance, for $C<0$, $u'^2 + \frac{|C|}{M^2}u^2 = \frac{2mE}{-C}\frac{|C|}{M^2} = \frac{2mE}{M^2}$. The time dependence along each path is given by \eqref{S15P2_r2}. For $E\neq0$, since $\frac{d}{dt}\left(r^2\right) = 2r\Dot{r} = -\frac{2M}{m}\frac{u'}{u}$ and $\frac{d}{dt}\left(r^2\right) = \frac{4E}{m}(t-t_c)$, we have the equivalent parameter relation
+\begin{equation*}
+    t - t_c = -\frac{M}{2E}\frac{u'}{u},
+\end{equation*}
+which fixes the orientation consistently with $\Dot{\phi} = M/(mr^2) > 0$. For example,
+\begin{align*}
+    t - t_c &= \frac{\sqrt{-C}}{2E}\tan{\left(\frac{\sqrt{-C}}{M}(\phi-\phi_0)\right)} & &(C<0,\ E>0), \\
+    t - t_c &= \frac{\sqrt{C}}{2|E|}\tanh{\left(\frac{\sqrt{C}}{M}(\phi-\phi_0)\right)} & &(C>0,\ E<0),
+\end{align*}
+both increasing with $\phi$. For $C>0$ (and for $C=0$, $E>0$), the particle falls into (or emerges from) the centre at a finite time, while turning an infinite number of times around it.
 
-\vspace{4ex}\textbf{(b) :} \eqref{S15P2_k} is still
-\begin{equation*}
-    k = \sqrt{\frac{2m\alpha-M^2}{2mE}}.
-\end{equation*}
-By using the substitution
-\begin{equation*}
-    ku = \sinh{\theta}
-\end{equation*}
-with the differential form
-\begin{equation*}
-    kdu = \cosh{\theta}d\theta,
-\end{equation*}
-the integral \eqref{S15P2_phi} become
-\begin{align*}
-    \phi &= -\frac{1}{\sqrt{2mE}} \int \frac{\cosh{\theta}d\theta}{k\sqrt{1 + \sinh^2{\theta}}} \\
-    &= -\frac{1}{\sqrt{2m\alpha-M^2}} \theta \\
-    &= -\frac{1}{\sqrt{2m\alpha-M^2}} \sinh^{-1}{\frac{k}{r}}.
-\end{align*}
-The equation of the path for the case (b) is thus
-\begin{align*}
-    \frac{1}{r} &= \frac{1}{k}\sinh{\left(\phi\sqrt{2m\alpha-M^2}\right)} \\
-    &= \sqrt{\frac{2mE}{2m\alpha-M^2}}\sinh{\left(\phi\sqrt{\frac{2m\alpha}{M^2}-1}\right)}.
-\end{align*}
+\vspace{2ex}\textbf{Radial motion, $M=0$.} Then $C = 2m\alpha>0$, the direction $\phi$ is constant and the particle moves on a straight line through the centre. Its distance follows the same law \eqref{S15P2_r2}, for any energy, until it reaches the singular centre.
 
-\vspace{4ex}\textbf{(c) :} \eqref{S15P2_k} become
-\begin{equation*}
-    k = \frac{\sqrt{2m\alpha-M^2}}{i\sqrt{2m|E|}}.
-\end{equation*}
-By using the substitution
-\begin{equation*}
-    iku = \cosh{\theta}
-\end{equation*}
-with the differential form
-\begin{equation*}
-    ikdu = \sinh{\theta}d\theta,
-\end{equation*}
-the integral \eqref{S15P2_phi} become
-\begin{align*}
-    \phi &= -\frac{1}{i\sqrt{2m|E|}} \int \frac{\sinh{\theta}d\theta}{ik\sqrt{1 - \cosh^2{\theta}}} \\
-    &= \frac{1}{\sqrt{2m\alpha-M^2}} \theta \\
-    &= \frac{1}{\sqrt{2m\alpha-M^2}} \cosh^{-1}{\frac{ik}{r}}.
-\end{align*}
-The equation of the path for the case (c) is thus
-\begin{align*}
-    \frac{1}{r} &= \frac{1}{ik}\cosh{\left(\phi\sqrt{2m\alpha-M^2}\right)} \\
-    &= \sqrt{\frac{2m|E|}{2m\alpha-M^2}}\cosh{\left(\phi\sqrt{\frac{2m\alpha}{M^2}-1}\right)}.
-\end{align*}
+\vspace{2ex}\textbf{No motion.} Since $\Dot{r}^2 = 2E/m + C/(m^2r^2)$ cannot be negative, there is no motion for $C<0$ and $E\leq0$, nor for $C=0$ and $E<0$.
 
-\vspace{4ex}\textbf{(a) :} \eqref{S15P2_k} become
-\begin{equation*}
-    k = \frac{i\sqrt{2m\alpha-M^2}}{\sqrt{2mE}}.
-\end{equation*}
-By using the substitution
-\begin{equation*}
-    ku = i\cosh{\theta}
-\end{equation*}
-with the differential form
-\begin{equation*}
-    kdu = i\sinh{\theta}d\theta,
-\end{equation*}
-the integral \eqref{S15P2_phi} become
-\begin{align*}
-    \phi &= -\frac{1}{\sqrt{2mE}} \int \frac{i\sinh{\theta}d\theta}{k\sqrt{1 - \cosh^2{\theta}}} \\
-    &= - \frac{i}{\sqrt{2m\alpha-M^2}}  \theta \\
-    &= - \frac{i}{\sqrt{2m\alpha-M^2}} \cosh^{-1}{\frac{k}{ir}}.
-\end{align*}
-The equation of the path for the case (a) is thus
-\begin{align*}
-    \frac{1}{r} &= \frac{i}{k}\cosh{\left(\frac{\phi}{i}\sqrt{2m\alpha-M^2}\right)} \\
-    &= \sqrt{\frac{2mE}{M^2-2m\alpha}}\cos{\left(\phi\sqrt{1-\frac{2m\alpha}{M^2}}\right)}.
-\end{align*}
-To summarize the equations of motion for a particle in a central inverse-cube law force is
+It is also interesting to know that these paths are Cotes's spirals\footnote{Whittaker ET (1937). A Treatise on the Analytical Dynamics of Particles and Rigid Bodies, with an Introduction to the Problem of Three Bodies (4th ed.). New York: Dover Publications. pp. 80–83. ISBN 978-0-521-35883-5.}. To summarize, the equations of motion for a particle in a central inverse-cube law force are
 }
 {
-\begin{flalign*}
-    &\textbf{(a)} \text{ for } E>0 \text{ and } \frac{M^2}{2m}>\alpha, & &\frac{1}{r} =\sqrt{\frac{2mE}{M^2-2m\alpha}}\cos{\left(\phi\sqrt{1-\frac{2m\alpha}{M^2}}\right)} &&\\
-    &\textbf{(b)} \text{ for } E>0 \text{ and } \frac{M^2}{2m}<\alpha, & &\frac{1}{r} = \sqrt{\frac{2mE}{2m\alpha-M^2}}\sinh{\left(\phi\sqrt{\frac{2m\alpha}{M^2}-1}\right)} &&\\
-    &\textbf{(c)} \text{ for } E<0 \text{ and } \frac{M^2}{2m}<\alpha, & &\frac{1}{r} = \sqrt{\frac{2m|E|}{2m\alpha-M^2}}\cosh{\left(\phi\sqrt{\frac{2m\alpha}{M^2}-1}\right)}
-\end{flalign*}
-In all three cases
-\begin{equation*}
-    t = \frac{1}{E} \sqrt{\frac{m}{2}\left( Er^2 + \alpha - \frac{M^2}{2m} \right)}
-\end{equation*}
+With $C = 2m\alpha - M^2$, $u = 1/r$ and $M>0$ (change $\phi$ into $-\phi$ for $M<0$), the paths are, where $u>0$,
+\begin{align*}
+    C<0,\ E>0: &\quad u = \sqrt{\frac{2mE}{-C}}\cos{\left(\frac{\sqrt{-C}}{M}(\phi-\phi_0)\right)} \\
+    C>0,\ E>0: &\quad u = \sqrt{\frac{2mE}{C}}\sinh{\left(\frac{\sqrt{C}}{M}(\phi-\phi_0)\right)} \quad \text{(or its reflection } \phi-\phi_0 \rightarrow \phi_0-\phi\text{)} \\
+    C>0,\ E<0: &\quad u = \sqrt{\frac{2m|E|}{C}}\cosh{\left(\frac{\sqrt{C}}{M}(\phi-\phi_0)\right)} \\
+    C>0,\ E=0: &\quad u = A\exp{\left[\pm\frac{\sqrt{C}}{M}(\phi-\phi_0)\right]}, \qquad A>0 \\
+    C=0,\ E>0: &\quad u = \pm\frac{\sqrt{2mE}}{M}(\phi-\phi_0) \\
+    C=0,\ E=0: &\quad u = A>0 \quad \text{(circular motion of arbitrary radius)}
+\end{align*}
+On each segment of the motion (until $r$ reaches the centre),
+\begin{align*}
+    r^2(t) &= r_0^2 + 2r_0\Dot{r}_0(t-t_{\text{ref}}) + \frac{2E}{m}(t-t_{\text{ref}})^2, &
+    \Dot{r}_0^2 &= \frac{2E}{m} + \frac{C}{m^2r_0^2},
+\end{align*}
+and, for $E\neq0$, $t - t_c = -\frac{M}{2E}\frac{u'}{u}$. For $M=0$, the motion is radial, with constant $\phi$ and the same $r^2(t)$. There is no motion for $C<0$, $E\leq0$, nor for $C=0$, $E<0$.
 }
 \end{problem}
 
@@ -719,35 +714,37 @@ From formula (14.10) of the book, we have
 \end{align*}
 Expanding the integrand in powers of $\delta U$ involves using a Taylor series expansion. Let's denote the integrand as $F$:
 \begin{equation*}
-    F = \sqrt{2m\left(E+\frac{\alpha}{r}+\delta U\right)-\frac{M^2}{r^2}}
+    F = \sqrt{2m\left(E+\frac{\alpha}{r}-\delta U\right)-\frac{M^2}{r^2}} = \sqrt{F_0^2 - 2m\,\delta U},
 \end{equation*}
-We want to expand $F$ around $\delta U = 0$. The expansion will look like:
+where
+\begin{equation*}
+    F_0 = \sqrt{2m\left(E+\frac{\alpha}{r}\right)-\frac{M^2}{r^2}}
+\end{equation*}
+is the value of $F$ for the unperturbed motion. We want to expand $F$ around $\delta U = 0$. The expansion will look like:
 \begin{equation*}
     F = F_0 + F_1 \delta U + F_2 (\delta U)^2 + \ldots
 \end{equation*}
-Here, $F_0$ is the value of $F$ at $\delta U = 0$, $F_1$ is the first derivative with respect to $\delta U$ at $\delta U = 0$, and so on. Let's find the derivatives:
+Here, the Taylor coefficients are $F_k = \frac{1}{k!}\frac{\partial^k F}{\partial (\delta U)^k}\big|_{\delta U=0}$: $F_0$ is the value of $F$ at $\delta U = 0$, $F_1$ is the first derivative with respect to $\delta U$ at $\delta U = 0$, $F_2$ is half the second derivative, and so on. Let's find the derivatives:
 \begin{align*}
-    F_0 &= \sqrt{2m\left(E+\frac{\alpha}{r}\right)-\frac{M^2}{r^2}}\\
-    F_1 &= \frac{\partial F}{\partial (\delta U)}\Big|_{\delta U=0} = \frac{m}{\sqrt{2m\left(E+\frac{\alpha}{r}\right)-\frac{M^2}{r^2}}} \\
-    F_2 &= \frac{\partial^2 F}{\partial (\delta U)^2}\Big|_{\delta U=0} = -\frac{m^2 \delta U}{\left(2m\left(E+\frac{\alpha}{r}\right)-\frac{M^2}{r^2}\right)^{3/2}}.
+    \frac{\partial F}{\partial (\delta U)} &= -\frac{m}{\sqrt{F_0^2 - 2m\,\delta U}}, &
+    \frac{\partial F}{\partial (\delta U)}\Big|_{\delta U=0} &= -\frac{m}{F_0}, \\
+    \frac{\partial^2 F}{\partial (\delta U)^2} &= -\frac{m^2}{\left(F_0^2 - 2m\,\delta U\right)^{3/2}}, &
+    \frac{\partial^2 F}{\partial (\delta U)^2}\Big|_{\delta U=0} &= -\frac{m^2}{F_0^3},
 \end{align*}
-Therefore, the expanded expression in powers of $\delta U$ is:
+so that $F_1 = -m/F_0$ and $F_2 = -m^2/(2F_0^3)$. Therefore, the expanded expression in powers of $\delta U$ is:
 \begin{equation*}
-    F = F_0 + \frac{m}{\sqrt{2m\left(E+\frac{\alpha}{r}\right)-\frac{M^2}{r^2}}} \delta U - \frac{m^2}{2\left(2m\left(E+\frac{\alpha}{r}\right)-\frac{M^2}{r^2}\right)^{3/2}} \delta U^2 + \ldots
+    F = F_0 - \frac{m\,\delta U}{F_0} - \frac{m^2(\delta U)^2}{2F_0^3} + \ldots
 \end{equation*}
 After plugging the expended expression of $F$ in the integral, we see that the zero-order term gives $2\pi$. The first-order term gives the required change $\delta \phi$ :
 \begin{equation} \label{S15P3_phi}
-    \delta \phi = \pd{}{M}\int_{r_{\text{min}}}^{r_{\text{max}}} \frac{2m\delta U}{\sqrt{2m\left(E+\frac{\alpha}{r}\right)-\frac{M^2}{r^2}}}.
+    \delta \phi = \pd{}{M}\int_{r_{\text{min}}}^{r_{\text{max}}} \frac{2m\,\delta U}{F_0}\,dr.
 \end{equation}
-We can change the integration over $r$ to one over $\phi$, along the path of the unperturbed motion, using the substitution
+We can change the integration over $r$ to one over $\phi$, along the path of the unperturbed motion. On its outward branch, from the perihelion ($r = r_{\text{min}}$, $\phi = 0$) to the aphelion ($r = r_{\text{max}}$, $\phi = \pi$), formula (14.7) of the book gives
 \begin{equation*}
-    \phi = \cos^{-1}{\frac{(M/r)-(m\alpha/M)}{\sqrt{2mE+\frac{m^2\alpha^2}{M^2}}}}
+    d\phi = \frac{M\,dr}{r^2F_0},
+    \qquad \text{\ie} \qquad
+    \frac{dr}{F_0} = \frac{r^2}{M}\,d\phi .
 \end{equation*}
-with the differential form
-\begin{align*}
-    \frac{r^2}{M}d\phi &= \frac{-1}{\sqrt{1-\left(\frac{(M/r)-(m\alpha/M)}{\sqrt{2mE+\frac{m^2\alpha^2}{M^2}}}\right)^2}}\frac{1}{\sqrt{2mE+\frac{m^2\alpha^2}{M^2}}} \\
-    &= \sqrt{2m\left(E+\frac{\alpha}{r}\right)-\frac{M^2}{r^2}}.
-\end{align*}
 Hence, the integral \eqref{S15P3_phi} become
 \begin{align}
     \delta \phi &= \pd{}{M}\left( \frac{2m}{M} \int_0^\pi r^2\delta Ud\phi \right) \label{S15P3_dphi} \\

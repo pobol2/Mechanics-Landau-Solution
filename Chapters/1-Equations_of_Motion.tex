@@ -54,6 +54,27 @@ where the angle difference identity as been used. Finally, the Lagrangian of the
     &+ (m_1+m_2)gl_1\cos{\phi_1} + m_2gl_2\cos{\phi_2}
 \end{align*}
 }
+[
+We compare the Lagrangian prediction with an independent simulation of two masses connected by rigid rods under gravity: point masses moving by Newton's laws, with the rod tensions as constraint forces and no angles in the model. Two cases were run for 5~s with $g = 9.81$~m/s$^2$, both starting with $\dot\phi_1 = 0$:
+\begin{itemize}
+    \item \emph{tumbling}: $m_1 = m_2 = 1$~kg, $l_1 = l_2 = 1$~m, $\phi_1 = 2$~rad, $\phi_2 = 2.5$~rad, $\dot\phi_2 = 4$~rad/s;
+    \item \emph{unequal}: $m_1 = 2$~kg, $m_2 = 0.5$~kg, $l_1 = 1.2$~m, $l_2 = 0.7$~m, $\phi_1 = 0.9$~rad, $\phi_2 = -0.6$~rad, $\dot\phi_2 = 1$~rad/s.
+\end{itemize}
+Each case was run at \emph{standard} integration tolerances ($10^{-9}$ for the particles, $10^{-11}$ for the Lagrangian) and \emph{tight} tolerances, 100 times smaller. \figref{fig:S5P1-coordinates} overlays both pendulum angles of the two models for the tumbling case, a violent motion in which the lower rod goes over the top twice: they are indistinguishable.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P1-coordinates.pdf}
+    \caption{Pendulum angles of the double pendulum versus time in the tumbling case, from the Lagrangian (curves) and from the particle simulation (dots).}
+    \label{fig:S5P1-coordinates}
+\end{figure}
+\figref{fig:S5P1-difference} gives the maximum Cartesian position difference between the models, that is the largest distance between the same mass in the two simulations. With tight tolerances the position difference stays below $3 \times 10^{-8}$~m, and it drops by a factor of 70 or more from standard to tight, so what remains is numerical error. We also check velocity agreement (difference below $2 \times 10^{-7}$~m/s with tight tolerances), energy conservation (relative drift below $4 \times 10^{-11}$ in both models) and constant rod lengths (error below $2 \times 10^{-15}$~m). The Lagrangian thus gives the same motion as Newton's laws for particles on rods, in the cases tried; this is numerical evidence, not a proof.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P1-difference.pdf}
+    \caption{Maximum Cartesian position difference between the Lagrangian and particle models of the double pendulum versus time, at standard (dashed) and tight (solid) tolerances, for the tumbling (red) and unequal (black) cases.}
+    \label{fig:S5P1-difference}
+\end{figure}
+]
 \end{problem}
 
 % ============ Problem 2 ============ %
@@ -93,6 +114,27 @@ Finally, the Lagrangian of the complete system is the sum of the two Lagrangian 
     L = \frac{1}{2} (m_1 + m_2) \Dot{x}^2 +  \frac{1}{2} m_2 (l^2 \Dot{\phi}^2 + 2 l \Dot{x} \Dot{\phi} \cos{\phi} ) + m_2 g l \cos{\phi}
 \end{equation*}
 }
+[
+We compare the Lagrangian prediction with an independent simulation of a pendulum attached to a horizontally sliding mass: two point masses moving by Newton's laws, $m_1$ held on the horizontal line by frictionless guides and joined to $m_2$ by a rigid rod, with the guide reaction and the rod tension as constraint forces and no angle in the model. Two cases were run for 5~s with $g = 9.81$~m/s$^2$:
+\begin{itemize}
+    \item \emph{looping}: $m_1 = m_2 = 1$~kg, $l = 1$~m, $x = 0$, $\phi = 0.5$~rad, $\dot x = -3.5$~m/s, $\dot\phi = 8$~rad/s;
+    \item \emph{swinging}: $m_1 = 3$~kg, $m_2 = 0.8$~kg, $l = 1.5$~m, $x = 0.2$~m, $\phi = 1.2$~rad, $\dot x = -0.3$~m/s, $\dot\phi = 0$.
+\end{itemize}
+Each case was run at \emph{standard} integration tolerances ($10^{-9}$ for the particles, $10^{-11}$ for the Lagrangian) and \emph{tight} tolerances, 100 times smaller. \figref{fig:S5P2-coordinates} overlays the support position and the pendulum angle of the two models for the looping case, in which $m_2$ goes over the top more than three times while the support moves back and forth: they are indistinguishable.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P2-coordinates.pdf}
+    \caption{(a) Support position and (b) pendulum angle versus time in the looping case, from the Lagrangian (curves) and from the particle simulation (dots).}
+    \label{fig:S5P2-coordinates}
+\end{figure}
+\figref{fig:S5P2-difference} gives the maximum Cartesian position difference between the models, that is the largest distance between the same mass in the two simulations. With tight tolerances the position difference stays below $10^{-9}$~m, and it drops by a factor of 20 or more from standard to tight, so what remains is numerical error. We also check velocity agreement (difference below $10^{-8}$~m/s with tight tolerances), conservation of energy (relative drift below $6 \times 10^{-11}$ in both models) and of horizontal momentum (relative drift below $10^{-11}$, the generalized momentum $\partial L / \partial \dot x$ of the cyclic coordinate $x$), and satisfaction of the rod and guide constraints (error below $2 \times 10^{-15}$~m). The Lagrangian thus gives the same motion as Newton's laws for these particles, in the cases tried; this is numerical evidence, not a proof.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P2-difference.pdf}
+    \caption{Maximum Cartesian position difference between the Lagrangian and particle models of the pendulum with a sliding support versus time, at standard (dashed) and tight (solid) tolerances, for the looping (red) and swinging (black) cases.}
+    \label{fig:S5P2-difference}
+\end{figure}
+]
 \end{problem}
 
 % ============ Problem 3 ============ %
@@ -133,7 +175,7 @@ The term $mga \sin{\gamma t}$ only depend on time and can therefore be ignored (
 \end{align*}
 using again the angle difference identity (I will stop mentioning it). We can observe that the term $\frac{1}{2}ma^2\gamma^2$ is a constant, thus can be ignored. The last term of the kinetic energy can also be simplified. Indeed, 
 \begin{align*}
-      m a\gamma l \Dot{\phi}\sin{(\phi - \gamma t)} &= m a l \gamma (\dot{\phi} - \gamma) \sin(\phi - \gamma t) + m a l \gamma^2 \sin(\gamma t - \phi) \\
+      m a\gamma l \Dot{\phi}\sin{(\phi - \gamma t)} &= m a l \gamma (\dot{\phi} - \gamma) \sin(\phi - \gamma t) + m a l \gamma^2 \sin(\phi - \gamma t) \\
      &= \frac{d}{dt} \left(-m a l  \gamma \cos(\phi - \gamma t) \right) + m a l  \gamma^2 \sin(\phi - \gamma t) .
 \end{align*}
 After dropping the total time derivative, we can finally get the Lagrangian
@@ -143,6 +185,27 @@ After dropping the total time derivative, we can finally get the Lagrangian
     L = \frac{1}{2} m l^2\Dot{\phi}^2 + m a l  \gamma^2 \sin(\phi - \gamma t)  + mgl\cos{\phi}
 \end{equation*}
 }
+[
+We compare the Lagrangian prediction with an independent simulation of a point mass on a rigid rod whose end is driven around the circle: the particle moves by Newton's laws, with the rod tension as constraint force and no angle in the model. Since the dropped terms do not change the motion, the two must agree. Two cases were run for 5~s with $g = 9.81$~m/s$^2$:
+\begin{itemize}
+    \item \emph{tumbling}: $m = 0.5$~kg, $l = 0.8$~m, $a = 0.4$~m, $\gamma = 7$~rad/s, $\phi = -0.3$~rad, $\dot\phi = 1$~rad/s;
+    \item \emph{swinging}: $m = 1$~kg, $l = 1$~m, $a = 0.3$~m, $\gamma = 2$~rad/s, $\phi = 0.5$~rad, $\dot\phi = 0$.
+\end{itemize}
+Each case was run at \emph{standard} integration tolerances ($10^{-9}$ for the particle, $10^{-11}$ for the Lagrangian) and \emph{tight} tolerances, 100 times smaller. \figref{fig:S5P3a-coordinates} overlays the pendulum angle of the two models for the tumbling case, in which the fast support drives the pendulum over the top four times: they are indistinguishable.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P3a-coordinates.pdf}
+    \caption{Pendulum angle versus time in the tumbling case, from the Lagrangian (curve) and from the particle simulation (dots).}
+    \label{fig:S5P3a-coordinates}
+\end{figure}
+\figref{fig:S5P3a-difference} gives the Cartesian position difference between the models, that is the distance between the mass in the two simulations. With tight tolerances it stays below $4 \times 10^{-9}$~m, and in the tumbling case it drops by a factor of 60 from standard to tight, so what remains is numerical error. We also check velocity agreement (difference below $4 \times 10^{-8}$~m/s with tight tolerances) and constant rod length (error below $2 \times 10^{-15}$~m). The energy is not conserved, since the moving support does work on the pendulum, but the particle simulation balances the energy change with this work to a relative error below $2 \times 10^{-9}$. The Lagrangian thus gives the same motion as Newton's laws for a pendulum with a moving support, in the cases tried; this is numerical evidence, not a proof.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P3a-difference.pdf}
+    \caption{Cartesian position difference between the Lagrangian and particle models of the pendulum with a support on a circle versus time, at standard (dashed) and tight (solid) tolerances, for the tumbling (red) and swinging (black) cases.}
+    \label{fig:S5P3a-difference}
+\end{figure}
+]
 \end{subproblem}
 
 \begin{subproblem}
@@ -182,6 +245,27 @@ After dropping the total time derivative, we can finally get the Lagrangian
     L = \frac{1}{2} m l^2\Dot{\phi}^2 + m l a \gamma^2 \cos{\gamma t}\sin{\phi}  + mgl\cos{\phi}
 \end{equation*}
 }
+[
+We compare the Lagrangian prediction with an independent simulation of a point mass on a rigid rod whose end is driven back and forth along the horizontal line: the particle moves by Newton's laws, with the rod tension as constraint force and no angle in the model. Two cases were run for 5~s with $g = 9.81$~m/s$^2$:
+\begin{itemize}
+    \item \emph{resonant}: $m = 1$~kg, $l = 1$~m, $a = 0.1$~m, $\gamma = 3$~rad/s, close to $\sqrt{g/l} = 3.13$~rad/s, $\phi = 0$, $\dot\phi = 0$;
+    \item \emph{fast}: $m = 0.5$~kg, $l = 0.6$~m, $a = 0.05$~m, $\gamma = 15$~rad/s, $\phi = 0.8$~rad, $\dot\phi = 0$.
+\end{itemize}
+Each case was run at \emph{standard} integration tolerances ($10^{-9}$ for the particle, $10^{-11}$ for the Lagrangian) and \emph{tight} tolerances, 100 times smaller. \figref{fig:S5P3b-coordinates} overlays the pendulum angle of the two models for the resonant case, in which the drive builds up a swing from rest: they are indistinguishable.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P3b-coordinates.pdf}
+    \caption{Pendulum angle versus time in the resonant case, from the Lagrangian (curve) and from the particle simulation (dots).}
+    \label{fig:S5P3b-coordinates}
+\end{figure}
+\figref{fig:S5P3b-difference} gives the Cartesian position difference between the models, that is the distance between the mass in the two simulations. With tight tolerances it stays below $4 \times 10^{-11}$~m, and in the fast case it drops by a factor of 100 from standard to tight, so what remains is numerical error. We also check velocity agreement (difference below $10^{-10}$~m/s with tight tolerances) and constant rod length (error below $10^{-15}$~m). The energy is not conserved, since the moving support does work on the pendulum, but the particle simulation balances the energy change with this work to a relative error below $2 \times 10^{-11}$. The Lagrangian thus gives the same motion as Newton's laws for a pendulum with a moving support, in the cases tried; this is numerical evidence, not a proof.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P3b-difference.pdf}
+    \caption{Cartesian position difference between the Lagrangian and particle models of the pendulum with a horizontally oscillating support versus time, at standard (dashed) and tight (solid) tolerances, for the resonant (red) and fast (black) cases.}
+    \label{fig:S5P3b-difference}
+\end{figure}
+]
 \end{subproblem}
 
 \begin{subproblem}
@@ -212,7 +296,7 @@ We first see that the term $\frac{1}{2} m a^2\gamma^2\sin^2{\gamma t}$ only depe
 \begin{align*}
        m a\gamma l \Dot{\phi}\sin{\gamma t}\sin{\phi} &= 
       m l a \gamma (-\gamma \cos{\gamma t} \cos{\phi} + \Dot{\phi} \sin{\gamma t}\sin{\phi}) + m l a \gamma^2 \cos{\gamma t}\cos{\phi} \\
-      &= \frac{d}{dt} \left( mla\gamma\cos{\gamma t}\sin{\phi} \right) + m l a \gamma^2 \cos{\gamma t}\cos{\phi}.
+      &= \frac{d}{dt} \left( -mla\gamma\sin{\gamma t}\cos{\phi} \right) + m l a \gamma^2 \cos{\gamma t}\cos{\phi}.
 \end{align*}
 After dropping the total time derivative, we can finally get the Lagrangian
 }
@@ -221,6 +305,27 @@ After dropping the total time derivative, we can finally get the Lagrangian
     L = \frac{1}{2} m l^2\Dot{\phi}^2 + m l a \gamma^2 \cos{\gamma t}\cos{\phi}  + mgl\cos{\phi}
 \end{equation*}
 }
+[
+We compare the Lagrangian prediction with an independent simulation of a point mass on a rigid rod whose end is driven up and down: the particle moves by Newton's laws, with the rod tension as constraint force and no angle in the model. Two cases were run for 5~s with $g = 9.81$~m/s$^2$ and $m = 1$~kg:
+\begin{itemize}
+    \item \emph{Kapitza}: $l = 0.3$~m, $a = 0.05$~m, $\gamma = 60$~rad/s, $\phi = 2.8$~rad, $\dot\phi = 0$, a drive fast enough ($a^2\gamma^2 > 2gl$) to hold the pendulum upside down;
+    \item \emph{parametric}: $l = 1$~m, $a = 0.1$~m, $\gamma = 6.26$~rad/s, close to $2\sqrt{g/l}$, $\phi = 0.2$~rad, $\dot\phi = 0$, a parametric resonance in which the swing grows.
+\end{itemize}
+Each case was run at \emph{standard} integration tolerances ($10^{-9}$ for the particle, $10^{-11}$ for the Lagrangian) and \emph{tight} tolerances, 100 times smaller. \figref{fig:S5P3c-coordinates} overlays the pendulum angle of the two models for the Kapitza case, in which the pendulum swings slowly about the upward vertical $\phi = \pi$ while jittering at the drive frequency: they are indistinguishable.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P3c-coordinates.pdf}
+    \caption{Pendulum angle versus time in the Kapitza case, from the Lagrangian (curve) and from the particle simulation (dots).}
+    \label{fig:S5P3c-coordinates}
+\end{figure}
+\figref{fig:S5P3c-difference} gives the Cartesian position difference between the models, that is the distance between the mass in the two simulations. With tight tolerances it stays below $2 \times 10^{-11}$~m, and it drops by a factor of 50 or more from standard to tight, so what remains is numerical error. We also check velocity agreement (difference below $2 \times 10^{-10}$~m/s with tight tolerances) and constant rod length (error below $10^{-15}$~m). The energy is not conserved, since the moving support does work on the pendulum, but the particle simulation balances the energy change with this work to a relative error below $3 \times 10^{-9}$. The Lagrangian thus gives the same motion as Newton's laws for a pendulum with a moving support, in the cases tried; this is numerical evidence, not a proof.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P3c-difference.pdf}
+    \caption{Cartesian position difference between the Lagrangian and particle models of the pendulum with a vertically oscillating support versus time, at standard (dashed) and tight (solid) tolerances, for the Kapitza (red) and parametric (black) cases.}
+    \label{fig:S5P3c-difference}
+\end{figure}
+]
 \end{subproblem}
 
 % ============ Problem 4 ============ %
@@ -255,25 +360,46 @@ The particle $m_2$, in its case, can only move up and down, thus its position ca
 \begin{equation*}
     z_2 = 2 a \cos{\theta}.
 \end{equation*}
-Then, the kinetic energy of each particle $m_2$ is
+Then, since $\Dot{z}_2 = -2a\Dot{\theta}\sin{\theta}$, the kinetic energy of the single particle $m_2$ is
 \begin{align*}
     T_2 &= \frac{1}{2} m_2 \Dot{z}_2^2 \\
-    &= m_2 a^2 \Dot{\theta}^2 \sin^2{\theta} \numberthis \label{S5P4_T2}
+    &= 2 m_2 a^2 \Dot{\theta}^2 \sin^2{\theta} \numberthis \label{S5P4_T2}
 \end{align*}
-and the potential energy is
+and its potential energy is
 \begin{align*}
     V_2 &= - m_2 g z_2 \\
     &= - 2 m_2 g a \cos{\theta}. \numberthis \label{S5P4_V2}
 \end{align*}
-Using \eqref{S5P4_T1}, \eqref{S5P4_V1}, \eqref{S5P4_T2} and \eqref{S5P4_V2}, the Lagrangian of the system is
+Using \eqref{S5P4_T1}, \eqref{S5P4_V1}, \eqref{S5P4_T2} and \eqref{S5P4_V2}, and remembering that there are two particles $m_1$ but only one particle $m_2$, the Lagrangian of the system is
 \begin{equation*}
-    L = 2(T_1 + T_2 - V_1 - V_2),
+    L = 2T_1 + T_2 - 2V_1 - V_2,
 \end{equation*}
 therefore
 }
 {
 \begin{equation*}
-    L = m_1 a^2 ( \Dot{\theta}^2 + \Omega^2\sin^2{\theta} ) + 2m_2 a^2 \Dot{\theta}^2 \sin^2{\theta} + 2(m_1+2m_2)ga\cos{\theta}
+    L = m_1 a^2 ( \Dot{\theta}^2 + \Omega^2\sin^2{\theta} ) + 2m_2 a^2 \Dot{\theta}^2 \sin^2{\theta} + 2(m_1+m_2)ga\cos{\theta}
 \end{equation*}
 }
+[
+We compare the Lagrangian prediction with an independent simulation of three point masses moving by Newton's laws: each $m_1$ hangs on a rigid rod from the fixed pivot and is joined to $m_2$ by another rod, $m_2$ is held on the axis by frictionless guides, and the two $m_1$ are held in a vertical plane through the axis that turns at the constant rate $\Omega$, which imposes the rotation. The rod tensions and the guide and plane reactions are constraint forces, with no angle in the model. Two cases were run for 5~s with $g = 9.81$~m/s$^2$:
+\begin{itemize}
+    \item \emph{oscillating}: $m_1 = m_2 = 1$~kg, $a = 0.5$~m, $\Omega = 8$~rad/s, $\theta = 0.5$~rad, $\dot\theta = 0$;
+    \item \emph{fast}: $m_1 = 0.5$~kg, $m_2 = 1$~kg, $a = 0.3$~m, $\Omega = 15$~rad/s, $\theta = 0.7$~rad, $\dot\theta = 1$~rad/s.
+\end{itemize}
+In both cases the system oscillates about the angle $\cos{\theta} = (m_1 + m_2) g / (m_1 a \Omega^2)$ at which the rotation balances gravity. Each case was run at \emph{standard} integration tolerances ($10^{-9}$ for the particles, $10^{-11}$ for the Lagrangian) and \emph{tight} tolerances, 100 times smaller. \figref{fig:S5P4-coordinates} overlays the angle $\theta$ of the two models for the oscillating case: they are indistinguishable.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P4-coordinates.pdf}
+    \caption{Angle of the rods versus time in the oscillating case, from the Lagrangian (curve) and from the particle simulation (dots).}
+    \label{fig:S5P4-coordinates}
+\end{figure}
+\figref{fig:S5P4-difference} gives the maximum Cartesian position difference between the models, that is the largest distance between the same mass in the two simulations. With tight tolerances the position difference stays below $10^{-11}$~m, and it drops by a factor of 60 or more from standard to tight, so what remains is numerical error. We also check velocity agreement (difference below $4 \times 10^{-11}$~m/s with tight tolerances) and satisfaction of the rod, guide and plane constraints (error below $10^{-15}$~m). The energy is not conserved, since the turning plane does work on the masses, but $L$ does not depend on time, so the energy function $\Dot{\theta} \, \partial L / \partial \Dot{\theta} - L$ is; it equals $E - \Omega M_z$, with $M_z$ the angular momentum about the axis, and its relative drift stays below $2 \times 10^{-12}$ in both models. The Lagrangian thus gives the same motion as Newton's laws for these particles, in the cases tried; this is numerical evidence, not a proof.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S5P4-difference.pdf}
+    \caption{Maximum Cartesian position difference between the Lagrangian and particle models of the rotating system versus time, at standard (dashed) and tight (solid) tolerances, for the oscillating (red) and fast (black) cases.}
+    \label{fig:S5P4-difference}
+\end{figure}
+]
 \end{problem}

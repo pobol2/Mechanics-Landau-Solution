@@ -2,3 +2,6 @@
 	path = template
 	url = https://github.com/pobol2/Solution-Manual-Template.git
 	branch = master
+[submodule "physics-engine"]
+	path = physics-engine
+	url = https://github.com/pobol2/Physics-Engine.git
