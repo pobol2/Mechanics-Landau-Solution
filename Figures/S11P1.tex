@@ -1,0 +1,33 @@
+% §11 Problem 1: simple pendulum, swinging between the amplitudes -phi_0 and phi_0
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    % Parameters
+    \def\l{3}           % length l
+    \def\phiA{28}       % angle phi
+    \def\phiM{60}       % amplitude phi_0
+
+    \coordinate (O) at (0,0);
+    \coordinate (m) at ($(O) + (-90+\phiA:\l)$);
+    \coordinate (m0) at ($(O) + (-90+\phiM:\l)$);
+    \coordinate (v) at (0,-1);
+
+    % Vertical, swing between -phi_0 and phi_0, and turning point
+    \draw[guide] (O) -- (0,-\l-0.4);
+    \draw[guide] (-90-\phiM:\l) arc[start angle=-90-\phiM, end angle=-90+\phiM, radius=\l];
+    \draw[guide] (O) -- (m0);
+    \pic at (-2.2,-0.2) {gravity};
+
+    % Angles
+    \pic[angle arc, angle radius=1cm, angle eccentricity=1.4, "$\phi$"] {angle = v--O--m};
+    % label of phi_0 between the pendulum and the turning point, clear of the rod
+    \pic[angle arc, angle radius=2cm] {angle = v--O--m0};
+    \node at ({-90+(\phiA+\phiM)/2}:2.35) {$\phi_0$};
+
+    % Pendulum
+    \draw[rod] (O) -- node[pos=0.5, right] {$l$} (m);
+    \node[pivot] at (O) {};
+    \node[mass, label=below:$m$] at (m) {};
+\end{tikzpicture}
+\end{document}

@@ -1,5 +1,7 @@
 # Landau and Lifshitz Mechanics: Solution Manual
 
+[![Build and test](https://github.com/pobol2/Mechanics-Landau-Solution/actions/workflows/build.yml/badge.svg)](https://github.com/pobol2/Mechanics-Landau-Solution/actions/workflows/build.yml)
+
 Worked solutions to the problems of *Mechanics* by L. D. Landau and
 E. M. Lifshitz (Course of Theoretical Physics, Volume 1, third edition),
 written in LaTeX by **Pierre-Olivier Bolduc**. The solutions follow the book
@@ -16,6 +18,16 @@ welcome: feel free to open an issue or a pull request.
   all the solutions in one PDF
 - **[Progress](#progress)**: which problems are solved so far
 - **[Numerical studies](#numerical-studies)**: independent checks and how to run them
+
+<p align="center">
+  From problem to checked solution, with
+  <a href="https://pobol2.github.io/Mechanics-Landau-Solution/problems/s11-p1.html">§11 Problem 1</a>:
+  the period of a simple pendulum
+</p>
+
+<p align="center">
+  <a href="https://pobol2.github.io/Mechanics-Landau-Solution/problems/s11-p1.html"><img src="images/S11P1-flow.png" width="100%" alt="Three steps. 1. Physical system: a pendulum of length l swinging with amplitude phi0 under gravity g. 2. Derived solution: the answer box, T = 2π sqrt(l/g) (1 + phi0²/16 + 11 phi0⁴/3072 + ...). 3. Numerical check: the periods measured with the physics engine lie on the exact curve of T/T0 against phi0, and match the exact result to 10⁻¹⁰."></a>
+</p>
 
 ## Quick start
 
@@ -123,7 +135,10 @@ site/                 Website: builder, style and problem titles
 Simulations/          Numerical checks of solutions (see Numerical studies);
                       run separately, the manual includes their saved figures
 physics-engine/       Submodule: the particle-mechanics library they use
-.github/workflows/    Manual build and website deployment (see Website)
+images/               Images of this README, rendered from the build by
+                      readme_figures.py
+.github/workflows/    Build and test (manual, numerical studies, engine
+                      tests), and website deployment (see Website)
 ```
 
 The physics-specific figure styles and the Lua field tools are deliberately
@@ -426,16 +441,18 @@ as follows:
 - **Manual content:** the original explanations, worked solutions and diagrams
   are licensed under [Creative Commons Attribution 4.0 International
   (CC BY 4.0)](LICENSE). This covers the original content in `Chapters/*.tex`,
-  the diagram sources in `Figures/*.tex`, the corresponding content in the
-  compiled PDFs, the problem titles in `site/problems.toml` and this README.
+  the diagram sources in `Figures/*.tex` and `images/*.tex`, the corresponding
+  content in the compiled PDFs and in the README images, the problem titles in
+  `site/problems.toml` and this README.
   You may share and adapt this material,
   including commercially, with appropriate credit, a license link and an
   indication of any modifications.
 - **Code:** `main.tex` (document setup), `mypackages.sty`, `mycommands.sty`,
   `myfigures.sty`, `SolutionFigure.lua`, `latexmkrc`, the
   VS Code configuration, the website builder in `site/` (except
-  `problems.toml`, which is content) and the GitHub workflow are licensed
-  under the [MIT License](LICENSE-CODE).
+  `problems.toml`, which is content), the README image builder
+  `images/readme_figures.py` and the GitHub workflows are licensed under the
+  [MIT License](LICENSE-CODE).
   Reusing this code does not require your own written content to use CC BY.
 - **Shared framework:** the `template/` submodule is licensed separately by
   the [Solution Manual Template](https://github.com/pobol2/Solution-Manual-Template).

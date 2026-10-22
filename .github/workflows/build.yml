@@ -1,0 +1,132 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
+#
+# On every push and pull request (all branches):
+#   manual   builds the manual and its figures with the project's latexmkrc,
+#            uploads main.pdf and checks that the committed README progress is
+#            up to date;
+#   studies  builds the numerical studies against the pinned physics-engine
+#            and runs each one, which fails when its required agreement or
+#            convergence is missing (see Numerical studies in README.md);
+#   engine   runs the pinned engine's own tests (the same checks as README.md).
+# The Website workflow builds the manual again for the site.
+
+name: Build and test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  manual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      # Only the template submodule is needed: the manual reads the saved
+      # simulation data in Figures/Data/, not physics-engine
+      - name: Check out the template submodule
+        id: template
+        run: |
+          git submodule update --init --depth 1 template
+          echo "commit=$(git rev-parse HEAD:template)" >> "$GITHUB_OUTPUT"
+
+      # Figures/*.pdf (LuaLaTeX, slow), shared with the Website workflow
+      - name: Restore the figures
+        id: figures
+        uses: actions/cache/restore@v4
+        with:
+          path: Figures/*.pdf
+          key: figures-${{ steps.template.outputs.commit }}-${{ hashFiles('Figures/*.tex', 'myfigures.sty', 'SolutionFigure.lua', 'Figures/Data/**') }}
+
+      # Without build/main.fdb_latexmk, latexmk rebuilds a figure older than
+      # its source, and the checkout is newer than the restored PDFs
+      - name: Mark the restored figures as up to date
+        if: steps.figures.outputs.cache-hit == 'true'
+        run: touch Figures/*.pdf
+
+      # TeX Live image with pdfLaTeX, LuaLaTeX, latexmk and Perl. latexmk reads
+      # ./latexmkrc, which copies main.pdf to the root and rewrites the
+      # Progress section of README.md.
+      - name: Build the manual
+        uses: xu-cheng/latex-action@4.1.0
+        with:
+          root_file: main.tex
+          # No -halt-on-error: missing Figures/*.pdf must not stop pdfLaTeX before latexmk builds them all
+          args: -file-line-error -interaction=nonstopmode
+
+      - name: Save the figures
+        if: steps.figures.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: Figures/*.pdf
+          key: ${{ steps.figures.outputs.cache-primary-key }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: main.pdf
+          path: main.pdf
+          if-no-files-found: error
+
+      # main.pdf changes on every build (dates, IDs), so only the progress
+      # report is compared with the committed version
+      - name: Check that the README progress is up to date
+        run: |
+          if ! git diff --exit-code README.md; then
+            echo "::error file=README.md::The Progress section of README.md does not match the manual: run latexmk and commit README.md"
+            exit 1
+          fi
+
+  studies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Check out the physics-engine submodule
+        run: git submodule update --init --depth 1 physics-engine
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: Simulations/requirements.txt
+
+      - run: python -m pip install -r Simulations/requirements.txt
+
+      # Eigen is downloaded if needed
+      - name: Build the studies
+        run: |
+          cmake -S Simulations -B build/simulations -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/simulations --parallel 2
+
+      # Every study of Simulations/CMakeLists.txt (add_study(<ID>)); each
+      # exits with 1 when its check fails
+      - name: Run the studies
+        run: |
+          status=0
+          for id in $(sed -n 's/^add_study(\(.*\))$/\1/p' Simulations/CMakeLists.txt); do
+            echo "::group::$id"
+            python Simulations/study.py "$id" || { echo "::error::Study $id failed"; status=1; }
+            echo "::endgroup::"
+          done
+          exit $status
+
+  engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Check out the physics-engine submodule
+        run: git submodule update --init --depth 1 physics-engine
+
+      - name: Build the engine tests
+        run: |
+          cmake -S physics-engine -B build/engine-checks -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/engine-checks --parallel 2 --target physics_library_tests physics_tests
+
+      - name: Test
+        run: ctest --test-dir build/engine-checks --output-on-failure -R "^(force_library|forces_energy|oscillator_accuracy|oscillator_convergence|conservation|simulation_time|mass_gravity|adaptive_integration|diagnostics)$"

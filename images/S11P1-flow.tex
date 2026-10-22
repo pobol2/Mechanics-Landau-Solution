@@ -1,0 +1,54 @@
+% README.md: §11 Problem 1 from problem to checked solution, in three steps:
+% the physical system (Figures/S11P1.pdf), the derived solution (the answer box
+% of main.pdf, made compact by images/readme_figures.py) and the numerical
+% check (the measured periods of Figures/Data/, as in Figures/S11P1-period.tex).
+% Compiled from the repository root by images/readme_figures.py.
+\documentclass{SolutionFigure}
+\usetikzlibrary{backgrounds, fit}
+
+\begin{document}
+\begin{tikzpicture}[
+        step title/.style={text=FigureAccent, font=\large\scshape},
+        step caption/.style={font=\small, text=black!70, align=center},
+        step arrow/.style={draw=FigureGuide, line width=1.5pt, -{Latex[length=3.5mm, width=3mm]}},
+    ]
+    % Steps, centred on the line y = 0
+    \node[inner sep=0] (system) at (0,0) {\includegraphics{Figures/S11P1.pdf}};
+    \node[inner sep=0, anchor=west] (solution) at ($(system.east) + (16mm,0)$)
+        {\includegraphics{build/readme-figures/S11P1-answer.pdf}};
+    \begin{axis}[name=check, at={($(solution.east) + (16mm,0)$)}, anchor=outer west,
+            width=4.6cm, height=3cm,
+            xmin=0, xmax=180, xtick={0,90,180}, ymin=0.9, ymax=3.1, ytick={1,2,3},
+            xlabel={$\phi_0$ (degrees)}, ylabel={$T/T_0$},
+            legend pos=north west, legend style={font=\footnotesize},
+            table/col sep=comma]
+        \addplot table[x=amplitude, y=exact] {Figures/Data/S11P1-curves.csv};
+        \addlegendentry{exact}
+        \addplot[FigureGuide, dotted] table[x=amplitude, y=small] {Figures/Data/S11P1-curves.csv};
+        \addlegendentry{small angle}
+        \addplot[plot points, restrict expr to domain={\thisrow{string}}{1:1}]
+            table[x=amplitude, y=measured] {Figures/Data/S11P1-periods.csv};
+        \addlegendentry{measured}
+        \addplot[plot points, fill=white, forget plot, restrict expr to domain={\thisrow{string}}{0:0}]
+            table[x=amplitude, y=measured] {Figures/Data/S11P1-periods.csv};
+    \end{axis}
+
+    \draw[step arrow] ($(system.east) + (2mm,0)$) -- ($(solution.west) - (2mm,0)$);
+    \draw[step arrow] ($(solution.east) + (2mm,0)$) -- ($(check.outer west) - (2mm,0)$);
+
+    % Titles and captions, on common lines above and below
+    \foreach \step/\title/\width/\caption in {
+            system/{1. Physical system}/5cm/{A pendulum of length $l$ swinging\\with amplitude $\phi_0$},
+            solution/{2. Derived solution}/7cm/{Its period, derived analytically\\as a series in $\phi_0$},
+            check/{3. Numerical check}/5.5cm/{Periods measured with the physics engine\\match the exact result to $10^{-10}$}} {
+        \node[step title, anchor=base] at (\step.center |- 0,2.35) {\title};
+        \node[step caption, anchor=north] at (\step.center |- 0,-2.05) {\caption};
+    }
+
+    % White card behind everything, so that it reads in dark mode too
+    \begin{scope}[on background layer]
+        \node[fit=(current bounding box), inner sep=6mm, rounded corners=6pt,
+            draw=black!12, fill=white] {};
+    \end{scope}
+\end{tikzpicture}
+\end{document}
