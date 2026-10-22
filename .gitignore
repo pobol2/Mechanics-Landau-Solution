@@ -4,8 +4,6 @@ build/
 
 # Copy of build/main.pdf made by latexmk; CI builds and publishes it
 /main.pdf
-# Copy of build/main-problems.json made by latexmk; read by site/build.py
-/problems.json
 
 # Safety net in case something is compiled outside of latexmk
 *.aux
@@ -40,6 +38,7 @@ desktop.ini
 # Figures are compiled from Figures/*.tex by latexmk
 Figures/*.pdf
 
-# Website built by site/build.py (deployed by the GitHub workflow)
+# Website built by template/solution-manual/site/build.py (deployed by the
+# GitHub workflow)
 _site/
 __pycache__/

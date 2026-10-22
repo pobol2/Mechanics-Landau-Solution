@@ -1,0 +1,30 @@
+# Settings of the website of this manual (template/docs/website.md). Build
+# it from this folder, after latexmk:
+#   python template/solution-manual/site/build.py
+# and open _site/index.html. .github/workflows/website.yml publishes it.
+
+# Title of the homepage (also the site name of every page)
+title = "Landau and Lifshitz Mechanics: Solution Manual"
+short_name = "Landau Mechanics"   # in page titles, after the problem
+# The author's full name, shown on the website (the PDFs keep the author of
+# main.pdf)
+author = "Pierre-Olivier Bolduc"
+# Homepage description, 25 to 160 characters; {done} and {total} are counts
+description = "Unofficial solution manual for Landau and Lifshitz, Mechanics (Course of Theoretical Physics, Vol. 1): worked solutions to the problems, {done} of {total} so far."
+base_url = "https://pobol2.github.io/Mechanics-Landau-Solution/"
+repository = "https://github.com/pobol2/Mechanics-Landau-Solution"
+license = "https://creativecommons.org/licenses/by/4.0/"
+
+# The catalogue links unsolved problems to their PDF (the statement only)
+publish_unsolved = true
+# Google Search Console ownership check of the site (HTML tag method)
+google_site_verification = "I9Mnn8Ch39GMAo9_cUExA_0P-YiiCN3OjdxbqU2lAYk"
+
+# The edition the problems and section numbers refer to
+[book]
+authors = ["L. D. Landau", "E. M. Lifshitz"]
+title = "Mechanics"
+edition = "Third edition"
+year = 1976
+publisher = "Butterworth-Heinemann"
+isbn = "978-0-7506-2896-9"

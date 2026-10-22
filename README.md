@@ -130,9 +130,8 @@ mycommands.sty        Commands of the manual
 myfigures.sty         Physics figure styles: bodies, vectors, 3D views, fields
 SolutionFigure.lua    Numerical field lines and equipotentials for the figures
 latexmkrc             Loads template/solution-manual/latexmkrc; writes the
-                      completion report into this README and the problem
-                      index into problems.json
-site/                 Website: builder and style
+                      completion report into this README
+site/                 Website settings, for the template's website builder
 Simulations/          Numerical checks of solutions (see Numerical studies);
                       run separately, the manual includes their saved figures
 physics-engine/       Submodule: the particle-mechanics library they use
@@ -246,7 +245,6 @@ source, `myfigures.sty`, `SolutionFigure.lua` or a shared class changes.
 | ------------- | --------------------------------------------------------- |
 | `main.pdf`    | The finished manual (ignored by Git; CI builds and publishes it) |
 | `README.md`   | Its Progress section is rewritten when completion changes (tracked) |
-| `problems.json` | The problem index, read by the website builder (ignored by Git) |
 | `Figures/*.pdf` | Generated figures (ignored by Git)                      |
 | `build/`      | Temporary files: logs, SyncTeX, figure compilations (`build/figures-aux/`) |
 
@@ -353,14 +351,20 @@ canonical URL and structured data (schema.org) of their own, built from the
 section and problem titles; they never reproduce the book's problem
 statements.
 
-`site/build.py` builds the site from two outputs of a `latexmk` build (it
-does not read `build/` or `template/`):
+The site is built by the template's website builder,
+`template/solution-manual/site/build.py` (see its
+[documentation](template/docs/website.md)), run from the root of this
+repository. Its settings are in `site/site.toml`: the title, short name,
+author, description and address of the site, the repository, the license,
+the book, the Google verification tag, and `publish_unsolved = true`, so that
+the PDFs of the unsolved problems (their statements) are published too. It
+reads two outputs of a `latexmk` build:
 
-- `main.pdf`: the chapters (its bookmarks), where each problem and part
-  starts, and the links between problems;
-- `problems.json`: the problem index written by the template
-  (`$problems_json` in `latexmkrc`): the sections, and the problems with their
-  titles, which are done, their pages and their parts.
+- `build/main.pdf`: the manual, with where each problem and part starts and
+  the links between problems;
+- `build/main-problems.json`: the problem index written by the template: the
+  chapters and sections, and the problems with their IDs, titles, which are
+  done, their pages and their parts.
 
 The build stops if they disagree (anchors, pages or parts, as when they come
 from different builds), if a title is too long or is TeX instead of plain
@@ -376,7 +380,7 @@ pages of the solved problems, the full manual and their PDFs).
 **Setup (once):** Python 3.11 or later, then
 
 ```sh
-python -m pip install -r site/requirements.txt
+python -m pip install -r template/solution-manual/site/requirements.txt
 ```
 
 and on GitHub, **Settings > Pages > Build and deployment > Source: GitHub
@@ -386,7 +390,7 @@ Actions**.
 
 ```sh
 latexmk
-python site/build.py --base-url http://localhost:8000/
+python template/solution-manual/site/build.py --base-url http://localhost:8000/
 python -m http.server 8000 -d _site
 ```
 
@@ -397,7 +401,8 @@ makes the links between problem PDFs point to the preview.
 `template` submodule (not `physics-engine`: the manual uses the saved data in
 `Figures/Data/`), builds the manual with `latexmk` in TeX Live, fails if the
 [Progress](#progress) section of the committed README differs from the build,
-then runs `site/build.py` on the fresh `main.pdf` and `problems.json`. The figure PDFs are cached
+then runs the template's `build.py` on the fresh `build/main.pdf` and
+`build/main-problems.json`, with `--base-url` set to the GitHub Pages address. The figure PDFs are cached
 between runs, keyed on `Figures/*.tex`, `myfigures.sty`, `SolutionFigure.lua`,
 `Figures/Data/` and the template commit, so LuaLaTeX only reruns when one of
 them changes. Pushes to `master` publish `_site/` to GitHub Pages, with the
@@ -406,7 +411,7 @@ full manual at
 are built and checked, but not deployed.
 
 **Google Search Console:** the page carries the site's verification tag
-(`GOOGLE_SITE_VERIFICATION` in `site/build.py`). After the first deployment,
+(`google_site_verification` in `site/site.toml`). After the first deployment,
 add the URL-prefix property `https://pobol2.github.io/Mechanics-Landau-Solution/`,
 verify it with the *HTML tag* method, then submit the sitemap
 `https://pobol2.github.io/Mechanics-Landau-Solution/sitemap.xml` under
@@ -466,7 +471,7 @@ as follows:
   indication of any modifications.
 - **Code:** `main.tex` (document setup), `mypackages.sty`, `mycommands.sty`,
   `myfigures.sty`, `SolutionFigure.lua`, `latexmkrc`, the
-  VS Code configuration, the website builder in `site/`, the README image builder
+  VS Code configuration, the website settings in `site/`, the README image builder
   `images/readme_figures.py` and the GitHub workflows are licensed under the
   [MIT License](LICENSE-CODE).
   Reusing this code does not require your own written content to use CC BY.

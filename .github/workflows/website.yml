@@ -4,8 +4,9 @@
 # Builds the manual (main.pdf, which is not tracked) with TeX Live, checks that
 # the committed README progress matches it, then builds the website (the
 # catalogue, a page per solved problem and one PDF per problem) from the fresh
-# main.pdf and problems.json and the site/ files, and deploys it to GitHub
-# Pages on each push to master.
+# build/main.pdf and build/main-problems.json with the template's builder
+# (template/solution-manual/site/build.py) and the settings of site/site.toml,
+# and deploys it to GitHub Pages on each push to master.
 # Pull requests and manual runs on other branches are built and checked, but
 # not deployed.
 # One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions.
@@ -38,8 +39,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      # Only the template submodule is needed: the manual reads the saved
-      # simulation data in Figures/Data/, not physics-engine
+      # Only the template submodule is needed (the shared build rules and the
+      # website builder): the manual reads the saved simulation data in
+      # Figures/Data/, not physics-engine
       - name: Check out the template submodule
         id: template
         run: |
@@ -62,8 +64,8 @@ jobs:
         run: touch Figures/*.pdf
 
       # TeX Live image with pdfLaTeX, LuaLaTeX, latexmk and Perl. latexmk reads
-      # ./latexmkrc, which copies main.pdf to the root and rewrites the
-      # Progress section of README.md.
+      # ./latexmkrc, which writes build/main-problems.json, copies main.pdf to
+      # the root and rewrites the Progress section of README.md.
       - name: Build the manual
         uses: xu-cheng/latex-action@4.1.0
         with:
@@ -90,21 +92,24 @@ jobs:
         with:
           python-version: "3.13"
           cache: pip
-          cache-dependency-path: site/requirements.txt
+          cache-dependency-path: template/solution-manual/site/requirements.txt
 
-      - run: python -m pip install -r site/requirements.txt
+      - run: python -m pip install -r template/solution-manual/site/requirements.txt
 
       - id: pages
         if: env.DEPLOY == 'true'
         uses: actions/configure-pages@v5
 
-      # Fails, and deploys nothing, when main.pdf and problems.json disagree,
-      # a title is too long or a problem PDF or page does not check out
+      # From the root, which has site/site.toml. Fails, and deploys nothing,
+      # when build/main.pdf and build/main-problems.json disagree, a title is
+      # too long or a problem PDF or page does not check out. Without
+      # deployment, the base URL is that of site.toml.
       - name: Build the website
+        env:
+          BASE_URL: ${{ steps.pages.outputs.base_url }}
         run: >-
-          python site/build.py --out _site
-          --base-url "${{ steps.pages.outputs.base_url }}"
-          --repository "${{ github.server_url }}/${{ github.repository }}"
+          python template/solution-manual/site/build.py
+          --out _site --base-url "$BASE_URL"
 
       - if: env.DEPLOY == 'true'
         uses: actions/upload-pages-artifact@v4
