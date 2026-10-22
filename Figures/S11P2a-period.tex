@@ -1,0 +1,61 @@
+% §11 Problem 2(a): measured periods in U = A|x|^n against the solution's
+% formula, as functions of the energy, and their relative errors
+% Data: Data/S11P2a-periods.csv and -curves.csv, written by python Simulations/study.py S11P2a
+\documentclass{SolutionFigure}
+
+% Measured points of one exponent and one parameter set: {n}{group}{mark}{fill}{column}.
+% The key n + 10 group is written as the digits of group and n (02, 12, ...).
+\newcommand\measured[5]{%
+    \addplot[plot points, mark=#3, fill=#4,
+        restrict expr to domain={\thisrow{n}+10*\thisrow{group}}{#2#1:#2#1}]
+        table[x=energy, y=#5] {Figures/Data/S11P2a-periods.csv};}
+% Formula curve of one exponent and one parameter set: {n}{group}{line style}
+\newcommand\formula[3]{%
+    \addplot[#3, forget plot] table[x=energy, y=n#1-g#2] {Figures/Data/S11P2a-curves.csv};}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{groupplot}[
+        group style={group size=1 by 2, vertical sep=11mm, xticklabels at=edge bottom},
+        width=9cm, height=3.7cm,
+        xmode=log, log basis x=10, xmin=0.07, xmax=14,
+        xtick={0.1,0.3,1,3,10}, xticklabels={0.1,0.3,1,3,10},
+        xlabel={$E$ (J)},
+        table/col sep=comma,
+    ]
+        \nextgroupplot[title={(a) Period}, ylabel={$T$ (s)}, ymode=log, ymin=0.7, ymax=12,
+            ytick={1,2,5,10}, yticklabels={1,2,5,10},
+            legend pos=outer north east, legend style={font=\footnotesize}]
+            \addlegendimage{color=FigureAccent, solid, mark=*, mark options={solid}}
+            \addlegendentry{$n=2$}
+            \addlegendimage{color=black, dashed, mark=square*, mark options={solid, FigureAccent}}
+            \addlegendentry{$n=4$}
+            \addlegendimage{color=FigureAccent, dashdotted, mark=triangle*, mark options={solid}}
+            \addlegendentry{$n=6$}
+            \addlegendimage{plot points, mark=*}
+            \addlegendentry{$m{=}1$, $A{=}1$}
+            \addlegendimage{plot points, mark=*, fill=white}
+            \addlegendentry{$m{=}0.5$, $A{=}3$}
+            \foreach \g in {0,1} {
+                \formula{2}{\g}{color=FigureAccent, solid}
+                \formula{4}{\g}{color=black, dashed}
+                \formula{6}{\g}{color=FigureAccent, dashdotted}
+            }
+            \measured{2}{0}{*}{FigureAccent}{measured}
+            \measured{2}{1}{*}{white}{measured}
+            \measured{4}{0}{square*}{FigureAccent}{measured}
+            \measured{4}{1}{square*}{white}{measured}
+            \measured{6}{0}{triangle*}{FigureAccent}{measured}
+            \measured{6}{1}{triangle*}{white}{measured}
+
+        \nextgroupplot[title={(b) Relative error of the measured period}, ylabel={$|T/T_{\mathrm{formula}}-1|$},
+            ymode=log, ymin=1e-17, ymax=1e-11, ytick={1e-16,1e-14,1e-12}]
+            \measured{2}{0}{*}{FigureAccent}{error}
+            \measured{2}{1}{*}{white}{error}
+            \measured{4}{0}{square*}{FigureAccent}{error}
+            \measured{4}{1}{square*}{white}{error}
+            \measured{6}{0}{triangle*}{FigureAccent}{error}
+            \measured{6}{1}{triangle*}{white}{error}
+    \end{groupplot}
+\end{tikzpicture}
+\end{document}

@@ -10,30 +10,53 @@
 Find the relation between the angles $\theta_1$, $\theta_2$ (in the $L$ system) after a disintegration into two particles.
 }
 {
-The angles of the particles, in the $C$ system, are related by
+\textit{Velocities in the $L$ system.} In the $C$ system, the total momentum is zero, so the two particles move apart in opposite directions, with the speeds $v_{10}$ and $v_{20}$. As in the book, we call $\theta_0$ the angle between $\mathbf{v}_{10}$ and $\mathbf{V}$; the velocity $\mathbf{v}_{20}$ then makes the angle $\theta_{20} = \pi-\theta_0$ with $\mathbf{V}$. The velocities in the $L$ system are obtained by adding $\mathbf{V}$ to those in the $C$ system, $\mathbf{v} = \mathbf{V} + \mathbf{v}_0$, as shown in the figure.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S16P1-velocities.pdf}
+\end{figure}
+With the $x$ axis along $\mathbf{V}$ and the $y$ axis in the plane of the velocities, on the side of particle 1,
+\begin{equation}
+    \mathbf{v}_1 = \left( V + v_{10}\cos{\theta_0},\ v_{10}\sin{\theta_0} \right), \qquad
+    \mathbf{v}_2 = \left( V - v_{20}\cos{\theta_0},\ -v_{20}\sin{\theta_0} \right), \label{S16P1_v}
+\end{equation}
+the velocity $\mathbf{v}_{20}$ pointing to the other side of $\mathbf{V}$. For $0<\theta_0<\pi$, particle 1 thus moves at the angle $\theta_1$ above $\mathbf{V}$, and particle 2 at the angle $\theta_2$ below it.
+
+\textit{A relation for each particle.} The unit vectors along $\mathbf{v}_1$ and $\mathbf{v}_2$ are $(\cos{\theta_1},\ \sin{\theta_1})$ and $(\cos{\theta_2},\ -\sin{\theta_2})$, so that the components \eqref{S16P1_v} satisfy $v_x\sin{\theta} = |v_y|\cos{\theta}$ for each particle:
 \begin{equation*}
-\theta_0 = \theta_{10} = \pi - \theta_{20},
+    (V + v_{10}\cos{\theta_0})\sin{\theta_1} = v_{10}\sin{\theta_0}\cos{\theta_1}, \qquad
+    (V - v_{20}\cos{\theta_0})\sin{\theta_2} = v_{20}\sin{\theta_0}\cos{\theta_2}.
 \end{equation*}
-where $\theta_0$ has been defined to simplify the notation. From formula (16.5) of the book, we have
-\begin{align*}
-    V + v_{10}\cos{\theta_0} &= v_{10} \sin{\theta_0} \cot{\theta_1} \\
-    V - v_{20}\cos{\theta_0} &= v_{20} \sin{\theta_0} \cot{\theta_2} .
-\end{align*}
-We must eliminate $\theta_0$ from the two equations above. To do so, we can first solve for $\cos{\theta_0}$ and $\sin{\theta_0}$, which gives us
-\begin{align}
-    &\sin{\theta_0} = \frac{V + v_{10}\cos{\theta_0}}{v_{10}\cot{\theta_1}} = \frac{V - v_{20}\cos{\theta_0}}{v_{20}\cot{\theta_2}} \label{S16P1_sin} \\
-    \Rightarrow& Vv_{20}\cot{\theta_2} + v_{10}v_{20}\cos{\theta_0}\cot{\theta_2} = Vv_{10}\cot{\theta_1} - v_{10}v_{20}\cos{\theta_0}\cot{\theta_1} \nonumber \\
-    \Rightarrow& \cos{\theta_0} = \frac{V\left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)}{v_{10}v_{20} \left( \cot{\theta_1} + \cot{\theta_2} \right)}.  \label{S16P1_cos}
-\end{align}
-Using the sum of square of \eqref{S16P1_sin} and \eqref{S16P1_cos}, we get
-\begin{align*}
-    &\left( \frac{V + v_{10}\cos{\theta_0}}{v_{10}\cot{\theta_1}} \right)^2 + \left( \frac{V\left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)}{v_{10}v_{20} \left( \cot{\theta_1} + \cot{\theta_2} \right)} \right)^2 = 1 \\
-    \Rightarrow& \left( v_{10} + v_{20} \right)^2 + \left( v_{10}\cot{\theta_1} - v_{20}\cot{\theta_2} \right)^2 = \frac{v_{10}^2v_{20}^2}{V^2} \left( \cot{\theta_1} + \cot{\theta_2} \right)^2 \\
-    \Rightarrow& v_{10}^2 \csc{\theta_1}^2 + v_{20}^2 \csc{\theta_2}^2 + 2v_{10}v_{20} - 2 v_{10}v_{20}\cot{\theta_1}\cot{\theta_2} = \frac{v_{10}^2v_{20}^2\sin^2{(\theta_1+\theta_2)}}{V^2\sin^2{\theta_1}\sin^2{\theta_2}} \\
-    \Rightarrow& v_{20}^2 \sin^2{\theta_1} + v_{10}^2 \sin^2{\theta_2} + 2 v_{10}v_{20}\sin{\theta_1}\sin{\theta_2}\left(\sin{\theta_1}\sin{\theta_2} - \cos{\theta_1}\cos{\theta_2}\right) = \frac{v_{10}^2v_{20}^2}{V^2}\sin^2{(\theta_1+\theta_2)} \\
-    \Rightarrow& v_{20}^2 \sin^2{\theta_1} + v_{10}^2 \sin^2{\theta_2} - 2 v_{10}v_{20}\sin{\theta_1}\sin{\theta_2}\cos{(\theta_1+\theta_2)} = \frac{v_{10}^2v_{20}^2}{V^2}\sin^2{(\theta_1+\theta_2)},
-\end{align*}
-where we used $(v_{10}+v_{20})^2 = v_{10}^2 + 2v_{10}v_{20} + v_{20}^2$ and $1+\cot^2{\theta} = \csc^2{\theta}$. Dividing by $v_{10}v_{20}$, and using formula (16.2) of the book, which gives $v_{10}v_{20} = p_0^2/(m_1m_2) = 2\epsilon/(m_1+m_2)$, and the relation $v_{10}/v_{20} = m_2/m_1$, we obtain
+This is formula (16.5) of the book for each particle. Keeping the terms in $V$ on the left, and using the sine of a difference and of a sum on the right, we get
+\begin{equation}
+    V\sin{\theta_1} = v_{10}\sin{(\theta_0-\theta_1)}, \qquad V\sin{\theta_2} = v_{20}\sin{(\theta_0+\theta_2)}, \label{S16P1_sines}
+\end{equation}
+which is also the law of sines in the two triangles of the figure.
+
+\textit{Eliminating $\theta_0$.} Let $x = \theta_0-\theta_1$ and $y = \theta_0+\theta_2$. Then $\theta_0$ disappears from their difference, $y - x = \theta_1+\theta_2$, and \eqref{S16P1_sines} gives their sines,
+\begin{equation*}
+    \sin{x} = a \equiv \frac{V\sin{\theta_1}}{v_{10}}, \qquad \sin{y} = b \equiv \frac{V\sin{\theta_2}}{v_{20}}.
+\end{equation*}
+The cosine of the difference is
+\begin{equation*}
+    \cos{(\theta_1+\theta_2)} = \cos{x}\cos{y} + \sin{x}\sin{y} = \cos{x}\cos{y} + ab.
+\end{equation*}
+The signs of $\cos{x}$ and $\cos{y}$ are not known, but their squares are $1-a^2$ and $1-b^2$. Isolating $\cos{x}\cos{y}$ and squaring thus gives
+\begin{equation*}
+    \left[ \cos{(\theta_1+\theta_2)} - ab \right]^2 = (1-a^2)(1-b^2),
+\end{equation*}
+and, after expanding both sides and cancelling $a^2b^2$,
+\begin{equation*}
+    a^2 + b^2 - 2ab\cos{(\theta_1+\theta_2)} = 1 - \cos^2{(\theta_1+\theta_2)} = \sin^2{(\theta_1+\theta_2)}.
+\end{equation*}
+Substituting $a$ and $b$ and multiplying by $v_{10}v_{20}/V^2$, we get
+\begin{equation*}
+    \frac{v_{20}}{v_{10}}\sin^2{\theta_1} + \frac{v_{10}}{v_{20}}\sin^2{\theta_2} - 2\sin{\theta_1}\sin{\theta_2}\cos{(\theta_1+\theta_2)} = \frac{v_{10}v_{20}}{V^2}\sin^2{(\theta_1+\theta_2)}.
+\end{equation*}
+
+\textit{Masses and energy.} The momenta in the $C$ system are equal and opposite, so $v_{10}/v_{20} = m_2/m_1$, and formula (16.2) of the book gives $v_{10}v_{20} = p_0^2/(m_1m_2) = 2\epsilon/(m_1+m_2)$.
+
+As a check, when $V \rightarrow 0$ the right-hand side can stay finite only if $\sin{(\theta_1+\theta_2)} \rightarrow 0$, \ie $\theta_1+\theta_2 \rightarrow \pi$: the particles fly apart in opposite directions, as they must in the $C$ system. We obtain
 }
 {
 \begin{equation*}
@@ -49,44 +72,92 @@ where we used $(v_{10}+v_{20})^2 = v_{10}^2 + 2v_{10}v_{20} + v_{20}^2$ and $1+\
     Find the angular distribution of the resulting particles in the $L$ system.
 }
 {
-The distribution of the resulting particles with respect to the angle $\theta_0$ is given by formula (16.7) of the book, \ie, for increasing $\theta_0$,
+\textit{Setting.} As in \probref{\S 16}{1}, we consider one of the resulting particles, emitted in the $C$ system with the speed $v_0$ ($v_{10}$ or $v_{20}$, depending on the particle) at the angle $\theta_0$ to $\mathbf{V}$. Its velocity in the $L$ system is $\mathbf{v} = \mathbf{V}+\mathbf{v}_0$, which makes the angle $\theta$ with $\mathbf{V}$. As in Fig.~14 of the book, $\mathbf{v}$ is drawn from a point $A$ to the circle of radius $v_0$ centred at the tip $T$ of $\mathbf{V}$, and $A$ is inside or outside this circle according as $v_0>V$ or $v_0<V$.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S16P2-circle.pdf}
+\end{figure}
+The plan is to start from the distribution in the $C$ system, to express $\theta_0$ as a function of $\theta$, and then to change variables.
+
+\textit{Step 1: the distribution in the $C$ system.} The primary particles being randomly oriented, the fraction of the resulting particles emitted between $\theta_0$ and $\theta_0+\mathrm{d}\theta_0$ is given by formula (16.7) of the book,
 \begin{equation*}
-    \mathrm{d}P = \frac{1}{2}\sin{\theta_0}\mathrm{d}\theta_0 = -\frac{1}{2}\mathrm{d}(\cos{\theta_0}).
+    \mathrm{d}P = \frac{1}{2}\sin{\theta_0}\,\mathrm{d}\theta_0 = \frac{1}{2}\left|\mathrm{d}(\cos{\theta_0})\right|.
 \end{equation*}
-To transform it into a probability density in $\theta$, we must use the absolute value of the Jacobian, $\mathrm{d}P/\mathrm{d}\theta = \frac{1}{2}\left|\mathrm{d}(\cos{\theta_0})/\mathrm{d}\theta\right|$, summed over all the values of $\theta_0$ that give the same $\theta$. Let
+The fraction moving between $\theta$ and $\theta+\mathrm{d}\theta$ in the $L$ system is obtained by expressing $\theta_0$ as a function of $\theta$; when several emission angles $\theta_0$ give the same $\theta$, their contributions are added,
+\begin{equation}
+    \mathrm{d}P = \frac{1}{2}\sum_{\theta_0}\left|\frac{\mathrm{d}(\cos{\theta_0})}{\mathrm{d}\theta}\right|\mathrm{d}\theta. \label{S16P2_dP}
+\end{equation}
+The absolute value is needed because $\cos{\theta_0}$ may increase or decrease with $\theta$, while $\mathrm{d}P$ is positive.
+
+\textit{Step 2: $\theta_0$ as a function of $\theta$.} In the triangle formed by $A$, $T$ and the tip of $\mathbf{v}$, the angle at $A$ is $\theta$ and the exterior angle at $T$ is $\theta_0$, so that the angle at the tip of $\mathbf{v}$ is $\theta_0-\theta$. The law of sines gives, as in \eqref{S16P1_sines},
 \begin{equation*}
-    q = \frac{V}{v_0}, \qquad A_q(\theta) = \frac{1+q^2\cos{2\theta}}{\sqrt{1-q^2\sin^2{\theta}}}.
+    V\sin{\theta} = v_0\sin{(\theta_0-\theta)},
 \end{equation*}
-Formula (16.6) of the book reads $\cos{\theta_0} = -q\sin^2{\theta} \pm \cos{\theta}\sqrt{1-q^2\sin^2{\theta}}$, so that
-\begin{align*}
-    \frac{\mathrm{d}(\cos{\theta_0})}{\mathrm{d}\theta} &= -2q\sin{\theta}\cos{\theta} \mp \left( \sin{\theta}\sqrt{1-q^2\sin^2{\theta}} + \frac{q^2\sin{\theta}\cos^2{\theta}}{\sqrt{1-q^2\sin^2{\theta}}} \right) \\
-    &= -\sin{\theta}\left[ 2q\cos{\theta} \pm A_q(\theta) \right],
-\end{align*}
-since $1-q^2\sin^2{\theta}+q^2\cos^2{\theta} = 1+q^2\cos{2\theta}$. Where $1-q^2\sin^2{\theta}>0$, the numerator of $A_q$ is positive (for $q>1$, $\sin^2{\theta}<1/q^2$ gives $1+q^2\cos{2\theta} > q^2-1$), and one verifies that
+so that
 \begin{equation*}
-    A_q^2 - 4q^2\cos^2{\theta} = \frac{(1-q^2)^2}{1-q^2\sin^2{\theta}} \geq 0,
+    \sin{(\theta_0-\theta)} = \frac{V}{v_0}\sin{\theta}, \qquad \cos{(\theta_0-\theta)} = \pm\sqrt{1-\frac{V^2}{v_0^2}\sin^2{\theta}},
 \end{equation*}
-so that $A_q \geq 2q|\cos{\theta}|$ and both $A_q \pm 2q\cos{\theta}$ are nonnegative. Three cases must be distinguished.
+the sign being that of $\cos{(\theta_0-\theta)}$, \ie the upper sign if the angle at the tip of $\mathbf{v}$ is acute and the lower sign if it is obtuse. Then $\cos{\theta_0} = \cos{[\theta+(\theta_0-\theta)]} = \cos{\theta}\cos{(\theta_0-\theta)} - \sin{\theta}\sin{(\theta_0-\theta)}$ is formula (16.6) of the book,
+\begin{equation}
+    \cos{\theta_0} = -\frac{V}{v_0}\sin^2{\theta} \pm \cos{\theta}\sqrt{1-\frac{V^2}{v_0^2}\sin^2{\theta}}. \label{S16P2_cos}
+\end{equation}
+
+\textit{Step 3: one or two emission angles.} Which signs of \eqref{S16P2_cos} occur depends on the position of $A$ with respect to the circle.
 \begin{itemize}
-    \item $0 \leq q < 1$: only the upper sign of (16.6) is valid, and it maps $0<\theta_0<\pi$ one-to-one onto $0<\theta<\pi$. The density is $\frac{1}{2}\sin{\theta}\left[2q\cos{\theta} + A_q(\theta)\right]$.
-    \item $q = 1$: $\sqrt{1-\sin^2{\theta}} = |\cos{\theta}|$, and the upper sign gives $\theta_0 = 2\theta$, $0<\theta<\pi/2$, while the lower sign gives $\theta_0 = \pi$, for which the particle is at rest in the $L$ system and has no direction. The density is $\frac{1}{2}|\mathrm{d}(\cos{2\theta})/\mathrm{d}\theta| = 2\sin{\theta}\cos{\theta}$, which is also the formula of the first case with $A_1 = 2\cos{\theta}$.
-    \item $q > 1$: the angle is limited by $\sin{\theta} < 1/q$, and both signs are valid: each $\theta$ is reached from two values of $\theta_0$. The two nonnegative branch densities are $\frac{1}{2}\sin{\theta}\left[A_q(\theta) \pm 2q\cos{\theta}\right]$, and they must be added, giving $\sin{\theta}\,A_q(\theta)$.
+    \item $v_0>V$: $A$ is inside the circle (figure~(a)), and every half-line from $A$ meets the circle exactly once, so that each $\theta$ from $0$ to $\pi$ is reached by a single emission. The angle at the tip of $\mathbf{v}$ is opposite the side $V$, which is shorter than the side $v_0$ opposite $\theta$; it is therefore not the largest angle of the triangle, hence acute, and only the upper sign occurs. Indeed, it gives $\theta_0 = 0$ for $\theta = 0$.
+    \item $v_0<V$: $A$ is outside the circle (figure~(b)). A half-line from $A$ meets the circle only if $\theta \leq \theta_{\mathrm{max}}$, where $\sin{\theta_{\mathrm{max}}} = v_0/V$ is formula (16.4) of the book, the direction of the tangent; the square root in \eqref{S16P2_cos} is real in the same range. For $\theta<\theta_{\mathrm{max}}$, it cuts the circle at two points $B$ and $C$, \ie each $\theta$ is reached by two emission angles $\theta_0$, given by the two signs. At $\theta = 0$, the upper sign gives $\theta_0 = 0$ (the forward point $C$) and the lower sign $\theta_0 = \pi$ (the backward point $B$, the particle being carried forward since $V>v_0$).
+    \item $v_0=V$: $A$ is on the circle, and the square root is $|\cos{\theta}|$. For $\theta<\pi/2$, the upper sign gives $\cos{\theta_0} = \cos^2{\theta}-\sin^2{\theta} = \cos{2\theta}$, \ie $\theta_0 = 2\theta$ (the triangle is isosceles), and the lower sign gives $\cos{\theta_0} = -1$, \ie the single emission $\theta_0 = \pi$, for which the particle is at rest in the $L$ system and has no direction. Each $\theta$ from $0$ to $\pi/2$ is thus reached by a single emission.
 \end{itemize}
-The density is zero outside these supports, and its values at the endpoints are defined by limits (for $q>1$ it diverges, integrably, at $\sin{\theta} = 1/q$). In each case, it is normalized to $1$. The angular distribution is thus
+
+\textit{Step 4: the derivative.} Differentiating \eqref{S16P2_cos} with respect to $\theta$,
+\begin{equation*}
+    \frac{\mathrm{d}(\cos{\theta_0})}{\mathrm{d}\theta} = -2\frac{V}{v_0}\sin{\theta}\cos{\theta} \mp \left[\sin{\theta}\sqrt{1-\frac{V^2}{v_0^2}\sin^2{\theta}} + \frac{V^2}{v_0^2}\frac{\sin{\theta}\cos^2{\theta}}{\sqrt{1-\frac{V^2}{v_0^2}\sin^2{\theta}}}\right].
+\end{equation*}
+Over the common denominator, the bracket has the numerator $\sin{\theta}\,[1-(V^2/v_0^2)\sin^2{\theta}+(V^2/v_0^2)\cos^2{\theta}] = \sin{\theta}\,[1+(V^2/v_0^2)\cos{2\theta}]$, so that
+\begin{equation}
+    \frac{\mathrm{d}(\cos{\theta_0})}{\mathrm{d}\theta} = -\sin{\theta}\left[2\frac{V}{v_0}\cos{\theta} \pm \frac{1+\frac{V^2}{v_0^2}\cos{2\theta}}{\sqrt{1-\frac{V^2}{v_0^2}\sin^2{\theta}}}\right]. \label{S16P2_deriv}
+\end{equation}
+To take the absolute value in \eqref{S16P2_dP}, we compare the two terms in the bracket. The numerator of the second term is positive: for $v_0>V$, $1+(V^2/v_0^2)\cos{2\theta} \geq 1-V^2/v_0^2 > 0$, and for $v_0<V$, $\sin^2{\theta}<v_0^2/V^2$ gives $1+(V^2/v_0^2)(1-2\sin^2{\theta}) > V^2/v_0^2-1 > 0$. Moreover, with $\cos{2\theta} = 2\cos^2{\theta}-1$ and $1-(V^2/v_0^2)\sin^2{\theta} = (1-V^2/v_0^2) + (V^2/v_0^2)\cos^2{\theta}$, the difference of the squares of the two terms, multiplied by $1-(V^2/v_0^2)\sin^2{\theta}$, is
+\begin{align*}
+    &\left(1-\frac{V^2}{v_0^2}+2\frac{V^2}{v_0^2}\cos^2{\theta}\right)^2 - 4\frac{V^2}{v_0^2}\cos^2{\theta}\left(1-\frac{V^2}{v_0^2}+\frac{V^2}{v_0^2}\cos^2{\theta}\right) \\
+    &\qquad = \left(1-\frac{V^2}{v_0^2}\right)^2 + 4\frac{V^2}{v_0^2}\cos^2{\theta}\left(1-\frac{V^2}{v_0^2}\right) + 4\frac{V^4}{v_0^4}\cos^4{\theta} \\
+    &\qquad\qquad - 4\frac{V^2}{v_0^2}\cos^2{\theta}\left(1-\frac{V^2}{v_0^2}\right) - 4\frac{V^4}{v_0^4}\cos^4{\theta} \\
+    &\qquad = \left(1-\frac{V^2}{v_0^2}\right)^2 \geq 0.
+\end{align*}
+The second term is therefore at least $2(V/v_0)|\cos{\theta}|$, and the bracket of \eqref{S16P2_deriv} is positive for the upper sign and negative for the lower sign. Hence $\cos{\theta_0}$ decreases, \ie $\theta_0$ increases, with $\theta$ for the upper sign, and $\theta_0$ decreases for the lower sign, and the absolute values are
+\begin{equation*}
+    \frac{1}{2}\left|\frac{\mathrm{d}(\cos{\theta_0})}{\mathrm{d}\theta}\right| = \frac{1}{2}\sin{\theta}\left[\frac{1+\frac{V^2}{v_0^2}\cos{2\theta}}{\sqrt{1-\frac{V^2}{v_0^2}\sin^2{\theta}}} \pm 2\frac{V}{v_0}\cos{\theta}\right].
+\end{equation*}
+
+\textit{Step 5: the distribution in each case.} We now apply \eqref{S16P2_dP} with the emissions found in Step 3.
+\begin{itemize}
+    \item $v_0>V$: only the upper sign contributes, and $\mathrm{d}P$ is the expression above with the upper sign, for $0 \leq \theta \leq \pi$.
+    \item $v_0<V$: both signs contribute. As $\theta$ increases from $0$ to $\theta_{\mathrm{max}}$, the emission of the upper sign ($C$ in figure~(b)) increases from $\theta_0 = 0$ and that of the lower sign ($B$) decreases from $\theta_0 = \pi$, the two meeting at the tangent. This is why the book takes the difference, not the sum, of the two values of $\mathrm{d}(\cos{\theta_0})$: it is the sum of their absolute values. The terms in $2(V/v_0)\cos{\theta}$ cancel, leaving
+    \begin{equation*}
+        \mathrm{d}P = \sin{\theta}\,\frac{1+\frac{V^2}{v_0^2}\cos{2\theta}}{\sqrt{1-\frac{V^2}{v_0^2}\sin^2{\theta}}}\,\mathrm{d}\theta, \qquad 0 \leq \theta \leq \theta_{\mathrm{max}}.
+    \end{equation*}
+    \item $v_0=V$: $\theta_0 = 2\theta$, and $\mathrm{d}P = \frac{1}{2}|\mathrm{d}(\cos{2\theta})| = \sin{2\theta}\,\mathrm{d}\theta$ for $0 \leq \theta < \pi/2$. Both general formulas give this limit: the second term of the bracket becomes $(1+\cos{2\theta})/|\cos{\theta}| = 2|\cos{\theta}|$, so that the case $v_0>V$ gives $\frac{1}{2}\sin{\theta}\,(2|\cos{\theta}|+2\cos{\theta})$, \ie $\sin{2\theta}$ for $\theta<\pi/2$ and $0$ beyond, and the case $v_0<V$ gives $\sin{\theta}\cdot 2\cos{\theta}$ on $0 \leq \theta < \theta_{\mathrm{max}} = \pi/2$.
+\end{itemize}
+
+\textit{Checks.} In each case, integrating over $\theta$ amounts to integrating $\frac{1}{2}|\mathrm{d}(\cos{\theta_0})|$ over the whole range $0 \leq \theta_0 \leq \pi$, each emission being counted once, so that the distribution is normalized to $1$. For $V \rightarrow 0$, the first case gives $\mathrm{d}P = \frac{1}{2}\sin{\theta}\,\mathrm{d}\theta$, the isotropic distribution (16.7) of the $C$ system. For $v_0<V$, the density diverges as $\theta \rightarrow \theta_{\mathrm{max}}$, where the square root vanishes like $(\theta_{\mathrm{max}}-\theta)^{1/2}$; the divergence is integrable, and expresses that the direction $\theta$ is stationary, at $\theta_{\mathrm{max}}$, as the emission angle varies, so that many emissions crowd near the tangent. The figure shows the distribution for several values of $V/v_0$.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S16P2-distribution.pdf}
+    \caption{Angular distribution $\mathrm{d}P/\mathrm{d}\theta$ in the $L$ system for $V = 0$, $v_0/2$, $v_0$ and $2v_0$. For $V = 2v_0$, the density diverges (integrably) at $\theta_{\mathrm{max}} = 30^\circ$ (dashed line), and is cut off by the frame.}
+    \label{fig:S16P2-distribution}
+\end{figure}
+The final solution is thus
 }
 {
+For $v_0>V$, each direction $\theta$ is reached by a single emission angle $\theta_0$, and
 \begin{equation*}
-    \frac{\mathrm{d}P}{\mathrm{d}\theta} =
-    \begin{cases}
-        \frac{1}{2}\sin{\theta}\left[2q\cos{\theta} + A_q(\theta)\right], & 0 \leq q < 1, \quad 0<\theta<\pi, \\[1mm]
-        2\sin{\theta}\cos{\theta}, & q = 1, \quad 0<\theta<\pi/2, \\[1mm]
-        \sin{\theta}\,A_q(\theta), & q > 1, \quad 0<\theta<\sin^{-1}(1/q),
-    \end{cases}
+    \mathrm{d}P = \frac{1}{2}\sin{\theta}\,\mathrm{d}\theta\left[2\frac{V}{v_0}\cos{\theta} + \frac{1+\frac{V^2}{v_0^2}\cos{2\theta}}{\sqrt{1-\frac{V^2}{v_0^2}\sin^2{\theta}}}\right], \qquad 0 \leq \theta \leq \pi.
 \end{equation*}
-and zero outside these intervals, with
+For $v_0<V$, each direction $\theta<\theta_{\mathrm{max}}$ is reached by two emission angles $\theta_0$, and
 \begin{equation*}
-    q = \frac{V}{v_0}, \qquad A_q(\theta) = \frac{1+q^2\cos{2\theta}}{\sqrt{1-q^2\sin^2{\theta}}}.
+    \mathrm{d}P = \sin{\theta}\,\mathrm{d}\theta\,\frac{1+\frac{V^2}{v_0^2}\cos{2\theta}}{\sqrt{1-\frac{V^2}{v_0^2}\sin^2{\theta}}}, \qquad 0 \leq \theta \leq \theta_{\mathrm{max}}, \qquad \sin{\theta_{\mathrm{max}}} = \frac{v_0}{V}.
 \end{equation*}
+For $v_0=V$, both formulas reduce to $\mathrm{d}P = \sin{2\theta}\,\mathrm{d}\theta$, $0 \leq \theta < \pi/2$.
 }
 \end{problem}
 
@@ -98,84 +169,227 @@ and zero outside these intervals, with
 Determine the range of possible values of the angle $\theta$ between the directions of motion of the two resulting particles in the $L$ system.
 }
 {
-The tangent of the angle $\theta = \theta_1 + \theta_2$ is
+\textit{Velocities in the $L$ system.} As in \probref{\S 16}{1}, particle 1 is emitted in the $C$ system with the speed $v_{10}$ at the angle $\theta_0$ to $\mathbf{V}$, and particle 2 with the speed $v_{20}$ in the opposite direction. The velocities in the $L$ system are obtained by adding $\mathbf{V}$, as shown in the figure of that problem, and are given by \eqref{S16P1_v},
 \begin{equation*}
-    \tan{\theta} = \frac{\tan{\theta_1} + \tan{\theta_2}}{1 - \tan{\theta_1}\tan{\theta_2}}.
+    \mathbf{v}_1 = \left( V + v_{10}\cos{\theta_0},\ v_{10}\sin{\theta_0} \right), \qquad
+    \mathbf{v}_2 = \left( V - v_{20}\cos{\theta_0},\ -v_{20}\sin{\theta_0} \right).
 \end{equation*}
-Using formula (16.5) of the book to get $\tan{\theta_1}$ and $\tan{\theta_2}$, and using $\theta_0 = \theta_{10} = \pi - \theta_{20}$, the last equation become
+For $0<\theta_0<\pi$, particle 1 thus moves at the angle $\theta_1$ above $\mathbf{V}$, and particle 2 at the angle $\theta_2$ below it, with $0<\theta_1,\theta_2<\pi$. The ratio of the components gives the angle each one makes with $\mathbf{V}$, as in formula (16.5) of the book,
 \begin{equation*}
-    \tan{\theta} = \frac{(v_{10}+v_{20})V\sin{\theta_0}}{V^2+(v_{10}-v_{20})V\cos{\theta_0} - v_{10}v_{20}}
+    \tan{\theta_1} = \frac{v_{10}\sin{\theta_0}}{V+v_{10}\cos{\theta_0}}, \qquad
+    \tan{\theta_2} = \frac{v_{20}\sin{\theta_0}}{V-v_{20}\cos{\theta_0}}.
 \end{equation*}
-or equivalently
+Exchanging the two particles ($v_{10} \leftrightarrow v_{20}$, $\theta_0 \rightarrow \pi-\theta_0$) exchanges $\theta_1$ and $\theta_2$ and leaves the angle between them unchanged, so we may assume for definiteness, as in the book, that $v_{20} \geq v_{10}$. We also take $V>0$, the case $V=0$ being treated at the end. The plan is to write $\theta = \theta_1+\theta_2$ as a single function of $\theta_0$, to find its values at the ends $\theta_0 = 0$ and $\pi$, and then to find its turning point between them.
+
+\textit{Step 1: one formula for $\theta$.} The angle addition formula
 \begin{equation*}
-    \cot{\theta} = \frac{V^2+(v_{10}-v_{20})V\cos{\theta_0} - v_{10}v_{20}}{(v_{10}+v_{20})V\sin{\theta_0}}.
+    \tan{(\theta_1+\theta_2)} = \frac{\tan{\theta_1}+\tan{\theta_2}}{1-\tan{\theta_1}\tan{\theta_2}}
 \end{equation*}
-Exchanging the two particles ($v_{10} \leftrightarrow v_{20}$, $\theta_0 \rightarrow \pi-\theta_0$) leaves this expression unchanged, so only the smaller and the larger of the two (positive) speeds matter. Let
+would give $\theta$, but the tangent has a pole at $\pi/2$, which $\theta_1$, $\theta_2$ and $\theta$ can all reach. It is easier to work with the cotangents,
 \begin{equation*}
-    a = \min(v_{10}, v_{20}), \qquad b = \max(v_{10}, v_{20});
+    \cot{\theta_1} = \frac{V+v_{10}\cos{\theta_0}}{v_{10}\sin{\theta_0}}, \qquad
+    \cot{\theta_2} = \frac{V-v_{20}\cos{\theta_0}}{v_{20}\sin{\theta_0}},
 \end{equation*}
-we may label the particles so that $v_{10} = a$ and $v_{20} = b$. The expression of $\cot{\theta}$ holds for $0<\theta_0<\pi$. At $\theta_0 = 0$ or $\pi$, the emission is collinear: both particles move along the line of $\mathbf{V}$, with the velocities $V \pm v_{10}$ and $V \mp v_{20}$, and $\theta$ is $0$ if these have the same sign, or $\pi$ if they have opposite signs. When one of them vanishes, the corresponding particle is at rest in the $L$ system and its direction is undefined; such configurations are excluded. In order to find the extrema, we take the derivative with respect to $\theta_0$,
+which are finite for $0<\theta_0<\pi$. Dividing the numerator and the denominator of $\cot{(\theta_1+\theta_2)} = \cos{(\theta_1+\theta_2)}/\sin{(\theta_1+\theta_2)}$ by $\sin{\theta_1}\sin{\theta_2}>0$, the addition formula becomes
+\begin{equation*}
+    \cot{(\theta_1+\theta_2)} = \frac{\cos{\theta_1}\cos{\theta_2}-\sin{\theta_1}\sin{\theta_2}}{\sin{\theta_1}\cos{\theta_2}+\cos{\theta_1}\sin{\theta_2}} = \frac{\cot{\theta_1}\cot{\theta_2}-1}{\cot{\theta_1}+\cot{\theta_2}}.
+\end{equation*}
+We multiply its numerator and its denominator by $v_{10}v_{20}\sin^2{\theta_0}$. With $\sin^2{\theta_0} = 1-\cos^2{\theta_0}$, the numerator becomes
 \begin{align*}
-    &\pd{\cot{\theta}}{\theta_0} = 0 = \frac{(v_{20}-v_{10})V^2 - V\cos{\theta_0}(V^2-v_{10}v_{20})}{(v_{10}+v_{20})V^2\sin^2{\theta_0}}\\
-    \Rightarrow &\cos{\theta_0} = \frac{(v_{20}-v_{10})V}{V^2-v_{10}v_{20}}.
+    &(V+v_{10}\cos{\theta_0})(V-v_{20}\cos{\theta_0}) - v_{10}v_{20}\sin^2{\theta_0} \\
+    &\qquad = V^2 + (v_{10}-v_{20})V\cos{\theta_0} - v_{10}v_{20}\cos^2{\theta_0} - v_{10}v_{20}(1-\cos^2{\theta_0}) \\
+    &\qquad = V^2 + (v_{10}-v_{20})V\cos{\theta_0} - v_{10}v_{20},
 \end{align*}
-We know that $-1 \leq \cos{\theta_0} \leq 1$, thus the stationary point exists only if
+and the denominator, the terms in $v_{10}v_{20}\sin{\theta_0}\cos{\theta_0}$ cancelling,
 \begin{equation*}
-    (V^2-v_{10}v_{20})^2 - (v_{20}-v_{10})^2V^2 = (V^2-a^2)(V^2-b^2) \geq 0,
+    v_{20}\sin{\theta_0}\,(V+v_{10}\cos{\theta_0}) + v_{10}\sin{\theta_0}\,(V-v_{20}\cos{\theta_0}) = (v_{10}+v_{20})V\sin{\theta_0}.
 \end{equation*}
-\ie if $V \leq a$ or $V \geq b$: there is no stationary point in the middle regime $a<V<b$. It is an interior point, $0<\theta_0<\pi$, when $V<a$ or $V>b$. For $V=a$ or $V=b$, it reaches an end, $\cos{\theta_0} = \pm 1$, where one particle is at rest in the $L$ system: these are limiting cases, which are not attained. Moreover, we could calculate the derivative of the cotangent with respect to $V$ and find the expression:
-\begin{equation*}
-    \frac{\partial \cot{\theta}}{\partial V} = \frac{V^2 + v_{10}v_{20}}{(v_{10}+v_{20})V^2 \sin{\theta_0}}
-\end{equation*}
-which is positive for all values of $V$: at fixed $\theta_0$, the angle $\theta$ decreases when $V$ increases.
+Hence
+\begin{equation}
+    \cot{\theta} = \frac{V^2+(v_{10}-v_{20})V\cos{\theta_0} - v_{10}v_{20}}{(v_{10}+v_{20})V\sin{\theta_0}}. \label{S16P3_cot}
+\end{equation}
+The denominator is positive, and so is $\cot{\theta_1}+\cot{\theta_2} = \sin{(\theta_1+\theta_2)}/(\sin{\theta_1}\sin{\theta_2})$. Thus $\sin{(\theta_1+\theta_2)}>0$, \ie $0<\theta_1+\theta_2<\pi$: the sum is indeed the angle $\theta$ between the two directions, and it never reaches $0$ or $\pi$ for $0<\theta_0<\pi$. As a check, \eqref{S16P3_cot} is also the ratio of the scalar and vector products, $\mathbf{v}_1 \cdot \mathbf{v}_2 = |\mathbf{v}_1||\mathbf{v}_2|\cos{\theta}$ and $|\mathbf{v}_1 \times \mathbf{v}_2| = |\mathbf{v}_1||\mathbf{v}_2|\sin{\theta}$, whose components are the numerator and the denominator above. Since $\cot$ is continuous and strictly decreasing from $+\infty$ to $-\infty$ on $(0,\pi)$, $\theta$ is fixed by $\cot{\theta}$, and $\theta$ increases where $\cot{\theta}$ decreases.
 
-The range of $\theta$ follows from the behaviour of $\cot{\theta}$ at the ends. When $\theta_0 \rightarrow 0^+$ and $\theta_0 \rightarrow \pi^-$, its denominator tends to $0^+$ and its numerator tends to
-\begin{equation*}
-    (V-b)(V+a) \qquad \text{and} \qquad (V+b)(V-a),
-\end{equation*}
-respectively. We have the following regimes.
+\textit{Step 2: the two ends.} At $\theta_0 = 0$ and $\theta_0 = \pi$, the emission is along $\mathbf{V}$: one particle is emitted forward and the other backward, each with its speed $v$ in the $C$ system. In the $L$ system, the forward one has the velocity $V+v>0$ along $\mathbf{V}$, so it always moves forward. The backward one has the velocity $V-v$:
+\begin{itemize}
+    \item if $v>V$, it really moves backward, the particles move in opposite directions, and $\theta = \pi$;
+    \item if $v<V$, it is carried forward, both particles move the same way, and $\theta = 0$;
+    \item if $v=V$, it is at rest in the $L$ system and has no direction, and this emission is excluded.
+\end{itemize}
+At $\theta_0 = 0$ the backward particle is particle 2, with the velocity $V-v_{20}$, and at $\theta_0 = \pi$ it is particle 1, with the velocity $V-v_{10}$. For $v_{10}<v_{20}$, there are thus three cases:
+\begin{itemize}
+    \item $V<v_{10}$: both particles are faster than $V$ in the $C$ system, so $\theta = \pi$ at both ends;
+    \item $v_{10}<V<v_{20}$: only particle 2 is faster than $V$, so $\theta = \pi$ at $\theta_0 = 0$ and $\theta = 0$ at $\theta_0 = \pi$;
+    \item $V>v_{20}$: neither particle is faster than $V$, so $\theta = 0$ at both ends.
+\end{itemize}
+These values are also the limits of $\theta$ as $\theta_0$ tends to the ends. The numerator of \eqref{S16P3_cot} tends to $(V+v_{10})(V-v_{20})$ or $(V-v_{10})(V+v_{20})$, the product of the two velocities along $\mathbf{V}$, while its denominator tends to $0^+$. Hence $\cot{\theta} \rightarrow \pm\infty$ with the sign of the velocity of the backward particle, \ie $\theta \rightarrow 0$ or $\pi$, and $\theta$ is a continuous function of $\theta_0$ on the closed interval $0 \leq \theta_0 \leq \pi$, except at an excluded end.
 
-\vspace{1ex}\textbf{Middle regime, $a<V<b$.} We have $\cot{\theta} \rightarrow -\infty$ when $\theta_0 \rightarrow 0^+$ and $\cot{\theta} \rightarrow +\infty$ when $\theta_0 \rightarrow \pi^-$, with no stationary point in between. The cotangent therefore takes every real value, \ie the angle $\theta$ takes every value between $0$ and $\pi$. The two collinear emissions are attained at finite $V$: for $\theta_0 = 0$, the particles move in opposite directions ($V+a>0$, $V-b<0$), so $\theta = \pi$; for $\theta_0 = \pi$, they move in the same direction ($V-a>0$, $V+b>0$), so $\theta = 0$. Hence $0 \leq \theta \leq \pi$.
-
-\vspace{1ex}\textbf{Slow regime, $0<V<a$.} We have $\cot{\theta} \rightarrow -\infty$ at both ends (both collinear emissions give opposite directions, $\theta = \pi$), so $\cot{\theta}$ has a maximum at the interior stationary point. The calculation of the maximum value leads to:
+\textit{Step 3: what happens in between.} Let
 \begin{equation*}
-    \cot{\theta} = \frac{V^2 + (v_{10} - v_{20})V\cos{\theta_0} - v_{10}v_{20}}{(v_{10}+v_{20})V \sin{\theta_0}} = -\frac{\sqrt{(V^2 - v_{10}v_{20})^2 - (v_{20} - v_{10})^2 V^2}}{(v_{10} + v_{20})V}
+    P = V^2-v_{10}v_{20}, \qquad \Delta = v_{20}-v_{10} \geq 0,
 \end{equation*}
-Then, after transforming the cotangent into a sine, using $(a+b)^2V^2 + (V^2-a^2)(V^2-b^2) = (V^2+ab)^2$, one gets:
+so that the numerator of \eqref{S16P3_cot} is $N = P - \Delta V\cos{\theta_0}$, with the derivative $N' = \Delta V\sin{\theta_0}$. The quotient rule gives
+\begin{align*}
+    \frac{\mathrm{d}}{\mathrm{d}\theta_0}\left(\frac{N}{\sin{\theta_0}}\right) &= \frac{N'\sin{\theta_0} - N\cos{\theta_0}}{\sin^2{\theta_0}} \\
+    &= \frac{\Delta V\sin^2{\theta_0} - P\cos{\theta_0} + \Delta V\cos^2{\theta_0}}{\sin^2{\theta_0}} = \frac{\Delta V - P\cos{\theta_0}}{\sin^2{\theta_0}},
+\end{align*}
+so that the derivative of \eqref{S16P3_cot} is
 \begin{equation*}
-    \sin{\theta} = \frac{(a+b)V}{V^2 + ab}
+    \pd{\cot{\theta}}{\theta_0} = \frac{D(\theta_0)}{(v_{10}+v_{20})V\sin^2{\theta_0}}, \qquad
+    D(\theta_0) = (v_{20}-v_{10})V - (V^2-v_{10}v_{20})\cos{\theta_0}.
 \end{equation*}
-If we put:
+Since $\cot{\theta}$ decreases with $\theta$, $\theta$ decreases where $D>0$ and increases where $D<0$. The function $D$ is linear in $\cos{\theta_0}$, which decreases monotonically from $1$ to $-1$, so $D$ is monotonic and changes sign at most once. Its values at the ends,
+\begin{align*}
+    D(0) &= \Delta V - P = v_{20}V - v_{10}V - V^2 + v_{10}v_{20} = (v_{20}-V)(V+v_{10}), \\
+    D(\pi) &= \Delta V + P = V^2 + v_{20}V - v_{10}V - v_{10}v_{20} = (V-v_{10})(V+v_{20}),
+\end{align*}
+tell us which way $\theta$ goes:
+\begin{itemize}
+    \item if $V<v_{10}$, $D(0)>0$ and $D(\pi)<0$: $\theta$ goes from $\pi$ down to a minimum and back up to $\pi$;
+    \item if $v_{10} \leq V \leq v_{20}$, $D(0) \geq 0$ and $D(\pi) \geq 0$, so the linear function $D$ is positive between the ends, except for $V = v_{10} = v_{20}$ where it vanishes identically: there is no turning point, and $\theta$ decreases monotonically, from $\pi$ to $0$ for $v_{10}<V<v_{20}$;
+    \item if $V>v_{20}$, $D(0)<0$ and $D(\pi)>0$: $\theta$ goes from $0$ up to a maximum and back down to $0$.
+\end{itemize}
+
+\textit{Step 4: the turning point.} Setting $D=0$ gives
 \begin{equation*}
-    \alpha = \sin^{-1}\left( \frac{(a+b)V}{V^2 + ab} \right),
+    \cos{\theta_0^*} = \frac{\Delta V}{P} = \frac{(v_{20}-v_{10})V}{V^2-v_{10}v_{20}}.
 \end{equation*}
-which is defined because $V^2 + ab - (a+b)V = (V-a)(V-b) \geq 0$ outside the middle regime, then, since $\cot{\theta}<0$ at the maximum, the smallest angle is $\pi - \alpha$, and we have the range $\pi - \alpha \leq \theta \leq \pi$. For $V = 0$, the particles fly apart in opposite directions and $\theta = \pi$.
+In the two cases with a turning point, $D(0)$ and $D(\pi)$ have opposite signs, so this value lies between $-1$ and $1$, and $0<\theta_0^*<\pi$; moreover $P<0$ for $V<v_{10}$ and $P>0$ for $V>v_{20}$. This is the emission direction for which the particles are closest together, or furthest apart, in angle in the $L$ system. Since $\sin^2{\theta_0^*} = 1 - \Delta^2V^2/P^2$, the numerator of \eqref{S16P3_cot} becomes there
+\begin{equation*}
+    N = P - \Delta V\cos{\theta_0^*} = P - \frac{\Delta^2V^2}{P} = P\left(1 - \frac{\Delta^2V^2}{P^2}\right) = P\sin^2{\theta_0^*},
+\end{equation*}
+and dividing by the denominator,
+\begin{equation*}
+    \cot{\theta} = \frac{(V^2-v_{10}v_{20})\sin{\theta_0^*}}{(v_{10}+v_{20})V}.
+\end{equation*}
+To find $\theta$ itself, we square this expression. The difference of two squares and the end values of $D$ give
+\begin{equation*}
+    P^2\sin^2{\theta_0^*} = P^2 - \Delta^2V^2 = (P-\Delta V)(P+\Delta V) = -D(0)D(\pi) = (V^2-v_{10}^2)(V^2-v_{20}^2),
+\end{equation*}
+which is positive in both cases, so that
+\begin{equation*}
+    \frac{1}{\sin^2{\theta}} = 1 + \cot^2{\theta} = \frac{(v_{10}+v_{20})^2V^2 + (V^2-v_{10}^2)(V^2-v_{20}^2)}{(v_{10}+v_{20})^2V^2}.
+\end{equation*}
+Expanding the numerator, the terms in $(v_{10}^2+v_{20}^2)V^2$ cancel,
+\begin{align*}
+    &(v_{10}^2+2v_{10}v_{20}+v_{20}^2)V^2 + V^4 - (v_{10}^2+v_{20}^2)V^2 + v_{10}^2v_{20}^2 \\
+    &\qquad = V^4 + 2v_{10}v_{20}V^2 + v_{10}^2v_{20}^2 = (V^2+v_{10}v_{20})^2.
+\end{align*}
+Since $\sin{\theta}>0$, the extreme angle thus satisfies $\sin{\theta} = \sin{\theta^*}$, where we define the angle $\theta^*$, $0 \leq \theta^* \leq \pi/2$, by
+\begin{equation}
+    \sin{\theta^*} = \frac{V(v_{10}+v_{20})}{V^2 + v_{10}v_{20}}; \label{S16P3_theta0}
+\end{equation}
+the right-hand side is at most $1$ since $V^2 + v_{10}v_{20} - (v_{10}+v_{20})V = (V-v_{10})(V-v_{20}) \geq 0$ outside $v_{10}<V<v_{20}$. Two angles between $0$ and $\pi$ have this sine, the acute angle $\theta^*$ and its obtuse supplement $\pi-\theta^*$. To choose between them, we use the sign of $\cot{\theta}$ above: all its factors are positive except $V^2-v_{10}v_{20}$, so
+\begin{itemize}
+    \item for $0<V<v_{10}$, $\cot{\theta}<0$, and the minimum is obtuse, $\theta_{\mathrm{min}} = \pi-\theta^*$;
+    \item for $V>v_{20}$, $\cot{\theta}>0$, and the maximum is acute, $\theta_{\mathrm{max}} = \theta^*$.
+\end{itemize}
+The angle $\theta^*$ is the one called $\theta_0$ in the answer of the book. It is a value of the angle $\theta$ between the particles, reached for the emission angle $\theta_0^*$, and not an emission angle itself.
 
-\vspace{1ex}\textbf{Fast regime, $V>b$.} Similarly, $\cot{\theta} \rightarrow +\infty$ at both ends: both collinear emissions, $\theta_0 = 0$ and $\theta_0 = \pi$, give particles moving in the same direction, so $\theta = 0$ is attained at finite $V$. The cotangent has a minimum at the interior stationary point, where its value is the same as above with the opposite sign, and the largest angle is $\alpha$. In this case, the range for $\theta$ is $0 \leq \theta \leq \alpha$.
+\textit{Reading the figures.} The tips of $\mathbf{v}_1$ and $\mathbf{v}_2$ lie on the circles of radii $v_{10}$ and $v_{20}$ centred at the tip $T$ of $\mathbf{V}$, on opposite sides of $T$ along the line of emission, and $\theta$ is the angle at which the segment joining them is seen from the origin $A$. By Thales' theorem, $\theta$ is obtuse when $A$ is inside the circle having this segment as diameter (dotted), and acute when $A$ is outside it. The cases differ by where $A$, at the distance $V$ from $T$, lies with respect to the two circles.
 
-\vspace{1ex}\textbf{Boundary cases.} For $V = a < b$, the stationary point is at the excluded end $\theta_0 = \pi$, where the particle of speed $a$ is at rest. The angle decreases monotonically from $\theta = \pi$ ($\theta_0 = 0$) and tends to $\pi/2$ (here $\alpha = \pi/2$) when $\theta_0 \rightarrow \pi^-$, without reaching it, so $\pi/2 < \theta \leq \pi$. For $V = b > a$, the end $\theta_0 = 0$ is excluded instead (the particle of speed $b$ is at rest), $\theta \rightarrow \pi/2$ when $\theta_0 \rightarrow 0^+$, and $\theta = 0$ is attained at $\theta_0 = \pi$, so $0 \leq \theta < \pi/2$. For $V = a = b$, the numerator of $\cot{\theta}$ vanishes identically, so $\theta = \pi/2$ for every $0<\theta_0<\pi$, both ends being excluded. The final solution is thus
+\textit{Result.} In increasing order of $V$, the end values from Step 2, the behaviour from Step 3 and the turning point from Step 4 give
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lllll}
+    \hline
+    & At $\theta_0=0$ & At $\theta_0=\pi$ & In between & Range of $\theta$ \\
+    \hline
+    $0<V<v_{10}$ & $\pi$ & $\pi$ & minimum $\pi-\theta^*$ & $\pi-\theta^* \leq \theta \leq \pi$ \\
+    $V=v_{10}<v_{20}$ & $\pi$ & excluded & decreasing & $\pi/2 < \theta \leq \pi$ \\
+    $v_{10}<V<v_{20}$ & $\pi$ & $0$ & decreasing & $0 \leq \theta \leq \pi$ \\
+    $V=v_{20}>v_{10}$ & excluded & $0$ & decreasing & $0 \leq \theta < \pi/2$ \\
+    $V>v_{20}$ & $0$ & $0$ & maximum $\theta^*$ & $0 \leq \theta \leq \theta^*$ \\
+    \hline
+\end{tabular}
+\end{center}
+The bounds $0$ and $\pi$ are reached by the emissions along $\mathbf{V}$, and the extremes $\pi-\theta^*$ and $\theta^*$ at $\theta_0 = \theta_0^*$. The open bounds $\pi/2$ come from the excluded ends, as shown below, and the cases $V = 0$ and $V = v_{10} = v_{20}$ are special.
+
+\textit{Case $V = 0$.} The point $A$ is the common centre $T$ of the circles. The particles fly apart in opposite directions, and $\theta = \pi$ for every $\theta_0$.
+
+\textit{Case $0 < V < v_{10}$.} The point $A$ is inside both circles, and every angle is obtuse.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S16P3-slow.pdf}
+\end{figure}
+At both ends, the particle emitted backwards still moves backward, so $\theta = \pi$. In between, $\theta$ decreases to its minimum $\pi-\theta^*$, the configuration of the figure, then increases back. Hence $\pi - \theta^* \leq \theta \leq \pi$. As $V \rightarrow v_{10}$, $\theta^* \rightarrow \pi/2$ and $\cos{\theta_0^*} \rightarrow -1$: the emission angle of the minimum moves to the end $\theta_0 = \pi$.
+
+\textit{Case $V = v_{10} < v_{20}$.} The point $A$ is on the small circle, and the end $\theta_0 = \pi$ is excluded, particle 1 being at rest there.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S16P3-v10.pdf}
+\end{figure}
+Close to this end, $\theta_0 = \pi - \delta$, particle 1 is slow: its velocity $v_{10}(1-\cos{\delta},\ \sin{\delta})$ makes the angle $\theta_1 = (\pi-\delta)/2 \rightarrow \pi/2$ with $\mathbf{V}$, while $\theta_2 \rightarrow 0$, as in the figure. The angle $\theta$, decreasing from $\pi$ at the other end, thus tends to $\pi/2$ without reaching it. Hence $\pi/2 < \theta \leq \pi$: the limit of the previous case, except for the bound $\pi/2 = \pi-\theta^*$, lost with the excluded emission.
+
+\textit{Case $v_{10} < V < v_{20}$.} The point $A$ is between the two circles. The dotted circle passes on either side of it as the line of emission turns about $T$, and both obtuse (a) and acute (b) angles occur.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S16P3-middle.pdf}
+\end{figure}
+At $\theta_0 = 0$, particle 2 still moves backward, so $\theta = \pi$; at $\theta_0 = \pi$, particle 1 now moves forward, so $\theta = 0$. In between, $\theta$ decreases monotonically. Hence $0 \leq \theta \leq \pi$.
+
+\textit{Case $V = v_{20} > v_{10}$.} The point $A$ is on the large circle, and the end $\theta_0 = 0$ is excluded, particle 2 being at rest there.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S16P3-v20.pdf}
+\end{figure}
+Close to this end, particle 2 is slow: its velocity $v_{20}(1-\cos{\theta_0},\ -\sin{\theta_0})$ makes the angle $\theta_2 = (\pi-\theta_0)/2 \rightarrow \pi/2$ with $\mathbf{V}$, while $\theta_1 \rightarrow 0$, as in the figure. The angle $\theta$ thus starts just below $\pi/2$ and decreases to $0$ at the other end. Hence $0 \leq \theta < \pi/2$.
+
+\textit{Case $V > v_{20}$.} The point $A$ is outside both circles, and every angle is acute.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S16P3-fast.pdf}
+\end{figure}
+At both ends, both particles move forward, so $\theta = 0$. In between, $\theta$ increases to its maximum $\theta^*$, the configuration of the figure, then decreases back. Hence $0 \leq \theta \leq \theta^*$, with $\theta^* \rightarrow \pi/2$ as $V \rightarrow v_{20}$, which joins continuously the previous case.
+
+\textit{Case $V = v_{10} = v_{20}$.} The two circles coincide, $A$ is on them, and the segment joining the tips of $\mathbf{v}_1$ and $\mathbf{v}_2$ is a diameter: by Thales' theorem, $\theta = \pi/2$.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S16P3-equal.pdf}
+\end{figure}
+Indeed, the numerator of \eqref{S16P3_cot} vanishes identically. Both ends are excluded, a particle being at rest at each. Hence $\theta = \pi/2$ for every $0<\theta_0<\pi$.
+
+\textit{The jumps of the range.} The range jumps twice: its lower bound from $\pi/2$ to $0$ when $V$ crosses $v_{10}$, and its upper bound from $\pi$ to $\pi/2$ when $V$ reaches $v_{20}$. Each time, the particle emitted backwards at one end, with the velocity $V-v_{10}$ (at $\theta_0 = \pi$) or $V-v_{20}$ (at $\theta_0 = 0$), changes from moving backward to moving forward, so that $\theta$ at that end changes from $\pi$ to $0$. For $V$ slightly above $v_{10}$, for instance, particle 1 emitted at $\theta_0 = \pi - \delta$ has the velocity $(V - v_{10}\cos{\delta},\ v_{10}\sin{\delta}) \approx (V-v_{10},\ v_{10}\delta)$, whose direction turns from about $\pi/2$ to $0$ over the small range $\delta \lesssim (V-v_{10})/v_{10}$. The angle $\theta$ is a continuous function of $\theta_0$ for every such $V$, but it falls from about $\pi/2$ to $0$ over this range, which shrinks to nothing as $V \rightarrow v_{10}$. In the same way, for $V$ slightly below $v_{20}$, $\theta$ falls from $\pi$ to about $\pi/2$ over a small range of emissions near $\theta_0 = 0$.
+
+The figure after the answer shows $\theta$ as a function of $\theta_0$ in each case.
+The final solution is thus
 }
 {
-With $a = \min(v_{10},v_{20})$, $b = \max(v_{10},v_{20})$ and
+For definiteness $v_{20} \geq v_{10}$. With the angle $\theta^*$ (called $\theta_0$ in the book; a bound on $\theta$, not an emission angle) defined by
 \begin{equation*}
-    \alpha = \sin^{-1} \left( \frac{(a+b)V}{V^2 + ab} \right),
+    \sin{\theta^*} = \frac{V(v_{10}+v_{20})}{V^2 + v_{10}v_{20}}, \qquad 0 \leq \theta^* \leq \pi/2,
 \end{equation*}
 the attainable values of $\theta$, excluding the configurations where a particle is at rest in the $L$ system, are
 \begin{equation*}
     \begin{array}{ll}
         V=0: & \theta = \pi, \\
-        0<V<a: & \pi-\alpha \leq \theta \leq \pi, \\
-        a<V<b: & 0 \leq \theta \leq \pi, \\
-        V>b: & 0 \leq \theta \leq \alpha,
+        0<V<v_{10}: & \pi-\theta^* \leq \theta \leq \pi, \\
+        v_{10}<V<v_{20}: & 0 \leq \theta \leq \pi, \\
+        V>v_{20}: & 0 \leq \theta \leq \theta^*,
     \end{array}
     \qquad\qquad
     \begin{array}{ll}
-        V=a<b: & \pi/2 < \theta \leq \pi, \\
-        V=b>a: & 0 \leq \theta < \pi/2, \\
-        V=a=b: & \theta = \pi/2.
+        V=v_{10}<v_{20}: & \pi/2 < \theta \leq \pi, \\
+        V=v_{20}>v_{10}: & 0 \leq \theta < \pi/2, \\
+        V=v_{10}=v_{20}: & \theta = \pi/2.
     \end{array}
 \end{equation*}
 }
+[
+We check the ranges by simulating the disintegration itself. A particle moving with the velocity $V$ along $x$ is made of two parts of masses $m_1=2$~kg and $m_2=1$~kg, which start at rest relative to each other, a distance $R/2$ apart along the direction $(\cos{\theta_0},\sin{\theta_0})$, with $R=1$~m. They repel each other with the potential $U=16\epsilon(1-r/R)^4$ for $r<R$ and $U=0$ beyond, so that they separate with the disintegration energy $\epsilon=3$~J and then move freely; formula (16.2) gives $v_{10}=1$~m/s and $v_{20}=2$~m/s. Newton's equations are integrated with RK4 steps of $1/4096$~s for $2$~s, and $\theta$ is measured from the final velocities alone, as the angle between $\mathbf{v}_1$ and $\mathbf{v}_2$, for $\theta_0 = 0^\circ, 5^\circ, \ldots, 180^\circ$ and $V=0$, $0.5$, $1$ ($=v_{10}$), $1.5$, $2$ ($=v_{20}$) and $3$~m/s; for $V=v_{10}$ and $V=v_{20}$, the end at which a part would be at rest is replaced by emissions $0.1^\circ$ and $1^\circ$ from it. A second set, $m_1=m_2=1$~kg and $\epsilon=1$~J, gives $v_{10}=v_{20}=1$~m/s, with $V=1$~m/s.
+
+In every run, the motion stays in the plane, the parts are separated and move freely after the interaction, the total momentum stays $(m_1+m_2)V$ within $10^{-13}$~kg\,m/s and the energy is conserved within $10^{-11}$ in relative value. The velocities relative to the centre of mass are along $\pm(\cos{\theta_0},\sin{\theta_0})$ within $10^{-13}$~m/s, with the speeds $v_{10}$ and $v_{20}$ within $10^{-11}$~m/s, as assumed in the solution.
+
+The measured angles then agree with \eqref{S16P3_cot} within $3.4\times10^{-13}$~rad. The exception is close to the excluded ends for $V=v_{10}$ and $V=v_{20}$, where one part is almost at rest in the $L$ system: its direction, and thus $\theta$, is then sensitive to the small velocity errors. The error there reaches $1.1\times10^{-10}$~rad, but it stays below $2.2\times10^{-13}$~rad once multiplied by the ratio of the smaller speed $\min(|\mathbf{v}_1|,|\mathbf{v}_2|)$ to $v_{20}$. For $V=0$, $\theta=180^\circ$; for $v_{10}<V<v_{20}$, $\theta$ decreases monotonically from $180^\circ$ to $0^\circ$; for $V=v_{10}$, it decreases from $180^\circ$ to $90.017^\circ$ at $\theta_0=179.9^\circ$, and for $V=v_{20}$ from $89.983^\circ$ at $\theta_0=0.1^\circ$ to $0^\circ$, never reaching $90^\circ$; for $V=v_{10}=v_{20}$, $\theta=90^\circ$.
+
+The extreme angles are found by minimizing the measured $\theta$ over $\theta_0$ with further engine runs: the smallest angle for $V=0.5$~m/s is $138.189685104^\circ$, at $\theta_0=106.60155^\circ$, and the largest for $V=3$~m/s is $54.903198772^\circ$, at $\theta_0=64.62306^\circ$. They agree with $\pi-\theta^*$ and $\theta^*$ within $1.7\times10^{-13}$~rad, at the turning points $\cos{\theta_0^*}=(v_{20}-v_{10})V/(V^2-v_{10}v_{20})$ within $3\times10^{-6}$ degrees, the accuracy of the search near a flat extremum. Halving the step from $1/256$ to $1/4096$~s divides the change in these angles by about 16 at each halving, to $2\times10^{-12}$~rad. These checks support the result in the selected cases; they are not a general proof.
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figures/S16P3-angle.pdf}
+    \caption{(a) Angle $\theta$ between the two particles in the $L$ system as a function of the emission angle $\theta_0$ in the $C$ system, for $v_{10}=1$~m/s and $v_{20}=2$~m/s: measured in the simulated disintegrations (points) and given by the expression of $\cot{\theta}$ (curves), one colour and marker per value of $V$, with the measured extremes (squares) and the bounds $\pi-\theta^*$ and $\theta^*$ of the solution (dashed). (b) Error of the measured angles, multiplied by $\min(|\mathbf{v}_1|,|\mathbf{v}_2|)/v_{20}$, with the same markers; for $V=0$ the measured angle is exactly $\pi$, and the points are drawn at $10^{-16}$.}
+    \label{fig:S16P3-angle}
+\end{figure}
+]
 \end{problem}
 
 \textbooknumber{\S 17}

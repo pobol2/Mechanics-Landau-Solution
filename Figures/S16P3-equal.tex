@@ -1,0 +1,38 @@
+% §16 Problem 3, V = v10 = v20: the circles coincide and theta = pi/2.
+% The tips of v1 and v2 lie on the circles of radii v10 and v20 centred at the
+% tip T of V, on opposite sides of T, and theta is the angle at which the
+% segment between them is seen from A. The dotted circle has this segment as
+% diameter: theta is obtuse when A is inside it.
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.5]
+    % Parameters (drawing units only)
+    \def\va{1}      % v_10
+    \def\vb{1}      % v_20
+    \def\V{1}     % V
+    \pgfmathsetmacro{\th}{60} % emission angle theta_0 (degrees)
+    \def\lab{-40}   % direction of the theta label from A (degrees)
+
+    \coordinate (A) at (0,0);
+    \coordinate (T) at (\V,0);
+    \coordinate (P1) at ($(T)+(\th:\va)$);
+    \coordinate (P2) at ($(T)+({\th+180}:\vb)$);
+    \coordinate (C) at ($(P1)!0.5!(P2)$);
+
+    % Circles of the C-system speeds, line of emission, circle of diameter P1 P2
+    \draw[guide] (T) circle[radius=\va];
+    \draw[guide] (T) circle[radius=\vb];
+    \draw[thin, dotted] (C) circle[radius={(\va+\vb)/2}];
+    \draw[guide] (P2) -- (P1);
+
+    % Velocities
+    \draw[vector] (A) -- node[pos=0.75, below=0pt, font=\small] {$\mathbf{V}$} (T);
+    \fill (T) circle[radius=0.6pt] node[above right=0pt, font=\scriptsize] {$T$};
+    \draw[vector, highlight] (A) -- (P1) node[pos=1, above=0pt] {$\mathbf{v}_1$};
+    \draw[vector, highlight] (A) -- (P2) node[pos=1, below=0pt] {$\mathbf{v}_2$};
+    \fill (A) circle[radius=0.8pt] node[left=1pt, font=\scriptsize] {$A$};
+    \pic[angle arc, angle radius=3mm] {angle = P2--A--P1};
+    \node at ($(A)+(\lab:0.5)$) {$\theta$};
+\end{tikzpicture}
+\end{document}

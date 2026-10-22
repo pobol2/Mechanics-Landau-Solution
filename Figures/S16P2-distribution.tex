@@ -1,0 +1,35 @@
+% §16 Problem 2: angular distribution dP/dtheta of the resulting particles in
+% the L system, from the solution's formulas, for V/v0 = 0, 0.5, 1 and 2.
+% For V > v0 the density diverges (integrably) at sin(theta_max) = v0/V.
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        width=11cm, height=6.5cm,
+        xmin=0, xmax=180, xtick={0,30,...,180},
+        ymin=0, ymax=3,
+        xlabel={$\theta$ (degrees)},
+        ylabel={$\mathrm{d}P/\mathrm{d}\theta$ (per radian)},
+        legend pos=north east, legend style={font=\footnotesize},
+        samples=300, every axis plot/.append style={thick},
+    ]
+        % V = 0: isotropic, (1/2) sin(theta)
+        \addplot[color=FigureGuide, domain=0:180] {0.5*sin(x)};
+        \addlegendentry{$V=0$}
+        % V/v0 = 1/2: one emission angle for each theta
+        \addplot[color=blue!65!black, domain=0:180]
+            {0.5*sin(x)*(2*0.5*cos(x) + (1+0.25*cos(2*x))/sqrt(1-0.25*sin(x)^2))};
+        \addlegendentry{$V=v_0/2$}
+        % V = v0: sin(2 theta) up to 90 degrees
+        \addplot[color=black, domain=0:90] {sin(2*x)};
+        \addlegendentry{$V=v_0$}
+        % V/v0 = 2: two emission angles for each theta < theta_max = 30 degrees
+        \addplot[color=FigureAccent, domain=0:29.999, samples=600]
+            {sin(x)*(1+4*cos(2*x))/sqrt(1-4*sin(x)^2)};
+        \addlegendentry{$V=2v_0$}
+        \addplot[guide, forget plot] coordinates {(30,0) (30,3)};
+        \node[annotation, anchor=south west] at (axis cs:31,2.55) {$\theta_{\mathrm{max}}$};
+    \end{axis}
+\end{tikzpicture}
+\end{document}

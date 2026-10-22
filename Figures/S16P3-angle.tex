@@ -1,0 +1,82 @@
+% §16 Problem 3: angle between the two particles in the L system, measured from
+% the engine disintegrations, against the solution's formula, and its error
+% Data: Data/S16P3-angles.csv, -extrema.csv and -curves.csv, written by python Simulations/study.py S16P3
+\documentclass{SolutionFigure}
+
+% One style per regime (v10 = 1, v20 = 2 m/s), shared by the curves, the points and the legend
+\pgfplotsset{
+    slow/.style={color=FigureAccent, mark=*},
+    lower/.style={color=blue!65!black, mark=square*},
+    middle/.style={color=black, mark=triangle*},
+    upper/.style={color=green!40!black, mark=diamond*},
+    fast/.style={color=orange!85!black, mark=pentagon*},
+    equal/.style={color=FigureGuide, mark=o},
+    rest/.style={color=FigureGuide, mark=x},
+    point/.style={only marks, mark size=1.1pt, mark options={solid}},
+}
+% Measured points of one case, keyed by V + 10 v20: {key}{style}{column}
+\newcommand\measured[3]{%
+    \addplot[#2, point, forget plot, restrict expr to domain={\thisrow{speed}+10*\thisrow{b}}{#1:#1}]
+        table[x=emission, y=#3] {Figures/Data/S16P3-angles.csv};}
+% Formula curve of one speed: {column}{style}
+\newcommand\formula[2]{%
+    \addplot[#2, thick, mark=none, forget plot] table[x=emission, y=#1] {Figures/Data/S16P3-curves.csv};}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{groupplot}[
+        group style={group size=1 by 2, vertical sep=14mm, xticklabels at=edge bottom},
+        width=11cm, height=6.5cm,
+        xmin=0, xmax=180, xtick={0,30,...,180},
+        xlabel={$\theta_0$ (degrees)},
+        table/col sep=comma, unbounded coords=jump,
+    ]
+        \nextgroupplot[title={(a) Angle between the particles: formula (curves) and measured (points)},
+            ylabel={$\theta$ (degrees)}, ymin=0, ymax=185, ytick={0,30,...,180},
+            legend pos=outer north east, legend style={font=\footnotesize}]
+            \addlegendimage{slow, thick, mark size=1.1pt}   \addlegendentry{$V=0.5<v_{10}$}
+            \addlegendimage{lower, thick, mark size=1.1pt}  \addlegendentry{$V=v_{10}$}
+            \addlegendimage{middle, thick, mark size=1.1pt} \addlegendentry{$v_{10}<V=1.5<v_{20}$}
+            \addlegendimage{upper, thick, mark size=1.1pt}  \addlegendentry{$V=v_{20}$}
+            \addlegendimage{fast, thick, mark size=1.1pt}   \addlegendentry{$V=3>v_{20}$}
+            \formula{V050}{slow}
+            \formula{V100}{lower}
+            \formula{V150}{middle}
+            \formula{V200}{upper}
+            \formula{V300}{fast}
+            \addlegendimage{only marks, mark=square, mark size=2pt, black}
+            \addlegendentry{measured extreme}
+            \measured{20.5}{slow}{measured}
+            \measured{21}{lower}{measured}
+            \measured{21.5}{middle}{measured}
+            \measured{22}{upper}{measured}
+            \measured{23}{fast}{measured}
+            \addplot[only marks, mark=square, mark size=2.5pt, black, thick, forget plot]
+                table[x=emission, y=measured] {Figures/Data/S16P3-extrema.csv};
+            % pi - theta* for V = 0.5 and theta* for V = 3 (v10 = 1, v20 = 2), from the solution
+            \addplot[guide, color=FigureGuide, domain=0:180, samples=2, forget plot] {180 - asin(1.5/2.25)};
+            \addplot[guide, color=FigureGuide, domain=0:180, samples=2, forget plot] {asin(9/11)};
+            \node[annotation, anchor=north east] at (axis cs:178,{180 - asin(1.5/2.25)}) {$\pi-\theta^*$};
+            \node[annotation, anchor=south east] at (axis cs:178,{asin(9/11)}) {$\theta^*$};
+
+        \nextgroupplot[title={(b) Error of the measured angle},
+            ylabel={$|\Delta\theta|\,\min(v_1,v_2)/v_{20}$ (rad)},
+            ymode=log, ymin=5e-17, ymax=3e-12, ytick={1e-16,1e-15,1e-14,1e-13,1e-12},
+            legend pos=outer north east, legend style={font=\footnotesize}]
+            \addlegendimage{slow, point}   \addlegendentry{$V=0.5$}
+            \addlegendimage{lower, point}  \addlegendentry{$V=v_{10}$}
+            \addlegendimage{middle, point} \addlegendentry{$V=1.5$}
+            \addlegendimage{upper, point}  \addlegendentry{$V=v_{20}$}
+            \addlegendimage{fast, point}   \addlegendentry{$V=3$}
+            \addlegendimage{equal, point}  \addlegendentry{$V=v_{10}=v_{20}$}
+            \addlegendimage{rest, point}   \addlegendentry{$V=0$ (exact)}
+            \measured{20.5}{slow}{error}
+            \measured{21}{lower}{error}
+            \measured{21.5}{middle}{error}
+            \measured{22}{upper}{error}
+            \measured{23}{fast}{error}
+            \measured{11}{equal}{error}
+            \measured{20}{rest}{error}
+    \end{groupplot}
+\end{tikzpicture}
+\end{document}

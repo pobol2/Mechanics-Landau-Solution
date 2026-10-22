@@ -1,0 +1,80 @@
+% §16 Problem 2: the velocity v = V + v0 of a particle in the L system ends on the
+% circle of radius v0 centred at the tip T of V (cf. Fig. 14 of the book).
+% (a) v0 > V: A is inside the circle, and each direction theta is reached once.
+% (b) v0 < V: A is outside, a direction theta < theta_max cuts the circle at B
+% and C (two emission angles theta0), and theta_max is the tangent from A.
+\documentclass{SolutionFigure}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.6]
+    % ---- (a) v0 > V ----
+    \begin{scope}
+        \def\V{0.55}    % V
+        \def\vo{1}      % v_0
+        \def\th{65}     % theta_0
+
+        \coordinate (A) at (0,0);
+        \coordinate (T) at (\V,0);
+        \coordinate (X) at ({\V+\vo+0.25},0);
+        \coordinate (P) at ($(T)+(\th:\vo)$);
+
+        \draw[guide] (T) circle[radius=\vo];
+        \draw[guide] ({\V-\vo-0.1},0) -- (X);
+        \node[annotation, anchor=west] at (X) {$x$};
+
+        \draw[vector] (A) -- node[below=1pt] {$\mathbf{V}$} (T);
+        \draw[vector] (T) -- node[right=1pt, pos=0.55] {$\mathbf{v}_0$} (P);
+        \draw[vector, highlight] (A) -- node[left=1pt, pos=0.55] {$\mathbf{v}$} (P);
+        \fill (A) circle[radius=0.6pt] node[below left=0pt, font=\scriptsize] {$A$};
+        \fill (T) circle[radius=0.6pt] node[below=1pt, font=\scriptsize] {$T$};
+
+        \pic[angle arc, angle radius=4mm, angle eccentricity=1.6, "$\theta_0$"] {angle = X--T--P};
+        \pic[angle arc, angle radius=6mm, angle eccentricity=1.35, "$\theta$"] {angle = T--A--P};
+
+        \node[annotation, anchor=north] at (\V,{-\vo-0.15}) {(a) $v_0>V$};
+    \end{scope}
+
+    % ---- (b) v0 < V ----
+    \begin{scope}[xshift=2.9cm]
+        \def\V{2}       % V
+        \def\vo{1}      % v_0
+        \def\th{18}     % theta, below theta_max = 30 degrees
+        % distances from A to B and C along the direction theta, and theta_max
+        \pgfmathsetmacro\c{\V*cos(\th)}
+        \pgfmathsetmacro\r{sqrt(\vo*\vo-\V*\V*sin(\th)*sin(\th))}
+        \pgfmathsetmacro\sB{\c-\r}
+        \pgfmathsetmacro\sC{\c+\r}
+        \pgfmathsetmacro\thmax{asin(\vo/\V)}
+        \pgfmathsetmacro\tangent{sqrt(\V*\V-\vo*\vo)}
+
+        \coordinate (A) at (0,0);
+        \coordinate (T) at (\V,0);
+        \coordinate (X) at ({\V+\vo+0.25},0);
+        \coordinate (B) at (\th:\sB);
+        \coordinate (C) at (\th:\sC);
+        \coordinate (M) at (\thmax:{\tangent+0.35});
+
+        \draw[guide] (T) circle[radius=\vo];
+        \draw[guide] (A) -- (X);
+        \draw[guide] (A) -- (M);
+        \node[annotation, anchor=west] at (X) {$x$};
+
+        \draw[vector] (A) -- node[below=1pt] {$\mathbf{V}$} (T);
+        \draw[vector] (T) -- (B);
+        \draw[vector] (T) -- node[right=1pt, pos=0.6] {$\mathbf{v}_0$} (C);
+        \draw[vector, highlight] (A) -- node[above left=0pt, pos=0.75] {$\mathbf{v}$} (C);
+        \draw[vector, highlight] (A) -- (B);
+        \fill (A) circle[radius=0.6pt] node[below left=0pt, font=\scriptsize] {$A$};
+        \fill (T) circle[radius=0.6pt] node[below=1pt, font=\scriptsize] {$T$};
+        \node[font=\scriptsize, below=2pt] at (B) {$B$};
+        \node[font=\scriptsize, above=1pt] at (C) {$C$};
+
+        \pic[angle arc, angle radius=7mm, angle eccentricity=1.4, "$\theta$"] {angle = X--A--C};
+        \pic[angle arc, angle radius=11mm] {angle = X--A--M};
+        % label outside the wedge, next to the tangent
+        \node[font=\small, anchor=south east] at ({\thmax+4}:0.62) {$\theta_{\mathrm{max}}$};
+
+        \node[annotation, anchor=north] at (\V,{-\vo-0.15}) {(b) $v_0<V$};
+    \end{scope}
+\end{tikzpicture}
+\end{document}
