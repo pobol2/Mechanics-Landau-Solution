@@ -3,12 +3,14 @@
 # Copyright (c) 2026 P.O. Bolduc. See LICENSE-CODE.
 """Build the website of the manual (GitHub Pages).
 
-It reads main.pdf, built by latexmk (it is not tracked), and tracked files:
+It reads two files written by latexmk (neither is tracked):
 
-  main.pdf            structure (bookmarks), page ranges, parts (hyperref
-                      anchors) and links between problems
-  README.md           completion, from the generated Progress section
-  site/problems.toml  a descriptive title for each problem
+  main.pdf            chapters (top-level bookmarks), positions of the
+                      problems and their parts (hyperref anchors) and links
+                      between problems
+  problems.json       the problem index of SolutionManual.cls: sections,
+                      problems with their titles (title={...} in
+                      Chapters/*.tex), completion, page ranges and parts
 
 The output folder (default: _site, ignored by Git) receives:
 
@@ -37,7 +39,6 @@ import posixpath
 import re
 import shutil
 import sys
-import tomllib
 import urllib.parse
 from dataclasses import dataclass, field
 from html.parser import HTMLParser
@@ -53,6 +54,8 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parent.parent
 HERE = Path(__file__).resolve().parent
+# Copy of build/main-problems.json ($problems_json in latexmkrc)
+INDEX = "problems.json"
 
 DEFAULT_REPOSITORY = "https://github.com/pobol2/Mechanics-Landau-Solution"
 # Google Search Console ownership check of the site (HTML tag method)
@@ -132,7 +135,7 @@ class Problem:
     done: bool = True
     refs: set = field(default_factory=set)       # IDs of the problems it links to
     cited_by: set = field(default_factory=set)
-    title: str = ""           # from site/problems.toml
+    title: str = ""           # from problems.json
 
     @property
     def id(self):
@@ -284,51 +287,95 @@ def anchor_key(name):
     return prefix, rest
 
 
-SECTION_RE = re.compile(r"§\s*(\d+(?:\.\d+)*)\s+(.+)")
-PROBLEM_RE = re.compile(rf"{PROBLEM}\s+(\d+)")
+UNIT_RE = re.compile(r"§\s*(\d+(?:\.\d+)*)")
+STATUSES = {"done": True, "not done": False}
 
 
-def read_manual(reader, anchors, errors):
-    """Chapters, sections and problems from the bookmarks of main.pdf."""
-    chapters, boundaries = [], set()
+def read_index(path, errors):
+    """Problems of problems.json, in document order, after a check of their
+    fields."""
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as e:
+        errors.append(f"{path.name}: {e}")
+        errors.check("problem index")
+    texts = ("anchor", "number", "unit", "heading_title", "title", "first_page", "last_page")
+    entries = data.get("problems") if isinstance(data, dict) else None
+    if not isinstance(entries, list):
+        entries = []
+        errors.append(f"{path.name}: no list of problems")
+    for i, entry in enumerate(entries, 1):
+        if not isinstance(entry, dict) \
+                or not all(isinstance(entry.get(k), str) for k in texts) \
+                or entry.get("status") not in STATUSES \
+                or not isinstance(entry.get("parts"), list) \
+                or not all(isinstance(x, dict) and isinstance(x.get("anchor"), str)
+                           and isinstance(x.get("number"), str) and x.get("status") in STATUSES
+                           for x in entry["parts"]):
+            errors.append(f"{path.name}: problem {i} has missing or invalid fields")
+    errors.check("problem index")
+    return entries
+
+
+def read_manual(reader, anchors, index, errors):
+    """Chapters from the top-level bookmarks of main.pdf; their sections and
+    problems from the problem index, located in main.pdf by their anchors."""
+    tops, boundaries = [], set()
     for level, title, dest in outline_entries(reader):
+        if level:
+            continue          # sections and problems: from the problem index
         target = anchors.resolve(dest)
         if target is None:
             errors.append(f'bookmark "{title}" has no destination in main.pdf')
             continue
-        if level == 0:
-            # Every top-level bookmark starts new pages; only the chapters
-            # (hyperref anchor chapter.N) group problems
-            boundaries.add(target.page)
-            m = re.fullmatch(r"chapter\.(\d+)", target.name or "")
-            if m:
-                chapters.append(Chapter(int(m[1]), title, target.page))
-            else:
-                chapters.append(None)
-        elif level == 1:
-            m = SECTION_RE.fullmatch(title)
-            if not chapters or chapters[-1] is None or not m:
-                errors.append(f'bookmark "{title}" is not a textbook section (§N Title) of a chapter')
-                continue
-            chapters[-1].sections.append(Section(m[1], m[2], chapters[-1]))
-        elif level == 2:
-            m = PROBLEM_RE.fullmatch(title)
-            key = anchor_key(target.name or "")
-            if not chapters or chapters[-1] is None or not chapters[-1].sections \
-                    or not m or not key or key[0] != "problem":
-                errors.append(f'bookmark "{title}" is not a problem of a textbook section')
-                continue
-            section = chapters[-1].sections[-1]
-            problem = Problem(int(m[1]), key[1], target.page, section)
-            title_anchor = anchors.named.get(f"problem-title.{problem.key}")
-            if title_anchor is None or title_anchor.page != target.page:
-                errors.append(f"{problem.label}: its title is not on the page of its bookmark")
-            section.problems.append(problem)
-        else:
-            errors.append(f'bookmark "{title}" is nested too deep: only chapters, '
-                          f'sections and their problems are supported')
-    chapters = [c for c in chapters if c is not None and c.sections]
+        # Every top-level bookmark starts new pages; only the chapters
+        # (hyperref anchor chapter.N) group problems
+        boundaries.add(target.page)
+        m = re.fullmatch(r"chapter\.(\d+)", target.name or "")
+        tops.append((target.page, Chapter(int(m[1]), title, target.page) if m else None))
     errors.check("main.pdf bookmarks")
+
+    # Problems: in a textbook section (unit §N) of a chapter, at the anchor
+    # of the index, which starts on the page given by the index
+    labels = reader.page_labels
+    stale = f"(rebuild with latexmk: are main.pdf and {INDEX} from the same build?)"
+    part_entries = {}
+    for entry in index:
+        where = f'{INDEX}: {entry["unit"]} {PROBLEM} {entry["number"]}'
+        unit = UNIT_RE.fullmatch(entry["unit"])
+        key = anchor_key(entry["anchor"])
+        if not unit or not entry["number"].isdigit() or not key or key[0] != "ProblemNum":
+            errors.append(f"{where} is not a problem of a textbook section (§N)")
+            continue
+        target = anchors.named.get(entry["anchor"])
+        if target is None:
+            errors.append(f'{where}: no anchor {entry["anchor"]} in main.pdf {stale}')
+            continue
+        chapter = next((c for p, c in reversed(tops) if p <= target.page), None)
+        if chapter is None:
+            errors.append(f"{where} is not in a chapter")
+            continue
+        if not chapter.sections or chapter.sections[-1].number != unit[1]:
+            chapter.sections.append(Section(unit[1], entry["heading_title"], chapter))
+        section = chapter.sections[-1]
+        problem = Problem(int(entry["number"]), key[1], target.page, section,
+                          done=STATUSES[entry["status"]],
+                          title=" ".join(entry["title"].split()))
+        title_anchor = anchors.named.get(f"problem-title.{problem.key}")
+        if title_anchor is None or title_anchor.page != target.page:
+            errors.append(f"{problem.label}: its title is not on the page of its anchor")
+        if labels[problem.start] != entry["first_page"]:
+            errors.append(f'{where}: starts on page {entry["first_page"]}, on page '
+                          f"{labels[problem.start]} in main.pdf {stale}")
+        # Page labels can repeat (front matter): the first match from the start
+        problem.end = next((i for i in range(problem.start, len(labels))
+                            if labels[i] == entry["last_page"]), -1)
+        if problem.end < 0:
+            errors.append(f'{where}: no page {entry["last_page"]} after its start in main.pdf {stale}')
+        part_entries[problem.key] = entry["parts"]
+        section.problems.append(problem)
+    chapters = [c for _, c in tops if c is not None and c.sections]
+    errors.check(f"{INDEX} against main.pdf")
 
     problems = [p for c in chapters for p in c.problems]
     by_key = {p.key: p for p in problems}
@@ -344,24 +391,31 @@ def read_manual(reader, anchors, errors):
             if numbers != list(range(1, len(numbers) + 1)):
                 errors.append(f"{section.label}: problems numbered {numbers}")
 
-    # Parts: the SubProblemNum anchors of each problem, numbered 1, 2, ...
-    parts = {}
-    for name, target in anchors.named.items():
+    # Parts: those of the index, (a), (b), ..., at the SubProblemNum anchors
+    # of their problem, numbered 1, 2, ..., which main.pdf has all of
+    found = {}
+    for name in anchors.named:
         key = anchor_key(name)
         if key and key[0] == "SubProblemNum":
-            parts.setdefault(key[1], {})[int(name.rpartition(".")[2])] = target
-    for key, found in parts.items():
-        problem = by_key.get(key)
-        if problem is None:
-            errors.append(f"part anchor of an unknown problem: SubProblemNum.{key}")
+            found.setdefault(key[1], set()).add(int(name.rpartition(".")[2]))
+    for key in found.keys() - by_key.keys():
+        errors.append(f"part anchor of an unknown problem: SubProblemNum.{key}")
+    for problem in problems:
+        entries = part_entries[problem.key]
+        numbers = range(1, len(entries) + 1)
+        if len(entries) > 26 \
+                or [x["anchor"] for x in entries] != [f"SubProblemNum.{problem.key}.{k}" for k in numbers] \
+                or [x["number"] for x in entries] != [f"({chr(96 + k)})" for k in numbers] \
+                or found.get(problem.key, set()) != set(numbers):
+            errors.append(f"{problem.label}: parts {[x['number'] for x in entries]} in {INDEX}, "
+                          f"part anchors {sorted(found.get(problem.key, ()))} in main.pdf {stale}")
             continue
-        if sorted(found) != list(range(1, len(found) + 1)) or len(found) > 26:
-            errors.append(f"{problem.label}: parts numbered {sorted(found)}")
-            continue
-        problem.parts = [Part(chr(96 + k), t.page, t.left, t.top) for k, t in sorted(found.items())]
+        targets = [anchors.named[x["anchor"]] for x in entries]
+        problem.parts = [Part(chr(96 + k), t.page, t.left, t.top, STATUSES[x["status"]])
+                         for k, x, t in zip(numbers, entries, targets)]
 
     # Page ranges: each problem starts on a new page (problem on new page, the
-    # default of the class) and runs until the next problem or top-level
+    # default of the class) and ends before the next problem or top-level
     # bookmark (chapter title page)
     starts = [p.start for p in problems]
     if len(set(starts)) != len(starts):
@@ -371,7 +425,10 @@ def read_manual(reader, anchors, errors):
     last = len(reader.pages) - 1
     for problem in problems:
         later = [b for b in boundaries if b > problem.start]
-        problem.end = later[0] - 1 if later else last
+        if later and problem.end >= later[0]:
+            errors.append(f"{problem.label}: pages {problem.start + 1}-{problem.end + 1} "
+                          f"run into page {later[0] + 1}, which starts something else")
+    errors.check("main.pdf page ranges")
 
     # A part's anchor is set just before its box; when the box does not fit,
     # it moves to the next page and the anchor stays below the text area of
@@ -408,155 +465,23 @@ def read_manual(reader, anchors, errors):
     return chapters, owner
 
 
-# ============ README.md progress ============ #
-
-BEGIN = "<!-- completion report: begin -->"
-END = "<!-- completion report: end -->"
-
-
-def progress_lines(text):
-    """Lines between the completion report markers (outside code fences)."""
-    inside, fence, lines = False, None, []
-    for line in text.splitlines():
-        if fence:
-            if re.fullmatch(rf" {{0,3}}{re.escape(fence[0])}{{{len(fence)},}}\s*", line):
-                fence = None
-            continue
-        m = re.match(r" {0,3}(`{3,}|~{3,})", line)
-        if m:
-            fence = m[1]
-        elif line.strip() == BEGIN:
-            inside = True
-        elif line.strip() == END and inside:
-            return lines
-        elif inside:
-            lines.append(line)
-    return None
-
-
-def read_progress(path, errors):
-    """Completion counts and unfinished problems/parts from README.md."""
-    lines = progress_lines(path.read_text(encoding="utf-8"))
-    if lines is None:
-        errors.append(f"{path.name}: no completion report between {BEGIN} and {END}")
-        errors.check("README.md progress")
-    progress = {"done": None, "total": None, "chapters": []}
-    for line in lines:
-        m = re.search(r"\*\*Completion: (\d+)/(\d+)", line)
-        if m:
-            progress["done"], progress["total"] = int(m[1]), int(m[2])
-            continue
-        if not line.startswith("|"):
-            continue
-        cells = [c.strip() for c in re.split(r"(?<!\\)\|", line.strip())[1:-1]]
-        if len(cells) != 3 or not re.fullmatch(r"\d+/\d+", cells[1]):
-            continue          # header and alignment rows
-        name, count, todo = cells
-        done, total = map(int, count.split("/"))
-        row = {"done": done, "total": total}
-        if m := re.fullmatch(rf"\*\*{CHAPTER} (\d+)\. (.+)\*\*", name):
-            progress["chapters"].append(dict(row, number=int(m[1]), title=m[2], sections=[]))
-        elif m := re.fullmatch(r"&emsp;§\s*(\S+) (.+)", name):
-            if not progress["chapters"]:
-                errors.append(f"README.md: section row before any chapter: {line}")
-                continue
-            unfinished = {}
-            for n, parts in re.findall(rf"{PROBLEM} (\d+)(?: \(([^)]*)\))?", todo):
-                unfinished[int(n)] = [x.strip() for x in parts.split(",")] if parts else []
-            if re.sub(rf"{PROBLEM} \d+(?: \([^)]*\))?|,|\s", "", todo):
-                errors.append(f"README.md: cannot read the unfinished problems of §{m[1]}: {todo}")
-            progress["chapters"][-1]["sections"].append(
-                dict(row, number=m[1], title=m[2].replace("\\|", "|"), unfinished=unfinished))
-        elif re.fullmatch(r"\*\*.+\*\*", name):
-            progress["all"] = row
-        else:
-            errors.append(f"README.md: unsupported progress row (only chapters and "
-                          f"sections are supported): {line}")
-    errors.check("README.md progress")
-    return progress
-
-
-def reconcile(chapters, progress, errors):
-    """Check the progress table against main.pdf and set the completion."""
-    if len(progress["chapters"]) != len(chapters):
-        errors.append(f"README.md lists {len(progress['chapters'])} chapters, "
-                      f"main.pdf has {len(chapters)}")
-    for chapter, row in zip(chapters, progress["chapters"]):
-        where = f"{CHAPTER} {chapter.number}"
-        if row["number"] != chapter.number:
-            errors.append(f"{where}: numbered {row['number']} in README.md")
-        if row["title"] != chapter.title:
-            warn(f'{where}: titled "{row["title"]}" in README.md, "{chapter.title}" in main.pdf')
-        if [s["number"] for s in row["sections"]] != [s.number for s in chapter.sections]:
-            errors.append(f"{where}: sections {[s['number'] for s in row['sections']]} in "
-                          f"README.md, {[s.number for s in chapter.sections]} in main.pdf")
-            continue
-        for section, srow in zip(chapter.sections, row["sections"]):
-            if srow["title"] != section.title:
-                warn(f'{section.label}: titled "{srow["title"]}" in README.md, '
-                     f'"{section.title}" in main.pdf')
-            if srow["total"] != len(section.problems):
-                errors.append(f"{section.label}: {srow['total']} problems in README.md, "
-                              f"{len(section.problems)} in main.pdf")
-                continue
-            if srow["done"] != srow["total"] - len(srow["unfinished"]):
-                errors.append(f"{section.label}: {srow['done']}/{srow['total']} done but "
-                              f"{len(srow['unfinished'])} listed as not done in README.md")
-            for problem in section.problems:
-                if problem.number not in srow["unfinished"]:
-                    continue
-                problem.done = False
-                letters = [p.letter for p in problem.parts]
-                for letter in srow["unfinished"][problem.number]:
-                    if letter not in letters:
-                        errors.append(f"{problem.label}: README.md lists part ({letter}), "
-                                      f"main.pdf has parts {letters}")
-                for part in problem.parts:
-                    part.done = part.letter not in srow["unfinished"][problem.number]
-            extra = set(srow["unfinished"]) - {p.number for p in section.problems}
-            if extra:
-                errors.append(f"{section.label}: README.md lists unknown problems {sorted(extra)}")
-        if (row["done"], row["total"]) != (done_count(chapter.problems), len(chapter.problems)):
-            errors.append(f"{where}: {row['done']}/{row['total']} in README.md, "
-                          f"{done_count(chapter.problems)}/{len(chapter.problems)} from its sections")
-    problems = [p for c in chapters for p in c.problems]
-    expected = (done_count(problems), len(problems))
-    for name, counts in (("Completion", (progress["done"], progress["total"])),
-                         ("All problems", tuple(progress.get("all", {}).get(k) for k in ("done", "total")))):
-        if counts != expected:
-            errors.append(f"README.md {name}: {counts[0]}/{counts[1]}, "
-                          f"expected {expected[0]}/{expected[1]}")
-    errors.check("README.md progress against main.pdf")
-
-
 # ============ Titles ============ #
 
-def read_titles(chapters, errors):
-    """Titles of site/problems.toml, keyed by problem ID."""
-    path = HERE / "problems.toml"
-    try:
-        data = tomllib.loads(path.read_text(encoding="utf-8"))
-    except tomllib.TOMLDecodeError as e:
-        errors.append(f"{path.name}: {e}")
-        errors.check("problem titles")
-    problems = {p.id: p for c in chapters for p in c.problems}
-    for key, entry in data.items():
-        problem = problems.get(key)
-        if problem is None:
-            errors.append(f"{path.name}: [{key}] is not a problem of the manual")
-        elif not isinstance(entry, dict) or set(entry) != {"title"} \
-                or not isinstance(entry["title"], str) or not entry["title"].strip():
-            errors.append(f"{path.name}: [{key}] needs a title, and only a title")
-        else:
-            problem.title = " ".join(entry["title"].split())
-            # Every problem, so that its page fits once it is solved
-            if len(page_title(problem)) > TITLE_MAX:
-                errors.append(f"{path.name}: [{key}] is too long for the page title "
-                              f'"{page_title(problem)}" ({TITLE_MAX} characters at most)')
+def check_titles(problems, errors):
+    """Titles of the problems (title={...} in Chapters/*.tex), as the index
+    gives them: plain text, which must fit in the page title."""
+    for problem in problems:
+        if re.search(r"[\\$]", problem.title):
+            errors.append(f'{problem.label}: the title "{problem.title}" is TeX, not plain text '
+                          f"(give its plain text with \\texorplain{{TeX}}{{plain text}})")
+        # Every problem, so that its page fits once it is solved
+        elif len(page_title(problem)) > TITLE_MAX:
+            errors.append(f"{problem.label}: its title is too long for the page title "
+                          f'"{page_title(problem)}" ({TITLE_MAX} characters at most)')
     errors.check("problem titles")
-    for problem in problems.values():
+    for problem in problems:
         if not problem.title:
-            warn(f"{problem.label} has no title in {path.name}")
+            warn(f"{problem.label} has no title (title={{...}} in Chapters/*.tex)")
 
 
 # ============ Problem PDFs ============ #
@@ -767,7 +692,7 @@ def verify_site(out, problems, links, manual_pages, errors):
         elif not DESCRIPTION_RANGE[0] <= len(page.meta["description"]) <= DESCRIPTION_RANGE[1]:
             errors.append(f"{path}: description of {len(page.meta['description'])} characters, "
                           f"not {DESCRIPTION_RANGE[0]}-{DESCRIPTION_RANGE[1]} "
-                          f"(shorten its title in site/problems.toml)")
+                          f"(shorten its title in Chapters/*.tex)")
         elif len(page.title) > TITLE_MAX:
             errors.append(f"{path}: title of {len(page.title)} characters, over {TITLE_MAX}")
         for link in page.links:
@@ -869,7 +794,7 @@ def esc(text):
 
 
 def rich(text):
-    """Escaped text with subscripts: M_z (see site/problems.toml)."""
+    """Escaped text with subscripts: M_z (a title's \\texorplain{$M_z$}{M\\_z})."""
     return re.sub(r"(?<=\S)_([A-Za-z0-9]+)", r"<sub>\1</sub>", esc(text))
 
 
@@ -1131,15 +1056,15 @@ def main():
     out = Path(args.out).resolve()
     errors = Errors()
 
-    if not (ROOT / "main.pdf").is_file():
-        sys.exit("main.pdf is missing: build the manual first with latexmk")
+    for name in ("main.pdf", INDEX):
+        if not (ROOT / name).is_file():
+            sys.exit(f"{name} is missing: build the manual first with latexmk")
     reader = PdfReader(ROOT / "main.pdf")
     anchors = Anchors(reader)
     author = (reader.metadata or {}).get("/Author") or "P.O. Bolduc"
-    chapters, owner = read_manual(reader, anchors, errors)
-    reconcile(chapters, read_progress(ROOT / "README.md", errors), errors)
-    read_titles(chapters, errors)
+    chapters, owner = read_manual(reader, anchors, read_index(ROOT / INDEX, errors), errors)
     problems = [p for c in chapters for p in c.problems]
+    check_titles(problems, errors)
 
     prepare_output(out)
     for problem in problems:

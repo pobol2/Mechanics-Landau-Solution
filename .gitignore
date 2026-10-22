@@ -4,6 +4,8 @@ build/
 
 # Copy of build/main.pdf made by latexmk; CI builds and publishes it
 /main.pdf
+# Copy of build/main-problems.json made by latexmk; read by site/build.py
+/problems.json
 
 # Safety net in case something is compiled outside of latexmk
 *.aux

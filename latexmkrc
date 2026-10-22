@@ -18,3 +18,7 @@ do $shared or die "Could not load $shared: ", ($@ || $!), "\n";
 # completion report markers) instead of a separate COMPLETION.md
 $completion_readme = 'README.md';
 $completion_report = '';
+
+# Problem index (problems, titles, statuses, pages and parts): copied to
+# problems.json in this folder, where site/build.py reads it
+$problems_json = 'problems.json';

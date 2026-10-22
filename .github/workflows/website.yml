@@ -4,8 +4,8 @@
 # Builds the manual (main.pdf, which is not tracked) with TeX Live, checks that
 # the committed README progress matches it, then builds the website (the
 # catalogue, a page per solved problem and one PDF per problem) from the fresh
-# main.pdf, README.md and site/ files, and deploys it to GitHub Pages on each
-# push to master.
+# main.pdf and problems.json and the site/ files, and deploys it to GitHub
+# Pages on each push to master.
 # Pull requests and manual runs on other branches are built and checked, but
 # not deployed.
 # One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions.
@@ -98,8 +98,8 @@ jobs:
         if: env.DEPLOY == 'true'
         uses: actions/configure-pages@v5
 
-      # Fails, and deploys nothing, when main.pdf, the README progress and
-      # site/problems.toml disagree or a problem PDF does not check out
+      # Fails, and deploys nothing, when main.pdf and problems.json disagree,
+      # a title is too long or a problem PDF or page does not check out
       - name: Build the website
         run: >-
           python site/build.py --out _site

@@ -130,8 +130,9 @@ mycommands.sty        Commands of the manual
 myfigures.sty         Physics figure styles: bodies, vectors, 3D views, fields
 SolutionFigure.lua    Numerical field lines and equipotentials for the figures
 latexmkrc             Loads template/solution-manual/latexmkrc; writes the
-                      completion report into this README
-site/                 Website: builder, style and problem titles
+                      completion report into this README and the problem
+                      index into problems.json
+site/                 Website: builder and style
 Simulations/          Numerical checks of solutions (see Numerical studies);
                       run separately, the manual includes their saved figures
 physics-engine/       Submodule: the particle-mechanics library they use
@@ -154,11 +155,11 @@ Each section of a chapter file starts with the book's number and title:
 \section{Free oscillations in one dimension}
 ```
 
-and each problem has three arguments, the question, the solution and the
-final answer. An unsolved problem has an empty solution and answer:
+and each problem has a title and three arguments, the question, the solution
+and the final answer. An unsolved problem has an empty solution and answer:
 
 ```tex
-\begin{problem}
+\begin{problem}[title={Amplitude and phase from initial conditions}]
 {
 Express the amplitude and initial phase of the oscillations ...
 }
@@ -172,6 +173,19 @@ in the third. A problem in parts gives its main question with `{}{}` and is
 followed by one `subproblem` per part, with the same three arguments. Then
 rebuild with `latexmk`.
 
+The title says what the problem is about, in a few words (the book's
+problems have none). It is shown in the problem's heading, the contents, the
+bookmarks and on the [website](#website), where it is also the page title in
+search results, after the label ("§9 Problem 3: "): keep it to about 45
+characters, as the website build stops on a title that does not fit. For
+mathematics, give both the typeset form and the plain text with
+`\texorplain` (from `mycommands.sty`). In the plain text, Unicode symbols
+(φ, ω, ²) are fine and `\_` makes a subscript on the website:
+
+```tex
+\begin{problem}[title={Bracket of a vector function with \texorplain{$M_z$}{M\_z}}]
+```
+
 Completion is tracked automatically: a problem or part is done when its
 solution is not empty, and a problem in parts when all its parts are done.
 Unfinished problems show "Not done" in their title and in the contents; the
@@ -179,9 +193,9 @@ Unfinished problems show "Not done" in their title and in the contents; the
 section. Both are refreshed by every build, so there is no list to maintain;
 commit the refreshed `README.md` with the solution (see
 [Committing](#committing)).
-To mark a problem whose solution is only partial, add `[not done]`
-(`\begin{problem}[not done]`); `[done]` marks a part complete without a
-solution, e.g. one answered only.
+To mark a problem whose solution is only partial, add `not done` to its
+options (`\begin{problem}[not done, title={...}]`); `[done]` marks a part
+complete without a solution, e.g. one answered only.
 
 References:
 
@@ -232,6 +246,7 @@ source, `myfigures.sty`, `SolutionFigure.lua` or a shared class changes.
 | ------------- | --------------------------------------------------------- |
 | `main.pdf`    | The finished manual (ignored by Git; CI builds and publishes it) |
 | `README.md`   | Its Progress section is rewritten when completion changes (tracked) |
+| `problems.json` | The problem index, read by the website builder (ignored by Git) |
 | `Figures/*.pdf` | Generated figures (ignored by Git)                      |
 | `build/`      | Temporary files: logs, SyncTeX, figure compilations (`build/figures-aux/`) |
 
@@ -335,20 +350,23 @@ Each problem has a stable ID from the book's numbering: `s9-p3` is §9
 Problem 3, its page is `problems/s9-p3.html`, its PDF `pdf/s9-p3.pdf`, and
 `#s9-p3` is its line in the catalogue. The pages carry a title, description,
 canonical URL and structured data (schema.org) of their own, built from the
-section titles and `site/problems.toml`; they never reproduce the book's
-problem statements.
+section and problem titles; they never reproduce the book's problem
+statements.
 
-`site/build.py` builds the site from the `main.pdf` of a `latexmk` build and
-from committed files (it does not read `build/` or `template/`):
+`site/build.py` builds the site from two outputs of a `latexmk` build (it
+does not read `build/` or `template/`):
 
-- `main.pdf`: chapters, sections and problems (its bookmarks), the pages of
-  each problem, their parts and the links between problems;
-- the [Progress](#progress) section of this README: which problems are done;
-- `site/problems.toml`: a short descriptive title for each problem.
+- `main.pdf`: the chapters (its bookmarks), where each problem and part
+  starts, and the links between problems;
+- `problems.json`: the problem index written by the template
+  (`$problems_json` in `latexmkrc`): the sections, and the problems with their
+  titles, which are done, their pages and their parts.
 
-The build stops if they disagree (counts, sections, unknown IDs in
-`problems.toml`), if a problem PDF does not check out (pages, running
-headers, links, bookmarks) or if a page does not (its canonical URL, a title
+The build stops if they disagree (anchors, pages or parts, as when they come
+from different builds), if a title is too long or is TeX instead of plain
+text (see [Writing a solution](#writing-a-solution)), if a problem PDF does
+not check out (pages, running headers, links, bookmarks) or if a page does
+not (its canonical URL, a title
 and description shared with another page, a link to a missing file, anchor or
 PDF page, the sitemap). The output goes to `_site/` (ignored by Git):
 `index.html`, `problems/<id>.html`, `style.css`, `main.pdf`, `pdf/<id>.pdf`,
@@ -379,7 +397,7 @@ makes the links between problem PDFs point to the preview.
 `template` submodule (not `physics-engine`: the manual uses the saved data in
 `Figures/Data/`), builds the manual with `latexmk` in TeX Live, fails if the
 [Progress](#progress) section of the committed README differs from the build,
-then runs `site/build.py` on the fresh `main.pdf`. The figure PDFs are cached
+then runs `site/build.py` on the fresh `main.pdf` and `problems.json`. The figure PDFs are cached
 between runs, keyed on `Figures/*.tex`, `myfigures.sty`, `SolutionFigure.lua`,
 `Figures/Data/` and the template commit, so LuaLaTeX only reruns when one of
 them changes. Pushes to `master` publish `_site/` to GitHub Pages, with the
@@ -398,8 +416,8 @@ there instead.)
 
 **When you solve a problem**, nothing else is needed: `latexmk` updates the
 progress in this README, which you commit, and the next push to `master`
-rebuilds the manual and the site, including its new page and the sitemap. Adjust its title in
-`site/problems.toml` if needed: it is also the title of the page in search
+rebuilds the manual and the site, including its new page and the sitemap. Adjust its title
+(`title={...}`) if needed: it is also the title of the page in search
 results.
 
 ## Updating the template
@@ -442,15 +460,13 @@ as follows:
   are licensed under [Creative Commons Attribution 4.0 International
   (CC BY 4.0)](LICENSE). This covers the original content in `Chapters/*.tex`,
   the diagram sources in `Figures/*.tex` and `images/*.tex`, the corresponding
-  content in the compiled PDFs and in the README images, the problem titles in
-  `site/problems.toml` and this README.
+  content in the compiled PDFs and in the README images, and this README.
   You may share and adapt this material,
   including commercially, with appropriate credit, a license link and an
   indication of any modifications.
 - **Code:** `main.tex` (document setup), `mypackages.sty`, `mycommands.sty`,
   `myfigures.sty`, `SolutionFigure.lua`, `latexmkrc`, the
-  VS Code configuration, the website builder in `site/` (except
-  `problems.toml`, which is content), the README image builder
+  VS Code configuration, the website builder in `site/`, the README image builder
   `images/readme_figures.py` and the GitHub workflows are licensed under the
   [MIT License](LICENSE-CODE).
   Reusing this code does not require your own written content to use CC BY.

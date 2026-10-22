@@ -54,7 +54,8 @@ def problem_pages(document):
             for j in range(i + 1, len(toc)):
                 if toc[j][0] <= 2:
                     break
-                if toc[j][1] == f"Problem {PROBLEM}":
+                # "Problem 1", or "Problem 1. Title" for a titled problem
+                if toc[j][1].split(". ")[0] == f"Problem {PROBLEM}":
                     end = next((t[2] for t in toc[j + 1:] if t[0] <= 3), document.page_count)
                     return range(toc[j][2] - 1, end)
     sys.exit(f"main.pdf has no bookmark for §{SECTION} Problem {PROBLEM}")

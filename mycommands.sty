@@ -11,3 +11,13 @@
 % Math
 \newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Problem titles: \texorplain{TeX}{plain text} typesets the TeX, and gives the
+% plain text to the bookmarks and to problems.json (the website). Unlike
+% \texorpdfstring, it is robust, so the problem index gets the plain text
+% instead of the TeX. \_ is an underscore (a subscript on the website).
+\DeclareRobustCommand{\texorplain}[2]{\texorpdfstring{#1}{#2}}
+\ExplSyntaxOn
+\text_declare_purify_equivalent:Nn \texorplain { \use_ii:nn }
+\text_declare_purify_equivalent:Nn \_ { \tl_to_str:n { _ } }
+\ExplSyntaxOff
